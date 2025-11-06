@@ -1,0 +1,20 @@
+\babel@toc {italian}{}\relax 
+\babel@toc {italian}{}\relax 
+\contentsline {section}{\numberline {1}Concetti Preliminari: Un Sommario}{2}{}%
+\contentsline {subsection}{\numberline {1.1}Spazi di Banach}{2}{}%
+\contentsline {subsection}{\numberline {1.2}Spazi di Hilbert}{3}{}%
+\contentsline {subsection}{\numberline {1.3}Riflessività degli Spazi di Hilbert}{3}{}%
+\contentsline {section}{\numberline {2}Operatori Limitati su Spazi di Hilbert}{4}{}%
+\contentsline {subsubsection}{\numberline {2.0.1}Il Teorema del Grafo Chiuso}{5}{}%
+\contentsline {subsection}{\numberline {2.1}L'Operatore Aggiunto}{5}{}%
+\contentsline {subsubsection}{\numberline {2.1.1}Ulteriori Proprietà degli Operatori Aggiunti}{5}{}%
+\contentsline {subsubsection}{\numberline {2.1.2}Proiettori Ortogonali}{6}{}%
+\contentsline {subsection}{\numberline {2.2}La Radice Quadrata di un Operatore Positivo}{6}{}%
+\contentsline {section}{\numberline {3}Operatori Compatti}{7}{}%
+\contentsline {subsection}{\numberline {3.1}Operatori Compatti su Spazi Normati}{7}{}%
+\contentsline {subsection}{\numberline {3.2}Operatori Compatti su Spazi di Hilbert e loro Rappresentazione Spettrale}{7}{}%
+\contentsline {subsection}{\numberline {3.3}Operatori di Hilbert-Schmidt}{8}{}%
+\contentsline {subsection}{\numberline {3.4}Operatori Traccia}{9}{}%
+\contentsline {section}{\numberline {4}Operatori Non Limitati}{9}{}%
+\contentsline {subsection}{\numberline {4.1}L'Operatore Aggiunto Hermitiano}{9}{}%
+\contentsline {subsection}{\numberline {4.2}Operatori Essenzialmente Autoaggiunti}{10}{}%

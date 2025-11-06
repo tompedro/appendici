@@ -1,0 +1,30 @@
+\babel@toc {italian}{}\relax 
+\babel@toc {italian}{}\relax 
+\contentsline {section}{\numberline {1}Esempi ed osservazioni utili}{2}{}%
+\contentsline {subsection}{\numberline {1.1}Spazi di Hilbert}{2}{}%
+\contentsline {subsection}{\numberline {1.2}Spazio di Successioni}{2}{}%
+\contentsline {paragraph}{Norme}{2}{}%
+\contentsline {subsection}{\numberline {1.3}Spazi di Funzioni $L^p(\mathbb {R}^n)$ ($p \in [1, +\infty ]$)}{4}{}%
+\contentsline {subsection}{\numberline {1.4}Spazi $L_{loc}^p(\mathbb {R}^n)$}{5}{}%
+\contentsline {subsection}{\numberline {1.5}Richiami di Complementi di Analisi III}{5}{}%
+\contentsline {subsection}{\numberline {1.6}Spazi di Sobolev $W^{k,p}(\mathbb {R}^n)$}{5}{}%
+\contentsline {paragraph}{Norma $W^{1,p}$}{6}{}%
+\contentsline {paragraph}{Proprietà}{6}{}%
+\contentsline {subsection}{\numberline {1.7}Operatori}{7}{}%
+\contentsline {subsection}{\numberline {1.8}Varie su operatori}{10}{}%
+\contentsline {subsection}{\numberline {1.9}Osservazioni sulla MQ}{11}{}%
+\contentsline {section}{\numberline {2}Appendici}{12}{}%
+\contentsline {subsection}{\numberline {2.1}Definizione di prodotto tensore}{12}{}%
+\contentsline {subsection}{\numberline {2.2}Dualità e Riflessività negli Spazi Normati}{13}{}%
+\contentsline {paragraph}{Spazi Riflessivi (Sì):}{13}{}%
+\contentsline {paragraph}{Spazi Non Riflessivi (No):}{13}{}%
+\contentsline {paragraph}{Conseguenze per la Riflessività:}{14}{}%
+\contentsline {subsection}{\numberline {2.3}La Notazione di Dirac in uno Spazio di Hilbert}{14}{}%
+\contentsline {subsubsection}{\numberline {2.3.1}Duali Algebrici vs. Topologici}{14}{}%
+\contentsline {subsection}{\numberline {2.4}Gli Spazi di Hilbert Attrezzati (Rigged Hilbert Spaces)}{15}{}%
+\contentsline {paragraph}{Conseguenze per la Notazione di Dirac}{15}{}%
+\contentsline {subsubsection}{\numberline {2.4.1}La Decomposizione di un Vettore di $\mathcal {H}$}{16}{}%
+\contentsline {subsubsection}{\numberline {2.4.2}Perché l'Integrale "Torna" in $\mathcal {H}$?}{16}{}%
+\contentsline {subsection}{\numberline {2.5}PVMs}{17}{}%
+\contentsline {subsection}{\numberline {2.6}Decomposizione spettrale per operatori autoaggiunti}{20}{}%
+\contentsline {subsection}{\numberline {2.7}$C^\star $ algebre}{21}{}%

@@ -1,0 +1,1505 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage[italian]{babel}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+\theoremstyle{definition}
+\newtheorem*{definizione}{Definizione}
+\newtheorem*{teorema}{Teorema}
+\newtheorem*{corollario}{Corollario}
+\newtheorem*{proposizione}{Proposizione}
+\newtheorem*{osservazione}{Osservazione}
+\newtheorem*{lemma}{Lemma}
+
+\makeatletter
+\renewenvironment{definizione}[1][]{%
+	\par\addvspace{1.5ex}%
+	\noindent\textbf{Definizione\ifx\relax#1\relax\else\ (#1)\fi}%
+	\par\nobreak\vskip+0.5ex%
+	\itshape
+}{\par\addvspace{1.5ex}}
+\renewenvironment{teorema}[1][]{%
+	\par\addvspace{1.5ex}%
+	\noindent\textbf{Teorema\ifx\relax#1\relax\else\ (#1)\fi}%
+	\par\nobreak\vskip+0.5ex%
+	\itshape
+}{\par\addvspace{1.5ex}}
+\renewenvironment{proposizione}[1][]{%
+	\par\addvspace{1.5ex}%
+	\noindent\textbf{Proposizione\ifx\relax#1\relax\else\ (#1)\fi}%
+	\par\nobreak\vskip+0.5ex%
+	\itshape
+}{\par\addvspace{1.5ex}}
+\renewenvironment{corollario}[1][]{%
+	\par\addvspace{1.5ex}%
+	\noindent\textbf{Corollario\ifx\relax#1\relax\else\ (#1)\fi}%
+	\par\nobreak\vskip+0.5ex%
+	\itshape
+}{\par\addvspace{1.5ex}}
+\renewenvironment{osservazione}[1][]{%
+	\par\addvspace{1.5ex}%
+	\noindent\textbf{Osservazione\ifx\relax#1\relax\else\ (#1)\fi}%
+	\par\nobreak\vskip+0.5ex%
+	\itshape
+}{\par\addvspace{1.5ex}}
+\renewenvironment{lemma}[1][]{%
+	\par\addvspace{1.5ex}%
+	\noindent\textbf{Lemma\ifx\relax#1\relax\else\ (#1)\fi}%
+	\par\nobreak\vskip+0.5ex%
+	\itshape
+}{\par\addvspace{1.5ex}}
+\makeatother
+
+\begin{document}
+	
+	\section*{\centering \Huge Metodi matematici II}
+	\section*{\centering \Large Syllabus}
+	\hrule
+	\vspace{1em}
+	
+\section{Spazi normati e Spazi di Hilbert}
+
+\begin{definizione}[1 Norma e Spazio Normato]
+	Sia V uno spazio vettoriale reale o complesso. Una \textbf{norma} è una mappa $||\cdot||:V\rightarrow\mathbb{R}$ tale
+	che
+	\begin{enumerate}
+		\item $||v||\ge0$ per ogni $v\in V$,
+		\item $||\lambda v||=|\lambda|||v||$, per ogni $v\in V$ e per ogni $\lambda\in\mathbb{R}$ o $\mathbb{C}$,
+		\item $||v+w||\le||v||+||w||$ (disuguaglianza triangolare) per ogni v, $w\in V$,
+		\item $||v||=0$ se e solo se $v=0$.
+	\end{enumerate}
+	La coppia $(V,||\cdot||)$ è chiamata \textbf{spazio normato}. Se la condizione 4. non è soddisfatta, ma le altre sì,
+	chiamiamo $||\cdot||$ una \textbf{seminorma}.
+\end{definizione}
+
+\begin{definizione}[2 Palla Aperta e Insieme Limitato]
+	Sia (V, $||\cdot||$) uno spazio normato. Per ogni $v\in V$, chiamiamo \textbf{palla aperta} di centro v
+	e raggio $r>0$, l'insieme
+	$B_{r}(v)\dot{=}\{v^{\prime}\in V|\,||v^{\prime}-v||<r\}$.
+	Un insieme $W\subseteq V$ è detto \textbf{limitato} se esiste $B_{r}(v)$, una palla aperta di raggio finito, tale che $W\subseteq B_{r}(v)$.
+\end{definizione}
+
+\begin{definizione}[3 Insieme Aperto]
+	Sia (V, $||\cdot||$) uno spazio normato. Diciamo che $W\subset V$ è \textbf{aperto} se è o
+	vuoto o l'unione di un numero, possibilmente infinito ma numerabile, di palle aperte.
+\end{definizione}
+
+\begin{definizione}[4 Funzione Continua]
+	Siano $(V,||\cdot||)$ e $(W,||\cdot||^{\prime})$ due spazi normati. Una mappa $f:V\rightarrow W$ è
+	\textbf{continua} in $v\in V,$ se $\forall\epsilon>0$, esiste $\delta>0$ tale che
+	$||f(v^{\prime})-f(v)||^{\prime}<\epsilon,$ ogni volta che $||v^{\prime}-v||<\delta.$
+\end{definizione}
+
+\begin{definizione}[5 Isometria e Isomorfismo]
+	Siano $(V,||\cdot||)$ e $(W,||\cdot||^{\prime})$ due spazi normati. Diciamo che una mappa lineare
+	$U:V\rightarrow W$ è \textbf{isometrica} o equivalentemente un'\textbf{isometria} se
+	$||U(v) ||' = ||v||$ $\forall v \in V$.
+	Se U è, inoltre, sia iniettiva che suriettiva, la chiamiamo un \textbf{isomorfismo di spazi normati}
+	e diciamo che V e W sono isomorfi tramite U.
+\end{definizione}
+
+\begin{definizione}[6 Convergenza di una Successione]
+	Sia $(V,||\cdot||)$ uno spazio normato e sia $\{v_{n}\}_{n\in\mathbb{N}}$ una successione di elementi in V.
+	Diciamo che $v_{n}$ \textbf{converge} a $v\in V$, cioè $lim_{n\rightarrow\infty}v_{n}=v$, se per ogni $\epsilon>0$, esiste $N_{\epsilon}\in\mathbb{N}$ tale
+	che per ogni $n>N_{\epsilon}$
+	$||v_{n}-v||<\epsilon$
+	o equivalentemente
+	$\lim_{n\rightarrow\infty}||v_{n}-v||=0.$
+\end{definizione}
+
+\begin{definizione}[7 Spazio di Banach]
+	Chiamiamo \textbf{spazio di Banach} uno spazio normato che sia \textbf{completo}, cioè tale che tutte le sue successioni di Cauchy
+	siano convergenti a un elemento dello spazio stesso.
+\end{definizione}
+
+\begin{teorema}[8 Completamento di uno Spazio Normato]
+	Sia $(V,||\cdot||)$ uno spazio normato. Allora
+	\begin{enumerate}
+		\item Esiste uno spazio di Banach $\mathbb{B}(V)$, chiamato \textbf{completamento} di V, tale che V è isometrico a un
+		sottospazio denso di $\mathbb{B}(V)$ tramite una mappa lineare iniettiva $J:V\rightarrow\mathbb{B}(V)$.
+		\item Se $(J_{1},\mathbb{B}_{1},||\cdot||_{1})$ è una tripla tale che $(\mathbb{B}_{1},||\cdot||_{1})$ è uno spazio di Banach mentre $J_{1}:V\rightarrow\mathbb{B}_{1}$ è
+		un'isometria lineare la cui immagine è densa in $\mathbb{B}_{1}$, allora esiste un unico isomorfismo di
+		spazi normati $U:\mathbb{B}(V)\rightarrow\mathbb{B}_{1}$ tale che $J_{1}=U\circ J$.
+	\end{enumerate}
+\end{teorema}
+
+\subsection{Spazi di Hilbert}
+
+\begin{definizione}[9 Prodotto Scalare Hermitiano]
+	Sia V uno spazio vettoriale complesso. Chiamiamo \textbf{prodotto interno Hermitiano} (o
+	\textbf{prodotto scalare Hermitiano}) una mappa $S:V\times V\rightarrow\mathbb{C}$ tale che
+	\begin{enumerate}
+		\item $S(v,v)\ge0$ per ogni $v\in V$,
+		\item $S(v,\alpha v^{\prime}+\beta w)=\alpha S(v,v^{\prime})+\beta S(v,w)$ per ogni v, $v^{\prime}$, $w\in V$ e per ogni $\alpha, \beta\in\mathbb{C}$,
+		\item $S(v,w)=\overline{S(w,v)}$ per ogni v, $w\in V$,
+		\item $S(v,v)=0$ se e solo se $v=0$.
+	\end{enumerate}
+\end{definizione}
+
+\begin{teorema}[10 Disuguaglianza di Cauchy-Schwarz]
+	Sia (V,S) uno spazio vettoriale dotato di un prodotto interno Hermitiano.
+	Vale la \textbf{disuguaglianza di Cauchy-Schwarz}:
+	$|S(v,w)|^{2}\le S(v,v)S(w,w)$, $\forall v, w\in V$
+	dove l'uguaglianza si applica se e solo se v e w sono linearmente dipendenti.
+\end{teorema}
+
+\begin{osservazione}[1 Norma Indotta dal Prodotto Scalare]
+	Ogni spazio vettoriale con un prodotto interno Hermitiano (V,S) è anche uno spazio normato
+	poiché si può definire una norma $||\cdot||:V\rightarrow\mathbb{R}$ come
+	$||v||=\sqrt{S(v,v)}$ $\forall v\in V.$
+\end{osservazione}
+
+\begin{osservazione}[2 Ortogonalità]
+	Una seconda caratteristica notevole di un prodotto interno Hermitiano S su uno spazio vettoriale V è la
+	possibilità di definire una nozione di \textbf{ortogonalità} tra due vettori u, $v\in V$, che indichiamo
+	con u $\perp$ v e che è caratterizzata dall'equazione $S(u,v)=0$. Più in generale, se $W\subseteq V$ è un
+	sottospazio vettoriale di V, introduciamo lo \textbf{spazio ortogonale} a W come
+	$W^{\perp}\dot{=}\{v\in V|S(w,v)=0,\forall w\in W\}.$
+\end{osservazione}
+
+\begin{definizione}[11 Isometria e Isomorfismo tra Spazi con Prodotto Interno]
+	Siano (V, S) e $(V^{\prime},S^{\prime})$ due spazi vettoriali dotati di un prodotto interno
+	Hermitiano. Una mappa lineare $U:V\rightarrow V^{\prime}$ è detta \textbf{isometria} se
+	$S^{\prime}(U(v),U(w))=S(v,w)$, $\forall v,w\in V.$
+	Se U è inoltre iniettiva e suriettiva, la chiamiamo un \textbf{isomorfismo} e diciamo che (V, S) e
+	$(V^{\prime},S^{\prime})$ sono isomorfi come spazi con prodotto interno tramite l'azione di U.
+\end{definizione}
+
+\begin{definizione}[12 Spazio di Hilbert]
+	Chiamiamo \textbf{spazio di Hilbert} H uno spazio vettoriale complesso dotato di un prodotto
+	interno Hermitiano S, che sia uno spazio di Banach rispetto alla norma indotta da S.
+\end{definizione}
+
+\begin{teorema}[13 Completamento di uno Spazio con Prodotto Interno]
+	Sia (V, S) uno spazio vettoriale complesso V dotato di un prodotto interno Hermitiano
+	S. Allora
+	\begin{enumerate}
+		\item esistono uno spazio di Hilbert $\mathcal{H}$ con un prodotto interno Hermitiano $(\cdot,\cdot)$ e una
+		mappa iniettiva $J:V\rightarrow\mathcal{H}$ tali che $J(V)$ è denso in $\mathcal{H}$ e $(J(v), J(v^{\prime}))=S(v,v^{\prime})$ per ogni
+		$v,v^{\prime}\in V$.
+		\item Se esiste una seconda tripla $(J_{1},\mathcal{H}_{1},(\cdot,\cdot)_{1})$ tale che $J_{1}:V\rightarrow\mathcal{H}_{1}$ è una mappa iniettiva
+		la cui immagine è densa in $\mathcal{H}_{1}$ e $(J_{1}(v),J_{1}(v^{\prime}))_{1}=S(v,v^{\prime})$ per ogni $v,v^{\prime}\in V$, allora
+		esiste un unico operatore unitario $U_{1}:\mathcal{H}\rightarrow\mathcal{H}_{1}$ tale che $U_{1}\circ J=J_{1}.$
+	\end{enumerate}
+\end{teorema}
+
+\subsection{Riflessività degli Spazi di Hilbert}
+
+\begin{definizione}[14 Insieme Convesso]
+	Sia V uno spazio vettoriale sui numeri complessi e K un qualsiasi sottoinsieme non vuoto.
+	Diciamo che K è \textbf{convesso}, se $\forall v, v^{\prime}\in K$ e $\forall\lambda\in[0,1]$, $\lambda v+(1-\lambda)v^{\prime}\in K$.
+\end{definizione}
+
+\begin{teorema}[15 Teorema della Proiezione]
+	Sia H uno spazio di Hilbert e $K\subseteq\mathcal{H}$ un insieme non vuoto. Allora
+	\begin{enumerate}
+		\item $K^{\perp}\dot{=}\{\psi\in\mathcal{H}|(\psi,\phi)=0,\forall\phi\in K\}$ è un sottospazio chiuso di H,
+		\item $K^{\perp}=\langle K\rangle^{\perp}=(\overline{\langle K\rangle})^{\perp}$,
+		\item Se $K\subseteq\mathcal{H}$ è un sottospazio chiuso, allora $\mathcal{H}=K\oplus K^{\perp}$,
+		\item $(K^{\perp})^{\perp}=\overline{\langle K\rangle}$.
+	\end{enumerate}
+\end{teorema}
+
+\begin{corollario}[16 Densità e Complemento Ortogonale]
+	Sia H uno spazio di Hilbert. Un sottoinsieme $K\subset\mathcal{H}$ è denso in H se e solo se $K^{\perp}=\{0\}$.
+\end{corollario}
+
+\begin{teorema}[17 Teorema di Rappresentazione di Riesz]
+	Sia H uno spazio di Hilbert. Per ogni funzionale lineare continuo F:
+	$\mathcal{H}\rightarrow\mathbb{C}$ esiste un unico $\psi_{F}\in\mathcal{H}$ tale che
+	$F(\psi)=(\psi_{F},\psi)$.
+	La mappa $F\mapsto\psi_{F}$ è una biiezione.
+\end{teorema}
+
+\begin{corollario}[18 Riflessività]
+	Ogni spazio di Hilbert H è \textbf{riflessivo}, cioè, se si considera $\mathcal{H}^{*}:=\{F:\mathcal{H}\rightarrow\mathbb{C}|F \text{ è continuo e lineare}\}$, la mappa lineare $J:\mathcal{H}\rightarrow(\mathcal{H}^{*})^{*}$ tale che
+	$J(\psi)[F]=F(\psi)$, $\forall\psi\in\mathcal{H}$ e $\forall F\in\mathcal{H}^{*}$
+	è un operatore unitario, ovvero un'isometria suriettiva.
+\end{corollario}
+
+\section{Operatori Limitati su Spazi di Hilbert}
+
+\begin{definizione}[19 Operatore Lineare]
+	Siano V,V' due spazi vettoriali complessi. Chiamiamo una mappa $T:V\rightarrow V^{\prime}$ un operatore (lineare)
+	da V a $V^{\prime}$ se $T(\alpha v+\beta v^{\prime})=\alpha T(v)+\beta T(v^{\prime}),$ $\forall v,v^{\prime}\in V,$ e $\forall \alpha, \beta\in\mathbb{C}$.
+	Chiamiamo $\mathcal{L}(V,V^{\prime})$ la collezione di tutte queste mappe.
+\end{definizione}
+
+\begin{definizione}[20 Operatori Continui e Spazi Duali]
+	Siano X, Y due spazi di Banach. Allora
+	\begin{itemize}
+		\item Chiamiamo $\mathcal{B}(X,Y)\subset\mathcal{L}(X,Y)$ l'insieme di tutti gli operatori lineari continui da X a Y, dove la continuità è definita come nella Definizione 4. Se $Y=X$ allora scriviamo $\mathcal{B}(X)\equiv\mathcal{B}(X,X)$ e $\mathcal{L}(X)\equiv\mathcal{L}(X,X)$.
+		\item Se $Y=\mathbb{C}$ (o R se stessimo lavorando su spazi vettoriali reali), chiameremmo $X^{*}=\mathcal{L}(X,\mathbb{C})$ il duale algebrico di X e $X^{\prime}=\mathcal{B}(X,\mathbb{C})$ il duale topologico di X.
+	\end{itemize}
+\end{definizione}
+
+
+\begin{teorema}[22 Condizioni Equivalenti per la Limitatezza]
+	Siano X,Y due spazi normati sui numeri complessi con norma $||\cdot||_X$ e
+	$||\cdot||_Y$ rispettivamente. Sia $T\in\mathcal{L}(X,Y)$. Le seguenti due condizioni sono equivalenti:
+	\begin{enumerate}
+		\item esiste $K\in\mathbb{R}$ tale che $||T(v)||_{Y}\le K||v||_{X}$ per ogni $v\in X$,
+		\item $\sup_{v\in X\backslash\{0\}}\frac{||T(v)||_{Y}}{||v||_{X}}<\infty$.
+	\end{enumerate}
+\end{teorema}
+
+\begin{definizione}[23 Operatore Limitato e Norma Operatoria]
+	Siano X,Y spazi normati sui numeri complessi. Diciamo che $T\in\mathcal{L}(X,Y)$
+	è limitato se una delle condizioni del Teorema 22 è soddisfatta. Chiamiamo norma operatoria di T
+	$||T||=\sup_{v\ne0}\frac{||T(v)||}{||v||}.$
+	Usando la linearità di T è spesso conveniente riscrivere la definizione di norma operatoria in questo
+	modo del tutto equivalente:
+	$||T||=\sup_{v \text{ t.c. } ||v||=1}||T(v)||.$
+\end{definizione}
+
+\begin{teorema}[24 Equivalenza tra Continuità e Limitatezza]
+	Sia $T:X\rightarrow Y$ un operatore tra due spazi normati sui numeri
+	complessi. Le seguenti affermazioni sono equivalenti:
+	\begin{enumerate}
+		\item T è continuo in $0\in X,$
+		\item T è continuo,
+		\item T è limitato.
+	\end{enumerate}
+\end{teorema}
+
+\begin{proposizione}[25 Proprietà dello Spazio degli Operatori Limitati]
+	Siano X, Y due spazi normati sui numeri complessi. Allora le seguenti
+	affermazioni sono vere:
+	\begin{itemize}
+		\item La norma operatoria definisce una norma su $\mathcal{B}(X,Y)$,
+		\item Se Y è uno spazio di Banach, allora $\mathcal{B}(X,Y)$ è esso stesso uno spazio di Banach.
+		\item Se Z è un terzo spazio normato sui numeri complessi, allora vale
+		$||\mathbb{I}||=1$ e $||ST||\le||S||||T||$, $\forall S\in\mathcal{B}(Y,Z)$ e $\forall T\in\mathcal{B}(X,Y)$,
+	\end{itemize}
+	dove I è l'operatore identità su qualsiasi spazio normato.
+\end{proposizione}
+
+\begin{proposizione}[26 Estensione di Operatori Limitati]
+	Sia X uno spazio normato sui numeri
+	complessi e Y uno spazio di Banach complesso. Sia $W\subset X$ denso e $T\in\mathcal{B}(W,Y)$, allora
+	esiste un unico $\tilde{T}\in\mathcal{B}(X,Y)$ tale che $\tilde{T}|_{W}=T$ e $||\tilde{T}||=||T||$.
+\end{proposizione}
+
+\begin{teorema}[27 Teorema della Mappa Aperta (di Banach-Schauder)]
+	Siano X,Y due spazi di Banach sui numeri
+	complessi e sia $T\in\mathcal{B}(X,Y)$ suriettivo. Allora T è una mappa aperta.
+\end{teorema}
+
+\begin{teorema}[28 Teorema dell'Inversa (di Banach)]
+	Siano X,Y due spazi di Banach sui
+	numeri complessi e sia $T\in\mathcal{B}(X,Y)$ biettivo. Allora
+	\begin{enumerate}
+		\item $T^{-1}\in\mathcal{B}(Y,X)$,
+		\item esiste $K^{\prime}>0$ tale che, per ogni $v\in X$, $||T(v)||\ge K^{\prime}||v||$.
+	\end{enumerate}
+\end{teorema}
+
+\subsection{Teorema del grafico chiuso}
+
+\begin{definizione}[29 Operatore Chiuso]
+	Siano X, Y spazi normati sui numeri complessi. Sia $T\in\mathcal{L}(X,Y)$ e sia
+	$G(T)\dot{=}\{(x,T(x))\in X\oplus Y|x\in X\}$
+	il grafico di T. Chiamiamo T chiuso se $G(T)$ è chiuso nella topologia prodotto.
+\end{definizione}
+
+\begin{teorema}[30 Teorema del Grafico Chiuso]
+	Siano $(X,||\cdot||_{X})$ e $(Y,||\cdot||_{Y})$ spazi di Banach sui
+	numeri complessi. Allora $T\in\mathcal{L}(X,Y)$ è limitato se e solo se è chiuso.
+\end{teorema}
+
+\subsection{Operatore autoaggiunto}
+
+
+\begin{proposizione}[31 Esistenza e Unicità dell'Operatore Aggiunto]
+	Siano $(\mathcal{H}_{1},(\cdot,\cdot)_{1})$ e $(\mathcal{H}_{2},(\cdot,\cdot)_{2})$ due spazi di Hilbert e sia $T\in\mathcal{B}(\mathcal{H}_{1},\mathcal{H}_{2})$.
+	Esiste un unico operatore $T^{*}:\mathcal{H}_{2}\rightarrow\mathcal{H}_{1}$ tale che
+	$(\phi,T\psi)_{2}=(T^{*}\phi,\psi)_{1}$ $\forall\psi\in\mathcal{H}_{1}$, e $\forall\phi\in\mathcal{H}_{2}$.
+	L'operatore $T^{*}\in\mathcal{L}(\mathcal{H}_{2},\mathcal{H}_{1})$ è chiamato l'aggiunto (Hermitiano) (o talvolta coniugato
+	Hermitiano) di T.
+\end{proposizione}
+
+\begin{proposizione}[32 Proprietà dell'Operatore Aggiunto]
+	Siano $(\mathcal{H}_{1},(\cdot,\cdot)_{1})$ e $(\mathcal{H}_{2},(\cdot,\cdot)_{2})$ due spazi di Hilbert e sia $T\in\mathcal{B}(\mathcal{H}_{1},\mathcal{H}_{2})$.
+	Allora:
+	\begin{enumerate}
+		\item La mappa di aggiunzione: $\mathcal{B}(\mathcal{H}_{1},\mathcal{H}_{2})\rightarrow\mathcal{B}(\mathcal{H}_{2},\mathcal{H}_{1})$ definita come $*(T)=T^{*}$ per ogni $T\in$
+		$\mathcal{B}(\mathcal{H}_{1},\mathcal{H}_{2})$ è antilineare e involutiva, cioè $(T^{*})^{*}=T$ per ogni $T\in\mathcal{B}(\mathcal{H}_{1},\mathcal{H}_{2})$,
+		\item L'operatore aggiunto $T^{*}$ è limitato. Inoltre
+		$||T^{*}||=||T||$ e $||TT^{*}||=||T||^{2}=||T^{*}T||.$
+		\item Se $\tilde{\mathcal{H}}$ è un terzo spazio di Hilbert, allora, per ogni $T\in\mathcal{B}(\mathcal{H}_{1},\mathcal{H}_{2})$ e per ogni $S\in\mathcal{B}(\tilde{\mathcal{H}},\mathcal{H}_{1})$
+		$(TS)^{*}=S^{*}T^{*}.$
+		\item $ker(T)=[Ran(T^{*})]^{\perp}$ e $ker(T^{*})=[Ran(T)]^{\perp},$
+		\item T è biettivo se e solo se lo stesso vale per $T^{*}$. In questo caso $(T^{-1})^{*}=(T^{*})^{-1}$.
+	\end{enumerate}
+\end{proposizione}
+
+
+\begin{definizione}[33 Classi Speciali di Operatori]
+	Siano H e $\mathcal{H}^{\prime}$ due spazi di Hilbert. Allora chiamiamo
+	\begin{itemize}
+		\item \textbf{normale} qualsiasi $T\in\mathcal{B(H)}$ tale che $TT^{*}=T^{*}T$,
+		\item \textbf{autoaggiunto} qualsiasi $T\in\mathcal{B(H)}$ tale che $T=T^{*}$,
+		\item \textbf{isometrico} qualsiasi $T\in\mathcal{L}(\mathcal{H},\mathcal{H^{\prime}})$ tale che $(T\psi, T\psi')_{\mathcal{H'}}=(\psi,\psi')$, per ogni $\psi, \psi^{\prime}\in\mathcal{H}$,
+		\item \textbf{unitario} qualsiasi operatore isometrico $T\in\mathcal{B}(\mathcal{H},\mathcal{H}^{\prime})$, che sia inoltre suriettivo,
+		\item \textbf{positivo} qualsiasi operatore lineare $T:\mathcal{H}\rightarrow\mathcal{H}$ tale che $(\psi,T\psi)\ge0$ per ogni $\psi\in\mathcal{H}$. In questo
+		caso diciamo che $T\ge0$.
+	\end{itemize}
+\end{definizione}
+
+\begin{lemma}[34 Norma di un Operatore Autoaggiunto]
+	Sia H uno spazio di Hilbert e T un operatore limitato e autoaggiunto su di esso.
+	Allora
+	$||T||=\sup\{|(\psi,T\psi)| : \psi\in\mathcal{H}, ||\psi||=1\}$
+	(9)
+	Più in generale, se $T\in\mathcal{L}(\mathcal{H})$ è tale che $(\psi,T\psi)=(T\psi,\psi)$ per ogni $\psi\in\mathcal{H}$ e il membro di destra
+	di (9) è finito, allora T è limitato.
+\end{lemma}
+
+\begin{lemma}[35 Relazione d'Ordine Parziale]
+	Sia H uno spazio di Hilbert complesso. Allora la relazione $\ge$ definita a partire dalla nozione
+	di operatori positivi stabilisce un ordine parziale su $\mathcal{L}(\mathcal{H})$.
+\end{lemma}
+
+\begin{definizione}[36 Autovalori e Autovettori]
+	Sia V uno spazio vettoriale complesso e $T\in\mathcal{L}(V)$.
+	Diciamo che $\lambda\in\mathbb{C}$ è un
+	\textbf{autovalore} di T se esiste un \textbf{autovettore}, cioè $v\in V\backslash\{0\}$ tale che
+	$T(v)=\lambda v.$
+	Chiamiamo \textbf{autospazio} di T relativo all'autovalore $\lambda$ il sottospazio vettoriale $W_{\lambda}\subseteq V$, costruito come
+	lo span (complesso) di tutti gli autovettori di T.
+\end{definizione}
+
+\begin{proposizione}[37 Proprietà degli Operatori Normali]
+	Sia H uno spazio di Hilbert e $T\in\mathcal{B(H)}$ normale. Allora
+	\begin{enumerate}
+		\item Per ogni $\psi\in\mathcal{H}$ vale $||T\psi||=||T^{*}\psi||$, quindi $ker(T)=ker(T^{*})$ e $\overline{Ran(T)}=\overline{Ran(T^{*})},$
+		dove la barra indica la chiusura.
+		\item $\lambda$ è un autovalore di T con autovettore $v$ se e solo se $\overline{\lambda}$ è un autovalore di $T^{*}$ con lo stesso
+		autovettore.
+		\item Siano $\lambda, \lambda^{\prime}$ due autovalori distinti. Allora $W_{\lambda}\perp W_{\lambda^{\prime}}$.
+	\end{enumerate}
+\end{proposizione}
+
+\begin{corollario}[38 Proprietà degli Autovalori]
+	Sia H uno spazio di Hilbert e $T\in\mathcal{L}(\mathcal{H})$. Allora
+	\begin{enumerate}
+		\item Se $T\ge0$, i suoi autovalori sono reali e non negativi.
+		\item Se T è limitato e autoaggiunto, i suoi autovalori sono reali.
+		\item Se T è isometrico, i suoi autovalori $\lambda$ sono tali che $|\lambda|=1.$
+	\end{enumerate}
+\end{corollario}
+\begin{proposizione}[39 Proprietà degli Operatori Autoaggiunti]
+	Sia H uno spazio di Hilbert. Allora le seguenti affermazioni sono vere:
+	1. Se $T\in\mathcal{L}(\mathcal{H})$ è tale che $(\psi^{\prime},T\psi)=(T\psi^{\prime},\psi)$ per ogni $\psi^{\prime}\in\mathcal{H}$, allora T è limitato e
+	autoaggiunto,
+	2. se $T\in\mathcal{B(H)}$ è tale che $(\psi,T\psi)=(T\psi,\psi)$ per ogni $\psi\in\mathcal{H}$, allora T è autoaggiunto,
+	3. se $T\in\mathcal{B(H)}$ è positivo, allora è anche autoaggiunto.
+\end{proposizione}
+
+\subsection{Proiettori}
+
+\begin{definizione}[40 Proiettore Ortogonale]
+	Sia H uno spazio di Hilbert. Diciamo che $P\in\mathcal{B}(\mathcal{H})$ è un proiettore ortogonale
+	se $P^{2}=P$ e $P^{*}=P$.
+\end{definizione}
+
+\begin{lemma}[41 Positività dei Proiettori Ortogonali]
+	Sia H uno spazio di Hilbert e P un proiettore ortogonale.
+	Allora P è un operatore
+	positivo.
+\end{lemma}
+
+\begin{teorema}[42 Proprietà dei Proiettori Ortogonali]
+	Sia H uno spazio di Hilbert e $P\in\mathcal{B(H)}$ un proiettore ortogonale. Sia
+	$W\dot{=}P[\mathcal{H}]$. Valgono le seguenti proprietà:
+	1. $Q=\mathbb{I}-P$ è un proiettore ortogonale, essendo I l'identità su H,
+	2. $Q(\mathcal{H})=W^{\perp}$ e $\mathcal{H}=W\oplus W^{\perp}$,
+	3. Per ogni $\psi\in\mathcal{H}$, $||\psi-P(\psi)||=min\{||\psi-\psi^{\prime}||;\psi^{\prime}\in W\}$,
+	4. Sia $\{e_{i}\}_{i\in I}$ una base di W con l'indice i che varia su un insieme I. Allora
+	$P(\cdot)=s-\sum_{i\in I}e_{i}(e_{i},\cdot),$
+	dove s implica che la convergenza della somma è intesa rispetto alla topologia
+	forte.
+	5. $\mathbb{I}\ge P$ e, a meno che $P=0$, allora $||P||=1$.
+\end{teorema}
+
+\begin{proposizione}[43 Ortogonalità dei Proiettori Associati]
+	Sia H uno spazio di Hilbert e W un sottospazio chiuso.
+	Siano $P:\mathcal{H}\rightarrow W$ e
+	$Q:\mathcal{H}\rightarrow W^{\perp}$ i proiettori associati. Essi sono ortogonali.
+\end{proposizione}
+
+\subsection{Radice quadrata di un operatore}
+
+\begin{definizione}[44 Radice Quadrata di un Operatore]
+	Sia H uno spazio di Hilbert e $A\in\mathcal{B(H)}$.
+	Diciamo che $B\in\mathcal{B(H)}$ è una radice
+	quadrata di A se $A=B^{2}$. Inoltre se $B\ge0$ la chiamiamo radice positiva.
+\end{definizione}
+
+\begin{proposizione}[45 Convergenza di Successioni Monotone di Operatori]
+	Sia H uno spazio di Hilbert e $\{A_{n}\}_{n\in\mathbb{N}}$ una successione non decrescente (non crescente)
+	di operatori limitati e autoaggiunti su di esso.
+	Se $\{A_{n}\}_{n\in\mathbb{N}}$ è limitata inferiormente (superiormente) da
+	$K\in\mathcal{B}(\mathcal{H})$, allora esiste un operatore limitato e autoaggiunto A su H tale che $A\le K$ $(A\ge K)$
+	e
+	$s-lim_{n\rightarrow\infty}A_{n}=A.$
+\end{proposizione}
+
+\begin{teorema}[46 Esistenza e Unicità della Radice Quadrata Positiva]
+	Sia H uno spazio di Hilbert e $A\in\mathcal{B(H)}$ un operatore positivo.
+	Allora esiste
+	un'unica radice quadrata positiva $\sqrt{A}$ tale che
+	(a) commuta con qualsiasi operatore limitato B su H, che, a sua volta, commuta con A,
+	(b) è biettiva se anche A è biettiva.
+\end{teorema}
+
+\begin{definizione}[47 Modulo di un Operatore]
+	Sia H uno spazio di Hilbert e $A\in\mathcal{B}(\mathcal{H})$.
+	Chiamiamo modulo di A l'operatore limitato,
+	positivo e autoaggiunto
+	$|A|=\sqrt{A^{*}A}$.
+\end{definizione}
+
+\begin{corollario}[48 Proprietà del Modulo]
+	Sia H uno spazio di Hilbert e $A\in\mathcal{B}(H)$. Allora il suo modulo gode delle
+	seguenti proprietà:
+	a) $ker(|A|)=ker(A)$
+	b) $\overline{Ran(|A|)}=(ker(A))^{\perp}$
+\end{corollario}
+
+\begin{teorema}[49 Decomposizione Polare]
+	Sia H uno spazio di Hilbert e $A\in\mathcal{B(H)}$.
+	Allora
+	esiste un'unica coppia di operatori $P,U\in\mathcal{B}(\mathcal{H})$ tali che
+	a) $A=UP$,
+	b) $P\ge0$,
+	c) U è isometrico su $Ran(P)$,
+	d) $U|_{ker(P)}=0.$
+	Inoltre vale che
+	1. $P=|A|$ e quindi $ker(U)=ker(A)=ker(P)=[Ran(P)]^{\perp}$
+	2. se A è biettivo, allora $U=A|A|^{-1}$.
+\end{teorema}
+
+\section{Operatori compatti}
+
+\begin{definizione}[50 Insieme Sequenzialmente Compatto]
+	Sia X uno spazio normato.
+	Un sottoinsieme $W\subset X$ è detto sequenzialmente compatto se e solo se ogni successione $\{x_n\}_{n \in \mathbb{N}}$ di elementi in W ammette una sottosuccessione convergente in W.
+\end{definizione}
+
+\begin{proposizione}[51 Compattezza Relativa]
+	Sia X uno spazio normato e $W\subseteq X$. Se ogni successione di elementi in W ammette una sottosuccessione convergente, allora W è relativamente compatto.
+	Il limite potrebbe non appartenere a W.
+\end{proposizione}
+
+\begin{corollario}[52 Proprietà degli Insiemi Compatti in Dimensione Infinita]
+	Sia X uno spazio normato di dimensione infinita.
+	Allora 
+	\begin{itemize}
+		\item se $W\subset X$ è compatto, la sua parte interna è vuota,
+		\item se X è uno spazio di Banach, allora X non può essere ottenuto come unione numerabile di sottoinsiemi compatti.
+	\end{itemize}
+\end{corollario}
+
+\begin{definizione}[53 Insieme Limitato]
+	Sia X uno spazio normato. Diciamo che $W\subset X$ è limitato se esistono $x\in X$ e $\delta>0$ tali che $W\subset B_{\delta}(x)\dot{=}\{x^{\prime}\in X|||x-x^{\prime}||<\delta\}$.
+\end{definizione}
+
+\begin{definizione}[54 Operatore Compatto]
+	Siano $X$ e $Y$ spazi normati sul campo dei numeri complessi. Un operatore lineare $T \in \mathcal{L}(X, Y)$ si dice \textbf{compatto} se è soddisfatta una delle seguenti condizioni equivalenti:
+	\begin{enumerate}
+		\item Per ogni sottoinsieme limitato $W \subset X$, la sua immagine $T(W)$ è un insieme relativamente compatto in $Y$.
+		\item Per ogni successione limitata $\{x_n\}_{n \in \mathbb{N}}$ in $X$, esiste una sottosuccessione $\{x_{n_k}\}_{k \in \mathbb{N}}$ tale che la successione delle immagini $\{T(x_{n_k})\}$ converge in $Y$.
+	\end{enumerate}
+	L'insieme degli operatori compatti si denota con $\mathcal{B}_\infty(X, Y)$, o semplicemente con $\mathcal{B}_\infty(X)$ se $X=Y$.
+\end{definizione}
+
+
+\begin{lemma}[55 Limitatezza degli Operatori Compatti]
+	Siano X, Y spazi normati sui numeri complessi. Allora ogni operatore compatto $T:X\rightarrow Y$ è anche limitato, cioè $\mathcal{B}_{\infty}(X,Y)\subset\mathcal{B}(X,Y)$.
+\end{lemma}
+
+\begin{proposizione}[56 Proprietà dello Spazio degli Operatori Compatti]
+	Siano X, Y spazi normati sui numeri complessi e $\mathcal{B}_{\infty}(X,Y)$ sia l'insieme degli operatori compatti. Allora
+	(a) $\mathcal{B}_{\infty}(X,Y)$ è un sottospazio vettoriale di $\mathcal{B}(X,Y)$
+	(b) se Z è uno spazio normato e $A\in\mathcal{B}_{\infty}(X,Y)$, allora $AB\in\mathcal{B}_{\infty}(Z,Y)$ per ogni $B\in\mathcal{B}(Z,X)$ e $CA\in\mathcal{B}_{\infty}(X,Z)$ per ogni $C\in\mathcal{B}(Y,Z)$.
+	(c) Sia Y uno spazio di Banach e $\{A_{n}\}_{n\in\mathbb{N}}$ una successione di operatori compatti da X a Y che converge uniformemente a un operatore limitato A. Allora $A\in\mathcal{B}_{\infty}(X,Y)$.
+	In altre parole $\mathcal{B}_{\infty}(X,Y)$ è un sottospazio chiuso di $\mathcal{B}(X,Y)$ nella topologia della norma.
+\end{proposizione}
+
+\begin{lemma}[57 Lemma di Riesz]
+	Sia $\{x_{i}\}$, con i che varia su un insieme finito o infinito di indici, una successione di vettori linearmente indipendenti in uno spazio normato X. Allora esiste una corrispondente successione di elementi $\{y_n\}$ in X tale che, per tutti gli interi n ammissibili
+	\begin{enumerate}
+		\item $||y_{n}||=1$ per ogni n,
+		\item $y_{n}\in X_{n}\dot{=}span_{\mathbb{C}}(x_{1},...,x_{n})$,
+		\item $d(y_{n},X_{n-1})\triangleq inf_{x\in X_{n-1}}||x-y_{n}||>\frac{1}{2}$.
+	\end{enumerate}
+\end{lemma}
+
+\begin{teorema}[58 Spettro degli Operatori Compatti]
+	Sia X uno spazio normato e $T\in\mathcal{B}_{\infty}(X)$. Allora
+	\begin{enumerate}
+		\item $\forall\delta>0$, esiste un numero finito di autospazi di T con autovalore $\lambda$ tale che $|\lambda|>\delta,$
+		\item Se $\lambda\ne0$ è un autovalore di T con autospazio $W_{\lambda}$, allora $dim(W_{\lambda})<\infty$,
+		\item Gli autovalori di T formano un insieme limitato e al più numerabile. Possono essere ordinati in modo che $|\lambda_{1}|\ge|\lambda_{2}|\ge...\ge0$, dove 0 è l'unico possibile punto limite.
+	\end{enumerate}
+\end{teorema}
+
+\subsection{Compattezza su spazi di Hilbert}
+\begin{proposizione}[59 Compattezza e Modulo]
+	Sia H uno spazio di Hilbert e $T\in\mathcal{B(H)}$. Allora T è compatto se e solo se |T| è compatto.
+\end{proposizione}
+
+\begin{proposizione}[60 Compattezza dell'Aggiunto]
+	Sia H uno spazio di Hilbert e $T\in\mathcal{B}_{\infty}(\mathcal{H})$. Allora $T^{*}\in\mathcal{B}_{\infty}(\mathcal{H})$.
+\end{proposizione}
+
+\begin{teorema}[61 Teorema di Hilbert]
+	Sia H uno spazio di Hilbert e T un operatore compatto e autoaggiunto su di esso. Allora, ogni autospazio di T con autovalore non nullo ha dimensione finita. Inoltre, se chiamiamo $\sigma_{p}(T)$ la collezione di tutti gli autovalori, vale:
+	\begin{enumerate}
+		\item $\sigma_{p}(T)$ è un insieme non vuoto e reale,
+		\item $||T||=sup\{|\lambda||\lambda\in\sigma_{p}(T)\}$,
+		\item $T=0$ se e solo se 0 è l'unico autovalore.
+	\end{enumerate}
+\end{teorema}
+
+\begin{teorema}[62 Teorema di Hilbert]
+	Sia H uno spazio di Hilbert, T un operatore compatto e autoaggiunto su di esso e $\sigma_{p}(T)$ la collezione dei suoi autovalori. Allora
+	\begin{enumerate}
+		\item Se $P_{\lambda}$ è il proiettore ortogonale sull'autospazio di T relativo all'autovalore $\lambda$, possiamo scrivere
+		$T=\sum_{\lambda\in\sigma_{p}(T)}\lambda P_{\lambda},$
+		dove la somma è intesa nella topologia uniforme e tutti gli autovalori sono ordinati in modo decrescente rispetto al loro valore assoluto.
+		\item H ammette una base di autovettori di T.
+	\end{enumerate}
+\end{teorema}
+
+\begin{teorema}[63 Decomposizione ai Valori Singolari]
+	Sia H uno spazio di Hilbert e $A\in\mathcal{B}_{\infty}(\mathcal{H})$ con $A\ne0$. Siano $\{\lambda_{i}\}_{i\in\mathbb{N}\cup\{0\}}$ gli autovalori non nulli di $|A|$ ordinati in modo decrescente. Essi sono chiamati $sing(A)$, i valori singolari di A. Sia $\{\psi_{\lambda_{i},j}\}_{j=1}^{m_i}\subset\mathcal{H}$ una base ortonormale dell'autospazio relativo a $\lambda_{i}$, con $m_{i}$ la molteplicità di $\lambda_{i}$. Allora
+	$A(\cdot)=\sum_{\lambda_{i}\in sing(A)}\sum_{j=1}^{m_{i}}\lambda_{i}(\psi_{\lambda_{i},j},\cdot)\tilde{\psi}_{\lambda_{i},j},$
+	e
+	$A^{*}(\cdot)=\sum_{\lambda_{i}\in sing(A)}\sum_{j=1}^{m_{i}}\lambda_{i}(\tilde{\psi}_{\lambda_{i},j},\cdot)\psi_{\lambda_{i},j},$
+	dove
+	$\tilde{\psi}_{\lambda_{i},j}\dot{=}\frac{1}{\lambda_{i}}A(\psi_{\lambda_{i},j})$.
+\end{teorema}
+
+\subsection{Operatori di Operatore di Hilbert-Schmidt}
+
+\begin{definizione}[64 Operatore di Hilbert-Schmidt]
+	Sia H uno spazio di Hilbert. Diciamo che $A\in\mathcal{B(H)}$ è un operatore di Hilbert-Schmidt se esiste una base ortonormale $\{\psi_{i}\}_{i\in\mathbb{N}}$ in H tale che
+	$\sum_{i=1}^{\infty}||A\psi_{i}||^{2}<\infty.$
+	Chiamiamo $\mathcal{B}_{2}(\mathcal{H})$ la collezione di tutti gli operatori di Hilbert-Schmidt su H e definiamo la norma di Hilbert-Schmidt come
+	$||A||_{2}\dot{=}\sqrt{\sum_{i=1}^{\infty}||A\psi_{i}||^{2}}.$
+\end{definizione}
+
+\begin{teorema}[65 Indipendenza dalla Base della Norma di Hilbert-Schmidt]
+	Sia H uno spazio di Hilbert e siano $\{\psi_{i}\}_{i\in\mathbb{N}}$, $\{\phi_{j}\}_{j\in\mathbb{N}}$ due basi ortonormali di H. Sia $A\in\mathcal{B(H)}$; allora
+	(a) $\sum_{i=1}^{\infty}||A\psi_{i}||^{2}$ è finita se e solo se lo è $\sum_{j=1}^{\infty}||A\phi_{j}||^{2}$ e le due somme coincidono,
+	(b) $\sum_{i=1}^{\infty}||A\psi_{i}||^{2}$ è finita se e solo se lo è $\sum_{j=1}^{\infty}||A^{*}\phi_{j}||^{2}$ e le due somme coincidono.
+\end{teorema}
+
+\begin{proposizione}[66 Proprietà degli Operatori di Hilbert-Schmidt]
+	Sia H uno spazio di Hilbert. Allora $\mathcal{B}_{2}(\mathcal{H})$ è un sottospazio di $\mathcal{B}(\mathcal{H})$ tale che
+	\begin{enumerate}
+		\item $||A||_{2}=||A^{*}||_{2}$ per ogni $A\in\mathcal{B}_{2}(\mathcal{H})$,
+		\item $||AK||_{2}\le||K||||A||_{2}$ e $||KA||_{2}\le||K||||A||_{2}$ per ogni $A\in\mathcal{B}_{2}(\mathcal{H})$ e per ogni $K\in\mathcal{B}(\mathcal{H})$,
+		\item $||A||\le||A||_{2}$ per ogni $A\in\mathcal{B}_{2}(\mathcal{H}).$
+	\end{enumerate}
+\end{proposizione}
+
+\begin{proposizione}[66 Proprietà degli Operatori di Hilbert-Schmidt]
+	Sia H uno spazio di Hilbert. Allora $\mathcal{B}_{2}(\mathcal{H})$ è un sottospazio di $\mathcal{B}(\mathcal{H})$ tale che
+	\begin{enumerate}
+		\item $||A||_{2}=||A^{*}||_{2}$ per ogni $A\in\mathcal{B}_{2}(\mathcal{H})$,
+		\item $||AK||_{2}\le||K||||A||_{2}$ e $||KA||_{2}\le||K||||A||_{2}$ per ogni $A\in\mathcal{B}_{2}(\mathcal{H})$ e per ogni $K\in\mathcal{B}(\mathcal{H})$,
+		\item $||A||\le||A||_{2}$ per ogni $A\in\mathcal{B}_{2}(\mathcal{H}).$
+	\end{enumerate}
+\end{proposizione}
+
+\begin{proposizione}[67 Prodotto Scalare di Hilbert-Schmidt]
+	Sia H uno spazio di Hilbert e A, $B\in\mathcal{B}_{2}(\mathcal{H})$. Sia $\{\psi_{i}\}_{i\in\mathbb{N}}$ una base ortonormale di H. Sia $(\cdot,\cdot)_{2}:\mathcal{B}_{2}(\mathcal{H})\times\mathcal{B}_{2}(\mathcal{H})\rightarrow\mathbb{C}$ definita da
+	$(A,B)_{2}\dot{=}\sum_{i=1}^{\infty}(A\psi_{i},B\psi_{i}).$
+	$\forall A,B\in\mathcal{B}_{2}(\mathcal{H})$
+	(13)
+	Questa è un'applicazione ben definita che determina un prodotto scalare su $\mathcal{B}_{2}(\mathcal{H})$ tale che, per ogni $A\in$
+	$\mathcal{B}_{2}(\mathcal{H})$, $||A||_{2}^{2}=(A,A)_{2}$.
+\end{proposizione}
+
+\begin{corollario}[68 Inclusione in Operatori Compatti]
+	Sia H uno spazio di Hilbert. Allora ogni operatore di Hilbert-Schmidt è anche compatto.
+\end{corollario}
+
+\begin{proposizione}[69 Spazio di Hilbert degli Operatori di Hilbert-Schmidt]
+	Sia H uno spazio di Hilbert. Allora $\mathcal{B}_{2}(\mathcal{H})$ è uno spazio di Hilbert rispetto a (13).
+	Inoltre, per ogni $A\in\mathcal{B}_{2}(\mathcal{H})$
+	$||A||_{2}^{2}=\sum_{\lambda\in sing(A)}m_{\lambda}\lambda^{2},$
+	dove
+	$m_{\lambda}$ è la molteplicità del valore singolare $\lambda$ di A.
+\end{proposizione}
+
+\subsection{Operatori di Classe Traccia}
+
+\begin{proposizione}[70 Condizioni Equivalenti per la Classe Traccia]
+	Sia H uno spazio di Hilbert e $A\in\mathcal{B}(\mathcal{H})$. Le seguenti tre affermazioni
+	sono equivalenti:
+	\begin{enumerate}
+		\item Esiste una base ortonormale $\{\psi_{i}\}_{i\in\mathbb{N}}$ tale che
+		$\sum_{i=1}^{\infty}(\psi_{i},|A|\psi_{i})<\infty.$
+		\item $\sqrt{|A|}$ è un operatore di Hilbert-Schmidt,
+		\item $A\in\mathcal{B}_{\infty}(\mathcal{H})$ e la somma di tutti gli elementi dell'insieme $\{\lambda m_{\lambda}\}_{\lambda\in sing(A)}$ è finita.
+	\end{enumerate}
+\end{proposizione}
+
+\begin{definizione}[71 Operatore di Classe Traccia e Norma di Traccia]
+	Sia H uno spazio di Hilbert e $A \in \mathcal{B}(H)$. Lo chiamiamo operatore di classe traccia
+	se $\sqrt{|A|}$ è un operatore di Hilbert-Schmidt. L'insieme di tutti questi operatori è indicato con $\mathcal{B}_{1}(\mathcal{H})$ e,
+	per ogni $A\in\mathcal{B}_{1}(\mathcal{H})$, la sua norma di traccia è
+	$||A||_{1}\dot{=}||\sqrt{|A|}||_{2}^{2}=\sum_{\lambda\in sing(A)}\lambda m_{\lambda}.$
+\end{definizione}
+
+\begin{corollario}[72 Inclusione tra Spazi di Operatori]
+	Sia H uno spazio di Hilbert. Valgono le seguenti inclusioni
+	$\mathcal{B}_{1}(\mathcal{H})\subset\mathcal{B}_{2}(\mathcal{H})\subset\mathcal{B}_{\infty}(\mathcal{H})\subset\mathcal{B}(\mathcal{H})$.
+\end{corollario}
+
+\begin{teorema}[73 Proprietà degli Operatori di Classe Traccia]
+	Sia $\mathcal{H}$ uno spazio di Hilbert. Valgono le seguenti affermazioni:
+	\begin{enumerate}
+		\item[(a)] Per ogni operatore di classe traccia $A \in \mathcal{B}_1(\mathcal{H})$, esistono due operatori di Hilbert-Schmidt $B, C \in \mathcal{B}_2(\mathcal{H})$ tali che $A = BC$. Viceversa, per ogni coppia di operatori di Hilbert-Schmidt $B, C$, il loro prodotto $BC$ è un operatore di classe traccia e vale la disuguaglianza:
+		$$ \|BC\|_1 \le \|B\|_2 \|C\|_2 $$
+		
+		\item[(b)] Lo spazio $\mathcal{B}_1(\mathcal{H})$ è un sottospazio lineare di $\mathcal{B}(\mathcal{H})$. Inoltre, per ogni $A \in \mathcal{B}_1(\mathcal{H})$ e per ogni operatore limitato $K \in \mathcal{B}(\mathcal{H})$, i prodotti $KA$ e $AK$ appartengono a $\mathcal{B}_1(\mathcal{H})$ e soddisfano le disuguaglianze:
+		$$ \|KA\|_1 \le \|K\| \|A\|_1 \quad \text{e} \quad \|AK\|_1 \le \|A\|_1 \|K\| $$
+		Ciò significa che $\mathcal{B}_1(\mathcal{H})$ è un ideale bilatero in $\mathcal{B}(\mathcal{H})$.
+		
+		\item[(c)] La funzione $\|\cdot\|_1$ definisce una norma su $\mathcal{B}_1(\mathcal{H})$, detta \textbf{norma di traccia}.
+	\end{enumerate}
+\end{teorema}
+
+\begin{proposizione}[74 Definizione e Proprietà della Traccia]
+	Sia $\mathcal{H}$ uno spazio di Hilbert e sia $\{\psi_i\}_{i \in \mathbb{N}}$ una base ortonormale di $\mathcal{H}$.
+	Si definisce \textbf{traccia} l'applicazione $Tr \colon \mathcal{B}_1(\mathcal{H}) \to \mathbb{C}$ data da:
+	$$ Tr(A) = \sum_{i=1}^{\infty} (\psi_i, A\psi_i)_{\mathcal{H}} $$
+	per ogni operatore $A \in \mathcal{B}_1(\mathcal{H})$.
+	
+	Inoltre, valgono le seguenti proprietà:
+	\begin{enumerate}
+		\item Il valore della traccia è indipendente dalla scelta della base ortonormale.
+		\item Per ogni coppia di operatori di Hilbert-Schmidt $B, C \in \mathcal{B}_2(\mathcal{H})$, la traccia del loro prodotto è pari al prodotto scalare di Hilbert-Schmidt tra $B^*$ e $C$:
+		$$ Tr(BC) = (B^*, C)_2 $$
+		\item Per ogni $A \in \mathcal{B}_1(\mathcal{H})$, anche l'operatore $|A| = \sqrt{A^*A}$ appartiene a $\mathcal{B}_1(\mathcal{H})$ e la norma di traccia può essere espressa come:
+		$$ \|A\|_1 = Tr(|A|) $$
+	\end{enumerate}
+\end{proposizione}
+
+\begin{proposizione}[75 Proprietà della Traccia]
+	Sia H uno spazio di Hilbert. Allora l'operatore di traccia gode delle seguenti proprietà:
+	\begin{itemize}
+		\item Per ogni $A, B\in\mathcal{B}_{1}(\mathcal{H})$ e per ogni $\alpha, \beta\in\mathbb{C}$
+		\begin{gather*}
+			Tr(\alpha A+\beta B)=\alpha Tr(A)+\beta Tr(B) \\
+			Tr(A^{*})=\overline{Tr(A)}
+		\end{gather*}
+		\item È ciclica, cioè, per ogni $A\in\mathcal{B}_{1}(\mathcal{H})$ e per ogni $K\in\mathcal{B}(\mathcal{H})$, vale
+		$Tr(AK)=Tr(KA)$.
+	\end{itemize}
+\end{proposizione}
+			\section{Operatori Non Limitati}
+			
+			\begin{definizione}[76 Operatore e Grafico]
+				Sia V uno spazio vettoriale complesso. Chiamiamo operatore una mappa lineare
+				$T:D(T)\subset V\rightarrow V,$
+				definita sul dominio $D(T)$. Il grafico di T è definito come
+				$G(T)=\{(v,T(v))\in V\oplus V|v\in D(T)\}$.
+			\end{definizione}
+			
+			\begin{definizione}[77 Estensione di un Operatore]
+				Sia V uno spazio vettoriale e T un operatore su di esso.
+				Un secondo operatore T'
+				è detto estensione di T se $G(T)\subset G(T^{\prime})$. In questo caso scriviamo $T\subset T^{\prime}$.
+			\end{definizione}
+			
+			\begin{definizione}[78 Operatori Chiusi e Chiudibili]
+				Sia X uno spazio normato e sia $A:D(A)\subseteq X\rightarrow X$ un operatore. Diciamo
+				che
+				\begin{itemize}
+					\item A è chiuso se $G(A)$ è chiuso nella topologia prodotto, vedi Definizione 212,
+					\item A è chiudibile se $\overline{G(A)}$ è il grafico di un operatore, che denotiamo con $\overline{A},$ la chiusura di
+					A.
+				\end{itemize}
+			\end{definizione}
+			
+			\begin{proposizione}[79 Equivalenza per Operatori Chiudibili]
+				Sia $A:D(A)\subset X\rightarrow X.$ Le seguenti affermazioni sono equivalenti:
+				\begin{enumerate}
+					\item A è chiudibile,
+					\item G(A) non contiene punti della forma (0,z), con $z\ne0$,
+					\item A ammette estensioni chiuse.
+				\end{enumerate}
+			\end{proposizione}
+			
+			\begin{lemma}[80 Lemma sulla Limitatezza]
+				Siano X,Y spazi di Banach, sia $T\in\mathcal{B}(X,Y)$ e sia $A:D(A)\subset Y\rightarrow Y$ un
+				operatore su Y. Se A è chiudibile e $Ran(T)\subset D(A)$, allora $AT\in\mathcal{B}(X,Y)$.
+			\end{lemma}
+			
+			\subsection{L'Operatore Aggiunto Hermitiano}
+			
+			\begin{definizione}[81 Operatore Aggiunto]
+				Sia H uno spazio di Hilbert e sia $T:D(T)\subseteq\mathcal{H}\rightarrow\mathcal{H}$ un operatore a dominio denso
+				su di esso.
+				Chiamiamo operatore aggiunto l'operatore $T^{*}:D(T^{*})\subseteq\mathcal{H}\rightarrow\mathcal{H}$ il cui dominio è (16) e la cui
+				immagine è $T^{*}(\phi)=\Psi_{\phi}\in\mathcal{H}$ per ogni $\phi\in D(T^{*})$.
+			\end{definizione}
+			
+			\begin{teorema}[82 Proprietà dell'Aggiunto]
+				Sia T un operatore definito su un dominio denso in uno spazio di Hilbert H. Allora
+				\begin{enumerate}
+					\item $T^{*}$ è chiuso e $G(T^{*})=[\tau(G(T))]^{\perp}$ dove
+					$\tau:\mathcal{H}\oplus\mathcal{H}\rightarrow\mathcal{H}\oplus\mathcal{H}$ $(\phi,\psi)\mapsto\tau((\phi,\psi))=(-\psi,\phi)$.
+					\item T è chiudibile se e solo se $D(T^{*})$ è denso e, in questo caso,
+					$T\subseteq\overline{T}=(T^{*})^{*}.$
+				\end{enumerate}
+			\end{teorema}
+			
+			\begin{corollario}[83 Relazioni tra Nucleo e Immagine]
+				Sia T un operatore definito su un dominio denso in uno spazio di Hilbert H. Allora
+				\begin{enumerate}
+					\item $ker(T^{*})=[Ran(T)]^{\perp}$ e $ker(T)\subseteq[Ran(T^{*})]^{\perp}$ dove l'uguaglianza vale se $D(T^{*})$ è denso
+					in H e T è chiuso
+					\item se T è chiuso, allora
+					$\mathcal{H}\oplus\mathcal{H}=\tau(G(T))\oplus G(T^{*})$
+				\end{enumerate}
+			\end{corollario}
+			
+			\subsection{Operatori Essenzialmente Autoaggiunti}
+			
+			\begin{definizione}[84 Tipi di Operatori]
+				Sia H uno spazio di Hilbert e sia $T:D(T)\subset\mathcal{H}\rightarrow\mathcal{H}$. Diciamo che T è
+				\begin{itemize}
+					\item Hermitiano se $(\phi,T\psi)=(T\phi,\psi)$ per ogni $\psi\in D(T)$,
+					\item simmetrico se T è Hermitiano e $D(T)$ è denso in H,
+					\item autoaggiunto se $D(T)$ è denso e $T=T^{*}$,
+					\item essenzialmente autoaggiunto se sia $D(T)$ che $D(T^{*})$ sono densi e $T^{*}=(T^{*})^{*}$,
+					\item normale se $T^{*}T=TT^{*}$ dove entrambi i membri sono definiti sul dominio standard.
+				\end{itemize}
+			\end{definizione}
+			
+			\begin{teorema}[85 (Hellinger-Toeplitz)]
+				Sia H uno spazio di Hilbert e sia $T:D(T)\subseteq\mathcal{H}\rightarrow\mathcal{H}$ un
+				operatore.
+				Se T è Hermitiano e $D(T)=\mathcal{H}$, allora è limitato e autoaggiunto.
+			\end{teorema}
+			
+			\begin{proposizione}[86 Proprietà degli Operatori Autoaggiunti]
+				Sia H uno spazio di Hilbert e sia $T:D(T)\subseteq\mathcal{H}\rightarrow\mathcal{H}$ un operatore.
+				Allora
+				\begin{enumerate}
+					\item se $D(T)$, $D(T^{*})$ e $D(T^{**})$ sono densi, allora
+					$T^{*}=\overline{T^{*}}=T^{**}$
+					\item T è essenzialmente autoaggiunto se e solo se $\overline{T}$ è autoaggiunto,
+					\item Se T è autoaggiunto, è massimamente simmetrico, cioè non ammette un'estensione propria
+					ad un operatore simmetrico,
+					\item se T è essenzialmente autoaggiunto, ammette una e una sola estensione autoaggiunta, cioè
+					$\overline{T}$ che coincide con $T^{*}$.
+				\end{enumerate}
+			\end{proposizione}
+			
+			\begin{teorema}[87 Criterio di Autoaggiunzione]
+				Sia H uno spazio di Hilbert e T un operatore simmetrico su di esso.
+				Le seguenti
+				affermazioni sono equivalenti:
+				\begin{enumerate}
+					\item T è autoaggiunto,
+					\item T è chiuso e $ker(T^{*}\pm i\mathbb{I})=\{0\}$ dove I è l'operatore identità su H,
+					\item $Ran(T\pm i\mathbb{I})=\mathcal{H}$
+				\end{enumerate}
+			\end{teorema}
+			
+			\begin{teorema}[88 Criterio di Autoaggiunzione Essenziale]
+				Sia H uno spazio di Hilbert e T un operatore simmetrico su di esso.
+				Le seguenti
+				affermazioni sono equivalenti:
+				\begin{enumerate}
+					\item T è essenzialmente autoaggiunto,
+					\item $ker(T^{*}\pm i\mathbb{I})=\{0\}$ dove I è l'operatore identità su H,
+					\item $\overline{Ran(T\pm i\mathbb{I})}=\mathcal{H}$
+				\end{enumerate}
+			\end{teorema}
+			
+			\begin{definizione}[89 Core di un Operatore]
+				Sia H uno spazio di Hilbert e T un operatore chiudibile e a dominio denso su H.
+				Un sottospazio denso $W\subset D(T)$ è detto core (o nucleo) per T se
+				$\overline{T|_{W}}=\overline{T}.$
+			\end{definizione}
+			
+			\begin{proposizione}[90][Core e Autoaggiunzione Essenziale]
+				Sia H uno spazio di Hilbert e T un operatore autoaggiunto su di esso.
+				Un
+				sottospazio W è un core per T se e solo se $T|_{W}$ è essenzialmente autoaggiunto.
+			\end{proposizione}
+			
+			\subsection{Posizione e momento}
+			\begin{proposizione}[91 Operatore Posizione]
+				Ciascun operatore posizione $X_{i}$, $i=1,...,n$, su $D(X_{i})\subset L^{2}(\mathbb{R}^{n})$ è autoaggiunto
+				e $\mathcal{D}(\mathbb{R}^{n})\equiv C_{0}^{\infty}(\mathbb{R}^{n})$ è un core per $X_{i}.$
+			\end{proposizione}
+			
+			\begin{definizione}[92 Derivata Debole]
+				Una funzione $f:\mathbb{R}^{n}\rightarrow\mathbb{C}$ è detta localmente integrabile se $fg\in L^{1}(\mathbb{R}^{n})$
+				per ogni $g\in C_{0}^{\infty}(\mathbb{R}^{n})$.
+				Chiamiamo $h=\partial_{x_{j}}f$ la derivata debole di f lungo la direzione $x_{j}$, se sia f che h
+				sono localmente integrabili e
+				$\int_{\mathbb{R}^{n}}d^{n}x~h(x)g(x)=-\int_{\mathbb{R}^{n}}d^{n}x~f(x)\frac{\partial g}{\partial x_{j}}.$ $\forall g\in C_{0}^{\infty}(\mathbb{R}^{n})$
+			\end{definizione}
+			
+			\begin{proposizione}[93 Operatore Momento]
+				Ciascun operatore momento $P_{j}$, $j=1,...,n$, su $D(P_{j})\subset L^{2}(\mathbb{R}^{n})$ è autoaggiunto
+				e $\mathcal{D}(\mathbb{R}^{n})\equiv C_{0}^{\infty}(\mathbb{R}^{n})$ è un core per $P_{j}$.
+			\end{proposizione}
+			
+			\subsection{Indici di difetto}
+			
+			\begin{definizione}[94 Isometria]
+				Sia H uno spazio di Hilbert e sia $U:D(U)\subseteq\mathcal{H}\rightarrow\mathcal{H}$ un operatore. Esso è detto
+				un'isometria se
+				$(U\psi,U\psi^{\prime})=(\psi,\psi^{\prime})$, $\forall\psi,\psi^{\prime}\in D(U)$
+				che è equivalente a chiedere $||U(\psi)||=||\psi||$ per ogni $\psi\in D(U)$.
+			\end{definizione}
+			
+			\begin{proposizione}[95 Trasformata di Cayley]
+				Sia H uno spazio di Hilbert e sia $T:D(T)\subseteq\mathcal{H}\rightarrow\mathcal{H}$ un operatore simmetrico.
+				Allora
+				\begin{itemize}
+					\item $T+i\mathbb{I}$ è iniettivo,
+					\item la trasformata di Cayley (22) è ben definita,
+					\item $V(T)$ è un'isometria e $Ran(V)=Ran(T-i\mathbb{I})$.
+				\end{itemize}
+			\end{proposizione}
+			
+			\begin{proposizione}[96 Inversa della Trasformata di Cayley]
+				Sia H uno spazio di Hilbert e sia $T:D(T)\subseteq\mathcal{H}\rightarrow\mathcal{H}$ un operatore su di esso.
+				Se la trasformata di Cayley (22) è ben definita, allora
+				\begin{enumerate}
+					\item $\mathbb{I}-V$ è iniettivo,
+					\item $Ran(\mathbb{I}-V)=D(T)$ e $T=i(\mathbb{I}+V)(\mathbb{I}-V)^{-1}$.
+				\end{enumerate}
+			\end{proposizione}
+			
+			\begin{teorema}[97 Autoaggiunzione e Trasformata di Cayley]
+				Sia H uno spazio di Hilbert e sia $T:D(T)\subseteq\mathcal{H}\rightarrow\mathcal{H}$ un operatore su di esso.
+				Allora
+				\begin{enumerate}
+					\item[(a)] se T è simmetrico, allora è autoaggiunto se e solo se $V(T)$ è unitario su H,
+					\item[(b)] se $V:\mathcal{H}\rightarrow\mathcal{H}$ è un operatore unitario su H e $\mathbb{I}-V$ è iniettivo, allora è la trasformata di Cayley
+					di un operatore autoaggiunto su H.
+				\end{enumerate}
+			\end{teorema}
+			
+			\begin{definizione}[98 Indici di Difetto]
+				Sia H uno spazio di Hilbert e T: $D(T)\subseteq\mathcal{H}\rightarrow\mathcal{H}$ un operatore simmetrico
+				su di esso.
+				Allora chiamiamo indici di difetto di T
+				$d_{\pm}(T)\dot{=}dim(ker(T^{*}\pm i\mathbb{I}))$.
+			\end{definizione}
+			
+			\begin{teorema}[99 Teorema di Von Neumann per Estensioni Autoaggiunte]
+				Sia H uno spazio di Hilbert e sia T: $D(T)\subseteq\mathcal{H}\rightarrow\mathcal{H}$ un operatore su di esso.
+				Allora
+				\begin{enumerate}
+					\item T ammette estensioni autoaggiunte se e solo se $d_{+}(T)=d_{-}(T)$.
+					\item Se $d_{+}(T)=d_{-}(T)$, esiste una biiezione tra le estensioni autoaggiunte di T e le
+					isometrie suriettive da $ker(T^{*}-i\mathbb{I})$ a $ker(T^{*}+i\mathbb{I})$.
+				\end{enumerate}
+			\end{teorema}
+			
+			\begin{teorema}[100 Unicità dell'Estensione Autoaggiunta]
+				Sia H uno spazio di Hilbert e sia T: $D(T)\subseteq\mathcal{H}\rightarrow\mathcal{H}$ un operatore su di esso.
+				Se T è simmetrico, è essenzialmente autoaggiunto se e solo se ammette un'unica estensione autoaggiunta.
+			\end{teorema}
+			
+			\subsection{L'operatore momento}
+			
+			\begin{definizione}[101 Funzione Assolutamente Continua]
+				Sia $J\subseteq\mathbb{R}$. Una funzione $f:J\rightarrow\mathbb{C}$ si dice assolutamente continua su
+				J se $\forall\epsilon>0$, esiste $\delta>0$ tale che, ogni volta che si considera una sequenza finita di intervalli
+				$[x_{k},y_{k}]\in J$, $k=1,...,N$ disgiunti e che godono della proprietà
+				$\sum_{k=1}^{N}(y_{k}-x_{k})<\delta,$
+				allora
+				$\sum_{k=1}^{N}|f(y_{k})-f(x_{k})|<\epsilon.$
+			\end{definizione}
+			
+			\begin{lemma}[102][Simmetria dell'Operatore Derivata]
+				L'operatore $A := i \frac{d}{dx}$ è simmetrico.
+			\end{lemma}
+			
+			\begin{proposizione}[103][Indici di Difetto dell'Operatore Derivata]
+				L'operatore A in (102) ha indici di difetto $d_{+}(A)=d_{-}(A)=1.$
+			\end{proposizione}
+			
+			\section{Teoria Spettrale}
+			
+			\begin{definizione}[104 Funzione Analitica a Valori in uno Spazio di Banach]
+				Sia X uno spazio di Banach sui numeri complessi e $\Omega\subset\mathbb{C}$ un insieme
+				aperto non vuoto.
+				Diciamo che $f:\Omega\rightarrow X$ è analitica in $z_{0}\in\Omega$ se $\exists\delta>0$ e $\{a_{n}\}_{n\in\mathbb{N}}$, $a_{n}\in X$
+				per ogni n, tali che
+				$f(z)=\sum_{n=0}^{\infty}a_{n}(z-z_{0})^{n}$ , $\forall z\in B_{\delta}(z_{0})$
+				dove la convergenza è intesa rispetto alla topologia della norma.
+			\end{definizione}
+			
+			\begin{definizione}[105 Insieme Risolvente e Risolvente]
+				Sia X uno spazio normato e sia $A:D(A)\subseteq X\rightarrow X$ un operatore su di esso.
+				Chiamiamo insieme risolvente di A la collezione $\rho(A)\subseteq\mathbb{C}$ di numeri complessi $\lambda$ tali che
+				\begin{enumerate}
+					\item $\overline{Ran[A - \lambda \mathbb{I}]} = X$
+					\item $(A - \lambda \mathbb{I}) : D(A) \rightarrow X$ è iniettivo
+					\item $(A-\lambda\mathbb{I})^{-1}:Ran(A-\lambda\mathbb{I})\rightarrow X$ è limitato
+				\end{enumerate}
+				Per ogni $\lambda\in\rho(A)$ chiamiamo risolvente l'operatore
+				$R_{\lambda}(A)\dot{=}(A-\lambda\mathbb{I})^{-1}:Ran(A-\lambda\mathbb{I})\rightarrow D(A).$
+			\end{definizione}
+			
+			\begin{definizione}[106 Spettro di un Operatore]
+				Sia X uno spazio normato e sia $A:D(A)\subseteq X\rightarrow X$ un operatore su di esso.
+				Chiamiamo spettro di A l'insieme $\sigma(A)\dot{=}\mathbb{C}\backslash\rho(A)$, dove $\rho(A)$ è l'insieme risolvente.
+				Lo spettro
+				è suddiviso in tre unioni disgiunte:
+				\begin{itemize}
+					\item $\sigma_{p}(A)$, lo spettro puntuale di A, costituito da tutti i $\lambda\in\mathbb{C}$ tali che $ker(A-\lambda\mathbb{I})\ne\{0\}$,
+					\item $\sigma_{c}(A)$ lo spettro continuo di A, costituito da tutti i $\lambda\in\mathbb{C}$ tali che $ker(A-\lambda\mathbb{I})=\{0\}$,
+					$\overline{Ran(A-\lambda\mathbb{I})}=X$ ma $(A-\lambda\mathbb{I})^{-1}$ non è limitato,
+					\item $\sigma_{r}(A)$ lo spettro residuo di A, costituito da tutti i $\lambda\in\mathbb{C}$ tali che $ker(A-\lambda\mathbb{I})=\{0\}$, ma
+					$\overline{Ran(A-\lambda\mathbb{I})\ne X}$
+				\end{itemize}
+			\end{definizione}
+			
+			\begin{osservazione}[3 Spettro e Autovalori]
+				Si noti che $\sigma_{p}(A)$ consiste negli autovalori di A, ma lo spettro è in generale
+				più grande.
+				È interessante il caso speciale in cui $X=\mathcal{H},$ i.e., è uno spazio di Hilbert.
+				In questo caso,
+				se la collezione di autovettori di A forma una base di H, diciamo che A ha uno spettro puramente puntuale.
+				Anche in questo caso dovremmo aspettarci in generale che $\sigma_{p}(A)\ne\sigma(A)$.
+				Un buon esempio sono
+				gli operatori compatti autoaggiunti che hanno spettro puramente puntuale come abbiamo visto nella sezione
+				precedente, ma 0 può comunque trovarsi nello spettro continuo.
+			\end{osservazione}
+			
+			\begin{teorema}[107 Proprietà del Risolvente]
+				Sia X uno spazio di Banach e A un operatore chiuso su di esso. Allora
+				\begin{enumerate}
+					\item[(a)] $\lambda\in\rho(A)$ se e solo se $A - \lambda I$ è una biiezione da $D(A)$ a X,
+					\item[(b)] vale che
+					\begin{enumerate}
+						\item[(i)] $\rho(A)$ è aperto,
+						\item[(ii)] $\sigma(A)$ è chiuso,
+						\item[(iii)] se $\rho(A)\ne\emptyset$, la mappa $\rho(A)\ni\lambda\mapsto R_{\lambda}(A)\in\mathcal{B}(X)$ è analitica, essendo $R_{\lambda}(A)$ il risolvente
+						di A.
+					\end{enumerate}
+				\end{enumerate}
+			\end{teorema}
+			
+			\begin{proposizione}[108 Spettro di Operatori Definiti Ovunque]
+				Sia X uno spazio di Banach e A un operatore chiuso con $D(A)=X$.
+				Allora
+				\begin{enumerate}
+					\item $\rho(A)\ne\emptyset$,
+					\item $\sigma(A)\ne\emptyset$ ed è compatto,
+					\item $|\lambda|\le||A||$ for all $\lambda\in\sigma(A)$.
+				\end{enumerate}
+			\end{proposizione}
+			
+			\begin{corollario}[109 Prima Identità del Risolvente]
+				Sia X uno spazio di Banach e A un operatore chiuso su di esso.
+				Allora 
+				\[
+				\forall \lambda, \mu \in \rho(A) \quad \text{vale che} \quad \quad
+				R_{\lambda}(A) - R_{\mu}(A) = (\lambda - \mu)R_{\lambda}(A) R_{\mu}(A)
+				\]
+			\end{corollario}
+			
+			\begin{teorema}[110 Proprietà Spettrali]
+				Sia $\mathcal{H}$ uno spazio di Hilbert. Valgono le seguenti proprietà:
+				\begin{enumerate}
+					\item \textbf{Operatore autoaggiunto.} Se $T \colon D(T) \subseteq \mathcal{H} \to \mathcal{H}$ è un operatore autoaggiunto, allora:
+					\begin{itemize}
+						\item[(i)] Lo spettro è un sottoinsieme dei numeri reali: $\sigma(T) \subseteq \mathbb{R}$.
+						\item[(ii)] Lo spettro residuo è vuoto: $\sigma_r(T) = \emptyset$.
+						\item[(iii)] Gli autospazi associati ad autovalori distinti sono ortogonali.
+					\end{itemize}
+					
+					\item \textbf{Operatore unitario.} Se $T \in \mathcal{B}(\mathcal{H})$ è un operatore unitario, allora:
+					\begin{itemize}
+						\item[(i)] Lo spettro $\sigma(T)$ è un sottoinsieme compatto e non vuoto del cerchio unitario $S^1 = \{z \in \mathbb{C} \mid |z|=1\}$.
+						\item[(ii)] Lo spettro residuo è vuoto: $\sigma_r(T) = \emptyset$.
+					\end{itemize}
+					
+					\item \textbf{Operatore normale.} Se $T \in \mathcal{B}(\mathcal{H})$ è un operatore normale, allora:
+					\begin{itemize}
+						\item[(i)] Lo spettro residuo di $T$ e del suo aggiunto $T^*$ è vuoto: $\sigma_r(T) = \sigma_r(T^*) = \emptyset$.
+						\item[(ii)] Lo spettro puntuale di $T^*$ è il complesso coniugato di quello di $T$: $\sigma_p(T^*) = \overline{\sigma_p(T)}$.
+						\item[(iii)] Lo spettro continuo di $T^*$ è il complesso coniugato di quello di $T$: $\sigma_c(T^*) = \overline{\sigma_c(T)}$.
+					\end{itemize}
+				\end{enumerate}
+			\end{teorema}
+				
+			\section{Distribuzioni}
+			\subsection{Test functions}
+			
+			\begin{definizione}[111]
+				Chiamiamo spazio delle funzioni lisce a supporto compatto (o spazio delle funzioni test) su $\mathbb{R}^{n}$ l'insieme $\mathcal{D}(\mathbb{R}^{n})=C_{0}^{\infty}(\mathbb{R}^{n})=\{f\in C^{\infty}(\mathbb{R}^{n}) \mid \operatorname{supp}(f) \text{ è compatto}\}$.
+			\end{definizione}
+			
+			\begin{proposizione}[112]
+				L'accoppiamento (31) è separante, cioè, se $\phi,\phi^{\prime}\in C^{\infty}(\mathbb{R}^{n})$ sono tali che $(\phi,f)=(\phi^{\prime},f)$ per ogni $f\in C_{0}^{\infty}(\mathbb{R}^{n})$, allora $\phi=\phi^{\prime}$.
+			\end{proposizione}
+			
+			\begin{osservazione}[4]
+				Si noti che, nella proposizione precedente, abbiamo usato funzioni lisce a supporto compatto in un aperto $\Omega\subseteq\mathbb{R}^{n}$. Si osservi che $C_{0}^{\infty}(\Omega)$ è definito come in (111) sostituendo $\mathbb{R}^{n}$ con $\Omega$. Tuttavia, $C_{0}^{\infty}(\Omega)$ non coincide con la restrizione di $C_{0}^{\infty}(\mathbb{R}^{n})$ a $\Omega$, poiché il supporto di un dato elemento potrebbe essere strettamente più grande di $\Omega$. Pertanto la restrizione non produrrebbe una funzione a supporto compatto.
+			\end{osservazione}
+			
+			\begin{proposizione}[113]
+				Sia $f\in C_{0}^{k}(\mathbb{R}^{n})$ con $0\le k\le\infty$ e sia $\rho\in C_{0}^{\infty}(\mathbb{R}^{n})$ tale che $\rho\ge0$, $\operatorname{supp}(\rho)\subseteq\{x\in\mathbb{R}^{n} \mid |x|\le1\}$ e $\int_{\mathbb{R}^{n}} \rho(x) \, d^{n}x = 1$, dove $|x|$ indica la norma euclidea su $\mathbb{R}^{n}$. Sia $\epsilon>0$ e sia $f_{\epsilon}(x)=\epsilon^{-n}\int_{\mathbb{R}^{n}} f(y)\rho\left(\frac{x-y}{\epsilon}\right) \, d^{n}y$. Allora $f_{\epsilon}\in C_{0}^{\infty}(\mathbb{R}^{n})$ e $\operatorname{supp}(f_{\epsilon})$ è contenuto in un intorno di raggio $\epsilon$ di $\operatorname{supp}(f)$. Inoltre, per ogni multi-indice $\alpha$, $\partial^{\alpha}f_{\epsilon}$ converge uniformemente a $\partial^{\alpha}f$ quando $\epsilon\to0$.
+			\end{proposizione}
+			
+			\begin{osservazione}[5]
+				Si noti che la proposizione precedente è valida sostituendo $\mathbb{R}^{n}$ con un qualsiasi sottoinsieme aperto $\Omega\subseteq\mathbb{R}^{n}$. Inoltre, si osservi che ogni $f\in C_{0}^{\infty}(\Omega)$ può essere estesa canonicamente a un elemento di $C_{0}^{\infty}(\mathbb{R}^{n})$ ponendo $f(x)=0$ per ogni $x\in\mathbb{R}^{n}\setminus\Omega$. Con un leggero abuso di notazione, indichiamo la funzione estesa ancora con il simbolo $f$.
+			\end{osservazione}
+			
+			\begin{definizione}[114]
+				Sia $\Omega\subseteq\mathbb{R}^{n}$ un sottoinsieme aperto di $\mathbb{R}^{n}$. Una successione $\{f_{j}\}_{j\in\mathbb{N}}$, con $f_{j}\in\mathcal{D}(\Omega)$ per ogni $j$, si dice che converge a $f\in\mathcal{D}(\Omega)$, cioè $\lim_{j\to\infty}f_{j}=f$, se:
+				\begin{enumerate}
+					\item esiste un insieme compatto $K\subset\Omega$ tale che $\operatorname{supp}(f_{j})\subseteq K$ per ogni $j\in\mathbb{N}$;
+					\item per ogni multi-indice $\alpha$, $\partial^{\alpha}f_{j}$ converge uniformemente a $\partial^{\alpha}f$.
+				\end{enumerate}
+			\end{definizione}
+			
+			\subsection{Distribuzioni}
+			
+			\begin{definizione}[115]
+				Sia $\Omega\subseteq\mathbb{R}^{n}$. Un'applicazione lineare $u:\mathcal{D}(\Omega)\to\mathbb{C}$ è chiamata una distribuzione se, per ogni insieme compatto $K\subset\Omega$, esistono una costante $C_{K}\in[0,\infty)$ e un intero $N\in\mathbb{N}\cup\{0\}$ tali che $|u(f)|\equiv|(u,f)|\le C_{K}\sum_{|\alpha|\le N}\sup|\partial^{\alpha}f|$, per ogni $f\in\mathcal{D}(\Omega)$ tale che $\operatorname{supp}(f)\subseteq K$.
+			\end{definizione}
+			
+			\begin{teorema}[116]
+				Sia $\Omega\subset\mathbb{R}^{n}$ e sia $u:\mathcal{D}(\Omega)\to\mathbb{C}$ un'applicazione lineare. Questa è una distribuzione se e solo se è sequenzialmente continua, ovvero $\lim_{j\to\infty}u(f_{j})=0$ per tutte le successioni $f_{j}\in\mathcal{D}(\Omega)$ tali che $\lim_{j\to\infty}f_{j}=0$ nel senso della Definizione 114.
+			\end{teorema}
+			
+			\begin{definizione}[117]
+				Sia $\Omega\subset\mathbb{R}^{n}$ e sia $\{u_{j}\}_{j\in\mathbb{N}}$ una successione di distribuzioni su $\Omega$. Diciamo che la successione converge a $u\in\mathcal{D}^{\prime}(\Omega)$, ovvero $\lim_{j\to\infty}u_{j}=u$, se $\lim_{j\to\infty}(u_j, f) = (u, f)$ per ogni $f \in \mathcal{D}(\Omega)$.
+			\end{definizione}
+			
+			\begin{teorema}[118]
+				Sia $\Omega\subset\mathbb{R}^{n}$ e sia $\{u_{j}\}_{j\in\mathbb{N}}$ una successione di elementi in $L_{loc}^{1}(\Omega)$ che converge a una funzione $u$. Se esiste $g\in L_{loc}^{1}(\Omega)$ tale che $|u_{j}|\le g$ per ogni $j\in\mathbb{N}$, allora $u\in L_{loc}^{1}(\Omega)$ e $\lim_{j\to\infty}u_{j}=u$ anche in $\mathcal{D}^{\prime}(\Omega)$.
+			\end{teorema}
+			
+			\begin{teorema}[119]
+				Sia $\Omega\subset\mathbb{R}^{n}$ e sia $\{u_{j}\}_{j\in\mathbb{N}}$ una successione di elementi in $\mathcal{D}^{\prime}(\Omega)$ tale che, per ogni $f\in\mathcal{D}(\Omega)$, esiste ed è finito il limite $\lim_{j\to\infty}(u_{j},f)$. Allora il funzionale lineare $u:\mathcal{D}(\Omega)\to\mathbb{C}$ definito da $u(f) := \lim_{j\to\infty}(u_{j},f)$, per ogni $f\in\mathcal{D}(\Omega)$, identifica un elemento di $\mathcal{D}^{\prime}(\Omega)$.
+			\end{teorema}
+			
+			\subsection{Localizzazione delle Distribuzioni}
+			
+			\begin{osservazione}[6]
+				È facile costruire esempi usando le distribuzioni. Infatti, si consideri $\Omega^{\prime}\subset\Omega$ e si consideri un qualsiasi $h\in\mathcal{D}(\Omega)$. Poiché $\mathcal{D}(\Omega)\subset C^{\infty}(\Omega)\subset\mathcal{D}^{\prime}(\Omega)$, $h$ identifica una distribuzione $u_{h}\in\mathcal{D}^{\prime}(\Omega)$. Si consideri ora un qualsiasi punto $x_{0}\in\Omega\setminus\Omega^{\prime}$. Poiché lo spazio delle distribuzioni è lineare (è uno spazio vettoriale), possiamo costruire $u_{h,x_{0}} := u_{h}+\delta_{x_{0}}$ dove $\delta_{x_0}$ è la delta di Dirac centrata in $x_{0}$. Poiché $\delta_{x_{0}}(f)=0$ per ogni $f\in\mathcal{D}(\Omega^{\prime})$, è chiaro che $u_{h}$ e $u_{h,x_{0}}$ coincidono su $\Omega^{\prime}$.
+			\end{osservazione}
+			
+			\begin{proposizione}[120]
+				Sia $K$ un sottoinsieme compatto di $\mathbb{R}^{n}$ e sia $\{U_{i}\}_{i=1,\dots,m<\infty}$ una collezione di sottoinsiemi aperti tali che $K\subset\bigcup_{i=1}^{m}U_{i}$. Allora esistono $\psi_{i}\in\mathcal{D}(U_{i})$ per $i=1,\dots,m$ tali che:
+				\begin{enumerate}
+					\item $0\le\psi_{i}\le1$, per ogni $i=1,\dots,m$;
+					\item $\sum_{i=1}^{m}\psi_{i}\le1$ e $\sum_{i=1}^{m}\psi_{i}=1$ su $K$.
+				\end{enumerate}
+				La collezione $\{\psi_{i}\}_{i=1,\dots,m}$ è chiamata una partizione dell'unità (di $K$ subordinata al ricoprimento $\{U_{i}\}$).
+			\end{proposizione}
+			
+			\begin{osservazione}[7]
+				Si noti che l'esistenza di una partizione dell'unità è spesso sfruttata in fisica. Infatti, la Proposizione 120 implica che, se $K$ è un sottoinsieme compatto di $\Omega\subseteq\mathbb{R}^{n}$, possiamo sempre trovare $\Lambda\in\mathcal{D}(\mathbb{R}^{n})$ tale che $\operatorname{supp}(\Lambda)\subset\Omega$, $0\le\Lambda\le1$ e $\Lambda=1$ su $K$. Tale $\Lambda$ è chiamata funzione di taglio (o "bump function").
+			\end{osservazione}
+			
+			\begin{osservazione}[8]
+				Si osservi che, essendo interessati a un insieme compatto $K$, per il teorema di Heine-Borel, sappiamo che è un insieme chiuso e limitato. Pertanto, abbiamo bisogno solo di un numero finito di insiemi aperti per ricoprirlo. Più in generale, una partizione dell'unità può essere trovata anche per insiemi che richiedono un numero infinito, ma numerabile, di insiemi aperti per ricoprirli. Questa generalizzazione richiede vincoli sulla topologia dello spazio sottostante, che sono ovviamente soddisfatti automaticamente da $\mathbb{R}^{n}$. In altre parole, siamo portati a introdurre il concetto di spazio secondo-numerabile. Senza questa assunzione, l'integrazione oltre $\mathbb{R}^{n}$ non sarebbe possibile.
+			\end{osservazione}
+			
+			\begin{definizione}[121]
+				Sia $\Omega\subset\mathbb{R}^{n}$ e sia $u\in\mathcal{D}^{\prime}(\Omega)$. Chiamiamo supporto di $u$ l'insieme $\operatorname{supp}(u)=\Omega\setminus\{x\in\Omega \mid \exists\mathcal{O}\subset\mathbb{R}^{n} \text{ aperto, t.c. } x\in\mathcal{O} \text{ e } u|_{\mathcal{O}}=0\}$.
+			\end{definizione}
+			
+			\begin{corollario}[122]
+				Sia $\Omega\subseteq\mathbb{R}^{n}$, sia $u\in\mathcal{D}^{\prime}(\Omega)$ e sia $f\in\mathcal{D}(\Omega)$. Allora $u(f)=0$ se $\operatorname{supp}(u) \cap \operatorname{supp}(f)=\emptyset$.
+			\end{corollario}
+			
+			\begin{teorema}[123]
+				Sia $\Omega\subset\mathbb{R}^{n}$ e sia $\{\Omega_{i}\}_{i\in I}$, con $I$ un insieme di indici, un ricoprimento aperto di $\Omega$. Per ogni $i\in I$ sia $u_{i}\in\mathcal{D}^{\prime}(\Omega_{i})$ tale che $u_{i}=u_{j}$ su $\Omega_{i}\cap\Omega_{j}$ se $\Omega_{i}\cap\Omega_{j}\ne\emptyset$. Allora, esiste un'unica $u\in\mathcal{D}^{\prime}(\Omega)$ tale che $u|_{\Omega_{i}}=u_{i}$.
+			\end{teorema}
+			
+			\section{Operazioni Elementari sulle Distribuzioni}
+			\subsection{La Derivata di una Distribuzione}
+			
+			\begin{definizione}[124]
+				Sia $\Omega \subseteq \mathbb{R}^n$ e sia $u \in \mathcal{D}'(\Omega)$. Chiamiamo derivata distribuzionale di $u$ lungo la direzione (euclidea) $x_i$, la distribuzione $\frac{\partial u}{\partial x_i} \equiv \partial_i u \in \mathcal{D}'(\Omega)$ definita come $(\partial_i u, f) = -(u, \partial_i f)$, per ogni $f \in \mathcal{D}(\Omega)$. Analogamente, definiamo le derivate di ordine superiore come $(\partial^\alpha u, f) = (-1)^{|\alpha|}(u, \partial^\alpha f)$, per ogni $f \in \mathcal{D}(\Omega)$, dove $\alpha$ è un multi-indice arbitrario.
+			\end{definizione}
+			
+			\begin{proposizione}[125]
+				Sia $\{u_k\}_{k\in\mathbb{N}}$ una successione di distribuzioni in $\mathcal{D}'(\Omega)$ tale che $\lim_{k\to\infty} u_k = u \in \mathcal{D}'(\Omega)$. Allora, per ogni multi-indice $\alpha$, si ha $\lim_{k\to\infty}\partial^\alpha u_k = \partial^\alpha u \in \mathcal{D}'(\Omega)$.
+			\end{proposizione}
+			
+			\begin{osservazione}[9]
+				Come conseguenza della Definizione 124, si può osservare che se $f, h \in C_0(\Omega)$ e vale l'equazione distribuzionale $\partial_i f = h$, allora la derivata $\frac{\partial f}{\partial x_i}$ esiste nel senso usuale di derivata di una funzione.
+			\end{osservazione}
+			
+			\subsection{La Primitiva di una Distribuzione}
+			\begin{proposizione}[128]
+				Sia $v \in \mathcal{D}'(\mathbb{R})$ e sia $u$ come in (38) dove $C$ è una funzione costante arbitraria. Allora $u$ è una primitiva di $v$ e tutte le primitive hanno questa forma.
+			\end{proposizione}
+			
+			\subsection{Moltiplicazione per una Funzione Liscia}
+			\begin{definizione}[129]
+				Sia $u \in \mathcal{D}'(\Omega)$ e sia $\phi \in C^\infty(\Omega)$. Chiamiamo prodotto tra $\phi$ e $u$ la distribuzione $\phi u \in \mathcal{D}'(\Omega)$ definita tramite $(\phi u, f) := (u, \phi f)$, per ogni $f \in \mathcal{D}(\Omega)$.
+			\end{definizione}
+			
+			\begin{teorema}[131]
+				Sia $\Omega \subseteq \mathbb{R}^n$, sia $u \in \mathcal{D}'(\Omega)$, $\phi \in C^\infty(\Omega)$ e sia $\alpha$ un multi-indice. Allora $\partial^\alpha(\phi u) = \sum_{\beta+\gamma=\alpha} \frac{\alpha!}{\beta! \gamma!}\partial^\beta\phi \partial^\gamma u$, dove il fattoriale di un multi-indice $\alpha = (\alpha_1, \dots, \alpha_m)$ è definito come $\alpha! = \prod_{i=1}^m \alpha_i!$.
+			\end{teorema}
+			
+			\section{Distribuzioni a Supporto Compatto}
+			
+			\begin{definizione}[132]
+				Sia $\Omega\subseteq\mathbb{R}^{n}$. Un funzionale lineare $u:C^{\infty}(\Omega)\to\mathbb{C}$ è detto continuo se esistono un insieme compatto $K$, una costante $C_{K}\ge0$ e un intero $N\in\mathbb{N}$ tali che $|(u,\phi)|\le C_{K}\sum_{|\alpha|\le N}\sup_{x\in K}|\partial^{\alpha}\phi|$, per ogni $\phi\in C^{\infty}(\Omega)$, dove $\alpha$ è un multi-indice. Questi funzionali sono chiamati distribuzioni a supporto compatto e sono indicati con $\mathcal{E}^{\prime}(\Omega)$.
+			\end{definizione}
+			
+			\begin{definizione}[133]
+				Sia $\Omega\subseteq\mathbb{R}^{n}$. Una successione $\{\phi_{k}\}_{k\in\mathbb{N}}$ di funzioni lisce su $\Omega$ si dice che converge a 0 in $C^{\infty}(\Omega)$ se, per ogni multi-indice $\alpha$, la successione $\{\partial^{\alpha}\phi_{k}\}_{k\in\mathbb{N}}$ converge a 0 uniformemente su ogni sottoinsieme compatto di $\Omega$.
+			\end{definizione}
+			
+			\begin{teorema}[134]
+				Sia $\Omega\subset\mathbb{R}^{n}$. Allora un funzionale lineare $u$ appartiene a $\mathcal{E}^{\prime}(\Omega)$ se e solo se $\lim_{k\to\infty}(u,\phi_{k}) = 0$ quando $\{\phi_{k}\}_{k\in\mathbb{N}}$ è una successione di funzioni lisce in $\Omega$ tale che $\lim_{k\to\infty}\phi_{k}=0$ nel senso della Definizione 133.
+			\end{teorema}
+			
+			\begin{proposizione}[135]
+				Sia $\Omega\subseteq\mathbb{R}^{n}$. Se $u\in\mathcal{D}^{\prime}(\Omega)$ è tale che $\operatorname{supp}(u)$ è compatto, allora esiste un unico membro $\tilde{u}\in\mathcal{E}^{\prime}(\Omega)$ per cui $(\tilde{u},f)=(u,f)$ per ogni $f\in\mathcal{D}(\Omega)$.
+			\end{proposizione}
+			
+			\begin{teorema}[136]
+				Sia $\Omega\subseteq\mathbb{R}^{n}$. Allora $C_{0}^{\infty}(\Omega)$ è denso in $C^{\infty}(\Omega)$ e $\mathcal{E}^{\prime}(\Omega)$ è denso in $\mathcal{D}^{\prime}(\Omega)$.
+			\end{teorema}
+			
+			\begin{teorema}[137]
+				Sia $u\in\mathcal{D}^{\prime}(\mathbb{R}^{n})$ tale che $\operatorname{supp}(u)=\{0\}$. Allora, esiste $N\in\mathbb{N}\cup\{0\}$ tale che $u=\sum_{|\alpha|\le N}c_{\alpha}\partial^{\alpha}\delta$, dove $\alpha$ è un multi-indice e $c_{\alpha}\in\mathbb{C}$ per ogni valore di $\alpha$.
+			\end{teorema}
+			
+			\begin{definizione}[138]
+				Sia $\Omega\subseteq\mathbb{R}^{n}$ e sia $u\in\mathcal{D}^{\prime}(\Omega)$. Diciamo che $u$ è di ordine finito $N\in\mathbb{N}\cup\{0\}$, se l'intero $N$ di (34) è lo stesso per tutti i sottoinsiemi compatti $K\subset\Omega$.
+			\end{definizione}
+			
+			\begin{teorema}[139]
+				Sia $\Omega\subseteq\mathbb{R}^{n}$ e sia $u\in\mathcal{E}^{\prime}(\Omega)$. Allora è una distribuzione di ordine finito $N$. Pertanto $(u,\phi)=0$ per ogni $\phi\in C^{\infty}(\Omega)$ tale che $\partial^{\alpha}\phi(x)=0$ quando $x\in \operatorname{supp}(u)$ e $\alpha$ è un multi-indice con $|\alpha|\le N$.
+			\end{teorema}
+			
+			\section{Strutture Varie sulle Distribuzioni}
+			
+			\subsection{Prodotto Tensoriale di Distribuzioni}
+			
+			\begin{teorema}[140]
+				Siano $\Omega\subseteq\mathbb{R}^{n}$ e $\Omega^{\prime}\subseteq\mathbb{R}^{m}$. Sia $u\in\mathcal{D}^{\prime}(\Omega)$ e sia $\phi\in C^{\infty}(\mathbb{R}^{n}\times\mathbb{R}^{m})$ tale che per ogni $y^{\prime}\in\Omega^{\prime}$, esiste un sottoinsieme aperto di $y^{\prime}$, diciamo $\mathcal{O}_{y^{\prime}}\subseteq\Omega^{\prime}$, per il quale il supporto della mappa $x\mapsto\phi(x,y)$ è contenuto in un insieme compatto $K_{y^{\prime}}$ ogni volta che $y\in\mathcal{O}_{y^{\prime}}$. Allora $(u,\phi(x,y))\in C^{\infty}(\Omega^{\prime})$ e $\partial^{\alpha}(u,\phi(x,y))=(u,\partial_{y}^{\alpha}\phi(x,y))$, per tutti i multi-indici $\alpha$.
+			\end{teorema}
+			
+			\begin{corollario}[141]
+				Siano $\Omega\subseteq\mathbb{R}^{n}$ e $\Omega^{\prime}\subseteq\mathbb{R}^{m}$. Siano $u\in\mathcal{D}^{\prime}(\Omega)$ e $g\in\mathcal{D}(\Omega\times\Omega^{\prime})$. Allora $(u,g)\in C_{0}^{\infty}(\Omega^{\prime})$.
+			\end{corollario}
+			
+			\begin{corollario}[142]
+				Siano $\Omega\subseteq\mathbb{R}^{n}$ e $\Omega^{\prime}\subseteq\mathbb{R}^{m}$. Siano $u\in\mathcal{E}^{\prime}(\Omega)$ e $\phi\in C^{\infty}(\Omega\times\Omega^{\prime})$. Allora $(u,\phi)\in C^{\infty}(\Omega^{\prime})$.
+			\end{corollario}
+			
+			\begin{teorema}[143]
+				Siano $\Omega\subseteq\mathbb{R}^{n}$ e $\Omega^{\prime}\subseteq\mathbb{R}^{m}$. Allora il sottospazio di $C_{0}^{\infty}(\Omega\times\Omega^{\prime})$ definito come lo span delle funzioni della forma $h\otimes f$, con $h\in C_{0}^{\infty}(\Omega)$ e $f\in C_{0}^{\infty}(\Omega^{\prime})$, è denso in $C_{0}^{\infty}(\Omega\times\Omega^{\prime})$.
+			\end{teorema}
+				\begin{teorema}[144]
+					Siano $\Omega\subseteq\mathbb{R}^{n}$ e $\Omega^{\prime}\subseteq\mathbb{R}^{m}$. Siano $u\in\mathcal{D}^{\prime}(\Omega)$ e $v\in\mathcal{D}^{\prime}(\Omega^{\prime})$. Esiste un unico elemento $u\otimes v\in\mathcal{D}^{\prime}(\Omega\times\Omega^{\prime})$, chiamato il prodotto tensoriale di $u$ e $v$, tale che
+					$$(u\otimes v,f\otimes h)=(u,f)(v,h),$$
+					per ogni $f\in\mathcal{D}(\Omega)$ e per ogni $h\in\mathcal{D}(\Omega^{\prime})$.
+				\end{teorema}
+				
+				\begin{proposizione}[145]
+					Siano $\Omega\subseteq\mathbb{R}^{n}$ e $\Omega^{\prime}\subseteq\mathbb{R}^{m}$. Siano $u\in\mathcal{D}^{\prime}(\Omega)$ e $v\in\mathcal{D}^{\prime}(\Omega^{\prime})$. Vale che
+					$$(u\otimes v,g)=(u,(v,g))=(v,(u,g)), \quad \forall g\in\mathcal{D}(\Omega\times\Omega^{\prime}).$$
+					Inoltre, valgono le seguenti proprietà:
+					\begin{enumerate}
+						\item $\operatorname{supp}(u\otimes v)=\operatorname{supp}(u)\times \operatorname{supp}(v)$.
+						\item Se $\alpha$ è un multi-indice relativo a $\Omega$ e $\beta$ uno relativo a $\Omega^{\prime}$, allora $\partial_{x}^{\alpha}\partial_{y}^{\beta}(u\otimes v)=\partial^{\alpha}u\otimes\partial^{\beta}v$.
+						\item Il prodotto tensoriale è una forma bilineare separatamente continua su $\mathcal{D}^{\prime}(\Omega)\times\mathcal{D}^{\prime}(\Omega^{\prime})$.
+					\end{enumerate}
+				\end{proposizione}
+				
+				\subsection{Convoluzioni}
+				
+				\begin{definizione}[148]
+					Siano $u\in\mathcal{D}^{\prime}(\mathbb{R}^{n})$ e $v\in\mathcal{D}^{\prime}(\mathbb{R}^{n})$. La convoluzione di $u$ e $v$ è definita come il funzionale lineare su $\mathcal{D}(\mathbb{R}^{n})$ dato da
+					$$(u\star v,f)=(u\otimes v,F), \quad \text{dove } F(x,y)=f(x+y).$$
+				\end{definizione}
+				
+				\begin{teorema}[149]
+					Siano $u,v\in\mathcal{D}^{\prime}(\mathbb{R}^{n})$. Allora la convoluzione $u\star v$ esiste se una delle due distribuzioni ha supporto compatto. In questo caso $u\star v=v\star u$ e $\operatorname{supp}(u\star v)\subseteq \operatorname{supp}(u)+\operatorname{supp}(v)$.
+				\end{teorema}
+				
+				\begin{proposizione}[150]
+					Siano $u, v \in \mathcal{D}^{\prime}(\mathbb{R}^{n})$. Allora $\partial^{\alpha}(u\star v) = (\partial^{\alpha}u)\star v = u\star(\partial^{\alpha}v)$ per ogni multi-indice $\alpha$.
+				\end{proposizione}
+				
+				\begin{teorema}[151]
+					(Schwartz) Siano $u \in \mathcal{E}^{\prime}(\mathbb{R}^{n})$ e $v \in \mathcal{D}^{\prime}(\mathbb{R}^{n})$. Allora la mappa $(u, v) \mapsto u \star v$ è separatamente continua.
+				\end{teorema}
+				
+				\begin{corollario}[152]
+					Sia $u \in \mathcal{E}^{\prime}(\mathbb{R}^{n})$. La mappa $v \mapsto u\star v$ è una mappa continua da $\mathcal{D}^{\prime}(\mathbb{R}^{n})$ in $\mathcal{D}^{\prime}(\mathbb{R}^{n})$.
+				\end{corollario}
+				
+				\begin{teorema}[153]
+					Siano $u\in\mathcal{S}^{\prime}(\mathbb{R}^{n})$ e $f\in\mathcal{S}(\mathbb{R}^{n})$. Allora $u\star f\in C^{\infty}(\mathbb{R}^{n})$ e $\partial^{\alpha}(u \star f) = (\partial^{\alpha}u) \star f = u \star (\partial^{\alpha}f)$. Inoltre, $(u \star f)(x) = (u, f(x - \cdot))$, dove l'accoppiamento agisce sulla seconda variabile di $f$.
+				\end{teorema}
+				
+				\begin{teorema}[154]
+					Siano $u,v,w \in \mathcal{D}^{\prime}(\mathbb{R}^{n})$ tali che al più una di esse non abbia supporto compatto. Allora $(u \star v) \star w = u \star (v \star w)$.
+				\end{teorema}
+				
+				\begin{teorema}[155]
+					(Ehrenpreis-Malgrange) Sia $P(D) = \sum_{|\alpha| \le m} c_{\alpha} \partial^{\alpha}$ un operatore differenziale lineare alle derivate parziali con coefficienti costanti $c_{\alpha}$. Allora esiste $E \in \mathcal{D}^{\prime}(\mathbb{R}^{n})$ tale che $P(D)E = \delta$. $E$ è chiamata una soluzione fondamentale (o una funzione di Green) per l'operatore $P(D)$.
+				\end{teorema}
+				
+				\begin{definizione}[156]
+					Chiamiamo soluzione fondamentale dell'operatore $K$ come in (51), una distribuzione $E\in\mathcal{D}^{\prime}(\mathbb{R}^{n})$ tale che $K(E)=k \star E=\delta.$
+				\end{definizione}
+				
+				\begin{proposizione}[157]
+					Sia $u\in\mathcal{D}^{\prime}(\mathbb{R}^{n})$ e $P$ come in (52). Allora $P$ è equivalente a una convoluzione, ovvero, se $k := P\delta\in\mathcal{D}^{\prime}(\mathbb{R}^{n})$, allora $P(u)=k \star u$.
+				\end{proposizione}
+				
+				\begin{osservazione}[11]
+					È degno di nota che non abbiamo mai affermato l'unicità della soluzione fondamentale. Supponiamo quindi che esistano due soluzioni fondamentali linearmente indipendenti, diciamo $E_{1}, E_{2}\in \mathcal{D}^{\prime}(\mathbb{R}^{n})$. Poiché $PE_{i}=\delta$ per $i=1,2$, per linearità $P(E_{1}-E_{2})=0$. Inoltre, usando l'associatività della convoluzione, vale che non solo $E_{1}-E_{2}$ è una soluzione dell'equazione omogenea, ma lo sono anche tutte le distribuzioni della forma $(E_{1}-E_{2})\star v$, con $v\in\mathcal{E}^{\prime}(\mathbb{R}^{n})$. Una domanda interessante è se tutte le soluzioni all'equazione omogenea possano essere caratterizzate in questo modo. La risposta è talvolta negativa, ad es. l'equazione di Helmholtz, e talvolta positiva, ad es. l'equazione delle onde.
+				\end{osservazione}
+				
+				\begin{teorema}[158 (Teorema di Struttura per $\mathcal{D}^{\prime}(\mathbb{R}^{n})$)]
+					La restrizione di qualsiasi $u\in\mathcal{D}^{\prime}(\mathbb{R}^{n})$ a un insieme aperto e limitato $X\subset\mathbb{R}^{n}$ è una derivata di ordine finito di una funzione continua.
+				\end{teorema}
+				
+				\subsection{Kernel Distribuzionali}
+				
+				\begin{definizione}[160]
+					Siano $\Omega\subseteq\mathbb{R}^{n}$ e $\Omega^{\prime}\subseteq\mathbb{R}^{m}$. Chiamiamo nucleo di Schwartz (o distribuzionale) un qualsiasi $k\in\mathcal{D}^{\prime}(\Omega\times\Omega^{\prime})$ che genera una distribuzione $k_{f}\in\mathcal{D}^{\prime}(\Omega^{\prime})$ definita come in (55).
+				\end{definizione}
+				
+				\begin{definizione}[161]
+					Siano $\Omega\subseteq\mathbb{R}^{n}$, $\Omega^{\prime}\subseteq\mathbb{R}^{m}$ e $k\in\mathcal{D}^{\prime}(\Omega\times\Omega^{\prime})$ un nucleo di Schwartz. Chiamiamo nucleo trasposto ${}^{t}k\in\mathcal{D}^{\prime}(\Omega^{\prime}\times\Omega)$ la distribuzione definita come $({}^{t}k,g) := (k,{}^{t}g)$, per ogni $g\in\mathcal{D}(\Omega^{\prime}\times\Omega)$.
+				\end{definizione}
+				
+				\begin{osservazione}[12]
+					Si noti che qualsiasi nucleo trasposto ${}^t k$ genera una mappa $\mathcal{K}:C_{0}^{\infty}(\Omega)\to\mathcal{D}^{\prime}(\Omega^{\prime})$ tale che
+					$$(\mathcal{K}(f),h)=(k,f\otimes h)=({}^t\mathcal{K}(h),f), \quad \forall f\in\mathcal{D}(\Omega), \forall h\in\mathcal{D}(\Omega^{\prime}).$$
+				\end{osservazione}
+				
+				\begin{teorema}[162 (Teorema del Nucleo di Schwartz)]
+					Siano $\Omega\subseteq\mathbb{R}^{n}$ e $\Omega^{\prime}\subseteq\mathbb{R}^{m}$. Sia $\mathcal{K}: C_{0}^{\infty}(\Omega^{\prime})\to\mathcal{D}^{\prime}(\Omega)$ un'applicazione lineare. Essa è sequenzialmente continua se e solo se è generata da un nucleo di Schwartz $k\in\mathcal{D}^{\prime}(\Omega\times\Omega^{\prime})$ tramite l'identità che la definisce:
+					$$(\mathcal{K}(h),f)=(k,h\otimes f), \quad \forall h\in\mathcal{D}(\Omega'), \forall f\in\mathcal{D}(\Omega).$$
+					Inoltre, $k$ è completamente determinato da $\mathcal{K}$.
+				\end{teorema}
+				
+				\begin{definizione}[163]
+					Siano $\Omega\subseteq\mathbb{R}^{n}$ e $\Omega^{\prime}\subseteq\mathbb{R}^{m}$. Una mappa $\mathcal{K}:C_{0}^{\infty}(\Omega^{\prime})\to C^{\infty}(\Omega)$ è detta continua se, per ogni sottoinsieme compatto $K\subset\Omega$ e $K^{\prime}\subset\Omega^{\prime}$ e per ogni multi-indice $\alpha$, esistono una costante $C_{K,K^{\prime}}\ge0$ e $N\in\mathbb{N}\cup\{0\}$ tali che
+					$$\sup_{x\in K}\{|\partial^{\alpha}\mathcal{K}[h](x)\}\le C_{K,K^{\prime}}\sum_{|\beta|\le N}\sup|\partial^{\beta}h|, \quad \forall h\in C_{0}^{\infty}(K^{\prime}).$$
+				\end{definizione}
+				
+				\begin{teorema}[164]
+					Siano $\Omega\subseteq\mathbb{R}^{n}$ e $\Omega^{\prime}\subseteq\mathbb{R}^{m}$ e sia $k\in\mathcal{D}^{\prime}(\Omega\times\Omega^{\prime})$ un nucleo di Schwartz. Supponiamo che ${}^t\mathcal{K}:C_{0}^{\infty}(\Omega)\to C^{\infty}(\Omega^{\prime})$ sia una mappa continua nel senso della Definizione 163. Allora $\mathcal{K}$ può essere estesa a $\tilde{\mathcal{K}}:\mathcal{E}^{\prime}(\Omega^{\prime})\to\mathcal{D}^{\prime}(\Omega)$. Inoltre $\tilde{\mathcal{K}}$ è sequenzialmente continua nel modo seguente: Se una successione $\{u_{j}\}_{j\in\mathbb{N}}$ converge a $u\in\mathcal{E}^{\prime}(\Omega')$ quando $j\to\infty$ e se tutti i $\operatorname{supp}(u_{j})$ sono contenuti nello stesso insieme compatto, allora
+					$$\lim_{j\to\infty}\tilde{\mathcal{K}}(u_{j})=\tilde{\mathcal{K}}(u),$$
+					dove il limite è preso in $\mathcal{D}^{\prime}(\Omega)$.
+				\end{teorema}
+				
+				\begin{definizione}[165]
+					Siano $\Omega\subseteq\mathbb{R}^{n}$ e $\Omega^{\prime}\subseteq\mathbb{R}^{m}$ e sia $k\in\mathcal{D}^{\prime}(\Omega\times\Omega^{\prime})$ un nucleo di Schwartz. Se le mappe $\mathcal{K}:C_{0}^{\infty}(\Omega^{\prime})\to C^{\infty}(\Omega)$ e ${}^t\mathcal{K}: C_{0}^{\infty}(\Omega)\to C^{\infty}(\Omega^{\prime})$, generate da $k$, sono entrambe continue nel senso della Definizione 163, allora $k$ è detto un nucleo regolare.
+				\end{definizione}
+				
+				\begin{corollario}[166]
+					Siano $\Omega\subseteq\mathbb{R}^{n}$ e $\Omega^{\prime}\subseteq\mathbb{R}^{m}$ e sia $k\in\mathcal{D}^{\prime}(\Omega\times\Omega^{\prime})$ un nucleo regolare. Sia $\mathcal{K}$ che ${}^t\mathcal{K}$ si estendono a mappe sequenzialmente continue rispettivamente da $\mathcal{E}^{\prime}(\Omega^{\prime})\to\mathcal{D}^{\prime}(\Omega)$ e da $\mathcal{E}^{\prime}(\Omega)\to\mathcal{D}^{\prime}(\Omega^{\prime})$.
+				\end{corollario}
+				
+				\begin{teorema}[167]
+					Siano $\Omega\subseteq\mathbb{R}^{n}$ e $\Omega^{\prime}\subseteq\mathbb{R}^{m}$ e sia $\mathcal{K}:C_{0}^{\infty}(\Omega^{\prime})\to C^{\infty}(\Omega)$ una mappa continua. Allora il suo nucleo di Schwartz è
+					$$(k,g) := \int_{\Omega} \mathcal{K}[g_x](x) \,d^{n}x, \quad \forall g\in\mathcal{D}(\Omega\times\Omega^{\prime}),$$
+					dove $\mathcal{K}[g_x]$ è l'immagine della mappa $\Omega^{\prime}\ni y\mapsto g(x,y)$ sotto l'azione di $\mathcal{K}$.
+				\end{teorema}
+				
+				\begin{teorema}[169]
+					Siano $\Omega\subseteq\mathbb{R}^{n}$, $\Omega^{\prime}\subseteq\mathbb{R}^{m}$, $\Omega^{\prime\prime}\subseteq\mathbb{R}^{p}$ e siano $k_{1}\in\mathcal{D}^{\prime}(\Omega\times\Omega^{\prime})$ e $k_{2}\in\mathcal{D}^{\prime}(\Omega^{\prime}\times\Omega^{\prime\prime})$ nuclei di Schwartz. Si assuma che $k_{1}$ sia regolare a destra, cioè $\mathcal{K}_{1}:\mathcal{E}^{\prime}(\Omega^{\prime})\to\mathcal{D}^{\prime}(\Omega)$, e che $k_{2}$ sia regolare a sinistra, cioè $\mathcal{K}_{2}:C_{0}^{\infty}(\Omega^{\prime\prime})\to C^{\infty}(\Omega^{\prime})$. Allora la mappa composta $\mathcal{K}_{1}\circ\mathcal{K}_{2}:C_{0}^{\infty}(\Omega^{\prime\prime})\to\mathcal{D}^{\prime}(\Omega)$ è generata da un nucleo di Schwartz $k\in\mathcal{D}^{\prime}(\Omega\times\Omega^{\prime\prime})$ dato da
+					$$(k,f\otimes h)=(k_{1},f\otimes\mathcal{K}_{2}(h))=(k_{2},{}^{t}\mathcal{K}_{1}(f)\otimes h),$$
+					per ogni $f\in C_{0}^{\infty}(\Omega)$ e per ogni $h\in C_{0}^{\infty}(\Omega^{\prime\prime})$.
+				\end{teorema}
+				
+				\section{Trasformata di Fourier}
+				
+				\begin{definizione}[175]
+					Sia $\phi\in L^{1}(\mathbb{R}^{n})$. La sua trasformata di Fourier $\hat{\phi}:\mathbb{R}^{n}\to\mathbb{C}$ è
+					$$\hat{\phi}(k) := \int_{\mathbb{R}^{n}} e^{-ik\cdot x}\phi(x) \,d^{n}x.$$
+				\end{definizione}
+				
+				\begin{teorema}[176]
+					Sia $\phi\in L^{1}(\mathbb{R})$. Sia $\phi$ di classe $C^{1}(\mathbb{R})$ a tratti. Sia la derivata $\phi^{\prime}$ continua a tratti e sia $\phi^{\prime}\in L^{1}(\mathbb{R})$. Allora $\phi$ può essere ricostruita dalla sua trasformata di Fourier come
+					$$\phi(x)=\frac{1}{2\pi}\int_{\mathbb{R}} e^{ikx}\hat{\phi}(k) \,dk.$$
+				\end{teorema}
+				
+				\begin{teorema}[177]
+					Sia $\phi\in L^{1}(\mathbb{R}^{n})$. Allora la trasformata di Fourier come nella Definizione 175 esiste, è continua e limitata ($\hat{\phi}\in L^{\infty}(\mathbb{R}^{n})$) poiché $|\hat{\phi}|\le\|\phi\|_{L^1}$. Inoltre:
+					\begin{enumerate}
+						\item Se $\phi, \psi \in L^{1}(\mathbb{R}^{n})$, allora $\int_{\mathbb{R}^{n}} \phi(x)\hat{\psi}(x) \,d^{n}x = \int_{\mathbb{R}^{n}} \hat{\phi}(k)\psi(k) \,d^{n}k$.
+						\item Se $\phi, \psi \in L^{1}(\mathbb{R}^{n})$, allora la convoluzione $\phi\star\psi$ esiste per quasi ogni $x\in\mathbb{R}^{n}$ e $\phi\star\psi\in L^{1}(\mathbb{R}^{n})$.
+						\item Se $\phi, \psi \in L^{1}(\mathbb{R}^{n})$, allora $\widehat{\phi\star\psi}=\hat{\phi}\hat{\psi}$.
+					\end{enumerate}
+				\end{teorema}
+				
+				\subsection{Funzioni a decrescenza rapida}
+				
+				\begin{definizione}[178]
+					Una funzione $\phi\in C^{\infty}(\mathbb{R}^{n})$ è detta a decrescenza rapida se, per tutte le coppie di multi-indici $\alpha, \beta$,
+					$$||\phi||_{\alpha,\beta} := \sup_{x\in\mathbb{R}^{n}}|x^{\alpha}\partial^{\beta}\phi(x)|<\infty.$$
+					Lo spazio di tutte queste funzioni è denotato con $\mathcal{S}(\mathbb{R}^{n})$.
+				\end{definizione}
+				
+				\begin{definizione}[179]
+					Sia $\{\phi_{j}\}_{j\in\mathbb{N}}$ una successione di elementi in $\mathcal{S}(\mathbb{R}^{n})$. Diciamo che essa converge a $\phi\in\mathcal{S}(\mathbb{R}^{n})$ e scriviamo $\lim_{j\to\infty}\phi_{j}=\phi$ se, per tutti i multi-indici $\alpha, \beta$,
+					$$\lim_{j\to\infty}||\phi_{j}-\phi||_{\alpha,\beta}=0.$$
+				\end{definizione}
+				
+				\begin{proposizione}[180]
+					Valgono le seguenti proprietà:
+					\begin{enumerate}
+						\item $\mathcal{S}(\mathbb{R}^{n})$ è stabile per derivazione e per moltiplicazione per polinomi. Inoltre, se $p$ e $q$ sono due polinomi, la mappa $\mathcal{S}(\mathbb{R}^{n})\ni\phi\mapsto p(x)q(D)\phi\in\mathcal{S}(\mathbb{R}^{n})$ è continua. Qui $q(D)$ significa quanto segue: sia $q(x) = \sum_{|\alpha|\le N} c_{\alpha}x^{\alpha}$, con $c_{\alpha}\in\mathbb{C}$. Allora $q(D)=\sum_{|\alpha|\le N}c_{\alpha}\partial^{\alpha}$.
+						\item L'iniezione $C_{0}^{\infty}(\mathbb{R}^{n})\hookrightarrow \mathcal{S}(\mathbb{R}^{n})$ è continua.
+						\item $C_{0}^{\infty}(\mathbb{R}^{n})$ è denso in $\mathcal{S}(\mathbb{R}^{n})$.
+						\item L'iniezione $\mathcal{S}(\mathbb{R}^{n})\hookrightarrow L^{1}(\mathbb{R}^{n})$ è continua.
+					\end{enumerate}
+				\end{proposizione}
+				
+				\begin{lemma}[181]
+					Sia $\phi\in\mathcal{S}(\mathbb{R}^{n})$ e sia $\mathcal{F}:\mathcal{S}(\mathbb{R}^{n})\to L^{\infty}(\mathbb{R}^{n})$ la trasformata di Fourier, ovvero $\mathcal{F}(\phi)=\hat{\phi}.$ Allora, per ogni multi-indice $\alpha$,
+					$$\mathcal{F}(\partial^{\alpha}\phi)(k)=(ik)^{\alpha}\hat{\phi}(k) \quad \text{e} \quad \mathcal{F}((-ix)^\alpha\phi)(k)=\partial^{\alpha}\hat{\phi}(k).$$
+				\end{lemma}
+				
+				\begin{proposizione}[182]
+					La trasformata di Fourier è una mappa continua da $\mathcal{S}(\mathbb{R}^{n})$ in $\mathcal{S}(\mathbb{R}^{n}).$
+				\end{proposizione}
+				
+				\begin{proposizione}[183]
+					Sia $\phi\in\mathcal{S}(\mathbb{R}^{n})$. Vale
+					$$\phi(x)=\int_{\mathbb{R}^{n}}\frac{d^{n}k}{(2\pi)^{n}}\hat{\phi}(k)e^{ix\cdot k}.$$
+					In altre parole, esiste l'inversa di $\mathcal{F}$, ovvero $\mathcal{F}^{-1}:\mathcal{S}(\mathbb{R}^{n})\to\mathcal{S}(\mathbb{R}^{n})$, ed è un isomorfismo continuo di spazi vettoriali topologici.
+				\end{proposizione}
+				
+				\subsection{Distribuzioni temperate}
+				
+				\begin{definizione}[184]
+					Chiamiamo distribuzioni temperate i funzionali lineari $u:\mathcal{S}(\mathbb{R}^{n})\to\mathbb{C}$ tali che esistono una costante $C\ge0$ e $N\in\mathbb{N}\cup\{0\}$ per cui
+					$$|(u,\phi)|\le C\sum_{|\alpha|,|\beta|\le N}\sup_{x\in\mathbb{R}^n}|x^{\alpha}\partial^{\beta}\phi(x)|.$$
+					La collezione di tutte le distribuzioni temperate è lo spazio vettoriale $\mathcal{S}^{\prime}(\mathbb{R}^{n})$.
+				\end{definizione}
+				
+				\begin{definizione}[185]
+					Chiamiamo spazio delle distribuzioni temperate $\mathcal{S}^{\prime}(\mathbb{R}^{n})$ il sottospazio di $\mathcal{D}^{\prime}(\mathbb{R}^{n})$ che consiste delle distribuzioni che si estendono a forme lineari continue su $\mathcal{S}(\mathbb{R}^{n})$.
+				\end{definizione}
+				
+				\begin{teorema}[186]
+					Ogni distribuzione temperata è una derivata di ordine finito di una funzione continua a crescita polinomiale.
+				\end{teorema}
+				
+				\begin{definizione}[187]
+					La trasformata di Fourier di una distribuzione temperata $u\in\mathcal{S}^{\prime}(\mathbb{R}^{n})$ è $\hat{u}\in \mathcal{S}^{\prime}(\mathbb{R}^{n})$ tale che $(\hat{u},\phi)=(u,\hat{\phi})$, per ogni $\phi\in\mathcal{S}(\mathbb{R}^{n})$.
+				\end{definizione}
+				
+				\begin{teorema}[188]
+					Sia $\mathcal{F}:\mathcal{S}^{\prime}(\mathbb{R}^{n})\to \mathcal{S}^{\prime}(\mathbb{R}^{n})$ la mappa definita tramite (63). Essa è una mappa sequenzialmente continua con inversa sequenzialmente continua.
+				\end{teorema}
+				
+				\begin{teorema}[190]
+					Sia $u\in\mathcal{E}^{\prime}(\mathbb{R}^{n})$. Allora $\hat{u}(k)=(u,e^{-ik\cdot x})$ e $\hat{u}\in C^{\infty}(\mathbb{R}^{n})$. Inoltre, $\hat{u}$ è un cosiddetto moltiplicatore su $\mathcal{S}^{\prime}(\mathbb{R}^{n})$, cioè $\partial^{\alpha}\hat{u}$ è una funzione liscia a crescita polinomiale per tutti i multi-indici $\alpha$.
+				\end{teorema}
+				
+				\begin{corollario}[191]
+					Sia $u\in\mathcal{E}^{\prime}(\mathbb{R}^{n})$. Allora $\hat{u}(k)=(u,e^{-ik\cdot x})$ può essere estesa a ogni $k\in\mathbb{C}^n$ e $\hat{u}(k)$ è analitica intera.
+				\end{corollario}
+				
+				\begin{corollario}[192]
+					Siano $u, v\in\mathcal{E}^{\prime}(\mathbb{R}^{n})$. Allora $\widehat{u\star v}=\hat{u}\hat{v}$.
+				\end{corollario}
+				
+				\begin{teorema}[193]
+					Siano $u\in\mathcal{S}^{\prime}(\mathbb{R}^{n})$ e $v\in\mathcal{E}^{\prime}(\mathbb{R}^{n})$. Allora $u\star v\in\mathcal{S}^{\prime}(\mathbb{R}^{n})$ e $\widehat{u\star v}=\hat{u}\hat{v}.$
+				\end{teorema}
+				
+				\subsection{Trasformata di Fourier-Plancherel}
+				
+				\begin{definizione}[194]
+					Una forma sesquilineare $s:V\times V\to\mathbb{C}$ su uno spazio vettoriale complesso $V$ è una mappa tale che, per ogni $x,y,z\in V$ e per ogni $\lambda\in\mathbb{C}$...
+				\end{definizione}
+				
+				\begin{definizione}[195]
+					Un prodotto scalare su uno spazio vettoriale complesso $V$ è una forma sesquilineare che è...
+				\end{definizione}
+				
+				\begin{definizione}[196]
+					Uno spazio vettoriale complesso $V$ dotato di un prodotto scalare è chiamato uno spazio pre-hilbertiano.
+				\end{definizione}
+				
+				\begin{teorema}[197 (Disuguaglianza di Schwarz)]
+					Sia $V$ uno spazio pre-hilbertiano. Per ogni $x,y\in V$ vale $|(x,y)|\le\|x\|\|y\|.$
+				\end{teorema}
+				
+				\begin{definizione}[198]
+					Una successione $\{x_{j}\}_{j\in\mathbb{N}}$ di elementi di uno spazio pre-hilbertiano $V$ è chiamata una successione di Cauchy se $\lim_{j,l\to\infty}\|x_{j}-x_{l}\|=0.$
+				\end{definizione}
+				
+				\begin{definizione}[199]
+					Uno spazio di Hilbert è uno spazio pre-hilbertiano che è completo rispetto alla distanza indotta dalla norma.
+				\end{definizione}
+				
+				\begin{proposizione}[200]
+					Sia $H$ uno spazio di Hilbert e sia $C\subset H$ un insieme chiuso e convesso. Per ogni $x\in H$, esiste un unico $y\in C$ tale che $\|x-y\|=\inf_{z\in C}\|x-z\|.$
+				\end{proposizione}
+				
+				\begin{teorema}[201 (Teorema della proiezione)]
+					Sia $H$ uno spazio di Hilbert e $M$ un sottospazio chiuso di $H$. Allora ogni $x\in H$ può essere scritto in modo unico come $x=y+z$ dove $y\in M$ e $z\in M^{\perp}.$ L'elemento $y$ è chiamato proiezione ortogonale di $x$ su $M$.
+				\end{teorema}
+				
+				\begin{lemma}[202]
+					Sia $H$ uno spazio di Hilbert e sia $f:H\to\mathbb{C}$ un funzionale lineare continuo. Allora $\ker(f)$ è un sottospazio chiuso di codimensione 1.
+				\end{lemma}
+				
+				\begin{proposizione}[203 (Riesz)]
+					Sia $H$ uno spazio di Hilbert. Per ogni $y\in H$, la mappa $f_{y}:H\to\mathbb{C}$ definita come $f_{y}(x) := (y,x)$ è un funzionale lineare continuo su $H$. Inoltre $\|f_{y}\|=\|y\|.$
+				\end{proposizione}
+				
+				\begin{proposizione}[204]
+					Sia $H$ uno spazio di Hilbert e sia $\{x_{j}\}_{j\in\mathbb{N}}$ una successione ortonormale. Allora, per ogni $x\in H$, la serie $\sum_{j\in\mathbb{N}}|(x,x_{j})|^{2}$ converge e vale la disuguaglianza di Bessel $\sum_{j\in\mathbb{N}}|(x,x_{j})|^{2}\le\|x\|^{2}.$
+				\end{proposizione}
+				
+				\begin{teorema}[205]
+					Sia $H$ uno spazio di Hilbert e sia $\{x_{j}\}_{j\in\mathbb{N}}$ una successione ortonormale. Le seguenti affermazioni sono equivalenti...
+				\end{teorema}
+				
+				\begin{definizione}[206]
+					Sia $H = L^2(\mathbb{R})$ e siano $X$ e $P$ rispettivamente l'operatore di posizione e di momento. Chiamiamo:
+					\begin{itemize}
+						\item \textbf{Operatore di annichilazione} $A := X + iP$, con dominio naturale $D(A) = D(X) \cap D(P)$.
+						\item \textbf{Operatore di creazione} $A^\dagger := X - iP$, con dominio naturale $D(A^\dagger) = D(X) \cap D(P)$.
+						\item \textbf{Operatore numero} $N = A^\dagger A$, con dominio naturale $D(N) = \{\psi \in L^2(\mathbb{R}) \mid A\psi \in D(A^\dagger)\}$.
+					\end{itemize}
+				\end{definizione}
+				
+				\begin{proposizione}[207]
+					Gli operatori di creazione e annichilazione sono chiusi e $A^\dagger = A^*$.
+				\end{proposizione}
+				
+				\begin{corollario}[208]
+					L'operatore numero $N$ è autoaggiunto e positivo.
+				\end{corollario}
+			
+\end{document}

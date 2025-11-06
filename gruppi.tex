@@ -1,0 +1,2080 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{dsfont}
+\usepackage{geometry}
+\usepackage{makeidx}
+\usepackage[italian]{babel}
+\usepackage{tikz-cd}
+\geometry{a4paper, margin=1in}
+
+\theoremstyle{definition}
+\newtheorem*{definizione}{Definizione}
+\newtheorem*{teorema}{Teorema}
+\newtheorem*{corollario}{Corollario}
+\newtheorem*{proposizione}{Proposizione}
+\newtheorem*{osservazione}{Osservazione}
+\newtheorem*{esempio}{Esempio}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\ket}[1]{|#1\rangle}
+\newcommand{\bra}[1]{\langle#1|}
+\newcommand{\braket}[2]{\langle#1|#2\rangle}
+\newcommand{\innerprod}[2]{\langle#1, #2\rangle}
+\newcommand{\Hspace}{\mathcal{H}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Schwartz}{\mathcal{S}}
+\newcommand{\Identity}{\mathds{1}} % Corretto per usare dsfont
+\newcommand{\g}{\mathfrak{g}} % Per l'algebra di Lie (richiede amssymb o amsfonts)
+\newcommand{\h}{\mathfrak{h}} % Per l'algebra di Lie (richiede amssymb o amsfonts)
+\newcommand{\K}{\mathbb{K}} % Per un campo generico
+\newcommand{\Lie}{\mathcal{L}} % Per la derivata di Lie (se necessaria)
+\newcommand{\so}{\mathfrak{so}} % Definiamo \so per l'algebra
+\newcommand{\su}{\mathfrak{su}} % Definiamo \so per l'algebra
+\newcommand{\Ghat}{\hat{G}} % Per il duale di G
+\newcommand{\Rep}{\mathcal{R}} % Per la rappresentazione regolare
+
+\makeatletter
+\renewenvironment{definizione}[1][]{%
+	\par\addvspace{1.5ex}%
+	\noindent\textbf{Definizione\ifx\relax#1\relax\else\ (#1)\fi}%
+	\par\nobreak\vskip+0.5ex%
+	\itshape
+}{\par\addvspace{1.5ex}}
+\renewenvironment{teorema}[1][]{%
+	\par\addvspace{1.5ex}%
+	\noindent\textbf{Teorema\ifx\relax#1\relax\else\ (#1)\fi}%
+	\par\nobreak\vskip+0.5ex%
+	\itshape
+}{\par\addvspace{1.5ex}}
+\renewenvironment{proposizione}[1][]{%
+	\par\addvspace{1.5ex}%
+	\noindent\textbf{Proposizione\ifx\relax#1\relax\else\ (#1)\fi}%
+	\par\nobreak\vskip+0.5ex%
+	\itshape
+}{\par\addvspace{1.5ex}}
+\renewenvironment{corollario}[1][]{%
+	\par\addvspace{1.5ex}%
+	\noindent\textbf{Corollario\ifx\relax#1\relax\else\ (#1)\fi}%
+	\par\nobreak\vskip+0.5ex%
+	\itshape
+}{\par\addvspace{1.5ex}}
+\renewenvironment{osservazione}[1][]{%
+	\par\addvspace{1.5ex}%
+	\noindent\textbf{Osservazione\ifx\relax#1\relax\else\ (#1)\fi}%
+	\par\nobreak\vskip+0.5ex%
+	\itshape
+}{\par\addvspace{1.5ex}}
+\renewenvironment{lemma}[1][]{%
+	\par\addvspace{1.5ex}%
+	\noindent\textbf{Lemma\ifx\relax#1\relax\else\ (#1)\fi}%
+	\par\nobreak\vskip+0.5ex%
+	\itshape
+}{\par\addvspace{1.5ex}}
+\renewenvironment{esempio}[1][]{%
+	\par\addvspace{1.5ex}%
+	\noindent\textbf{Esempio\ifx\relax#1\relax\else\ (#1)\fi}%
+	\par\nobreak\vskip+0.5ex%
+	\itshape
+}{\par\addvspace{1.5ex}}
+\makeatother
+\makeindex
+\renewcommand{\contentsname}{Indice}
+\begin{document}
+	
+	\section*{\centering \Huge Teoria dei gruppi}
+	\section*{\centering \Large Teoria dei gruppi e delle rappresentazioni}
+	\hrule
+	\vspace{1em}
+	\tableofcontents
+	\newpage
+\section{Introduzione alla teoria dei gruppi}
+\begin{definizione}[Gruppo]
+	Un \emph{gruppo} è una coppia \((G, \ast)\) dove \(G\) è un insieme non vuoto e \(\ast : G \times G \to G\) è un'operazione binaria tale che valgono le seguenti proprietà:
+	
+	\begin{enumerate}
+		\item \textbf{Associatività:} per ogni \(a,b,c \in G\) vale \((a \ast b) \ast c = a \ast (b \ast c)\);
+		\item \textbf{Elemento neutro:} esiste un elemento \(e \in G\) tale che per ogni \(a \in G\) si ha \(e \ast a = a \ast e = a\);
+		\item \textbf{Inverso:} per ogni \(a \in G\) esiste un elemento \(a^{-1} \in G\) tale che \(a \ast a^{-1} = a^{-1} \ast a = e\).
+	\end{enumerate}
+	
+	
+	\noindent
+	Se inoltre vale la proprietà di \textbf{commutatività}, ossia \(a \ast b = b \ast a\) per ogni \(a,b \in G\), allora il gruppo si dice \emph{abeliano}.
+\end{definizione}
+
+\vspace{0.4cm}
+
+\begin{esempio}[Gruppi puntiformi]
+	\begin{itemize}
+		\item \((\mathbb{Z}, +)\): l'insieme degli interi con l'addizione è un gruppo abeliano; l'elemento neutro è \(0\) e l'inverso di \(a\) è \(-a\).
+		\item \((\mathbb{Q}^\times, \cdot)\): l'insieme dei razionali non nulli con la moltiplicazione è un gruppo abeliano; l'elemento neutro è \(1\) e l'inverso di \(a\) è \(a^{-1}\).
+		\item \((\mathbb{R}^\times, \cdot)\) e \((\mathbb{C}^\times, \cdot)\) sono anch’essi gruppi abeliani rispetto alla moltiplicazione.
+	\end{itemize}
+\end{esempio}
+\vspace{0.4cm}
+
+\noindent
+\begin{esempio}[Gruppi di permutazione]
+	Sia \(S_n\) l'insieme di tutte le permutazioni di un insieme di \(n\) elementi. Con la composizione di funzioni come operazione, \(S_n\) forma un gruppo detto \emph{gruppo simmetrico} di grado \(n\).
+	
+	
+	\begin{itemize}
+		\item L'elemento neutro è la permutazione identità \(id\);
+		\item Ogni permutazione \(\sigma \in S_n\) è invertibile, e il suo inverso è \(\sigma^{-1}\);
+		\item La composizione è associativa ma non commutativa per \(n \geq 3\).
+	\end{itemize}
+\end{esempio}
+
+\noindent
+\begin{esempio}[Gruppo alternante]
+	Il \emph{gruppo alternante} \(A_n\) è il sottogruppo di \(S_n\) formato da tutte le permutazioni \emph{pari}, ossia quelle ottenibili come composizione di un numero pari di trasposizioni. \(A_n\) ha ordine \(\frac{n!}{2}\).
+\end{esempio}
+\vspace{0.4cm}
+
+\noindent
+\begin{teorema}[Cayley]
+	Ogni gruppo finito \(G\) di ordine \(n\) è isomorfo a un sottogruppo del gruppo simmetrico \(S_n\). \\
+	In particolare, ad ogni elemento \(g \in G\) si associa la permutazione \(\phi_g : G \to G\) definita da
+	\[
+	\phi_g(x) = g \ast x \quad \forall x \in G.
+	\]
+	La mappa \(g \mapsto \phi_g\) è un omomorfismo iniettivo da \(G\) in \(S_G\), che realizza l’isomorfismo richiesto.
+\end{teorema}
+
+\begin{definizione}[Gruppo simmetrico]
+	Dato un insieme finito \( X = \{1, 2, \dots, n\} \), si definisce \emph{gruppo simmetrico} su \( n \) elementi, indicato con \( S_n \), l’insieme di tutte le \emph{permutazioni} di \( X \), ossia di tutte le funzioni biiettive
+	\[
+	\sigma : X \to X.
+	\]
+	La composizione di due permutazioni, definita come la composizione ordinaria di funzioni, fornisce a \( S_n \) una struttura di gruppo.
+	
+	Formalmente:
+	\[
+	S_n = \{\, \sigma : X \to X \mid \sigma \text{ biiettiva} \,\},
+	\]
+	con l’operazione di gruppo
+	\[
+	(\sigma \circ \tau)(i) = \sigma(\tau(i)).
+	\]
+	L’identità è la permutazione identica \( e(i) = i \), e ogni elemento \(\sigma\) ha un inverso \(\sigma^{-1}\), che è anch’esso una permutazione di \(X\).
+\end{definizione}
+
+\begin{esempio}[Gruppo simmetrico su due elementi]
+	Il gruppo \( S_2 \) contiene due permutazioni:
+	\[
+	S_2 = \{ e, (12) \},
+	\]
+	dove \( e \) è l’identità e \((12)\) è la permutazione che scambia \(1\) e \(2\).
+	Questo gruppo è abeliano e isomorfo a \( C_2 \).
+\end{esempio}
+
+\begin{esempio}[Gruppo simmetrico su tre elementi]
+	Il gruppo \( S_3 \) contiene tutte le permutazioni di \(\{1,2,3\}\), ossia sei elementi:
+	\[
+	S_3 = \{ e, (12), (13), (23), (123), (132) \}.
+	\]
+	La composizione delle permutazioni segue la legge di composizione delle funzioni.  
+	\(S_3\) è non abeliano ed è isomorfo al gruppo diedrale \(D_3\), il gruppo delle simmetrie di un triangolo equilatero.
+\end{esempio}
+
+\begin{definizione}[Gruppi diedrali \(D_n\)]
+	Il gruppo diedrale \(D_n\) è il gruppo delle isometrie del piano che preservano un poligono regolare con \(n\) lati. 
+	Contiene tutte le rotazioni e le riflessioni che lasciano invariato il poligono.
+	
+	\noindent
+	Formalmente, \(D_n\) è generato da due elementi \(b\) e \(c\) che soddisfano le relazioni:
+	\[
+	c^n = e, \quad b^2 = e, \quad bcb = c^{-1}.
+	\]
+	L’elemento \(c\) rappresenta una rotazione di \( \tfrac{2\pi}{n} \) radianti, mentre \(vìb\) rappresenta una riflessione. 
+	Il gruppo ha ordine \(2n\).
+\end{definizione}
+
+\vspace{0.4cm}
+
+\begin{definizione}[Partizione di un insieme]
+	Una \emph{partizione} di un insieme \(X\) è una famiglia di sottoinsiemi non vuoti \(\{A_i\}_{i \in I}\) tali che:
+	\[
+	A_i \cap A_j = \varnothing \text{ per } i \neq j, \qquad \bigcup_{i \in I} A_i = X.
+	\]
+	In altre parole, una partizione suddivide \(X\) in blocchi disgiunti la cui unione ricopre tutto l’insieme.
+\end{definizione}
+
+\vspace{0.4cm}
+
+\begin{definizione}[Classe di coniugazione completa]
+	Sia \(G\) un gruppo e sia \(g\in G\). La \emph{classe di coniugazione} di \(g\) è
+	\[
+	\mathrm{Cl}(g)=\{xgx^{-1}\mid x\in G\}.
+	\]
+	Diciamo che l'insieme delle classi di coniugazione di \(G\) è \emph{completo} nel senso usuale: le classi di coniugazione formano una partizione di \(G\) (cioè ogni elemento di \(G\) appartiene esattamente a una classe di coniugazione) e la loro unione è \(G\).
+\end{definizione}
+
+\noindent
+\textbf{Proprietà importanti.}
+\begin{itemize}
+	\item Le classi di coniugazione hanno tutte la stessa cardinalità di \(G\) divisa per la cardinalità del centralizzatore di \(g\): 
+	\[
+	[\mathrm{Cl}(g)]=[G:C_G(g)],\qquad C_G(g)=\{x\in G\mid xg=gx\}.
+	\]
+	dove $[G:C_G(g)]$ è l’indice di \(C_G\) in \(G\), cioè il numero di classi laterali distinte di \(C_G\) in \(G\)
+	\item La classe di coniugazione di \(e\) è \(\{e\}\).
+	\item Le classi di coniugazione sono stabili per l'azione coniugazione di \(G\) su \(G\); in particolare la partizione in classi di coniugazione è un esempio canonico di partizione naturale associata a un'azione di gruppo.
+\end{itemize}
+
+\vspace{0.4cm}
+
+\begin{definizione}[Sottogruppo e sottogruppo proprio]
+	Un sottoinsieme \(H \subseteq G\) è detto \emph{sottogruppo} di \(G\) se \(H\) è chiuso rispetto all’operazione di \(G\), contiene l’elemento neutro ed è chiuso rispetto agli inversi. In tal caso si scrive \(H \leq G\).
+	
+	\noindent
+	Se inoltre \(H \neq \{e\}\) e \(H \neq G\), allora \(H\) è detto \emph{sottogruppo proprio}, e si scrive \(H < G\).
+\end{definizione}
+
+\vspace{0.4cm}
+
+\begin{definizione}[Classi laterali]
+	Sia \(H \leq G\) un sottogruppo e \(g \in G\). Si definiscono:
+	\[
+	gH = \{ gh \mid h \in H \} \quad \text{(classe laterale sinistra)}, \qquad
+	Hg = \{ hg \mid h \in H \} \quad \text{(classe laterale destra)}.
+	\]
+	Le classi laterali di \(H\) in \(G\) formano una partizione di \(G\). Sono chiamate anche coset.
+\end{definizione}
+
+\vspace{0.4cm}
+
+\begin{teorema}[Teorema di Lagrange]
+	Sia \(G\) un gruppo finito e \(H \leq G\) un suo sottogruppo. Allora:
+	\[
+	[G] = s \, [H],
+	\]
+	dove s è l’indice di \(H\) in \(G\), cioè il numero di classi laterali distinte di \(H\) in \(G\). Mentre $[H]$ è l'ordine di H ossia il numero di elementi distinti in H.
+\end{teorema}
+
+\begin{esempio}[Applicazione del teorema di Lagrange]
+	Nel gruppo \((\mathbb{Z}_{12}, +)\), ogni sottogruppo ha ordine che divide \(12\). 
+	Ad esempio, il sottogruppo generato da \(4\), ossia
+	\[
+	\langle 4 \rangle = \{0, 4, 8\},
+	\]
+	ha ordine \(3\), e infatti \(3\) divide \(12\), in accordo con il teorema di Lagrange.
+\end{esempio}
+
+\section{Sottogruppi normali}
+\begin{definizione}[Sottogruppo normale]
+	Un sottogruppo \(N\) di \(G\) è detto \emph{normale} (si scrive \(N \trianglelefteq G\)) se per ogni \(g\in G\) vale
+	\[
+	gNg^{-1}=N,
+	\]
+	ossia \(gng^{-1}\in N\) per ogni \(n\in N\). Esso è composto di classi di coniugazione complete.
+\end{definizione}
+
+\noindent
+\textbf{Caratterizzazioni equivalenti.}
+\begin{itemize}
+	\item \(N\trianglelefteq G\) se e solo se tutte le coset sinistre coincidono con le coset destre: \(gN=Ng\) per ogni \(g\in G\).
+	\item \(N\trianglelefteq G\) se e solo se l'insieme delle coset sinistre \(G/N=\{gN\mid g\in G\}\) è chiuso rispetto al prodotto indotto \((gN)(hN)=(gh)N\).
+	\item Se \(\varphi\colon G\to Q\) è un omomorfismo di gruppi allora \(\ker\varphi\trianglelefteq G\).
+\end{itemize}
+
+\vspace{0.4cm}
+\begin{definizione}[Gruppo quoziente]
+	Se \(N\trianglelefteq G\) allora il \emph{gruppo quoziente} \(G/N\) è l'insieme delle coset sinistre \(G/N=\{gN\mid g\in G\}\) dotato dell'operazione
+	\[
+	(gN)\cdot(hN)=(gh)N.
+	\]
+	Questa operazione è ben definita perché \(N\) è normale.
+\end{definizione}
+
+\noindent
+\textbf{Proprietà dei gruppi quoziente}
+\begin{itemize}
+	\item \([G/N]=[G:N]\) (se \(G\) è finito).
+	\item Esiste l'omomorfismo naturale (proiezione) \(\pi\colon G\to G/N\), \(\pi(g)=gN\), il cui nucleo è esattamente \(N\).
+	\item Primo teorema omomorfismo: se \(\varphi\colon G\to H\) è un omomorfismo allora \(G/\ker\varphi \cong \mathrm{Im}\,\varphi\).
+	\item Se \(N\) e \(M\) sono normali in \(G\) e \(N\subseteq M\), allora \((G/N)/(M/N)\cong G/M\).
+\end{itemize}
+
+\vspace{0.4cm}
+\begin{esempio}[Sottogruppi e prodotto di coset in \(D_3\)]
+	Ricordiamo la struttura di \(D_3\): \(D_3=\{e,c,c^2,b,bc,bc^2\}\), dove \(c\) è la rotazione di ordine \(3\) e \(b\) è una riflessione. Sia
+	\[
+	H=\{e,c,c^2\}=\langle c\rangle,
+	\]
+	cioè il sottogruppo ciclico delle rotazioni. Allora le due coset sinistre sono
+	\[
+	eH=H=\{e,c,c^2\}=E,\qquad bH=\{b,\,bc,\,bc^2\}=B.
+	\]
+	
+	\noindent
+	\textbf{Moltiplicazione delle coset:} definendo il prodotto delle coset come \((gH)(hH)=(gh)H\) (che è ben definito perché \(H\trianglelefteq D_3\)?\!) osserviamo che nel caso specifico \(H\) \emph{è} normale: infatti \(D_3\) agisce per coniugazione sulle rotazioni ma queste rimangono rotazioni, quindi \(c^k\mapsto c^k\) up to permutazione; in particolare \(H\trianglelefteq D_3\). Le coset formano allora un gruppo quoziente \(D_3/H\) di ordine \(2\), con elementi \(E\) e \(B\), che è isomorfo a \(C_2=\{e,b\}\). Vediamo le moltiplicazioni:
+	\[
+	E^2=(eH)(eH)=e^2H=H=E,
+	\qquad EB=(eH)(bH)=ebH=bH=B,
+	\]
+	e simmetricamente \(BE=B,\;B^2=(bH)(bH)=b^2H=eH=E\). Pertanto \(\{E,B\}\) è un gruppo di ordine \(2\), come mostrato nelle foto. Si può anche verificare elemento per elemento che ad esempio
+	\[
+	E^2=\{e,c,c^2\}\{e,c,c^2\}=\{e,c,c^2\},
+	\]
+	e
+	\[
+	BE=\{b,bc,bc^2\}\{e,c,c^2\}=\{b,bc,bc^2\},
+	\]
+	cioè i calcoli concordano con la descrizione astratta.
+	
+	\noindent
+	\textbf{Controesempio (non normalità):} sia invece \(K=\{e,b\}\). Questo \(K\) non è un sottogruppo normale di \(D_3\) (si può verificare che \(c b c^{-1}=cb\) non appartiene a \(K\) in generale). Se proviamo a moltiplicare coset arbitrari come \((cK)(cK)\) otteniamo insiemi che non sono più coset singole di \(K\). Ad esempio, nella foto si calcola
+	\[
+	cKcK=\{c,cb\}\{c,cb\}=\{c^2,c^2b,b,e\}=c^2K\cup eK,
+	\]
+	quindi il prodotto di due sottoinsiemi di quella forma non è una singola coset di \(K\). Questo illustra che la moltiplicazione ben definita tra coset (necessaria per avere \(G/K\) gruppo) richiede la normalità di \(K\).
+\end{esempio}
+
+\vspace{0.4cm}
+\begin{definizione}[Prodotto diretto interno di sottogruppi]
+	Siano \(A,B\le G\). Diremo che \(G\) è il \emph{prodotto diretto interno} di \(A\) e \(B\), scritto \(G=A\times B\), se valgono le due condizioni:
+	\begin{enumerate}
+		\item ogni elemento di \(A\) commuta con ogni elemento di \(B\) (cioè \(ab=ba\) per tutti \(a\in A, b\in B\));
+		\item ogni elemento \(g\in G\) si scrive in modo unico come prodotto \(g=ab\) con \(a\in A\), \(b\in B\).
+	\end{enumerate}
+\end{definizione}
+
+\noindent
+\textbf{Conseguenze formali}
+\begin{itemize}
+	\item Da (1) e (2) segue che \(A\cap B=\{e\}\) e che sia \(A\) sia \(B\) sono sottogruppi normali di \(G\). Infatti, per \(a\in A\) e \(g=a_1b_1\in G\) si ha
+	\[
+	gag^{-1}=a_1b_1\;a\;(a_1b_1)^{-1}=a_1(b_1ab_1^{-1})a_1^{-1}=a_1aa_1^{-1}\in A,
+	\]
+	usando la commutatività incrociata e l'unicità della decomposizione.
+	\item Il prodotto in \(G\) si scompone coordinata per coordinata:
+	\[
+	(a_1b_1)(a_2b_2)=(a_1a_2)(b_1b_2).
+	\]
+	\item Si ottiene l'isomorfismo naturale \(G\cong A\times B\) (il prodotto diretto esterno) via \(ab\mapsto (a,b)\).
+	\item Inoltre \(G/A\cong B\) e \(G/B\cong A\).
+\end{itemize}
+
+\vspace{0.4cm}
+\begin{esempio}[Esempio e controesempio: \(D_2\) e \(D_3\)]
+	Consideriamo \(D_2\) (il gruppo diedrale del quadrato con due riflessioni adatte): sia \(a,b\) tali che \(a^2=b^2=(ab)^2=e\). Allora \(D_2\) contiene due sottogruppi di ordine \(2\), \(A=\langle a\rangle\) e \(B=\langle b\rangle\), che commutano ciascuno con l'altro (qui infatti \(ab=ba\)) e ogni elemento di \(D_2\) si può scrivere univocamente come \(a^i b^j\) con \(i,j\in\{0,1\}\). Pertanto \(D_2\cong C_2\times C_2\).
+	
+	\noindent
+	\textbf{Perché questo funziona:} le condizioni della definizione sono soddisfatte, quindi si possono moltiplicare le componenti separatamente e concludere che \(D_2\) è il prodotto diretto di due copie di \(C_2\).
+	
+	\noindent
+	\textbf{Controesempio \(D_3\):} nel caso di \(D_3\) abbiamo che \(D_3/C_3\cong C_2\) (dove \(C_3=\langle c\rangle\) è il sottogruppo delle rotazioni), ma \(D_3\) non è isomorfo a \(C_2\times C_3\). Una ragione semplice: \(C_2\times C_3\cong C_6\) è un gruppo abeliano, mentre \(D_3\) non è abeliano (le riflessioni e le rotazioni non commutano), dunque non possono essere isomorfi. Questo mostra che avere due fattori di ordine relativi coprimi e quozienti opportuni non è sufficiente: serve la decomposizione interna con la commutatività incrociata e la rappresentazione unica.
+\end{esempio}
+
+\vspace{0.4cm}
+\begin{teorema}[Condizione necessaria per il prodotto diretto]
+	Se \(G\) è finito e \(G=A B\) con \(A\cap B=\{e\}\) e \([A]\cdot[B]=[G]\) e \(ab=ba\) per ogni \(a\in A,b\in B\), allora ogni \(g\in G\) si scrive in modo unico come \(ab\) e quindi \(G\cong A\times B\).
+\end{teorema}
+
+\noindent
+\textbf{Applicazione pratica.} Per verificare che un gruppo è prodotto diretto interno di due sottogruppi conviene controllare:
+(i) la generazione \(G=AB\); (ii) l'intersezione banale \(A\cap B=\{e\}\); (iii) la commutatività incrociata \(ab=ba\). Se \(G\) è finito, condizione (ii) e l'uguaglianza dei prodotti degli ordini implicano già (i).
+
+\vspace{0.4cm}
+\noindent
+\textbf{Nota finale.} Le nozioni di classi di coniugazione, sottogruppo normale e quoziente sono strettamente collegate: le classi di coniugazione descrivono l'azione coniugazione e la normalità è la condizione che rende l'azione compatibile con la struttura di quoziente. Gli esempi su \(D_3\) mostrano concretamente quando il prodotto di coset determina un gruppo quoziente (caso normale \(H=\langle c\rangle\)) e quando fallisce (caso non normale \(K=\{e,b\}\)). Il prodotto diretto interno richiede invece forti condizioni strutturali (commutatività incrociata e decomposizione univoca) che non sono soddisfatte in molti diedrali non banali (p. es. \(D_3\)).
+
+\section{Primo teorema di isomorfismo}
+
+\begin{definizione}[Omomorfismo]
+	Un omomorfismo è una mappa $f: A \in B$ tale che preserva una struttura matematica. Nel caso dei gruppi, la struttura preservata è la moltiplicazione del gruppo.
+	\[
+	f(a_1 a_2) = f(a_1)f(a_2)
+	\]
+\end{definizione}
+
+\begin{proposizione}[Proprietà dell'omomorfismo]
+	\begin{itemize}
+		\item L'immagine di $f$ è un sottogruppo di B
+		\item Il kernel di $f$ è un sottogruppo di A
+	\end{itemize}
+\end{proposizione}
+
+\begin{teorema}[Primo teorema di isomorfismo]
+	Sia \( f : G \to G' \) un omomorfismo di gruppi, con nucleo \( K = \ker f \).
+	Allora vale la corrispondenza biunivoca
+	\[
+	\mathrm{Im}\, f \;\cong\; G / K,
+	\]
+	che rispetta la struttura di gruppo.
+\end{teorema}
+
+\begin{proof}
+	Costruiamo una corrispondenza biunivoca tra \( \mathrm{Im}\, f \) e \( G / K \) che preservi le operazioni di gruppo.  
+	Tale corrispondenza è data da
+	\[
+	f(g) \;\longleftrightarrow\; gK,
+	\]
+	associando l’immagine di un elemento \( g \in G \) con la classe laterale \( gK \).
+	
+	\medskip
+	\noindent
+	Per mostrare che questa corrispondenza è ben definita e che rispetta la struttura di gruppo, verifichiamo i seguenti punti:
+	
+	\begin{enumerate}
+		\item \textbf{La mappa \( f(g) \mapsto gK \) è ben definita.}  
+		Potrebbe sorgere un dubbio, poiché un elemento di \( \mathrm{Im}\, f \) potrebbe essere immagine di due elementi distinti \( g, g' \in G \).  
+		In tal caso, la mappa bidirezionale assocerebbe lo stesso elemento a \( gK \) e a \( g'K \).  
+		Tuttavia, se \( f(g') = f(g) \), allora
+		\[
+		f(g' g^{-1}) = e,
+		\]
+		da cui \( g'g^{-1} \in K \).  
+		Segue che \( g'K = gK \), e dunque la mappa è ben definita.
+		
+		\item \textbf{La mappa inversa \( gK \mapsto f(g) \) è ben definita.}  
+		Anche qui può sorgere il dubbio che la mappa dipenda dal rappresentante \( g \) scelto nella classe \( gK \).  
+		Ma l’argomento precedente funziona in senso inverso:  
+		se \( g' \) è un altro rappresentante della stessa classe, cioè \( g'g^{-1} \in K \), allora
+		\[
+		f(g') = f(g'g^{-1}g) = f(g'g^{-1}) f(g) = e f(g) = f(g),
+		\]
+		quindi la mappa è ben definita anche in questo senso.
+		
+		\item \textbf{La struttura di gruppo è preservata.}  
+		Dobbiamo verificare che
+		\[
+		f(g) f(g') \;\longleftrightarrow\; (gK)(g'K).
+		\]
+		Poiché \( f \) è un omomorfismo, abbiamo
+		\[
+		f(g)f(g') = f(gg'),
+		\]
+		che corrisponde alla classe laterale \( gg'K \).  
+		Ma per la legge di composizione delle classi laterali, \( (gK)(g'K) = gg'K \).  
+		Segue quindi che la corrispondenza preserva l’operazione di gruppo.
+		
+	\end{enumerate}
+	
+	\noindent
+	In conclusione, l’omomorfismo \( f \) induce una corrispondenza biunivoca tra gli elementi di \( \mathrm{Im}\, f \) e le classi laterali di \( K \) in \( G \).  
+	Il sottogruppo normale \( K \) è mandato sull’identità \( e' \in G' \), e ciascuna classe laterale \( gK \) è associata a un unico elemento \( f(g) \in \mathrm{Im}\, f \).  
+	Pertanto,
+	\[
+	\mathrm{Im}\, f \;\cong\; G / K.
+	\]
+\end{proof}
+
+\begin{corollario}[Corollario per gruppi finiti]
+	I possibili ordini delle immagini dell'omomorfismo del gruppo G sono $[G]/r$ dove r è l'ordine di un sottogruppo normale di G. Quindi dato che tutti gli elementi di una stessa classe laterale in G vengono mandati nello stesso elemento $f(g)$ e ogni classe laterale contiene esattamente r elementi, questa mappa manda r elementi in 1 ossia $r \rightarrow 1$.
+\end{corollario}
+
+\begin{esempio}[Esempio di applicazione: Il gruppo $D_3$]
+	Come già osservato in precedenza, l’unico sottogruppo normale proprio di \( D_3 \) è
+	\[
+	C_3 = \{ e, c, c^2 \}.
+	\]
+	Un omomorfismo avente questo come kernel avrebbe un’immagine costituita da due elementi, diciamo \( E \) e \( B \), con una struttura isomorfa a
+	\[
+	D_3 / C_3 \cong C_2.
+	\]
+	La mappa corrispondente sarebbe dunque di tipo \( 3 \to 1 \), con
+	\[
+	\{ e, c, c^2 \} \longmapsto E
+	\qquad \text{e} \qquad
+	\{ b, bc, bc^2 \} \longmapsto B.
+	\]
+	
+	\noindent
+	Vi sono due casi particolari degni di nota, che corrispondono alle due estremità possibili per il kernel:
+	
+	\begin{enumerate}
+		\item \( K = G \): corrisponde all’applicazione \emph{triviale}, data da
+		\[
+		f(g) = e \qquad \forall g \in G.
+		\]
+		
+		\item \( K = \{ e \} \): in questo caso la mappa è un \emph{isomorfismo}, ossia una corrispondenza biunivoca (\(1{:}1\)) che preserva la moltiplicazione.
+	\end{enumerate}
+	
+	\noindent
+	Il gruppo di arrivo \( G' \) non deve necessariamente essere distinto da \( G \); può infatti coincidere con esso.  
+	In tal caso, si introduce una terminologia specifica:
+	\begin{itemize}
+		\item Un omomorfismo da un gruppo in sé stesso si chiama \emph{endomorfismo}.
+		\item Un isomorfismo da un gruppo in sé stesso si chiama \emph{automorfismo}.
+	\end{itemize}
+	
+	\noindent
+	Ad esempio, nel gruppo \( C_3 \):
+	\begin{itemize}
+		\item La mappa \( c \mapsto e \) è un endomorfismo \emph{triviale}.
+		\item La mappa \( c \mapsto c \) è l’\emph{automorfismo identico}.
+		\item La mappa \( c \mapsto c^2 \) definisce un \emph{automorfismo non banale}.
+	\end{itemize}
+\end{esempio}
+
+\section{Rappresentazioni dei gruppi}
+\begin{definizione}[Rappresentazione di un gruppo]
+	Una rappresentazione di dimensione  $n$ di un gruppo astratto $G$ è un omomorfismo $D: G \mapsto GL(n, \R)$. Viene detta \textbf{fedele} quando è un isomorfismo ossia quando $KerD = e \in G$.
+\end{definizione}
+
+\begin{definizione}[Equivalenza di rappresentazioni]
+	Due rappresentazioni di un gruppo sono equivalenti se $\exists S \in GL(n, \R)$ tale che
+	\[
+	D^{(1)}(g) = S D^{(2)}(g) S^{-1} \quad \quad \quad \forall g \in G
+	\]
+\end{definizione}
+Si dimostra che questa definizione è ben data perchè si comporta bene con la composizione.
+\begin{definizione}[Carattere]
+	Il carattere di una rappresentazione D di un gruppo G è il set $\chi = \{\chi(g) \forall g \in G\}$ dove $$\chi(g) := Tr(D(g))$$
+\end{definizione}
+\begin{proposizione}[]
+	Due rappresentazioni equivalenti hanno lo stesso carattere in quanto la traccia è invariante per permutazioni cicliche. In realtà la teoria delle rappresentazioni dimostra anche che vale la freccia inversa.
+\end{proposizione}
+\begin{definizione}[Riducibilità]
+	Una rappresentazione è detta riducibile se D(g) prende la forma
+	\[
+	D(g) = \begin{pmatrix}
+		A(g)& C(g) \\
+		0 & B(g)
+	\end{pmatrix}
+	\]
+	dove A, B, C sono blocchi. Se esiste una rappresentazione equivalente del gruppo G dove C è la matrice nulla, allora si dice che D è \textbf{completamente riducibile} o \textbf{decomponibile} e si scrive
+	\[
+	D(g)  = A(g) \oplus B(g)
+	\]
+\end{definizione}	
+Si mostrerà che il teorema di Maschke garantisce che ogni gruppo finito ammette una rappresentazione in termini di irriducibili (ossia rappresentazioni che non ammettono riduzioni).
+\begin{definizione}[G-Modulo]
+	Un G-Modulo è uno spazio vettoriale V che ammette un omomorfismo tra gli elementi del gruppo G e una trasformazione lineare che agisce su V. In questo caso la rappresentazione viene denominata T(g).
+\end{definizione}
+In questo contesto la riducibilità si traduce nella richiesta di esistenza di un sottospazio (sottomodulo) chiuso rispetto alla trasformazione T(g), perchè in quel caso avremo che, wlog scegliendo una base, i primi m vettori di base vengono trasformati secondo una matrice del genere:
+\[
+T(g) = \begin{pmatrix}
+	A(g)& C(g) \\
+	0 & B(g)
+\end{pmatrix}
+\]
+con $A \in GL(m, \R)$. Si può mostrare che esiste una base nella quale C è la matrice nulla, passando per il fatto che ogni rappresentazione di un gruppo finito è unitaria.
+\begin{teorema}[Rappresentazioni unitarie]
+	Ogni rappresentazione unitaria riducibile che ammette un G-modulo V è decomponibile.
+\end{teorema}
+\begin{proof}
+	Prendiamo la rappresentazione T(g) e il sottomodulo U, chiuso rispetto a T. Decoriamo V con un prodotto scalare hermitiano e costruiamo con Grahm-Schmidt una base ortonormale per U, a questo punto sappiamo che 
+	\[
+	\forall u \in U \quad \quad \quad T(u) \in U
+	\]
+	ma completando la base ad una base per tutto V notiamo che i vettori aggiunti sono ortogonali con i primi, quindi possiamo dire che $W := \text{span}<v_{m+1},...,v_n>$ è il complemento ortogonale di U. Usiamo ora l'unitarietà di T
+	\[
+	(T(g)w, u) = (w, T^{-1}(g)u) \quad \quad \quad u \in U \quad w \in W
+	\]
+	ma la chiusura di U ci dice che $T^{-1}(g) u = T(g^{-1}) u = u' \in U$, quindi
+	\[
+	(w, T^{-1}(g)u) = (w, u') = 0 = (T(g)w, u)
+	\]
+	quindi $T(g)w \in W$ e quindi W è chiuso rispetto a T. Questo mostra che la rappresentazione matriciale di T deve avere C nullo.
+\end{proof}
+Ora, per dimostrare anche la freccia inversa basta trovare un modo per definire un prodotto scalare che, per un dato T, sia unitario rispetto a T stesso.
+\begin{definizione}[Prodotto scalare invariante per gruppi]
+	\[
+	{v, v' } = \frac{1}{[g]} \sum_g (T(g)v, T(g)v')
+	\]
+	si dimostra facilmente che è una buona definizione per composizione e che rende unitaria la trasformazione T. La definizione risulta essere ben data anche per un gruppo compatto cioè un gruppo continuo con infiniti elementi, nella quale però la somma si sostituisce con un'integrazione convergente gruppo-invariante, in quanto è cruciale per la definizione l'esistenza di una somma (o integrale) gruppo-invariante ossia che  
+	\[
+	\sum_g= \sum_{g'}
+	\]
+\end{definizione}
+\noindent In questo modo si può enunciare il seguente teorema.
+\begin{teorema}[Maschke]
+	Ogni rappresentazione riducibile di un gruppo finito è completamente riducibile.
+\end{teorema}
+\noindent Questo teorema può anche essere ricavato dal seguente risultato dell'algebra.
+\begin{teorema}
+	Supponiami che G sia un gruppo finito e che V sia una rappresentazione di G su un campo $\mathbb{F}$ di caratteristica (il numero di volte che devi sommare 1 per ottenere lo 0 del campo, se non esiste è 0) che non divida $[G]$. Supponiamo inoltre che W sia una sottorappresentazione di V. Allora esiste un'ulteriore sottorappresentazione W' di V tale che
+	\[
+	V \cong W \oplus W'
+	\]
+\end{teorema}
+\section{Irriducibili}
+
+\begin{lemma}[Primo lemma di Schur]
+	Sia \( D \) una rappresentazione irriducibile di un gruppo \( G \) su uno spazio vettoriale \( V \), e sia \( A : V \to V \) un operatore lineare tale che
+	\[
+	A D(g) = D(g) A \qquad \forall g \in G.
+	\]
+	Allora \( A \) è un multiplo dell’identità, cioè
+	\[
+	A = \lambda I, \quad \lambda \in \mathbb{C}.
+	\]
+\end{lemma}
+
+\begin{proof}
+	Poiché \( A \) commuta con ogni \( D(g) \), lo spazio vettoriale \( V \) può essere decomposto in sottospazi invarianti rispetto ad \( A \).  
+	Sia \( \mu \) un autovalore di \( A \) e sia \( V_\mu \) il relativo autospazio:
+	\[
+	V_\mu = \{ v \in V \mid A v = \mu v \}.
+	\]
+	Per ogni \( g \in G \) e \( v \in V_\mu \),
+	\[
+	A (D(g)v) = D(g) A v = D(g) (\mu v) = \mu D(g)v,
+	\]
+	da cui \( D(g)v \in V_\mu \).  
+	Pertanto \( V_\mu \) è un sottospazio invariante per \( D \).  
+	Ma \( D \) è irriducibile, dunque l’unico sottospazio invariante non nullo è tutto \( V \).  
+	Ne segue che \( V_\mu = V \), quindi \( A = \mu I \), con \( \mu \in \mathbb{C} \).
+\end{proof}
+
+\bigskip
+
+\begin{lemma}[Secondo lemma di Schur]
+	Siano \( D \) e \( D' \) due rappresentazioni irriducibili di un gruppo \( G \), aventi rispettivamente spazi vettoriali \( V \) e \( V' \).  
+	Sia \( A : V \to V' \) un'applicazione lineare tale che
+	\[
+	A D(g) = D'(g) A \qquad \forall g \in G.
+	\]
+	Allora:
+	\begin{enumerate}
+		\item Se \( D \) e \( D' \) non sono equivalenti, allora \( A = 0 \).
+		\item Se \( D \) e \( D' \) sono equivalenti, allora \( A \) è proporzionale a un isomorfismo di equivalenza, cioè
+		\[
+		A = \lambda I \quad \text{per qualche } \lambda \in \mathbb{C}.
+		\]
+	\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+	Supponiamo che \( A D(g) = D'(g) A \) per ogni \( g \in G \).  
+	Poiché \( A \) intreccia le due rappresentazioni, il suo nucleo \( \ker A \) e la sua immagine \( \mathrm{Im}\, A \) sono sottospazi invarianti sotto l’azione del gruppo:
+	\[
+	v \in \ker A \implies A D(g)v = D'(g)A v = 0 \implies D(g)v \in \ker A,
+	\]
+	e in modo analogo \( \mathrm{Im}\, A \) è invariante poiché \( D'(g)A v = A D(g)v \in \mathrm{Im}\, A \).
+	
+	Ora:
+	\begin{itemize}
+		\item Se \( D \) e \( D' \) sono irriducibili e non equivalenti, l’unico sottospazio invariante possibile per \( \ker A \) è \( \{0\} \) o tutto \( V \).  
+		Ma se \( \ker A = \{0\} \), allora \( A \) è iniettivo e la sua immagine \( \mathrm{Im}\, A = V' \) è invariante; dunque \( D' \) sarebbe equivalente a \( D \), in contraddizione.  
+		Quindi deve essere \( \ker A = V \), cioè \( A = 0 \).
+		
+		\item Se invece \( D \) e \( D' \) sono equivalenti, possiamo scegliere una base in cui \( D = D' \).  
+		Allora la condizione \( A D(g) = D(g) A \) mostra che \( A \) commuta con tutti gli operatori \( D(g) \).  
+		Ma, per irriducibilità, l’unico operatore che commuta con tutti \( D(g) \) è un multiplo dell’identità (per il lemma di Schur stesso), cioè \( A = \lambda I \) con \( \lambda \in \mathbb{C} \).
+	\end{itemize}
+\end{proof}
+
+\begin{teorema}[Relazioni di ortogonalità fondamentali]
+	Sia \(G\) un gruppo finito e siano
+	\(\{D^{(\alpha)}\}_{\alpha}\) rappresentazioni irriducibili complessificate di \(G\),
+	di dimensione \(n_\alpha\). Si può scegliere ogni rappresentazione unitaria.
+	Allora valgono le seguenti relazioni di ortogonalità.
+	
+	\medskip
+	\noindent
+	\textbf{(A) Ortogonalità delle matrici di rappresentazione.}
+	Per ogni \(\alpha,\beta\) e per indici \(i,i'\in\{1,\dots,n_\alpha\}\),
+	\(j,j'\in\{1,\dots,n_\beta\}\) si ha
+	\[
+	\frac{1}{|G|}\sum_{g\in G} D^{(\alpha)}_{\,i i'}(g)\;
+	\overline{D^{(\beta)}_{\,j j'}(g)}
+	= \frac{1}{n_\alpha}\,\delta_{\alpha\beta}\,\delta_{i j}\,\delta_{i' j'}.
+	\]
+	
+	\medskip
+	\noindent
+	\textbf{(B) Ortogonalità dei caratteri.}
+	Se \(\chi_\alpha(g)=\mathrm{Tr}\,D^{(\alpha)}(g)\) è il carattere della
+	rappresentazione irriducibile \(\alpha\), allora
+	\[
+	\frac{1}{|G|}\sum_{g\in G}\chi_\alpha(g)\,\overline{\chi_\beta(g)}=\delta_{\alpha\beta}.
+	\]
+\end{teorema}
+
+\begin{proof}
+	Scegliamo per ogni rappresentazione \(D^{(\alpha)}\) una realizzazione unitaria
+	(questo è sempre possibile per gruppi finiti). Pertanto
+	\((D^{(\alpha)}(g))^{-1} = (D^{(\alpha)}(g))^\dagger = \overline{D^{(\alpha)}(g)}^{\,T}\).
+	
+	\medskip
+	\noindent
+	\textbf{Passo 1 — costruzione di un operatore intrecciante.}
+	Siano \(D^{(\alpha)}\) e \(D^{(\beta)}\) due rappresentazioni irriducibili
+	di dimensioni \(n_\alpha\) e \(n_\beta\). Sia \(B\) una qualsiasi matrice \(n_\alpha\times n_\beta\)
+	(considerata come applicazione lineare \(V_\beta\to V_\alpha\)). Definiamo l'operatore
+	\[
+	T \;=\; \sum_{g\in G} D^{(\alpha)}(g)\; B\; (D^{(\beta)}(g))^{-1}.
+	\]
+	Per ogni \(h\in G\) si verifica immediatamente che \(T\) intreccia \(D^{(\beta)}\) e \(D^{(\alpha)}\):
+	\[
+	D^{(\alpha)}(h)\,T
+	= \sum_g D^{(\alpha)}(hg)\,B\,(D^{(\beta)}(g))^{-1}
+	= \sum_{g'} D^{(\alpha)}(g')\,B\,(D^{(\beta)}(h^{-1}g'))^{-1}
+	= T\,D^{(\beta)}(h),
+	\]
+	dove nella seconda uguaglianza abbiamo fatto il cambio di somma \(g'=hg\).
+	
+	\medskip
+	\noindent
+	\textbf{Passo 2 — uso dei Lemmi di Schur.}
+	Per i Lemmi di Schur si ha:
+	\begin{itemize}
+		\item se \(\alpha\not\cong\beta\) (rappresentazioni non equivalenti), allora ogni operatore che intreccia le due rappresentazioni è nullo, quindi \(T=0\);
+		\item se \(\alpha\cong\beta\) (stessa rappresentazione irriducibile), allora \(T\) è un multiplo dell'identità su \(V_\alpha\):
+		\(T=\lambda\,I_{n_\alpha}\) per qualche scalare \(\lambda\).
+	\end{itemize}
+	
+	\medskip
+	\noindent
+	\textbf{Passo 3 — scelta di \(B\) e ricavo della relazione per gli elementi di matrice.}
+	Prendiamo per \(B\) la matrice elementare \(E_{i'j'}\) (con \(1\) in posizione \((i',j')\)
+	e \(0\) altrove). Calcoliamo gli elementi di \(T\):
+	\[
+	T_{i j}
+	= \sum_{g\in G} \sum_{a,b}
+	\bigl(D^{(\alpha)}(g)\bigr)_{i a}\,(E_{i'j'})_{a b}\,\bigl((D^{(\beta)}(g))^{-1}\bigr)_{b j}
+	= \sum_{g\in G} D^{(\alpha)}_{\,i i'}(g)\; (D^{(\beta)}(g)^{-1})_{\,j' j}.
+	\]
+	Usando l'unitarietà si ha \((D^{(\beta)}(g)^{-1})_{j' j} = \overline{D^{(\beta)}_{\,j j'}(g)}\),
+	perciò
+	\[
+	T_{i j} = \sum_{g\in G} D^{(\alpha)}_{\,i i'}(g)\; \overline{D^{(\beta)}_{\,j j'}(g)}.
+	\]
+	
+	Se \(\alpha\not\cong\beta\) allora \(T=0\) e quindi la somma è nulla per ogni scelta di indici:
+	\[
+	\sum_{g\in G} D^{(\alpha)}_{\,i i'}(g)\; \overline{D^{(\beta)}_{\,j j'}(g)} = 0.
+	\]
+	
+	Se \(\alpha\cong\beta\) allora \(T=\lambda I\). Per determinare \(\lambda\) calcoliamo la traccia:
+	\[
+	\mathrm{Tr}\,T = \sum_{i=1}^{n_\alpha} T_{ii}
+	= \sum_{g\in G}\sum_{i} D^{(\alpha)}_{\,i i'}(g)\; \overline{D^{(\alpha)}_{\,i i'}(g)}
+	= \sum_{g\in G}\mathrm{Tr}\bigl(D^{(\alpha)}(g) E_{i'i'} D^{(\alpha)}(g)^{-1}\bigr).
+	\]
+	Ma \(\mathrm{Tr}(D^{(\alpha)}(g) E_{i'i'} D^{(\alpha)}(g)^{-1})=\mathrm{Tr}(E_{i'i'})=1\), quindi
+	\(\mathrm{Tr}\,T=|G|\). D'altra parte \(\mathrm{Tr}\,T=\lambda\,n_\alpha\), dunque
+	\[
+	\lambda = \frac{|G|}{n_\alpha}.
+	\]
+	Inserendo questo valore in \(T_{ij}=\lambda\,\delta_{ij}\) otteniamo, per \(\alpha=\beta\),
+	\[
+	\sum_{g\in G} D^{(\alpha)}_{\,i i'}(g)\; \overline{D^{(\alpha)}_{\,j j'}(g)}
+	= \frac{|G|}{n_\alpha}\,\delta_{i j}\,\delta_{i' j'}.
+	\]
+	
+	Dividendo per \(|G|\) si ricava immediatamente la relazione desiderata:
+	\[
+	\frac{1}{|G|}\sum_{g\in G} D^{(\alpha)}_{\,i i'}(g)\; \overline{D^{(\beta)}_{\,j j'}(g)}
+	= \frac{1}{n_\alpha}\,\delta_{\alpha\beta}\,\delta_{i j}\,\delta_{i' j'}.
+	\]
+	
+	\medskip
+	\noindent
+	\textbf{Passo 4 — ortogonalità dei caratteri.}
+	Poiché \(\chi_\alpha(g)=\sum_{i=1}^{n_\alpha} D^{(\alpha)}_{ii}(g)\), usando la relazione matriciale con
+	\(i=i'\) e \(j=j'\) e sommando sugli indici si ottiene
+	\[
+	\frac{1}{|G|}\sum_{g\in G}\chi_\alpha(g)\,\overline{\chi_\beta(g)}
+	= \sum_{i,j}\frac{1}{|G|}\sum_{g\in G} D^{(\alpha)}_{\,i i}(g)\,\overline{D^{(\beta)}_{\,j j}(g)}
+	= \sum_{i,j} \frac{1}{n_\alpha}\,\delta_{\alpha\beta}\,\delta_{ij}
+	= \delta_{\alpha\beta}.
+	\]
+	
+	\noindent
+	Questo completa la dimostrazione delle relazioni di ortogonalità.
+\end{proof}
+
+\medskip
+\noindent
+\textbf{Corollari}
+\begin{itemize}
+	\item Le relazioni di ortogonalità mostrano che, nella base delle funzioni di classe su \(G\),
+	i caratteri irriducibili formano un sistema ortonormale; in particolare il numero di rappresentazioni irriducibili (non equivalenti) è uguale al numero di classi di coniugio di \(G\).
+	\item Dalla versione matriciale si ricavano le ortogonalità delle colonne e delle righe delle matrici di rappresentazione (quando le rappresentazioni sono unitarie).
+\end{itemize}
+\begin{osservazione}[Vincolo sul numero di rappresentazioni irriducibili]
+	In virtù del risultato dimostrato alla fine del capitolo precedente, possiamo
+	assumere senza perdita di generalità che tutte le rappresentazioni irriducibili
+	\(D^{(\mu)}\) siano unitarie. In tal caso, la relazione di ortogonalità può essere
+	scritta nella forma
+	\[
+	\sum_{g\in G} D^{(\mu)}_{ir}(g)\, D^{(\nu)\,*}_{js}(g)
+	= \frac{|G|}{n_\mu}\, \delta^{\mu\nu}\, \delta_{ij}\, \delta_{rs}.
+	\tag{*}
+	\]
+	
+	\noindent
+	Consideriamo ora una rappresentazione irriducibile fissata \(D^{(\mu)}\) e poniamo \(\nu=\mu\).
+	Per indici \(i,r\) fissati, l’insieme di elementi
+	\(\{ D^{(\mu)}_{ir}(g_1), D^{(\mu)}_{ir}(g_2), \dots, D^{(\mu)}_{ir}(g_{|G|}) \}\)
+	può essere visto come un vettore colonna in uno spazio complesso di dimensione \(|G|\).
+	Il membro sinistro dell’equazione \((*)\) rappresenta allora il prodotto scalare
+	complesso di due tali vettori, etichettati dalle coppie di indici \((i,r)\) e \((j,s)\).
+	Ciascuno di questi indici può assumere \(n_\mu\) valori distinti, quindi esistono
+	in totale \(n_\mu^2\) vettori di questo tipo, che risultano tutti ortogonali tra loro.
+	
+	\medskip
+	Lo stesso ragionamento vale per qualunque altra rappresentazione irriducibile
+	\(D^{(\nu)}\) con \(\nu \neq \mu\), e i vettori costruiti dalle diverse
+	rappresentazioni risultano anch’essi ortogonali rispetto a quelli di \(D^{(\mu)}\).
+	Pertanto, considerando tutte le rappresentazioni irriducibili, possiamo formare
+	un insieme di
+	\[
+	\sum_\mu n_\mu^2
+	\]
+	vettori complessi a due a due ortogonali.
+	
+	Poiché il numero totale di vettori ortogonali in uno spazio complesso di
+	dimensione \(|G|\) non può superare \(|G|\) stesso, otteniamo immediatamente la disuguaglianza
+	fondamentale
+	\[
+	\sum_\mu n_\mu^2 \leq |G|.
+	\]
+	
+	\noindent
+	Poiché ogni \(n_\mu \geq 1\), questa relazione implica che il numero delle
+	rappresentazioni irriducibili di un gruppo finito è necessariamente limitato.
+	In seguito si dimostrerà che tale disuguaglianza è in realtà un’uguaglianza:
+	\[
+	\sum_\mu n_\mu^2 = |G|.
+	\]
+\end{osservazione}
+
+\noindent Quindi ogni rappresentazione di un gruppo finito o compatto ammette una decomposizione in irriducibili
+\[
+D = \bigoplus_\nu a_\nu D^{(\nu)} \quad \quad \quad \quad \chi(g) = \sum_\nu a_\nu \chi^{(\nu)}(g) \tag{R}
+\]
+da quest'ultima otteniamo
+\[
+\sum_g \chi^{(\mu)}(g^{-1})  \chi(g) = 	\sum_\nu \sum_g \chi^{(\mu)}(g^{-1}) a_\nu \chi^{(\nu)}(g)
+\]
+dalle relazioni di ortogonalità precedenti otteniamo
+\[
+a_\mu = \frac{1}{|G|} \sum_g \chi^{(\mu)}(g^{-1})  \chi(g).
+\]
+Non c'era però effettivamente bisogno di esplicitare tutto, in quanto potevamo usare il prodotto scalare $\langle \cdot, \cdot \rangle$ ben definito nel seguente modo
+\[
+a_\mu = \langle \chi^{(\mu)}, \chi \rangle =  \frac{1}{|G|} \sum_g \chi^{(\mu)}(g^{-1})  \chi(g)
+\]
+
+\subsection{Rappresentazione regolare}
+Richiamiamo all'attenzione il teorema di Cayley che ci garantisce un isomorfismo tra un gruppo finito G e un sottogruppo del gruppo simmetrico $S_n$ tramite un omomorfismo con la moltiplicazione a sinistra. Abbiamo quindi che
+\[
+	g g_j = \sum_i D_{ji} (g) g_j
+\]
+
+dove D è la matrice delle permutazione che definisce la cosidetta rappresentazione regolare. Quindi $g_l = g g_j \neq g_j$ solo quando $g \neq e$, quindi la matrice non ha elementi diagonali, invece quando $g = e$ è l'identità. In più non ha può avere più di un valore diverso da zero su ogni colonna e riga. Quindi 
+\[
+	\chi(g) = 0 \quad \text{se  } g \neq e \quad \quad \text{ e } \quad \quad \chi(g) = |G| \quad \text{se  } g = e
+\]
+e quindi avremo che
+\[
+	a_\mu = \chi^{(\mu)}(e) = n_\mu
+\]
+che è la dimensione dell'irriducibile $D^{(\mu)}$, inoltre mettendo $g = e$ nella relazione (R) otteniamo
+\[
+	|G| = \sum_\nu n_\nu n_\nu
+\]
+e abbiamo ottenuto l'uguaglianza vista sopra.
+
+\section{Costruzione della tavola dei caratteri}
+I caratteri sono spesso presentati in una tabella, le righe sono i diversi irriducibili mentre le colonne sono le classi di coniugazione. Gli strumenti che usiamo sono:
+\begin{enumerate}
+	\item numero degli irriducibili = numero delle classi di coniugazione: r = k
+	\item $\sum_\mu n_\mu^2 = |G|$
+	\item $\frac{1}{|G|}\sum_{g\in G}\chi_\alpha(g)\,\overline{\chi_\beta(g)}=\delta_{\alpha\beta}$
+	\item qualsiasi altra informazione
+\end{enumerate}
+\noindent
+
+\subsection{Tavola dei caratteri di $C_3$}
+
+\noindent
+Il gruppo \( C_3 = \{ e, c, c^2 \} \) è generato da un elemento \( c \) tale che \( c^3 = e \).
+Poiché la rappresentazione deve rispettare la moltiplicazione del gruppo, imponiamo
+\[
+\chi(c^2) = (\chi(c))^2 \quad \text{e} \quad (\chi(c))^3 = \chi(c^3) = \chi(e) = 1.
+\]
+Ne segue che \( \chi(c) \) deve essere una radice cubica dell'unità, cioè
+\[
+1, \quad \omega := e^{2\pi i /3}, \quad \omega^2 = e^{4\pi i /3}.
+\]
+Possiamo quindi scrivere la tavola dei caratteri nella forma:
+
+\[
+\begin{array}{c|ccc}
+	C_3 & e & c & c^2 \\
+	\hline
+	D^{(1)} & 1 & 1 & 1 \\
+	D^{(2)} & 1 & \omega & \omega^2 \\
+	D^{(3)} & 1 & \omega^2 & \omega \\
+\end{array}
+\]
+
+\noindent
+La rappresentazione \( D^{(1)} \) è la rappresentazione \emph{triviale}, in cui ogni elemento è mandato nell'unità. In notazione cristallografica è indicata con \( A \).
+Sebbene \( D^{(2)} \) e \( D^{(3)} \) siano anch’esse rappresentazioni unidimensionali, esse sono complesse coniugate tra loro e in molte situazioni fisiche corrispondono agli stessi livelli energetici. Per questo motivo, spesso vengono considerate come una singola rappresentazione bidimensionale \( E \) in notazione cristallografica.
+
+\medskip
+\noindent
+Pensando alle rappresentazioni come applicazioni da \( C_3 \) in \( \mathrm{GL}(1, \mathbb{C}) \), possiamo identificare i rispettivi nuclei. Questi devono essere sottogruppi normali di \( C_3 \). Poiché \( C_3 \) non ha sottogruppi propri, le uniche possibilità sono l’intero gruppo o l’identità sola. Per \( D^{(1)} \) si realizza il primo caso (nucleo \( = C_3 \)), mentre per \( D^{(2)} \) e \( D^{(3)} \) il nucleo è l’identità, dunque esse sono rappresentazioni \emph{fedeli}.
+
+\medskip
+\noindent
+Verifichiamo ora l’ortogonalità delle righe:
+\[
+\langle \chi^{(1)}, \chi^{(2)} \rangle =
+\frac{1}{3}(1 + \omega^2 + \omega) = 0,
+\]
+grazie alla fattorizzazione di \( z^3 - 1 = (z - 1)(z^2 + z + 1) \). Allo stesso modo
+\(\langle \chi^{(1)}, \chi^{(3)} \rangle = 0\) e \(\langle \chi^{(2)}, \chi^{(3)} \rangle = 0\).
+La normalizzazione è assicurata dal fatto che tutti i caratteri hanno modulo 1, essendo numeri unitari (rappresentazioni unitarie).
+
+\medskip
+\noindent
+Consideriamo ora la rappresentazione vettoriale \( D^V \), che agisce sui componenti \( x, y, z \), ossia quella che corrisponderebbe a 3 rotazioni in $\R^3$. Il carattere è
+\[
+\chi^V = (\chi^V(e), \chi^V(c), \chi^V(c^2)) = (3, 0, 0).
+\]
+Possiamo scrivere
+\[
+\chi^V = a_1 \chi^{(1)} + a_2 \chi^{(2)} + a_3 \chi^{(3)}.
+\]
+Per ispezione, risulta evidente che
+\[
+\chi^V = \chi^{(1)} + \chi^{(2)} + \chi^{(3)}.
+\]
+In alternativa, i coefficienti si ottengono da
+\[
+a_v = \langle \chi^V, \chi^{(v)} \rangle = \frac{1}{3}(3 \chi^{(v)}(e)) = 1.
+\]
+Dunque la rappresentazione vettoriale si decompone come somma diretta:
+\[
+D^V = D^{(1)} \oplus D^{(2)} \oplus D^{(3)}.
+\]
+
+\medskip
+\noindent
+È possibile identificare le combinazioni di coordinate su cui \( D^V \) agisce irriducibilmente.
+Il coordinato \( z \) rimane invariato da tutte le rotazioni di \( C_3 \), quindi forma la base della rappresentazione triviale \( D^{(1)} \).
+Per \( D^{(2)} \) e \( D^{(3)} \), consideriamo le combinazioni \( x \pm i y \):
+\[
+x' \pm i y' = x(\cos \theta \pm i \sin \theta) + i y(\cos \theta \pm i \sin \theta)
+= (x \pm i y) e^{\pm i \theta}.
+\]
+Per l’elemento \( c \), con \( \theta = 2\pi/3 \), si ha \( e^{i\theta} = \omega \) e \( c^2 \) dà il fattore moltiplicativo \( \omega^2 \). Quindi \( x + i y \) forma la base di \( D^{(2)} \), mentre \( x - i y \) quella di \( D^{(3)} \).
+
+\medskip
+\noindent
+La tavola finale dei caratteri è dunque:
+
+\[
+\begin{array}{c|ccc}
+	C_3 & e & c & c^2 \\
+	\hline
+	A : D^{(1)} & 1 & 1 & 1 \quad \\
+	E : D^{(2)} & 1 & \omega & \omega^2  \\
+	E : D^{(3)} & 1 & \omega^2 & \omega  \\
+\end{array}
+\]
+
+\subsection{Prodotto tensore}
+Siano \( D^{(\mu)} \) e \( D^{(\nu)} \) due rappresentazioni irriducibili di un gruppo \( G \).
+Definiamo il prodotto tensoriale
+\[
+D^{(\mu \times \nu)}_{bd;ac}((g_1, g_2)) := D^{(\mu)}_{ba}(g_1) D^{(\nu)}_{dc}(g_2).
+\]
+È immediato verificare che, se \( D^{(\mu)} \) e \( D^{(\nu)} \) sono irriducibili, allora anche \( D^{(\mu)} \otimes D^{(\nu)} \), così definita, è una rappresentazione irriducibile del gruppo prodotto \( G \times G \).
+
+\medskip
+\noindent
+Tuttavia, se limitiamo il caso a trasformazioni con la \emph{stessa} azione di gruppo su entrambi i fattori, cioè \( g_1 = g_2 = g \), stiamo rappresentando \( G \) stesso e la rappresentazione \( D^{(\mu)} \otimes D^{(\nu)} \) in generale non è più irriducibile.
+
+\noindent
+La decomposizione di tale prodotto nelle sue componenti irriducibili si scrive:
+\[
+D^{(\mu)} \otimes D^{(\nu)} = \bigoplus_{\sigma} a_{\sigma} D^{(\sigma)},
+\]
+e viene detta \emph{serie di Clebsch--Gordan}. Essa riveste un ruolo fondamentale nelle applicazioni fisiche della teoria delle rappresentazioni.
+
+\medskip
+\noindent
+Il carattere della rappresentazione prodotto è dato, per definizione, da
+\[
+\chi^{(\mu \times \nu)}(g) = D^{(\mu \times \nu)}_{AA}(g)
+= D^{(\mu)}_{aa}(g) D^{(\nu)}_{cc}(g)
+= \chi^{(\mu)}(g) \chi^{(\nu)}(g).
+\]
+Cioè, il carattere della rappresentazione prodotto è semplicemente il prodotto dei caratteri.
+
+\noindent
+Applicando la relazione di ortogonalità dei caratteri, i coefficienti di molteplicità \( a_\sigma \) si determinano come
+\[
+a_\sigma = \langle \chi^{(\sigma)}, \chi^{(\mu)} \chi^{(\nu)} \rangle.
+\]
+
+\section{Gruppi continui}
+In questa sezione, introduciamo i concetti fondamentali di gruppo di Lie e algebra di Lie, stabilendo la connessione tra queste due strutture attraverso i generatori infinitesimali e la mappa esponenziale.
+
+\subsection{Gruppi di Lie e Gruppi Compatti}
+
+\begin{definizione}[Gruppo di Lie]
+	Un \textbf{gruppo di Lie} $G$ è una struttura algebrica che è contemporaneamente:
+	\begin{enumerate}
+		\item Un \textbf{gruppo} (dotato di un'operazione $\cdot$, un elemento neutro $e$, e un'inversa $g^{-1}$).
+		\item Una \textbf{varietà differenziabile} $C^\infty$ (reale o complessa).
+	\end{enumerate}
+	Inoltre, si richiede che le operazioni di gruppo siano compatibili con la struttura differenziabile, ovvero le mappe:
+	\begin{itemize}
+		\item Moltiplicazione: $\mu: G \times G \to G$, data da $\mu(g_1, g_2) = g_1 \cdot g_2$
+		\item Inversione: $i: G \to G$, data da $i(g) = g^{-1}$
+	\end{itemize}
+	devono essere \textbf{mappe differenziabili} (o lisce, $C^\infty$).
+\end{definizione}
+
+\begin{esempio}
+	Esempi classici di gruppi di Lie includono:
+	\begin{itemize}
+		\item Il gruppo generale lineare $GL(n, \R)$, l'insieme delle matrici $n \times n$ invertibili.
+		\item Il gruppo ortogonale $O(n)$ e il gruppo ortogonale speciale $SO(n)$ (rotazioni).
+		\item Il gruppo unitario $U(n)$ e il gruppo unitario speciale $SU(n)$.
+	\end{itemize}
+\end{esempio}
+
+\begin{definizione}[Gruppo Compatto]
+	Un gruppo di Lie $G$ è detto \textbf{compatto} se la sua topologia sottostante (ereditata dalla struttura di varietà) è quella di uno \textbf{spazio topologico compatto}.
+\end{definizione}
+
+\begin{osservazione}
+	Intuitivamente, la compattezza implica che il gruppo è "chiuso" e "limitato".
+	\begin{itemize}
+		\item $SO(n)$ e $SU(n)$ sono esempi di gruppi di Lie compatti.
+		\item $GL(n, \R)$ e il gruppo additivo $(\R, +)$ non sono compatti.
+	\end{itemize}
+	La compattezza ha implicazioni profonde sulla teoria delle rappresentazioni: ad esempio, ogni rappresentazione di un gruppo compatto è completamente riducibile (somma diretta di irreps).
+\end{osservazione}
+
+
+\subsection{Algebre di Lie}
+
+A ogni gruppo di Lie è associata un'algebra di Lie, che ne costituisce la "linearizzazione" infinitesimale vicino all'identità.
+
+\begin{definizione}[Algebra di Lie]
+	Un'\textbf{algebra di Lie} $\g$ è uno spazio vettoriale su un campo $\K$ (tipicamente $\R$ o $\mathbb{C}$), dotato di un'operazione binaria detta \textbf{parentesi di Lie} (o commutatore):
+	$$
+	[\cdot, \cdot] : \g \times \g \to \g \quad (X, Y) \mapsto [X, Y]
+	$$
+	che soddisfa le seguenti proprietà per ogni $X, Y, Z \in \g$ e $a, b \in \K$:
+	\begin{enumerate}
+		\item \textbf{Bilinearità}:
+		$[aX + bY, Z] = a[X, Z] + b[Y, Z]$ \\
+		$[X, aY + bZ] = a[X, Y] + b[X, Z]$
+		\item \textbf{Antisimmetria} (o Alternanza):
+		$[X, Y] = -[Y, X]$
+		(che implica $[X, X] = 0$ se $\text{char}(\K) \neq 2$)
+		\item \textbf{Identità di Jacobi}:
+		$[X, [Y, Z]] + [Y, [Z, X]] + [Z, [X, Y]] = 0$
+	\end{enumerate}
+\end{definizione}
+
+\begin{esempio}
+	Lo spazio vettoriale $\R^3$ dotato del prodotto vettoriale $(X, Y) \mapsto X \times Y$ forma un'algebra di Lie (isomorfa a $\mathfrak{so}(3)$). L'identità di Jacobi è una proprietà nota del doppio prodotto vettoriale.
+\end{esempio}
+
+\subsection{Generatori e Corrispondenza Gruppo-Algebra}
+
+\begin{definizione}[Algebra di Lie di un Gruppo di Lie]
+	L'algebra di Lie $\g$ associata a un gruppo di Lie $G$, denotata $\text{Lie}(G)$ o $\g$, è definita come lo \textbf{spazio tangente} al gruppo $G$ nell'elemento identità $e$:
+	$$
+	\g = T_e G
+	$$
+	Per i gruppi di matrici, se $G \subset GL(n, \K)$, l'algebra $\g$ è un sottospazio vettoriale di $M(n, \K)$ (le matrici $n \times n$) e la parentesi di Lie è data dal \textbf{commutatore di matrici}:
+	$$
+	[X, Y] = XY - YX \quad \forall X, Y \in \g
+	$$
+\end{definizione}
+
+\begin{definizione}[Generatori Infinitesimali]
+	Gli elementi $X \in \g = T_e G$ sono chiamati \textbf{generatori infinitesimali} (o semplicemente \textbf{generatori}) del gruppo di Lie $G$.
+	Essi rappresentano le "direzioni" in cui ci si può muovere dal punto di vista infinitesimale partendo dall'identità.
+	
+	Se $\dim(G) = n$, l'algebra $\g$ ha dimensione $n$. Una \textbf{base} $\{T_a\}_{a=1, \dots, n}$ per $\g$ è spesso chiamata "insieme di generatori". Le loro relazioni di commutazione:
+	$$
+	[T_a, T_b] = \sum_{c=1}^n f_{abc} T_c
+	$$
+	definiscono le \textbf{costanti di struttura} $f_{abc}$ dell'algebra.
+\end{definizione}
+
+La connessione tra l'algebra (i generatori) e il gruppo (gli elementi finiti) è data dalla mappa esponenziale.
+
+\begin{definizione}[Mappa Esponenziale]
+	La \textbf{mappa esponenziale} è un'applicazione $\exp: \g \to G$ che mappa lo spazio tangente $\g$ (l'algebra) su una regione del gruppo $G$ che contiene l'identità.
+	
+	Per ogni $X \in \g$, la mappa $t \mapsto \exp(tX)$ (con $t \in \R$) definisce un \textbf{sottogruppo a un parametro} in $G$. Questo è un omomorfismo di gruppi $(\R, +) \to G$.
+\end{definizione}
+
+\begin{osservazione}
+	Per i gruppi di matrici, la mappa esponenziale coincide con l'usuale \textbf{esponenziale di matrice}:
+	$$
+	\exp(X) = I + X + \frac{X^2}{2!} + \frac{X^3}{3!} + \dots = \sum_{k=0}^{\infty} \frac{X^k}{k!}
+	$$
+	In questo contesto, un generatore $X$ è infinitesimale nel senso che $g(t) = \exp(tX) \approx I + tX$ per $t$ piccolo.
+\end{osservazione}
+
+
+
+Per la seguente trattazione, sia $G$ un gruppo di Lie con algebra di Lie $\g = \Lie(G) = T_e G$, e sia $H$ un gruppo di Lie con algebra $\h = \Lie(H) = T_e H$. Tutte le algebre di Lie sono assunte essere a dimensione finita sul campo $\mathbb{R}$.
+
+\begin{teorema}[Primo Teorema di Lie]
+	Ad ogni gruppo di Lie $G$ è associata un'unica (a meno di isomorfismi) algebra di Lie $\g = \Lie(G)$, data dallo spazio tangente all'identità $T_e G$ e dotata della parentesi di Lie.
+	
+	Inoltre, ogni omomorfismo di gruppi di Lie $\Phi: G \to H$ induce canonicamente un unico omomorfismo di algebre di Lie $\phi: \g \to \h$, definito come il differenziale di $\Phi$ all'identità:
+	$$
+	\phi = d\Phi_e: T_e G \to T_e H
+	$$
+	Tale mappa $\phi$ preserva la parentesi di Lie, ovvero:
+	$$
+	\phi([X, Y]_{\g}) = [\phi(X), \phi(Y)]_{\h} \quad \forall X, Y \in \g
+	$$
+	Questo stabilisce che $\Lie: (\text{Gruppi di Lie}) \to (\text{Algebre di Lie})$ è un \textbf{funtore covariante}.
+\end{teorema}
+
+\begin{teorema}[Secondo Teorema di Lie]
+	Siano $G$ e $H$ due gruppi di Lie con algebre $\g = \Lie(G)$ e $\h = \Lie(H)$. Sia $\phi: \g \to \h$ un omomorfismo di algebre di Lie.
+	
+	Se il gruppo di Lie $G$ è \textbf{connesso e semplicemente connesso}, allora esiste un \textbf{unico} omomorfismo di gruppi di Lie $\Phi: G \to H$ tale che il suo differenziale all'identità sia $\phi$:
+	$$
+	d\Phi_e = \phi
+	$$
+\end{teorema}
+
+\begin{osservazione}
+	La condizione che $G$ sia semplicemente connesso è cruciale. Ad esempio, si considerino $G_1 = U(1) \cong SO(2)$ e $G_2 = \mathbb{R}$. Le loro algebre di Lie sono entrambe isomorfe all'algebra Abeliana 1-dimensionale $\mathfrak{u}(1) \cong \mathfrak{so}(2) \cong \mathbb{R}$. L'omomorfismo identità $\phi: \mathbb{R} \to \mathbb{R}$ è un isomorfismo di algebre.
+	Tuttavia, $G_1$ non è semplicemente connesso, mentre $G_2$ lo è. L'omomorfismo $\Phi: G_2 \to G_1$ dato da $t \mapsto e^{it}$ ha $d\Phi_e = \phi$, ma non esiste alcun omomorfismo (non banale) $\Psi: G_1 \to G_2$ che induca $\phi$.
+\end{osservazione}
+
+\begin{teorema}[Terzo Teorema di Lie]
+	Per ogni algebra di Lie $\g$ reale e a dimensione finita, esiste un \textbf{unico} (a meno di isomorfismi) gruppo di Lie $G$ \textbf{connesso e semplicemente connesso} tale che la sua algebra di Lie $\Lie(G)$ sia isomorfa a $\g$:
+	$$
+	\Lie(G) \cong \g
+	$$
+\end{teorema}
+
+\begin{definizione}[Gruppo di Lie Universale]
+	Il gruppo $G$ connesso e semplicemente connesso menzionato nel Terzo Teorema di Lie è spesso chiamato il \textbf{rivestimento universale} (o gruppo di Lie universale) associato all'algebra $\g$.
+\end{definizione}
+
+\begin{corollario}[Equivalenza delle Categorie]
+	I teoremi di Lie, presi insieme, stabiliscono un'\textbf{equivalenza di categorie} tra:
+	\begin{enumerate}
+		\item La categoria delle \textbf{algebre di Lie reali a dimensione finita} (i cui morfismi sono gli omomorfismi di algebre di Lie).
+		\item La categoria dei \textbf{gruppi di Lie connessi e semplicemente connessi} (i cui morfismi sono gli omomorfismi di gruppi di Lie).
+	\end{enumerate}
+	Il funtore $\Lie: G \mapsto \g$ fornisce tale equivalenza.
+\end{corollario}
+
+\begin{corollario}[Corrispondenza Sottogruppi-Sottoalgebre]
+	Sia $G$ un gruppo di Lie con algebra $\g$. Esiste una corrispondenza biunivoca tra le \textbf{sottoalgebre di Lie} $\mathfrak{h} \subseteq \g$ e i \textbf{sottogruppi di Lie connessi} $H \subseteq G$.
+	\begin{itemize}
+		\item Se $H$ è un sottogruppo di Lie connesso di $G$, $\Lie(H)$ è una sottoalgebra di $\g$.
+		\item Viceversa, per ogni sottoalgebra $\h \subseteq \g$, esiste un unico sottogruppo di Lie \emph{connesso} $H$ di $G$ tale che $\Lie(H) = \h$.
+	\end{itemize}
+	Inoltre, $H$ è un sottogruppo normale (invariante) connesso di $G$ se e solo se $\h$ è un ideale di $\g$.
+\end{corollario}
+
+\begin{proposizione}[Gruppi e Algebre Abeliane]
+	Un gruppo di Lie $G$ è \textbf{Abeliano} (commutativo) se e solo se la sua algebra di Lie $\g$ è \textbf{Abeliana}, ovvero se tutte le parentesi di Lie sono nulle:
+	$$
+	[X, Y] = 0 \quad \forall X, Y \in \g
+	$$
+\end{proposizione}
+
+
+\subsection{SO(2)}
+Il gruppo $SO(2)$ è il \textbf{gruppo ortogonale speciale} in due dimensioni. È definito come l'insieme di tutte le matrici $R$ $2 \times 2$ a coefficienti reali che soddisfano due condizioni:
+\begin{enumerate}
+	\item \textbf{Ortogonalità}: $R^T R = I$ (dove $I$ è la matrice identità).
+	\item \textbf{Specialità}: $\det(R) = 1$.
+\end{enumerate}
+
+Queste matrici rappresentano le \textbf{rotazioni nel piano euclideo} attorno all'origine. Una generica matrice in $SO(2)$ può essere parametrizzata da un singolo angolo $\varphi$:
+
+$$
+R(\varphi) = \begin{pmatrix} \cos\varphi & -\sin\varphi \\ \sin\varphi & \cos\varphi \end{pmatrix}
+$$
+
+L'operazione di gruppo è la moltiplicazione di matrici, che corrisponde alla somma degli angoli: $R(\varphi_1) R(\varphi_2) = R(\varphi_1 + \varphi_2)$. Questo dimostra che $SO(2)$ è un gruppo \emph{Abeliano} (commutativo).
+
+Come menzionato negli appunti, $SO(2)$ è un \textbf{gruppo compatto}. Per i gruppi compatti continui, la media sul gruppo (usata per i gruppi finiti, $\frac{1}{|G|} \sum_g$) è generalizzata da un integrale sul parametro del gruppo. Per $SO(2)$, il parametro è l'angolo $\varphi$ che varia nell'intervallo finito $[0, 2\pi]$, quindi la media del gruppo diventa:
+
+$$
+\int_{0}^{2\pi} \frac{d\varphi}{2\pi}
+$$
+
+Poiché $SO(2)$ è Abeliano, tutte le sue rappresentazioni irriducibili (irreps) devono essere \textbf{1-dimensionali}. Cerchiamo quindi funzioni complesse (matrici $1 \times 1$) $D(\varphi)$ tali che:
+\begin{enumerate}
+	\item Rispettino la legge di composizione: $D(\varphi_1) D(\varphi_2) = D(\varphi_1 + \varphi_2)$.
+	\item Siano periodiche (univoche): $D(\varphi + 2\pi) = D(\varphi)$.
+\end{enumerate}
+
+L'unica funzione che soddisfa la prima condizione è l'esponenziale. La seconda condizione (periodicità) impone che l'esponente sia un multiplo intero di $i\varphi$.
+
+Le irreps di $SO(2)$ sono quindi indicizzate da un numero intero $m \in \mathbb{Z}$:
+
+$$
+D^{(m)}(\varphi) = e^{im\varphi}
+$$
+
+Per le rappresentazioni 1-dimensionali, il \textbf{carattere} $\chi^{(m)}(\varphi)$ è semplicemente la rappresentazione stessa (essendo la traccia di una matrice $1 \times 1$):
+
+$$
+\chi^{(m)}(\varphi) = e^{im\varphi}
+$$
+
+Questi caratteri formano una base ortonormale rispetto all'operazione di media sul gruppo (l'integrale). Come mostrato nell'equazione (6.4) del testo, la relazione di ortonormalità è:
+
+$$
+\langle \chi^{(m)}, \chi^{(m')} \rangle = \int_{0}^{2\pi} \frac{d\varphi}{2\pi} (\chi^{(m)}(\varphi))^* \chi^{(m')}(\varphi) = \int_{0}^{2\pi} \frac{d\varphi}{2\pi} e^{-im\varphi} e^{im'\varphi} = \delta_{mm'}
+$$
+
+\emph{(Nota: L'equazione (6.4) nel testo, $\int e^{im\varphi} e^{-im'\varphi} d\varphi / 2\pi = \delta_{mm'}$, è $\langle \chi^{(m')}, \chi^{(m)} \rangle$, che è equivalente).}
+
+\subsubsection{Decomposizione della Rappresentazione Fondamentale}
+
+Seguiamo ora gli appunti per decomporre la "rappresentazione di definizione" (defining representation) 2-dimensionale, ovvero le matrici $R(\varphi)$ stesse.
+
+La rappresentazione è $R(\varphi)$. Il suo carattere $\chi_R(\varphi)$ è la traccia della matrice:
+
+$$
+\chi_R(\varphi) = \text{Tr} \begin{pmatrix} \cos\varphi & -\sin\varphi \\ \sin\varphi & \cos\varphi \end{pmatrix} = \cos\varphi + \cos\varphi = 2\cos\varphi
+$$
+
+Vogliamo decomporre questa rappresentazione $R$ in una somma diretta di irreps: $R = \bigoplus_m a_m D^{(m)}$. I coefficienti $a_m$ si trovano usando l'ortogonalità dei caratteri:
+
+$$
+a_m = \langle \chi^{(m)}, \chi_R \rangle = \int_{0}^{2\pi} \frac{d\varphi}{2\pi} (\chi^{(m)}(\varphi))^* \chi_R(\varphi) = \int_{0}^{2\pi} \frac{d\varphi}{2\pi} e^{-im\varphi} (2\cos\varphi)
+$$
+
+Usando la formula di Eulero per il coseno, $2\cos\varphi = (e^{i\varphi} + e^{-i\varphi})$, calcoliamo l'integrale (come mostrato nel testo, sebbene il testo ometta il coniugato nel prodotto interno, il risultato è identico poiché $2\cos\varphi$ è reale):
+
+$$
+a_m = \frac{1}{2\pi} \int_{0}^{2\pi} e^{-im\varphi} (e^{i\varphi} + e^{-i\varphi}) \, d\varphi
+$$
+$$
+a_m = \frac{1}{2\pi} \int_{0}^{2\pi} \left( e^{i(1-m)\varphi} + e^{i(-1-m)\varphi} \right) \, d\varphi
+$$
+
+L'integrale $\int_{0}^{2\pi} e^{ik\varphi} \, d\varphi$ è $2\pi$ se $k=0$ ed è $0$ altrimenti.
+\begin{itemize}
+	\item Il primo termine $e^{i(1-m)\varphi}$ è non nullo solo se $1-m=0$, cioè $m=1$.
+	\item Il secondo termine $e^{i(-1-m)\varphi}$ è non nullo solo se $-1-m=0$, cioè $m=-1$.
+\end{itemize}
+
+Quindi, i coefficienti sono $a_m = \delta_{m,1} + \delta_{m,-1}$.
+
+Questo significa che $a_1 = 1$, $a_{-1} = 1$ e tutti gli altri $a_m$ sono zero. La decomposizione della rappresentazione 2D è:
+
+$$
+R = D^{(1)} \oplus D^{(-1)}
+$$
+
+\subsubsection{Serie di Clebsch-Gordan}
+
+Infine, come nota il testo (Eq. 6.5), la decomposizione del prodotto di due irreps (serie di Clebsch-Gordan) è molto semplice. Il carattere del prodotto $D^{(m)} \otimes D^{(m')}$ è il prodotto dei caratteri:
+
+$$
+\chi^{(m)}(\varphi) \cdot \chi^{(m')}(\varphi) = (e^{im\varphi})(e^{im'\varphi}) = e^{i(m+m')\varphi}
+$$
+
+Questo è esattamente il carattere dell'irrep $D^{(m+m')}$. Pertanto:
+
+$$
+D^{(m)} \otimes D^{(m')} = D^{(m+m')}
+$$
+\subsection{L'Algebra di Lie $\so(2)$}
+
+L'algebra di Lie $\g = \so(2)$ associata al gruppo di Lie $G = SO(2)$ è definita come lo spazio tangente al gruppo nell'elemento identità ($T_e G$).
+
+\subsubsection*{Metodo 1: Derivazione della curva}
+
+Possiamo trovare la base dell'algebra di Lie calcolando la derivata della curva parametrizzata $R(\theta)$ rispetto al parametro $\theta$ e valutandola all'identità (che corrisponde a $\theta=0$). L'elemento $T$ così trovato è il \textbf{generatore infinitesimo} della rotazione.
+
+$$ T = \left. \frac{d R(\theta)}{d\theta} \right|_{\theta=0} $$
+Calcoliamo la derivata:
+$$ \frac{d R(\theta)}{d\theta} = \frac{d}{d\theta} \begin{pmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{pmatrix} = \begin{pmatrix} -\sin\theta & -\cos\theta \\ \cos\theta & -\sin\theta \end{pmatrix} $$
+Valutando in $\theta=0$:
+$$ T = \begin{pmatrix} -\sin(0) & -\cos(0) \\ \cos(0) & -\sin(0) \end{pmatrix} = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix} $$
+
+\subsubsection*{Metodo 2: Condizione formale sull'algebra}
+
+Alternativamente, consideriamo una curva $R(t) \in SO(2)$ tale che $R(0) = \Identity$. L'elemento $X = R'(0)$ appartiene all'algebra di Lie $\so(2)$.
+La condizione $R(t)^T R(t) = \Identity$ per ogni $t$, derivata rispetto a $t$ e valutata in $t=0$, fornisce la condizione per gli elementi dell'algebra.
+$$ \frac{d}{dt} (R(t)^T R(t)) = R'(t)^T R(t) + R(t)^T R'(t) = 0 $$
+Per $t=0$:
+$$ R'(0)^T R(0) + R(0)^T R'(0) = 0 \implies X^T \Identity + \Identity X = 0 \implies X^T + X = 0 $$
+L'algebra di Lie $\so(2)$ è quindi l'insieme delle matrici $2 \times 2$ reali \textbf{antisimmetriche}.
+$$ \so(2) = \{ X \in M(2, \R) \mid X^T = -X \} $$
+Una generica matrice reale $2 \times 2$ antisimmetrica ha la forma:
+$$ X = \begin{pmatrix} 0 & -a \\ a & 0 \end{pmatrix} = a \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix} \quad \text{per } a \in \R $$
+
+\begin{proposizione}
+	L'algebra di Lie $\so(2)$ è uno spazio vettoriale reale di dimensione 1. Una base per $\so(2)$ è data dal generatore:
+	$$ T = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix} $$
+\end{proposizione}
+
+\begin{osservazione}[Mappa Esponenziale]
+	Il gruppo di Lie $SO(2)$ può essere recuperato dall'algebra $\so(2)$ tramite la mappa esponenziale: $R(\theta) = \exp(\theta T)$.
+	Verifichiamo notando che $T^2 = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix} \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix} = \begin{pmatrix} -1 & 0 \\ 0 & -1 \end{pmatrix} = -\Identity$.
+	Usando lo sviluppo in serie di Taylor:
+	\begin{align*}
+		\exp(\theta T) &= \sum_{n=0}^\infty \frac{(\theta T)^n}{n!} = \Identity + \theta T + \frac{\theta^2 T^2}{2!} + \frac{\theta^3 T^3}{3!} + \dots \\
+		&= \Identity + \theta T - \frac{\theta^2 \Identity}{2!} - \frac{\theta^3 T}{3!} + \frac{\theta^4 \Identity}{4!} + \dots \\
+		&= \Identity \left( 1 - \frac{\theta^2}{2!} + \frac{\theta^4}{4!} - \dots \right) + T \left( \theta - \frac{\theta^3}{3!} + \dots \right) \\
+		&= \Identity \cos\theta + T \sin\theta \\
+		&= \begin{pmatrix} \cos\theta & 0 \\ 0 & \cos\theta \end{pmatrix} + \begin{pmatrix} 0 & -\sin\theta \\ \sin\theta & 0 \end{pmatrix} = R(\theta)
+	\end{align*}
+	Questo conferma che $T$ è il corretto generatore infinitesimo.
+\end{osservazione}
+
+In fisica matematica, in particolare in meccanica quantistica, i generatori delle simmetrie (come le rotazioni) sono richiesti essere operatori \textbf{Hermitiani}, poiché rappresentano osservabili fisiche (in questo caso, il momento angolare).
+
+Il nostro generatore $T \in \so(2)$ è reale e antisimmetrico ($T^T = -T$). Questo implica che è \textbf{anti-Hermitiano} (o skew-Hermitian):
+$$ T^\dagger = (T^T)^* = (-T)^* = -T \quad (\text{poiché } T \text{ è reale}) $$
+La convenzione fisica per una trasformazione unitaria $U(\theta)$ (e le matrici $R(\theta) \in SO(2)$ sono unitarie, $R^\dagger R = R^T R = \Identity$) è di esprimerla in termini di un generatore Hermitiano $J$:
+$$ U(\theta) = \exp(-i \theta J) $$
+Nel nostro caso, $SO(2)$ rappresenta le rotazioni nel piano $xy$, che avvengono \textit{attorno} all'asse $z$. Il generatore fisico corrispondente è quindi $J_z$, la componente $z$ del momento angolare.
+
+Per trovare $J_z$, confrontiamo le due forme della mappa esponenziale:
+$$ R(\theta) = \exp(\theta T) \quad \text{(convenzione matematica)} $$
+$$ R(\theta) = \exp(-i \theta J_z) \quad \text{(convenzione fisica)} $$
+Eguagliando gli esponenti (o le loro derivate in $\theta=0$), otteniamo la relazione tra il generatore dell'algebra di Lie $T$ e il generatore fisico $J_z$:
+$$ \theta T = -i \theta J_z \implies T = -i J_z $$
+Risolvendo per $J_z$:
+$$ J_z = i T $$
+
+Sostituendo il valore di $T$ che abbiamo trovato:
+$$ J_z = i \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix} = \begin{pmatrix} 0 & -i \\ i & 0 \end{pmatrix} $$
+
+\begin{osservazione}
+	Verifichiamo che questo $J_z$ sia Hermitiano, come richiesto:
+	$$ J_z^\dagger = \begin{pmatrix} 0 & -i \\ i & 0 \end{pmatrix}^\dagger = \begin{pmatrix} 0^* & i^* \\ (-i)^* & 0^* \end{pmatrix} = \begin{pmatrix} 0 & -i \\ i & 0 \end{pmatrix} = J_z $$
+	L'operatore $J_z$ è effettivamente Hermitiano. È interessante notare che, in questa rappresentazione $2 \times 2$ (detta \textit{fondamentale} o \textit{definitoria} per $SO(2)$), il generatore del momento angolare $J_z$ coincide con la matrice di Pauli $\sigma_y$:
+	$$ J_z = \sigma_y $$
+	Sebbene la notazione possa confondere, il nome $J_z$ è corretto in quanto esso genera le rotazioni \textit{attorno} all'asse $z$.
+\end{osservazione}
+
+\subsection{Il Gruppo $SO(3)$ e l'Algebra di Lie $\so(3)$}
+
+Procediamo con lo stesso rigore formale per il gruppo delle rotazioni tridimensionali $SO(3)$.
+
+\begin{definizione}[Gruppo Ortogonale Speciale $SO(3)$]
+	Il gruppo $SO(3)$ è il gruppo delle matrici $R$ reali $3 \times 3$ che sono \textbf{ortogonali} ($R^T R = \Identity$) e \textbf{speciali} ($\det(R) = +1$).
+	$$ SO(3) = \{ R \in M(3, \R) \mid R^T R = \Identity, \det(R) = 1 \} $$
+	Questo gruppo rappresenta le rotazioni proprie nello spazio euclideo $\R^3$. È un gruppo di Lie reale, compatto, connesso, non Abeliano e di dimensione 3.
+\end{definizione}
+
+L'algebra di Lie $\g = \so(3)$ è lo spazio tangente all'identità. Come derivato per $SO(2)$, la condizione $R^T R = \Identity$ per una curva $R(t)$ con $R(0) = \Identity$ implica $X^T + X = 0$ per $X = R'(0) \in \so(3)$.
+
+\begin{proposizione}
+	L'algebra di Lie $\so(3)$ è l'insieme delle matrici $3 \times 3$ reali e \textbf{antisimmetriche}.
+	$$ \so(3) = \{ X \in M(3, \R) \mid X^T = -X \} $$
+\end{proposizione}
+
+\subsubsection{Generatori Infinitesimi di $\so(3)$}
+
+Essendo uno spazio vettoriale reale di matrici antisimmetriche $3 \times 3$, $\so(3)$ ha dimensione 3. Una generica matrice $X \in \so(3)$ ha la forma:
+$$ X = \begin{pmatrix} 0 & -c & b \\ c & 0 & -a \\ -b & a & 0 \end{pmatrix}, \quad a, b, c \in \R $$
+Possiamo decomporre $X$ in una base di generatori. Una scelta standard, motivata dalle rotazioni attorno agli assi cartesiani, è la seguente:
+
+$$ T_1 = T_x = \begin{pmatrix} 0 & 0 & 0 \\ 0 & 0 & -1 \\ 0 & 1 & 0 \end{pmatrix} \quad (\text{Generatore rotazione attorno asse } x) $$
+$$ T_2 = T_y = \begin{pmatrix} 0 & 0 & 1 \\ 0 & 0 & 0 \\ -1 & 0 & 0 \end{pmatrix} \quad (\text{Generatore rotazione attorno asse } y) $$
+$$ T_3 = T_z = \begin{pmatrix} 0 & -1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix} \quad (\text{Generatore rotazione attorno asse } z) $$
+
+Cosicché $X = a T_1 + b T_2 + c T_3$. Questi tre generatori $T_1, T_2, T_3$ formano una base per l'algebra di Lie $\so(3)$.
+
+\begin{osservazione}
+	Questi generatori $T_i$ sono anti-Hermitiani ($T_i^\dagger = T_i^T = -T_i$). Una rotazione finita $R_k(\theta)$ attorno all'asse $k$ è data dalla mappa esponenziale $R_k(\theta) = \exp(\theta T_k)$.
+\end{osservazione}
+
+\subsubsection*{Struttura dell'Algebra $\so(3)$: Relazioni di Commutazione}
+
+L'algebra di Lie $\g$ non è definita solo come spazio vettoriale, ma è dotata del \textbf{Lie bracket} (la parentesi di Lie), che per le algebre di matrici è il commutatore: $[A, B] = AB - BA$.
+Calcoliamo le relazioni di commutazione tra i generatori della nostra base.
+
+\begin{itemize}
+	\item $[T_1, T_2] = T_1 T_2 - T_2 T_1$
+	$$ T_1 T_2 = \begin{pmatrix} 0 & 0 & 0 \\ 0 & 0 & -1 \\ 0 & 1 & 0 \end{pmatrix} \begin{pmatrix} 0 & 0 & 1 \\ 0 & 0 & 0 \\ -1 & 0 & 0 \end{pmatrix} = \begin{pmatrix} 0 & 0 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix} $$
+	$$ T_2 T_1 = \begin{pmatrix} 0 & 0 & 1 \\ 0 & 0 & 0 \\ -1 & 0 & 0 \end{pmatrix} \begin{pmatrix} 0 & 0 & 0 \\ 0 & 0 & -1 \\ 0 & 1 & 0 \end{pmatrix} = \begin{pmatrix} 0 & 1 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix} $$
+	$$ [T_1, T_2] = \begin{pmatrix} 0 & -1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix} = T_3 $$
+	
+	\item $[T_2, T_3] = T_2 T_3 - T_3 T_2$
+	$$ T_2 T_3 = \begin{pmatrix} 0 & 0 & 1 \\ 0 & 0 & 0 \\ -1 & 0 & 0 \end{pmatrix} \begin{pmatrix} 0 & -1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix} = \begin{pmatrix} 0 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 1 & 0 \end{pmatrix} $$
+	$$ T_3 T_2 = \begin{pmatrix} 0 & -1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix} \begin{pmatrix} 0 & 0 & 1 \\ 0 & 0 & 0 \\ -1 & 0 & 0 \end{pmatrix} = \begin{pmatrix} 0 & 0 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 0 \end{pmatrix} $$
+	$$ [T_2, T_3] = \begin{pmatrix} 0 & 0 & 0 \\ 0 & 0 & -1 \\ 0 & 1 & 0 \end{pmatrix} = T_1 $$
+	
+	\item $[T_3, T_1] = T_3 T_1 - T_1 T_3$
+	$$ T_3 T_1 = \begin{pmatrix} 0 & -1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix} \begin{pmatrix} 0 & 0 & 0 \\ 0 & 0 & -1 \\ 0 & 1 & 0 \end{pmatrix} = \begin{pmatrix} 0 & 0 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix} $$
+	$$ T_1 T_3 = \begin{pmatrix} 0 & 0 & 0 \\ 0 & 0 & -1 \\ 0 & 1 & 0 \end{pmatrix} \begin{pmatrix} 0 & -1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix} = \begin{pmatrix} 0 & 0 & 0 \\ 0 & 0 & 0 \\ 1 & 0 & 0 \end{pmatrix} $$
+	$$ [T_3, T_1] = \begin{pmatrix} 0 & 0 & 1 \\ 0 & 0 & 0 \\ -1 & 0 & 0 \end{pmatrix} = T_2 $$
+\end{itemize}
+
+\begin{teorema}[Algebra $\so(3)$]
+	L'algebra di Lie $\so(3)$ è generata da $T_1, T_2, T_3$ con le seguenti relazioni di commutazione, che ne definiscono la struttura:
+	$$ [T_i, T_j] = \sum_{k=1}^3 \epsilon_{ijk} T_k $$
+	dove $\epsilon_{ijk}$ è il tensore (simbolo) di Levi-Civita, definito come:
+	\begin{itemize}
+		\item $\epsilon_{123} = +1$ e sue permutazioni cicliche ($[T_1, T_2] = T_3$).
+		\item $\epsilon_{213} = -1$ e sue permutazioni anti-cicliche ($[T_2, T_1] = -T_3$).
+		\item $\epsilon_{ijk} = 0$ se due indici sono uguali ($[T_i, T_i] = 0$).
+	\end{itemize}
+	Il fatto che i commutatori non siano nulli ($[T_i, T_j] \neq 0$) riflette il fatto che $SO(3)$ è un gruppo \textbf{non Abeliano}.
+\end{teorema}
+
+\subsubsection{I Generatori Fisici (Momento Angolare)}
+
+Come nel caso di $SO(2)$, la convenzione fisica richiede generatori Hermitiani $J_i$ (le componenti dell'operatore momento angolare) tali che la trasformazione unitaria (la rotazione) sia $R(\vec{\theta}) = \exp(-i \vec{\theta} \cdot \vec{J})$.
+La relazione tra i generatori matematici $T_i$ (anti-Hermitiani) e quelli fisici $J_i$ (Hermitiani) è:
+$$ R_k(\theta) = \exp(\theta T_k) = \exp(-i \theta J_k) \implies T_k = -i J_k \quad \text{o} \quad J_k = i T_k $$
+
+I generatori fisici (nella rappresentazione $3 \times 3$, detta "aggiunta" o "vettoriale") sono:
+$$ J_1 = i T_1 = \begin{pmatrix} 0 & 0 & 0 \\ 0 & 0 & -i \\ 0 & i & 0 \end{pmatrix} $$
+$$ J_2 = i T_2 = \begin{pmatrix} 0 & 0 & i \\ 0 & 0 & 0 \\ -i & 0 & 0 \end{pmatrix} $$
+$$ J_3 = i T_3 = \begin{pmatrix} 0 & -i & 0 \\ i & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix} $$
+Si verifica immediatamente che $J_k^\dagger = J_k$, sono matrici Hermitiane.
+
+Calcoliamo le relazioni di commutazione per questi generatori fisici:
+$$ [J_i, J_j] = [i T_i, i T_j] = (i)^2 [T_i, T_j] = - [T_i, T_j] $$
+Usando il risultato $ [T_i, T_j] = \epsilon_{ijk} T_k $:
+$$ [J_i, J_j] = - (\epsilon_{ijk} T_k) = - \epsilon_{ijk} \left( \frac{J_k}{i} \right) = - \epsilon_{ijk} (-i J_k) $$
+\begin{corollario}[Algebra del Momento Angolare]
+	I generatori Hermitiani $J_1, J_2, J_3$ soddisfano le relazioni di commutazione canoniche del momento angolare:
+	$$ [J_i, J_j] = i \sum_{k=1}^3 \epsilon_{ijk} J_k $$
+	Esplicitamente:
+	$$ [J_1, J_2] = i J_3 \qquad [J_2, J_3] = i J_1 \qquad [J_3, J_1] = i J_2 $$
+	Questa è la ben nota struttura algebrica che governa il momento angolare in meccanica quantistica. L'algebra di Lie $\so(3)$ è (isomorfa a) $\mathfrak{su}(2)$.
+\end{corollario}
+
+\section{Teorema di addizione dei momenti angolari}
+
+Consideriamo due sistemi indipendenti, descritti da spazi di Hilbert $\Hspace_1 = V_{j_1}$ e $\Hspace_2 = V_{j_2}$, con generatori $\vec{J}_1$ e $\vec{J}_2$ che agiscono rispettivamente su $\Hspace_1$ e $\Hspace_2$.
+Lo spazio totale è il prodotto tensoriale $\Hspace = \Hspace_1 \otimes \Hspace_2 = V_{j_1} \otimes V_{j_2}$.
+La dimensione di questo spazio è $\dim(\Hspace) = (2j_1+1)(2j_2+1)$.
+
+Una base naturale per $\Hspace$ è la \textbf{base disaccoppiata (o non accoppiata)}, formata dai prodotti tensoriali dei vettori di base dei singoli spazi:
+$$ \{ \ket{j_1, m_1} \otimes \ket{j_2, m_2} \} \equiv \{ \ket{j_1, m_1; j_2, m_2} \} $$
+Questa base è un'autobase simultanea dei quattro operatori mutuamente commutanti: $J_1^2, J_{1,3}, J_2^2, J_{2,3}$.
+
+Definiamo ora i generatori del momento angolare \textbf{totale} $\vec{J}$ come operatori su $\Hspace$:
+$$ J_i = J_{1,i} \otimes \Identity_2 + \Identity_1 \otimes J_{2,i} \quad \text{(spesso scritto come } J_i = J_{1,i} + J_{2,i} \text{)} $$
+dove $\Identity_k$ è l'identità su $\Hspace_k$.
+
+\begin{proposizione}[Chiusura Algebrica]
+	I generatori del momento angolare totale $J_i$ soddisfano la stessa algebra di Lie $\so(3)$:
+	$$ [J_i, J_j] = i \epsilon_{ijk} J_k $$
+\end{proposizione}
+\begin{proof} Calcoliamo il commutatore:
+\begin{align*}
+	[J_i, J_j] &= [J_{1,i} + J_{2,i}, J_{1,j} + J_{2,j}] \\
+	&= [J_{1,i}, J_{1,j}] + [J_{1,i}, J_{2,j}] + [J_{2,i}, J_{1,j}] + [J_{2,i}, J_{2,j}]
+\end{align*}
+Poiché $J_1$ e $J_2$ agiscono su sottospazi diversi (sono operatori indipendenti), i loro commutatori misti sono nulli: $[J_{1,i}, J_{2,j}] = 0$ e $[J_{2,i}, J_{1,j}] = 0$.
+\begin{align*}
+	[J_i, J_j] &= (i \epsilon_{ijk} J_{1,k}) + 0 + 0 + (i \epsilon_{ijk} J_{2,k}) \\
+	&= i \epsilon_{ijk} (J_{1,k} + J_{2,k}) \\
+	&= i \epsilon_{ijk} J_k
+\end{align*}
+\end{proof}
+
+\begin{teorema}[Decomposizione di Clebsch-Gordan]
+	Poiché i generatori totali $\vec{J}$ formano un'algebra $\so(3)$, la rappresentazione prodotto $D_{j_1} \otimes D_{j_2}$ agente su $\Hspace$ deve essere (in generale) una rappresentazione riducibile. Per il Teorema di Weyl (sulla completa riducibilità delle rappresentazioni di algebre di Lie semi-semplici), essa si decompone in una somma diretta di rappresentazioni irriducibili $D_J$:
+	$$ D_{j_1} \otimes D_{j_2} = \bigoplus_{J} D_J $$
+	Il teorema di addizione consiste nel determinare \textit{quali} valori di $J$ appaiono in questa somma.
+\end{teorema}
+La decomposizione implica che deve esistere una nuova base per $\Hspace$, la \textbf{base accoppiata}, che diagonalizza simultaneamente gli operatori $J^2 = (\vec{J}_1 + \vec{J}_2)^2$ e $J_3 = J_{1,3} + J_{2,3}$ (oltre a $J_1^2$ e $J_2^2$, che commutano con tutto). Indichiamo questa base con $\ket{(j_1, j_2) J, M}$ o, più brevemente, $\ket{J, M}$ (sottintendendo $j_1, j_2$).
+
+Per trovare i valori permessi di $J$, analizziamo gli autovalori di $J_3$.
+Nella base disaccoppiata:
+$$ J_3 \ket{j_1, m_1; j_2, m_2} = (J_{1,3} + J_{2,3}) \ket{j_1, m_1; j_2, m_2} = (m_1 + m_2) \ket{j_1, m_1; j_2, m_2} $$
+Nella base accoppiata:
+$$ J_3 \ket{J, M} = M \ket{J, M} $$
+Affinché le basi siano equivalenti, gli autovalori di $J_3$ devono essere gli stessi. Quindi, $M = m_1 + m_2$.
+
+1.  \textbf{Valore Massimo di $J$:}
+Il massimo autovalore $M$ possibile è $M_{\text{max}} = (m_1)_{\text{max}} + (m_2)_{\text{max}} = j_1 + j_2$.
+Questo autovalore è \textbf{unico} (non degenere), poiché esiste un solo stato nella base disaccoppiata che lo realizza: $\ket{j_1, j_1; j_2, j_2}$.
+Questo stato, essendo l'unico con $M = j_1 + j_2$, deve anche essere uno stato della base accoppiata. Poiché $M_{\text{max}}$ può solo corrispondere a $J_{\text{max}}$, ne consegue che $J_{\text{max}} = j_1 + j_2$.
+$$ \ket{J=j_1+j_2, M=j_1+j_2} = \ket{j_1, j_1; j_2, j_2} $$
+Questo stato identifica la presenza della rappresentazione irriducibile $V_{j_1+j_2}$ nella decomposizione.
+
+2.  \textbf{Valori Successivi:}
+Consideriamo l'autovalore $M = j_1 + j_2 - 1$. Questo autospazio ha dimensione 2, poiché può essere ottenuto in due modi:
+$$ \ket{j_1, j_1-1; j_2, j_2} \quad \text{e} \quad \ket{j_1, j_1; j_2, j_2-1} $$
+Una di queste due dimensioni è "occupata" dallo stato $\ket{J=j_1+j_2, M=j_1+j_2-1}$, ottenuto applicando l'operatore di abbassamento $J_-$ allo stato $J_{\text{max}}$.
+L'altro stato (ortogonale al primo) deve essere il "vertice" di una nuova rappresentazione irriducibile. Poiché il suo $M$ è $j_1 + j_2 - 1$, questo deve essere un $J = j_1 + j_2 - 1$.
+Questo identifica la presenza della irrep $V_{j_1+j_2-1}$.
+
+3.  \textbf{Generalizzazione:}
+Questo processo (noto come "conteggio degli stati") continua. La degenerazione $N(M)$ dello spazio con autovalore $M$ aumenta man mano che $M$ diminuisce, e poi diminuisce di nuovo. Ad ogni passo, il numero di nuove rappresentazioni irriducibili $V_J$ che "iniziano" (cioè, con $J=M$) è dato da $N(M) - N(M+1)$ (assumendo $j_1 \le j_2$).
+Il processo si ferma quando si esauriscono tutte le dimensioni. Il valore minimo di $J$ si ottiene quando si considerano tutti gli stati.
+Il risultato è che $J$ assume tutti i valori:
+$$ J = j_1+j_2, \quad j_1+j_2-1, \quad \dots, \quad |j_1 - j_2| $$
+
+\begin{teorema}[Addizione dei Momenti Angolari]
+	La decomposizione (detta serie di Clebsch-Gordan) della rappresentazione prodotto tensoriale è:
+	$$ V_{j_1} \otimes V_{j_2} = \bigoplus_{J=|j_1-j_2|}^{j_1+j_2} V_J $$
+	La cosiddetta "regola del triangolo" $|j_1 - j_2| \le J \le j_1 + j_2$ è la condizione algebrica per la decomposizione.
+\end{teorema}
+
+\begin{osservazione}[Verifica delle Dimensioni]
+	La coerenza algebrica è confermata dal conteggio delle dimensioni:
+	$$ \sum_{J=|j_1-j_2|}^{j_1+j_2} (2J+1) = (2j_1+1)(2j_2+1) $$
+	Questa è un'identità algebrica nota.
+\end{osservazione}
+
+Avendo stabilito l'esistenza di due basi complete e ortonormali per $\Hspace$, la trasformazione unitaria che le collega è la "dimostrazione" costruttiva del teorema.
+
+\begin{definizione}[Coefficienti di Clebsch-Gordan]
+	I coefficienti di Clebsch-Gordan (CG) sono gli elementi della matrice di trasformazione unitaria tra la base disaccoppiata e quella accoppiata. Sono definiti come i prodotti interni tra i vettori delle due basi:
+	$$ \langle j_1, m_1; j_2, m_2 | J, M \rangle \equiv C(j_1, j_2, J; m_1, m_2, M) $$
+	Questi coefficienti sono, per convenzione (di Condon-Shortley), scelti essere reali.
+	
+	La trasformazione di base è quindi:
+	$$ \ket{J, M} = \sum_{m_1, m_2} \ket{j_1, m_1; j_2, m_2} \langle j_1, m_1; j_2, m_2 | J, M \rangle $$
+	E la sua inversa:
+	$$ \ket{j_1, m_1; j_2, m_2} = \sum_{J=|j_1-j_2|}^{j_1+j_2} \ket{J, M} \langle J, M | j_1, m_1; j_2, m_2 \rangle $$
+\end{definizione}
+
+\begin{proposizione}[Regole di Selezione]
+	I coefficienti di Clebsch-Gordan sono identicamente nulli a meno che non siano soddisfatte le seguenti condizioni algebriche:
+	\begin{enumerate}
+		\item $M = m_1 + m_2$ (conservazione della proiezione $z$ del momento angolare)
+		\item $|j_1 - j_2| \le J \le j_1 + j_2$ (regola del triangolo)
+	\end{enumerate}
+\end{proposizione}
+La prima regola deriva, come visto, dall'azione di $J_3$. La seconda regola è il risultato della decomposizione algebrica che abbiamo appena dimostrato.
+\newline
+Il teorema di addizione dei momenti angolari è la conseguenza algebrica diretta del fatto che i generatori totali $J_i = J_{1,i} + J_{2,i}$, agenti sullo spazio prodotto tensoriale $V_{j_1} \otimes V_{j_2}$, obbediscono essi stessi all'algebra $\so(3)$. Questo impone che lo spazio prodotto, visto come rappresentazione di $\so(3)$, debba decomporsi in una somma diretta di blocchi irriducibili $V_J$. I coefficienti di Clebsch-Gordan sono i coefficienti numerici che realizzano esplicitamente questa decomposizione.
+
+
+\subsection{Il Teorema di Weyl}
+
+Il Teorema di Weyl stabilisce una proprietà fondamentale per le algebre di Lie che più ci interessano in fisica, come $\so(3)$ e $\su(n)$.
+
+\begin{definizione}[Ideale di un'Algebra di Lie]
+	Sia $\g$ un'algebra di Lie. Un sottospazio vettoriale $\h \subseteq \g$ è un \textbf{ideale} di $\g$ se è "assorbente" rispetto alla parentesi di Lie. Formalmente, se per ogni $X \in \h$ e per ogni $Y \in \g$:
+	$$ [X, Y] \in \h $$
+	(Data l'antisimmetria della parentesi, $[Y, X] = -[X, Y]$, la condizione è automaticamente soddisfatta anche per $[Y, X] \in \h$).
+	Se è abeliano $[X,Y] = 0$ $\forall X,Y$
+\end{definizione}
+
+\begin{definizione}[Algebra di Lie Semi-Semplice]
+	Un'algebra di Lie $\g$ è \textbf{semi-semplice} se non possiede ideali Abeliani non banali. Informalmente, non ha "sottostrutture banali". Le algebre $\so(3)$ (isomorfa a $\su(2)$) e $\so(n), \su(n), \mathfrak{sp}(n)$ per $n$ opportuni, sono tutte semi-semplici.
+\end{definizione}
+
+\begin{teorema}[Teorema di Weyl]
+	Ogni rappresentazione finito-dimensionale di un'algebra di Lie \textbf{semi-semplice} (su un campo di caratteristica 0, come $\R$ o $\C$) è \textbf{completamente riducibile}.
+\end{teorema}
+
+Questo teorema è una pietra miliare. Ci assicura che per algebre come $\so(3)$, le rappresentazioni irriducibili (le "irrep", $V_j$) sono i mattoni fondamentali con cui \textit{tutte} le altre rappresentazioni finito-dimensionali possono essere costruite tramite somme dirette.
+
+\subsection{Dimostrazione per Gruppi Compatti (come $SO(3)$)}
+
+Per i gruppi di Lie \textbf{compatti} (come $SO(3)$ e $SU(2)$), il teorema di Weyl può essere dimostrato in modo elegante utilizzando il concetto di unitarietà.
+
+\begin{lemma}[Unitarietà delle Rappresentazioni]
+	Ogni rappresentazione $D(g)$ di un gruppo di Lie compatto $G$ su uno spazio di Hilbert $V$ è equivalente a una rappresentazione \textbf{unitaria}.
+\end{lemma}
+\textit{Idea della dimostrazione:} Si può sempre definire un nuovo prodotto scalare $\langle \cdot, \cdot \rangle_G$ su $V$ "mediando" il prodotto scalare originale $(\cdot, \cdot)_V$ sull'intero gruppo (usando l'integrale di Haar, $\mu(g)$):
+$$ \langle v, w \rangle_G = \int_G (D(g)v, D(g)w)_V d\mu(g) $$
+Si dimostra che la rappresentazione $D(g)$ è unitaria rispetto a questo nuovo prodotto scalare $\langle \cdot, \cdot \rangle_G$.
+
+\begin{proposizione}
+	Ogni rappresentazione unitaria (finito-dimensionale) è completamente riducibile.
+\end{proposizione}
+\begin{proof} Sia $D$ una rappresentazione unitaria su $V$, e sia $W \subseteq V$ un sottospazio invariante. Dobbiamo dimostrare che anche il suo complemento ortogonale $W^\perp$ è un sottospazio invariante.
+Sia $v \in W^\perp$ (cioè $\langle v, w \rangle = 0$ per ogni $w \in W$). Dobbiamo mostrare che $D(X)v \in W^\perp$ (per l'algebra $\g$) o $D(g)v \in W^\perp$ (per il gruppo $G$).
+Consideriamo il gruppo $G$. Sia $g \in G$ e $w \in W$:
+$$ \langle D(g)v, w \rangle = \langle v, D(g)^\dagger w \rangle $$
+Poiché $D$ è unitaria, $D(g)^\dagger = D(g)^{-1} = D(g^{-1})$.
+$$ \langle D(g)v, w \rangle = \langle v, D(g^{-1}) w \rangle $$
+Dato che $W$ è invariante, $w' = D(g^{-1})w$ è anch'esso un elemento di $W$.
+$$ \langle D(g)v, w \rangle = \langle v, w' \rangle \quad \text{con } w' \in W $$
+Ma $v \in W^\perp$, quindi $\langle v, w' \rangle = 0$.
+Dunque $\langle D(g)v, w \rangle = 0$ per ogni $w \in W$. Questo significa che $D(g)v$ è ortogonale a $W$, ovvero $D(g)v \in W^\perp$.
+Quindi $W^\perp$ è un sottospazio invariante. Avendo $V = W \oplus W^\perp$, la rappresentazione è completamente riducibile.
+\end{proof}
+
+\begin{corollario}[Teorema di Weyl per $SO(3)$]
+	Poiché $SO(3)$ (e il suo gruppo di copertura $SU(2)$) è un gruppo di Lie compatto, ogni sua rappresentazione finito-dimensionale è equivalente a una rappresentazione unitaria. Per la proposizione precedente, ogni rappresentazione unitaria è completamente riducibile.
+	Ne consegue che \textbf{ogni rappresentazione finito-dimensionale di $SO(3)$ e della sua algebra $\so(3)$ è completamente riducibile.}
+\end{corollario}
+
+
+\section{Operatore Tensoriale}
+
+In meccanica quantistica, un operatore non è semplicemente un oggetto matematico, ma deve avere proprietà di trasformazione ben definite rispetto alle simmetrie del sistema. Nel caso della simmetria rotazionale $SO(3)$, la definizione formale di un operatore tensoriale si basa sulle sue relazioni di commutazione con i generatori dell'algebra $\so(3)$, $\vec{J} = (J_1, J_2, J_3)$.
+
+\begin{definizione}[Operatore Tensoriale Irriducibile (Sferico)]
+	Un insieme di $2k+1$ operatori $\{ T_q^{(k)} \}$, con $k$ intero o semi-intero e $q = -k, -k+1, \dots, +k$, è chiamato \textbf{operatore tensoriale irriducibile} (o sferico) di rango $k$ se soddisfa le seguenti relazioni di commutazione con i generatori del momento angolare $\vec{J}$:
+	\begin{align*}
+		[J_3, T_q^{(k)}] &= q T_q^{(k)} \\
+		[J_\pm, T_q^{(k)}] &= \sqrt{k(k+1) - q(q\pm 1)} \, T_{q\pm 1}^{(k)}
+	\end{align*}
+	dove $J_\pm = J_1 \pm i J_2$ sono gli operatori di salita e discesa.
+\end{definizione}
+
+\begin{osservazione}
+	Queste relazioni di commutazione sono la versione infinitesimale (algebrica) della definizione a livello di gruppo (globale), $R U(\vec{\theta}) T_q^{(k)} U(\vec{\theta})^\dagger = \sum_{q'} T_{q'}^{(k)} D_{q'q}^{(k)}(\vec{\theta})$, dove $D^{(k)}$ è la matrice di Wigner.
+	La definizione algebrica significa, in termini di teoria delle rappresentazioni, che l'operatore $T_q^{(k)}$ si trasforma sotto l'azione aggiunta del gruppo $SO(3)$ (o $SU(2)$) \textit{esattamente} come lo stato (ket) $\ket{k, q}$.
+\end{osservazione}
+
+\begin{esempio}[Operatore Scalare, $k=0$]
+	Un operatore di rango $k=0$ ha solo un componente, $T_0^{(0)}$. Le relazioni di commutazione diventano:
+	$$ [J_3, T_0^{(0)}] = 0 \quad \text{e} \quad [J_\pm, T_0^{(0)}] = 0 $$
+	Questo implica $[J_i, T_0^{(0)}] = 0$ per $i=1,2,3$. Un operatore scalare è un operatore che commuta con tutti i generatori delle rotazioni, ed è quindi un \textbf{invariante rotazionale} (ad esempio, l'operatore $J^2$ stesso, o l'Hamiltoniana di un sistema con simmetria sferica).
+\end{esempio}
+
+\begin{esempio}[Operatore Vettoriale, $k=1$]
+	Un operatore di rango $k=1$ (operatore vettoriale) ha tre componenti, $T_q^{(1)}$ con $q=-1, 0, 1$. Un qualsiasi operatore vettoriale $\vec{V} = (V_x, V_y, V_z)$, come la posizione $\vec{R}$ o l'impulso $\vec{P}$ o $\vec{J}$ stesso, soddisfa le relazioni $[J_i, V_j] = i \epsilon_{ijk} V_k$.
+	Le componenti sferiche $T_q^{(1)}$ sono definite in termini delle componenti cartesiane $\vec{V}$ come:
+	\begin{align*}
+		T_0^{(1)} &= V_z \\
+		T_{\pm 1}^{(1)} &= \mp \frac{1}{\sqrt{2}}(V_x \pm i V_y)
+	\end{align*}
+	Si può verificare (con un calcolo diretto) che queste componenti $T_q^{(1)}$ soddisfano le relazioni di commutazione della Definizione. Ad esempio:
+	$$ [J_3, T_{\pm 1}^{(1)}] = \mp \frac{1}{\sqrt{2}}([J_3, V_x] \pm i [J_3, V_y]) = \mp \frac{1}{\sqrt{2}}(i V_y \pm i (-i V_x)) = \pm T_{\pm 1}^{(1)} $$
+	che è $q T_q^{(k)}$ con $q=\pm 1$ e $k=1$.
+\end{esempio}
+
+\subsection{Il Teorema di Wigner-Eckart}
+
+Il problema centrale è calcolare gli elementi di matrice di un operatore tensoriale tra autostati del momento angolare, $\bra{\alpha', j', m'} T_q^{(k)} \ket{\alpha, j, m}$. Qui $j, m$ sono i numeri quantici del momento angolare e $\alpha$ rappresenta tutti gli altri numeri quantici (es. energia, spin, etc.) che commutano con $\vec{J}$.
+
+Il Teorema di Wigner-Eckart è un risultato fondamentale della teoria delle rappresentazioni che "separa" la geometria del sistema (legata alle rotazioni e ai numeri quantici $m, q, m'$) dalla dinamica specifica (contenuta nell'operatore $T$ e negli stati $j, \alpha$).
+
+\begin{teorema}[Wigner-Eckart]
+	L'elemento di matrice di un operatore tensoriale irriducibile $T_q^{(k)}$ tra autostati del momento angolare è dato da:
+	$$ \bra{\alpha', j', m'} T_q^{(k)} \ket{\alpha, j, m} = \langle j, m; k, q | j', m' \rangle \frac{\langle \alpha', j' || T^{(k)} || \alpha, j \rangle}{\sqrt{2j'+1}} $$
+	Dove:
+	\begin{enumerate}
+		\item $\langle j, m; k, q | j', m' \rangle$ è un \textbf{coefficiente di Clebsch-Gordan} (CG). Esso contiene \textit{tutta} la dipendenza "geometrica" dai numeri quantici $m, q, m'$.
+		\item $\langle \alpha', j' || T^{(k)} || \alpha, j \rangle$ è l' \textbf{elemento di matrice ridotto}. È una costante di proporzionalità che \textit{non} dipende da $m, q, m'$, ma solo dai numeri quantici "fisici" $\alpha, \alpha', j, j', k$ e dalla natura dell'operatore $T$.
+		\item Il fattore $1/\sqrt{2j'+1}$ è una convenzione di normalizzazione (altre convenzioni esistono).
+	\end{enumerate}
+\end{teorema}
+
+La dimostrazione si basa sull'applicazione delle relazioni di commutazione dell'algebra $\so(3)$.
+
+1.  \textbf{Azione di $J_3$:}
+Consideriamo l'elemento di matrice $\bra{\alpha', j', m'} [J_3, T_q^{(k)}] \ket{\alpha, j, m}$.
+Usando la definizione dell'operatore tensoriale, questo è $\bra{\alpha', j', m'} (q T_q^{(k)}) \ket{\alpha, j, m}$.
+Espandendo il commutatore:
+\begin{align*}
+	\bra{\alpha', j', m'} (J_3 T_q^{(k)} - T_q^{(k)} J_3) \ket{\alpha, j, m} &= (m' - m) \bra{\alpha', j', m'} T_q^{(k)} \ket{\alpha, j, m}
+\end{align*}
+Eguagliando i due risultati:
+$$ (m' - m) \bra{\alpha', j', m'} T_q^{(k)} \ket{\alpha, j, m} = q \bra{\alpha', j', m'} T_q^{(k)} \ket{\alpha, j, m} $$
+$$ (m' - m - q) \bra{\alpha', j', m'} T_q^{(k)} \ket{\alpha, j, m} = 0 $$
+Questo dimostra che l'elemento di matrice è nullo a meno che $m' = m + q$. Questa è la prima regola di selezione imposta dal coefficiente di Clebsch-Gordan $\langle j, m; k, q | j', m' \rangle$.
+
+2.  \textbf{Azione di $J_\pm$:}
+Consideriamo ora $\bra{\alpha', j', m'} [J_\pm, T_q^{(k)}] \ket{\alpha, j, m}$.
+Dalla definizione (LHS):
+$$ \sqrt{k(k+1) - q(q\pm 1)} \, \bra{\alpha', j', m'} T_{q\pm 1}^{(k)} \ket{\alpha, j, m} $$
+Espandendo il commutatore e usando $J_\pm^\dagger = J_\mp$ (RHS):
+\begin{align*}
+	\bra{\alpha', j', m'} (J_\pm T_q^{(k)} - T_q^{(k)} J_\pm) \ket{\alpha, j, m} = \\
+	\sqrt{j'(j'+1) - m'(m'\mp 1)} \, \bra{\alpha', j', m'\mp 1} T_q^{(k)} \ket{\alpha, j, m} \\
+	- \sqrt{j(j+1) - m(m\pm 1)} \, \bra{\alpha', j', m'} T_q^{(k)} \ket{\alpha, j, m\pm 1}
+\end{align*}
+Eguagliando LHS e RHS si ottiene una \textbf{relazione di ricorsione} che collega l'elemento di matrice per $(m, q, m')$ a quelli per $(m\pm 1, q, m')$ e $(m, q\pm 1, m')$.
+
+3.  \textbf{Conclusione (Lemma di Schur):}
+Questa relazione di ricorsione è \textit{identica}, a meno di un fattore di proporzionalità, alla relazione di ricorsione soddisfatta dai coefficienti di Clebsch-Gordan $\langle j, m; k, q | j', m' \rangle$ (che si ottiene dall'applicazione di $J_\pm$ allo stato $\ket{j', m'}$ nella base accoppiata).
+Poiché le relazioni di ricorsione sono identiche, i due insiemi di numeri (gli elementi di matrice e i coefficienti CG) devono essere proporzionali.
+$$ \bra{\alpha', j', m'} T_q^{(k)} \ket{\alpha, j, m} \propto \langle j, m; k, q | j', m' \rangle $$
+Il fattore di proporzionalità, per costruzione, non può dipendere da $m, q, m'$ (poiché la ricorsione li coinvolge tutti) e viene \textit{definito} come l'elemento di matrice ridotto (normalizzato).
+
+\begin{corollario}[Regole di Selezione]
+	Il Teorema di Wigner-Eckart implica potenti regole di selezione. L'elemento di matrice \newline $\bra{\alpha', j', m'} T_q^{(k)} \ket{\alpha, j, m}$ è \textbf{nullo} a meno che entrambe le seguenti condizioni (derivate dal coefficiente CG) non siano soddisfatte:
+	\begin{enumerate}
+		\item $m' = m + q$
+		\item $|j - k| \le j' \le j + k$ (Regola del triangolo)
+	\end{enumerate}
+	Questo semplifica enormemente il calcolo degli elementi di matrice in sistemi con simmetria sferica. Ad esempio, per una transizione di dipolo elettrico (un operatore vettoriale, $k=1$), lo stato finale $j'$ può essere solo $j-1, j$ o $j+1$ (con $j=0 \to j=0$ proibito).
+\end{corollario}
+
+
+\section{Struttura di $SU(N)$ e Costruzione delle Irreps}
+
+Sebbene le definizioni di $U(N)$ e $SU(N)$ siano date, è fondamentale analizzarne le proprietà strutturali per comprendere la costruzione delle loro rappresentazioni. Ci concentreremo sulla connessione tra il gruppo (matrici $U$) e la sua algebra (generatori $T$), e su come i Diagrammi di Young emergano naturalmente da questa struttura.
+
+\subsection{Generatori Hermitiani e Prodotto Scalare}
+
+La fisica del gruppo $SU(N)$ è interamente contenuta nel modo in cui esso agisce sullo spazio vettoriale $\mathbb{C}^N$.
+
+\begin{definizione}[Preservazione del Prodotto Hermitiano]
+	Il gruppo unitario $U(N)$ è, per definizione, il gruppo di trasformazioni lineari $U$ che preserva il prodotto hermitiano (o prodotto scalare) $\langle v, w \rangle = v^\dagger w$.
+	Per due vettori $v', w'$ trasformati da $U$, richiediamo:
+	$$
+	\langle v', w' \rangle = \langle Uv, Uw \rangle = (Uv)^\dagger (Uw) = v^\dagger U^\dagger U w = v^\dagger w = \langle v, w \rangle
+	$$
+	Questa condizione è soddisfatta se e solo se $U^\dagger U = \mathbb{I}$.
+\end{definizione}
+
+\begin{teorema}[Proprietà dei Generatori di $SU(N)$]
+	L'algebra di Lie $\mathfrak{su}(N)$ è lo spazio vettoriale reale dei \textbf{generatori infinitesimali} del gruppo. In fisica, si parametrizza una trasformazione $U$ vicina all'identità ($\mathbb{I}$) come:
+	$$
+	U(\delta\alpha) \approx \mathbb{I} + i \sum_a \delta\alpha_a T_a
+	$$
+	dove $\delta\alpha_a$ sono parametri reali infinitesimali e $T_a$ sono i generatori. Le due condizioni che definiscono $SU(N)$ impongono due vincoli sui generatori $T_a$:
+	
+	\begin{enumerate}
+		\item \textbf{Unitarietà ($U^\dagger U = \mathbb{I}$)}:
+		Sostituendo l'espansione infinitesimale:
+		$$
+		(\mathbb{I} + i \delta\alpha_a T_a)^\dagger (\mathbb{I} + i \delta\alpha_a T_a) = (\mathbb{I} - i \delta\alpha_a T_a^\dagger) (\mathbb{I} + i \delta\alpha_a T_a) \approx \mathbb{I} + i \delta\alpha_a (T_a - T_a^\dagger) = \mathbb{I}
+		$$
+		Per far sì che questo valga per $\delta\alpha_a$ arbitrari, dobbiamo avere $T_a = T_a^\dagger$.
+		I generatori $T_a$ devono essere \textbf{matrici Hermitiane}.
+		
+		\item \textbf{Determinante Speciale ($\det(U) = 1$)}:
+		Utilizzando la formula di Jacobi, $\det(e^A) = e^{\text{Tr}(A)}$, una trasformazione finita $U = \exp(i \alpha_a T_a)$ deve soddisfare:
+		$$
+		\det(U) = \det(\exp(i \alpha_a T_a)) = \exp(\text{Tr}(i \alpha_a T_a)) = 1
+		$$
+		Questo implica $\text{Tr}(i \alpha_a T_a) = 0$. Poiché i parametri $\alpha_a$ sono arbitrari e reali, i generatori devono essere \textbf{a traccia nulla}: $\text{Tr}(T_a) = 0$.
+	\end{enumerate}
+\end{teorema}
+
+\begin{corollario}[Algebra $\mathfrak{su}(N)$ e $\mathfrak{su}(3)$]
+	L'algebra $\mathfrak{su}(N)$ è l'insieme delle matrici $N \times N$ Hermitiane e a traccia nulla.
+	Una matrice $N \times N$ complessa ha $2N^2$ parametri reali. L'Hermiticità ($A = A^\dagger$) impone $N^2$ vincoli (gli elementi diagonali devono essere reali, $a_{ii} = a_{ii}^*$, e gli elementi fuori diagonale sono legati, $a_{ij} = a_{ji}^*$). Questo lascia $N^2$ parametri reali.
+	La condizione di traccia nulla, $\text{Tr}(T) = 0$, impone un ulteriore vincolo reale (poiché $T_{ii}$ sono reali).
+	La dimensione di $\mathfrak{su}(N)$ è quindi $\dim(SU(N)) = N^2 - 1$.
+	
+	Per \textbf{$SU(3)$}, la dimensione è $3^2 - 1 = 8$. I generatori $T_a = \lambda_a / 2$ (con $a=1, \dots, 8$) sono costruiti a partire dalle 8 matrici di Gell-Mann $\lambda_a$.
+\end{corollario}
+
+\subsection{Costruzione Formale dei Diagrammi di Young}
+
+Per comprendere la costruzione delle rappresentazioni di $SU(N)$, lo strumento fondamentale è il Diagramma di Young. Esso fornisce un metodo grafico per classificare le proprietà di simmetria dei tensori, che a loro volta etichettano le rappresentazioni irriducibili (irreps).
+
+\subsubsection{Notazione e Semantica dei Diagrammi}
+
+\begin{definizione}[Partizione e Diagramma di Young]
+	Un \textbf{Diagramma di Young} (o \emph{Young Shape}) $\lambda$ è una rappresentazione grafica di una \textbf{partizione} di un intero $k$.
+	Una partizione $\lambda$ di $k$ è una sequenza di interi $\lambda_1, \lambda_2, \dots, \lambda_m$ tali che:
+	\begin{enumerate}
+		\item $\lambda_1 \ge \lambda_2 \ge \dots \ge \lambda_m > 0$ (le lunghezze delle righe sono non-crescenti).
+		\item $\sum_{i=1}^m \lambda_i = k$ (il numero totale di scatole è $k$).
+	\end{enumerate}
+	Il diagramma $\lambda$ è costruito con $m$ righe, dove la riga $i$-esima contiene $\lambda_i$ scatole.
+\end{definizione}
+
+\begin{osservazione}[Semantica Tensoriale: Cosa Rappresentano le Scatole]
+	Il legame con la fisica dei tensori è il seguente:
+	\begin{itemize}
+		\item $k$ è il \textbf{rango del tensore}, ovvero il numero di indici in un prodotto tensoriale $V^{\otimes k} = V \otimes \dots \otimes V$.
+		\item Ogni \textbf{scatola} nel diagramma corrisponde a uno degli $k$ indici del tensore.
+		\item La \textbf{posizione} della scatola (riga e colonna) definisce la simmetria richiesta per quel tensore.
+	\end{itemize}
+	La regola fondamentale è:
+	\begin{itemize}
+		\item Gli indici che si trovano nelle scatole della \textbf{stessa riga} devono essere \textbf{simmetrici} tra loro.
+		\item Gli indici che si trovano nelle scatole della \textbf{stessa colonna} devono essere \textbf{antisimmetrici} tra loro.
+	\end{itemize}
+	
+	
+	
+	Per $k=3$, la partizione $\lambda=(2,1)$ (l'ottetto in $SU(3)$) corrisponde a un tensore $T^{i_1 i_2 i_3}$ con indici $1, 2, 3$ (per esempio). Il diagramma
+	$$
+	\begin{array}{|c|c|}
+		\hline
+		1 & 2 \\
+		\hline
+		3 & \multicolumn{1}{c}{} \\
+		\cline{1-1}
+	\end{array}
+	$$
+	impone $T^{1 2 3} = +T^{2 1 3}$ (simmetria sulla riga 1) e $T^{1 2 3} = -T^{3 2 1}$ (antisimmetria sulla colonna 1).
+\end{osservazione}
+
+
+\subsubsection{Proprietà e Utilizzo (da $S_k$ a $SU(N)$)}
+
+Il legame formale tra diagrammi e simmetria è dato dal \emph{Simmetrizzatore di Young}.
+
+\begin{definizione}[Tableau e Simmetrizzatore di Young]
+	Un \textbf{Young Tableau} (plurale: \emph{Tableaux}) è un Diagramma di Young $\lambda$ le cui $k$ scatole sono state riempite con i numeri $\{1, 2, \dots, k\}$, che etichettano le posizioni degli indici.
+	
+	Sia $T$ un tableau di forma $\lambda$. Definiamo:
+	\begin{itemize}
+		\item $P(T)$: L'insieme delle permutazioni $p$ che scambiano solo indici all'interno delle \textbf{righe} di $T$.
+		\item $Q(T)$: L'insieme delle permutazioni $q$ che scambiano solo indici all'interno delle \textbf{colonne} di $T$.
+	\end{itemize}
+	Definiamo l'operatore di simmetrizzazione (di riga) $S = \sum_{p \in P(T)} p$ e l'operatore di antisimmetrizzazione (di colonna) $A = \sum_{q \in Q(T)} \text{sgn}(q) \cdot q$.
+	
+	Il \textbf{Simmetrizzatore di Young} è l'operatore (proiettore non normalizzato) $Y_\lambda = A \cdot S$.
+	Applicato a un tensore generico $T \in V^{\otimes k}$, l'operatore $Y_\lambda$ proietta $T$ sulla componente irriducibile con la simmetria $\lambda$.
+\end{definizione}
+
+\begin{teorema}[Dualità di Schur-Weyl (Conseguenza)]
+	I Diagrammi di Young $\lambda$ con $k$ scatole classificano \emph{simultaneamente}:
+	\begin{enumerate}
+		\item Le rappresentazioni irriducibili (irreps) del gruppo simmetrico $S_k$.
+		\item Le rappresentazioni irriducibili (irreps) di $GL(N)$ (e quindi $SU(N)$) che appaiono nello spazio tensoriale $V^{\otimes k}$.
+	\end{enumerate}
+	Questo significa che per decomporre $V^{\otimes k}$ (con $V = \mathbb{C}^N$) sotto $SU(N)$, è sufficiente trovare tutte le partizioni $\lambda$ di $k$.
+\end{teorema}
+
+\begin{teorema}[Vincolo Fondamentale di $SU(N)$]
+	L'uso dei diagrammi per $SU(N)$ (rispetto a $GL(N)$) introduce un vincolo cruciale.
+	Consideriamo un diagramma $\lambda$ che consiste in una singola colonna di $N$ scatole, $\lambda = (1, 1, \dots, 1)$.
+	Questo corrisponde a un tensore $T^{[i_1 i_2 \dots i_N]}$ totalmente antisimmetrico in $N$ indici.
+	In $\mathbb{C}^N$, l'unico tensore (a meno di un fattore di scala) con questa proprietà è il tensore di Levi-Civita $\epsilon^{i_1 i_2 \dots i_N}$.
+	Poiché $\det(U) = 1$ per ogni $U \in SU(N)$, il tensore $\epsilon$ è un \textbf{invariante} (un singoletto, $\mathbf{1}$).
+	
+	$$
+	U^{i_1}_{j_1} \dots U^{i_N}_{j_N} \epsilon^{j_1 \dots j_N} = \det(U) \epsilon^{i_1 \dots i_N} = \epsilon^{i_1 \dots i_N}
+	$$
+	\textbf{Regola di Utilizzo:} Qualsiasi colonna completa di $N$ scatole in un diagramma di Young corrisponde a un singoletto e può essere "rimossa" (o ignorata) dal diagramma.
+	$$
+	\begin{array}{|c|}
+		\hline
+		\cdot \\
+		\hline
+		\vdots \\
+		\hline
+		\cdot \\
+		\hline
+	\end{array} \quad (N \text{ scatole}) \quad \cong \quad \mathbf{1} \text{ (Singoletto)}
+	$$
+	Di conseguenza, tutte le irreps non banali di $SU(N)$ sono classificate da diagrammi di Young con al più $N-1$ righe.
+\end{teorema}
+
+\subsubsection{Esempi Accurati in $SU(3)$}
+
+Per $SU(3)$, si ha $N=3$. Il vincolo è che tutte le irreps sono date da diagrammi con al più $N-1 = 2$ righe.
+
+\begin{osservazione}[Irreps Fondamentali di $SU(3)$]
+	\begin{itemize}
+		\item \textbf{Singoletto $\mathbf{1}$}: È il diagramma vuoto (o una colonna di 3, $\lambda=(1,1,1)$, che è $\mathbf{1}$).
+		
+		\item \textbf{Fondamentale $\mathbf{3}$ (Quark)}: È un tensore di rango $k=1$, $v^i$. L'unica partizione di $k=1$ è $\lambda=(1)$.
+		$$
+		\mathbf{3} = \Box
+		$$
+		
+		\item \textbf{Antifondamentale $\bar{\mathbf{3}}$ (Antiquark)}: Un antiquark $v_i$ non è in $V$, ma in $V^*$. Possiamo costruirlo da $V^{\otimes k}$? Sì.
+		Consideriamo $k=2$. Una partizione è $\lambda=(1,1)$, la colonna di 2 scatole.
+		$$
+		\bar{\mathbf{3}} = \begin{array}{|c|} \hline \cdot \\ \hline \cdot \\ \hline \end{array}
+		$$
+		Questo corrisponde al tensore antisimmetrico $T^{[ij]}$. In $N=3$ dimensioni, $T^{[ij]}$ ha $\binom{3}{2} = 3$ componenti indipendenti.
+		È possibile mappare queste 3 componenti ai 3 componenti di un antiquark $v_k$ tramite il tensore $\epsilon$: $v_k \propto \epsilon_{ijk} T^{ij}$.
+		Quindi, per $SU(3)$, la colonna di 2 scatole è la rappresentazione $\bar{\mathbf{3}}$.
+	\end{itemize}
+\end{osservazione}
+
+\begin{esempio}[Decomposizione $\mathbf{3} \otimes \mathbf{3}$ (Quark-Quark)]
+	Questo è il prodotto $V \otimes V$, quindi $k=2$. Dobbiamo trovare tutte le partizioni di $k=2$.
+	Le partizioni sono (2) e (1,1).
+	\begin{enumerate}
+		\item $\lambda = (2) \implies \begin{array}{|c|c|} \hline \cdot & \cdot \\ \hline \end{array}$.
+		Questo diagramma impone simmetria totale. È il tensore $T^{(ij)}$.
+		Ha $\frac{N(N+1)}{2} = \frac{3(4)}{2} = 6$ componenti. È l'irrep $\mathbf{6}$.
+		
+		\item $\lambda = (1,1) \implies \begin{array}{|c|} \hline \cdot \\ \hline \cdot \\ \hline \end{array}$.
+		Questo diagramma impone antisimmetria totale. È il tensore $T^{[ij]}$.
+		Ha $\binom{N}{2} = \binom{3}{2} = 3$ componenti. Come visto sopra, è l'irrep $\bar{\mathbf{3}}$.
+	\end{enumerate}
+	La decomposizione (basata sulla scomposizione di $T^{ij}$ in parti simmetriche e antisimmetriche) è:
+	$$
+	\mathbf{3} \otimes \mathbf{3} = \mathbf{6} \oplus \bar{\mathbf{3}}
+	$$
+\end{esempio}
+
+\begin{esempio}[Decomposizione $\mathbf{3} \otimes \bar{\mathbf{3}}$ (Quark-Antiquark)]
+	Questo prodotto corrisponde al tensore $T^i_j$ (rango (1,1)). Non è uno spazio $V^{\otimes k}$, quindi non possiamo usare direttamente le partizioni di $k$.
+	Usiamo invece le regole di moltiplicazione dei diagrammi (regole di Littlewood-Richardson) specifiche per $SU(3)$:
+	$$
+	\mathbf{3} \otimes \bar{\mathbf{3}} \quad \longleftrightarrow \quad \Box \otimes \begin{array}{|c|} \hline \cdot \\ \hline \cdot \\ \hline \end{array}
+	$$
+	La regola del prodotto consiste nell'aggiungere le scatole del secondo diagramma al primo in tutti i modi permessi dalle regole di costruzione, e quindi applicare i vincoli di $SU(3)$.
+	Le scatole da aggiungere sono (chiamiamole $a$ e $b$): $\begin{array}{|c|} \hline a \\ \hline b \\ \hline \end{array}$.
+	Le aggiungiamo a $\Box$:
+	\begin{itemize}
+		\item Aggiungiamo $a$: $\begin{array}{|c|c|} \hline \cdot & a \\ \hline \end{array}$ (OK) OPPURE $\begin{array}{|c|} \hline \cdot \\ \hline a \\ \hline \end{array}$ (OK)
+		\item Aggiungiamo $b$ (rispettando le regole, $b$ non può stare sopra $a$, ecc.):
+		\begin{enumerate}
+			\item Dal primo diagramma: $\begin{array}{|c|c|} \hline \cdot & a \\ \hline b & \multicolumn{1}{c}{} \\ \cline{1-1} \end{array}$. Questo dà $\lambda=(2,1)$.
+			\item Dal secondo diagramma: $\begin{array}{|c|} \hline \cdot \\ \hline a \\ \hline b \\ \hline \end{array}$. Questo dà $\lambda=(1,1,1)$.
+		\end{enumerate}
+	\end{itemize}
+	Ora interpretiamo questi diagrammi risultanti in $SU(3)$:
+	\begin{enumerate}
+		\item $\lambda = (2,1) \implies \begin{array}{|c|c|} \hline \cdot & \cdot \\ \hline \cdot & \multicolumn{1}{c}{} \\ \cline{1-1} \end{array}$.
+		Questo diagramma ha $k=3$ ed è a simmetria mista. Come calcolato in precedenza (usando la formula "hook-length"), la sua dimensione è $\mathbf{8}$. È la Rappresentazione Aggiunta (l'Ottetto).
+		
+		\item $\lambda = (1,1,1) \implies \begin{array}{|c|} \hline \cdot \\ \hline \cdot \\ \hline \cdot \\ \hline \end{array}$.
+		Questo è il vincolo di $SU(3)$! È una colonna di $N=3$ scatole. Questo diagramma è il singoletto $\mathbf{1}$.
+	\end{enumerate}
+	La decomposizione (che corrisponde a $T^i_j = (\text{traceless}) + (\text{trace})$) è quindi:
+	$$
+	\mathbf{3} \otimes \bar{\mathbf{3}} = \mathbf{8} \oplus \mathbf{1}
+	$$
+\end{esempio}
+
+\section{Regole di Decomposizione (Littlewood-Richardson)}
+
+Quando si calcola un prodotto tensoriale di due rappresentazioni irriducibili (irreps), $D_\lambda \otimes D_\mu$, il risultato è generalmente riducibile. Le regole di Littlewood-Richardson forniscono un algoritmo combinatorio preciso per determinare quali irreps $D_\nu$ appaiono nella decomposizione e con quale molteplicità (il coefficiente di Littlewood-Richardson $C_{\lambda\mu}^\nu$):
+
+$$
+D_\lambda \otimes D_\mu = \bigoplus_{\nu} C_{\lambda\mu}^{\nu} D_\nu
+$$
+
+\subsection{Algoritmo di Littlewood-Richardson}
+
+Formalizziamo le regole presentate nell'immagine, utilizzando $T_1$ per il diagramma $\lambda$ e $T_2$ per $\mu$.
+
+\begin{teorema}[Algoritmo di Littlewood-Richardson]
+	Siano $T_1$ e $T_2$ due diagrammi di Young. La decomposizione del loro prodotto si ottiene tramite i seguenti passi:
+	
+	\begin{enumerate}
+		\item[\textbf{(a)}] Si etichettino le scatole del diagramma $T_2$. Tutte le scatole nella riga 1 ricevono l'etichetta '$a$'. Tutte le scatole nella riga 2 ricevono l'etichetta '$b$', e così via.
+		
+		\begin{center}
+			$T_1 \quad \otimes \quad \begin{array}{|c|c|c|} \hline a & a & a \\ \hline b & \multicolumn{2}{c}{} \\ \cline{1-1} \end{array}$
+		\end{center}
+		
+		\item[\textbf{(b)}] Si aggiungano le scatole etichettate di $T_2$ al diagramma $T_1$, una alla volta, in un ordine specifico (prima tutte le '$a$', poi tutte le '$b$', etc.). \emph{Per le scatole con la stessa etichetta (es. '$a$'), l'ordine di aggiunta deve rispettare la regola (b.2), solitamente procedendo da destra a sinistra.}
+		
+		Il processo di aggiunta deve obbedire alle seguenti regole ad ogni passo:
+		\begin{enumerate}
+			\item[\textbf{(1)}] \textbf{Forma Valida:} Ogni diagramma intermedio e finale $T_1'$ (ottenuto aggiungendo una scatola) deve essere un diagramma di Young valido (righe non-crescenti).
+			
+			\item[\textbf{(2)}] \textbf{Non-Ripetizione in Colonna:} Due scatole con la stessa etichetta (es. due '$a$') non possono mai trovarsi nella stessa colonna del diagramma finale.
+			
+			\item[\textbf{(3)}] \textbf{Parola di Lattice Valida:} Dopo che tutte le scatole sono state aggiunte, il tableau risultante deve essere \emph{valido} (o "semi-standard"). Questo si verifica leggendo le etichette delle scatole aggiunte secondo una sequenza (es. per righe, da destra a sinistra, dall'alto in basso). La sequenza di etichette $w$ (la "parola") deve essere una \textbf{Parola di Lattice} (o Parola di Yamanouchi).
+			
+			\begin{definizione}[Parola di Lattice]
+				Una parola $w$ è una Parola di Lattice se, leggendola da sinistra a destra, qualsiasi suo prefisso $w_k$ contiene un numero di '$a$' maggiore o uguale al numero di '$b$', che è maggiore o uguale al numero di '$c$', etc.
+				$$ n_a(w_k) \ge n_b(w_k) \ge n_c(w_k) \ge \dots \quad \forall k $$
+			\end{definizione}
+			*(Nota: La regola (b.3) nell'immagine è una descrizione non standard e potenzialmente ambigua di questa condizione fondamentale).*
+		\end{enumerate}
+		
+		\item[\textbf{(c)}] Il coefficiente $C_{\lambda\mu}^{\nu}$ è il \textbf{numero totale di tableaux finali validi} (che soddisfano tutte le regole (b)) che hanno la forma (shape) $\nu$.
+		
+		\item[\textbf{(d)}] \textbf{Vincolo $SU(N)$:} Dopo aver ottenuto tutti i diagrammi $\nu$ finali, si applica il vincolo di $SU(N)$. Qualsiasi diagramma che contiene una colonna di $N$ scatole è equivalente a un diagramma identico con quella colonna rimossa (poiché tale colonna è un singoletto $\mathbf{1}$).
+	\end{enumerate}
+\end{teorema}
+
+\subsection{Spiegazione Formale (Perché Funziona)}
+L'algoritmo di Littlewood-Richardson non è solo un trucco mnemonico; è la manifestazione combinatoria di profonde simmetrie algebriche.
+
+\begin{itemize}
+	\item \textbf{Dualità di Schur-Weyl:} Come sappiamo, esiste una dualità tra le azioni di $GL(N)$ e del gruppo simmetrico $S_k$ sullo spazio tensoriale $V^{\otimes k}$. Un'irrep $\lambda$ di $GL(N)$ è associata a una specifica irrep (simmetrizzatore) $\lambda$ di $S_k$.
+	
+	\item \textbf{Prodotto Tensoriale come Induzione:} Calcolare $D_\lambda \otimes D_\mu$ (per $GL(N)$) corrisponde a un problema nel gruppo simmetrico: calcolare la \textbf{rappresentazione indotta} $\text{Ind}_{S_k \times S_l}^{S_{k+l}}(\lambda \boxtimes \mu)$, dove $k=|\lambda|$ e $l=|\mu|$.
+	
+	\item \textbf Coefficienti di Littlewood-Richardson: I coefficienti $C_{\lambda\mu}^{\nu}$ sono definiti algebricamente come le molteplicità delle irreps $\nu$ in questa induzione.
+
+\item \textbf L'Algoritmo: L'algoritmo (a)-(d) è un metodo puramente combinatorio, scoperto molto più tardi, che calcola esattamente questi coefficienti. La Regola (b.3) (Parola di Lattice) è la condizione cruciale che garantisce che il conteggio corrisponda esattamente alla molteplicità algebrica, assicurando che il tableau sia "semi-standard". La Regola (d) è l'unica specifica per $S\!L(N)$ (e $SU(N)$), poiché impone $\det(U)=1$, rendendo il tensore $\epsilon^{i_1 \dots i_N}$ invariante.
+\end{itemize}
+
+\subsection{Esempio: $SU(3) \implies \mathbf{3} \otimes \bar{\mathbf{3}}$}
+
+\begin{esempio}
+Vogliamo decomporre il prodotto quark-antiquark in $SU(3)$, con $N=3$.
+$$
+\mathbf{3} \otimes \bar{\mathbf{3}} = \quad ?
+$$
+
+\textbf{(a) Identificazione dei Tableaux}
+\begin{itemize}
+\item $T_1 = \mathbf{3}$, che è $\lambda=(1)$. $T_1 = \Box$.
+\item $T_2 = \bar{\mathbf{3}}$. Per $SU(3)$, questa è l'irrep coniugata, rappresentata dalla colonna $N-1=2$. $\lambda=(1,1)$.
+\item Etichettiamo $T_2$:
+$$
+T_2 = \begin{array}{|c|}
+	\hline
+	a \\
+	\hline
+	b \\
+	\hline
+\end{array}
+$$
+\end{itemize}
+
+\textbf{(b) Processo di Aggiunta}
+Dobbiamo aggiungere prima '$a$' e poi '$b$' a $T_1 = \Box$.
+
+\textit{Passo 1: Aggiungere '$a$' a $\Box$}
+\begin{itemize}
+\item Percorso 1.1: $\begin{array}{|c|c|} \hline \cdot & a \\ \hline \end{array}$ (Forma $\lambda=(2)$)
+\item Percorso 1.2: $\begin{array}{|c|} \hline \cdot \\ \hline a \\ \hline \end{array}$ (Forma $\lambda=(1,1)$)
+\end{itemize}
+
+\textit{Passo 2: Aggiungere '$b$' ai risultati}
+\begin{itemize}
+\item Dal Percorso 1.1:
+\begin{itemize}
+	\item (A) $\begin{array}{|c|c|c|} \hline \cdot & a & b \\ \hline \end{array}$ (Forma $\lambda=(3)$)
+	\item (B) $\begin{array}{|c|c|} \hline \cdot & a \\ \hline b & \multicolumn{1}{c}{} \\ \cline{1-1} \end{array}$ (Forma $\lambda=(2,1)$)
+\end{itemize}
+\item Dal Percorso 1.2:
+\begin{itemize}
+	\item (C) $\begin{array}{|c|c|} \hline \cdot & b \\ \hline a & \multicolumn{1}{c}{} \\ \cline{1-1} \end{array}$ (Forma $\lambda=(2,1)$)
+	\item (D) $\begin{array}{|c|} \hline \cdot \\ \hline a \\ \hline b \\ \hline \end{array}$ (Forma $\lambda=(1,1,1)$)
+\end{itemize}
+\end{itemize}
+
+\textit{Passo 3: Verifica della Parola di Lattice}
+Controlliamo la validità di (A), (B), (C), (D) usando la Parola di Lattice (letta per righe, R$\to$L, T$\to$B). Dobbiamo controllare $n_a(w_k) \ge n_b(w_k)$.
+
+\begin{itemize}
+\item \textbf{Tableau (A)}: Parola = ($b, a, \dots$). Il prefisso $w_1='b'$ ha $n_a=0, n_b=1$.
+La regola $n_a \ge n_b$ fallisce ($0 \not\ge 1$). $\implies$ \textbf{ILLEGALE}.
+
+\item \textbf{Tableau (B)}: Parola = ($a, \cdot, b$).
+$w_1='a' \implies n_a=1, n_b=0$. (OK)
+$w_2='a, \cdot' \implies n_a=1, n_b=0$. (OK)
+$w_3='a, \cdot, b' \implies n_a=1, n_b=1$. (OK: $1 \ge 1$)
+$\implies$ \textbf{VALIDO}.
+
+\item \textbf{Tableau (C)}: Parola = ($b, \cdot, a$). Il prefisso $w_1='b'$ ha $n_a=0, n_b=1$.
+La regola $n_a \ge n_b$ fallisce ($0 \not\ge 1$). $\implies$ \textbf{ILLEGALE}.
+
+\item \textbf{Tableau (D)}: Parola = ($\cdot, a, b$).
+$w_1='\cdot' \implies n_a=0, n_b=0$. (OK)
+$w_2='\cdot, a' \implies n_a=1, n_b=0$. (OK)
+$w_3='\cdot, a, b' \implies n_a=1, n_b=1$. (OK: $1 \ge 1$)
+$\implies$ \textbf{VALIDO}.
+\end{itemize}
+
+\textbf{(c) Conteggio dei Risultati}
+Abbiamo prodotto due tableaux finali validi:
+\begin{enumerate}
+\item Il Tableau (B), con forma $\nu_1 = (2,1)$.
+\item Il Tableau (D), con forma $\nu_2 = (1,1,1)$.
+\end{enumerate}
+La decomposizione è quindi $D_{(2,1)} \oplus D_{(1,1,1)}$.
+
+\textbf{(d) Applicazione del Vincolo $SU(3)$}
+Siamo in $SU(N=3)$.
+\begin{itemize}
+\item $\nu_1 = (2,1)$ (l'Ottetto). Non ha colonne di 3. $\implies D_{(2,1)} = \mathbf{8}$.
+\item $\nu_2 = (1,1,1)$ (colonna). È una colonna di $N=3$ scatole. Per la regola (d), questa è la rappresentazione banale $\mathbf{1}$.
+\end{itemize}
+
+\textbf{Conclusione}
+$$
+\mathbf{3} \otimes \bar{\mathbf{3}} = \mathbf{8} \oplus \mathbf{1}
+$$
+\end{esempio}
+
+\end{document}
+
+
