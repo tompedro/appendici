@@ -36,7 +36,15 @@
 \newcommand{\su}{\mathfrak{su}} % Definiamo \so per l'algebra
 \newcommand{\Ghat}{\hat{G}} % Per il duale di G
 \newcommand{\Rep}{\mathcal{R}} % Per la rappresentazione regolare
-
+\newcommand{\boxchar}{\cdot}
+\newcommand{\boxtab}{\begin{array}{|c|} \hline \boxchar \\ \hline \end{array}}
+\newcommand{\coltwo}{\begin{array}{|c|} \hline \boxchar \\ \hline \boxchar \\ \hline \end{array}}
+\newcommand{\rowtwo}{\begin{array}{|c|c|} \hline \boxchar & \boxchar \\ \hline \end{array}}
+\newcommand{\rowthree}{\begin{array}{|c|c|c|} \hline \boxchar & \boxchar & \boxchar \\ \hline \end{array}}
+\newcommand{\YA}{\ket{\Psi_A}}
+\newcommand{\YB}{\ket{\Psi_B}}
+\newcommand{\YC}{\ket{\Psi_C}}
+\newcommand{\YJ}{\ket{\Psi_J}}
 \makeatletter
 \renewenvironment{definizione}[1][]{%
 	\par\addvspace{1.5ex}%
@@ -1853,79 +1861,6 @@ Il legame formale tra diagrammi e simmetria è dato dal \emph{Simmetrizzatore di
 	Di conseguenza, tutte le irreps non banali di $SU(N)$ sono classificate da diagrammi di Young con al più $N-1$ righe.
 \end{teorema}
 
-\subsubsection{Esempi Accurati in $SU(3)$}
-
-Per $SU(3)$, si ha $N=3$. Il vincolo è che tutte le irreps sono date da diagrammi con al più $N-1 = 2$ righe.
-
-\begin{osservazione}[Irreps Fondamentali di $SU(3)$]
-	\begin{itemize}
-		\item \textbf{Singoletto $\mathbf{1}$}: È il diagramma vuoto (o una colonna di 3, $\lambda=(1,1,1)$, che è $\mathbf{1}$).
-		
-		\item \textbf{Fondamentale $\mathbf{3}$ (Quark)}: È un tensore di rango $k=1$, $v^i$. L'unica partizione di $k=1$ è $\lambda=(1)$.
-		$$
-		\mathbf{3} = \Box
-		$$
-		
-		\item \textbf{Antifondamentale $\bar{\mathbf{3}}$ (Antiquark)}: Un antiquark $v_i$ non è in $V$, ma in $V^*$. Possiamo costruirlo da $V^{\otimes k}$? Sì.
-		Consideriamo $k=2$. Una partizione è $\lambda=(1,1)$, la colonna di 2 scatole.
-		$$
-		\bar{\mathbf{3}} = \begin{array}{|c|} \hline \cdot \\ \hline \cdot \\ \hline \end{array}
-		$$
-		Questo corrisponde al tensore antisimmetrico $T^{[ij]}$. In $N=3$ dimensioni, $T^{[ij]}$ ha $\binom{3}{2} = 3$ componenti indipendenti.
-		È possibile mappare queste 3 componenti ai 3 componenti di un antiquark $v_k$ tramite il tensore $\epsilon$: $v_k \propto \epsilon_{ijk} T^{ij}$.
-		Quindi, per $SU(3)$, la colonna di 2 scatole è la rappresentazione $\bar{\mathbf{3}}$.
-	\end{itemize}
-\end{osservazione}
-
-\begin{esempio}[Decomposizione $\mathbf{3} \otimes \mathbf{3}$ (Quark-Quark)]
-	Questo è il prodotto $V \otimes V$, quindi $k=2$. Dobbiamo trovare tutte le partizioni di $k=2$.
-	Le partizioni sono (2) e (1,1).
-	\begin{enumerate}
-		\item $\lambda = (2) \implies \begin{array}{|c|c|} \hline \cdot & \cdot \\ \hline \end{array}$.
-		Questo diagramma impone simmetria totale. È il tensore $T^{(ij)}$.
-		Ha $\frac{N(N+1)}{2} = \frac{3(4)}{2} = 6$ componenti. È l'irrep $\mathbf{6}$.
-		
-		\item $\lambda = (1,1) \implies \begin{array}{|c|} \hline \cdot \\ \hline \cdot \\ \hline \end{array}$.
-		Questo diagramma impone antisimmetria totale. È il tensore $T^{[ij]}$.
-		Ha $\binom{N}{2} = \binom{3}{2} = 3$ componenti. Come visto sopra, è l'irrep $\bar{\mathbf{3}}$.
-	\end{enumerate}
-	La decomposizione (basata sulla scomposizione di $T^{ij}$ in parti simmetriche e antisimmetriche) è:
-	$$
-	\mathbf{3} \otimes \mathbf{3} = \mathbf{6} \oplus \bar{\mathbf{3}}
-	$$
-\end{esempio}
-
-\begin{esempio}[Decomposizione $\mathbf{3} \otimes \bar{\mathbf{3}}$ (Quark-Antiquark)]
-	Questo prodotto corrisponde al tensore $T^i_j$ (rango (1,1)). Non è uno spazio $V^{\otimes k}$, quindi non possiamo usare direttamente le partizioni di $k$.
-	Usiamo invece le regole di moltiplicazione dei diagrammi (regole di Littlewood-Richardson) specifiche per $SU(3)$:
-	$$
-	\mathbf{3} \otimes \bar{\mathbf{3}} \quad \longleftrightarrow \quad \Box \otimes \begin{array}{|c|} \hline \cdot \\ \hline \cdot \\ \hline \end{array}
-	$$
-	La regola del prodotto consiste nell'aggiungere le scatole del secondo diagramma al primo in tutti i modi permessi dalle regole di costruzione, e quindi applicare i vincoli di $SU(3)$.
-	Le scatole da aggiungere sono (chiamiamole $a$ e $b$): $\begin{array}{|c|} \hline a \\ \hline b \\ \hline \end{array}$.
-	Le aggiungiamo a $\Box$:
-	\begin{itemize}
-		\item Aggiungiamo $a$: $\begin{array}{|c|c|} \hline \cdot & a \\ \hline \end{array}$ (OK) OPPURE $\begin{array}{|c|} \hline \cdot \\ \hline a \\ \hline \end{array}$ (OK)
-		\item Aggiungiamo $b$ (rispettando le regole, $b$ non può stare sopra $a$, ecc.):
-		\begin{enumerate}
-			\item Dal primo diagramma: $\begin{array}{|c|c|} \hline \cdot & a \\ \hline b & \multicolumn{1}{c}{} \\ \cline{1-1} \end{array}$. Questo dà $\lambda=(2,1)$.
-			\item Dal secondo diagramma: $\begin{array}{|c|} \hline \cdot \\ \hline a \\ \hline b \\ \hline \end{array}$. Questo dà $\lambda=(1,1,1)$.
-		\end{enumerate}
-	\end{itemize}
-	Ora interpretiamo questi diagrammi risultanti in $SU(3)$:
-	\begin{enumerate}
-		\item $\lambda = (2,1) \implies \begin{array}{|c|c|} \hline \cdot & \cdot \\ \hline \cdot & \multicolumn{1}{c}{} \\ \cline{1-1} \end{array}$.
-		Questo diagramma ha $k=3$ ed è a simmetria mista. Come calcolato in precedenza (usando la formula "hook-length"), la sua dimensione è $\mathbf{8}$. È la Rappresentazione Aggiunta (l'Ottetto).
-		
-		\item $\lambda = (1,1,1) \implies \begin{array}{|c|} \hline \cdot \\ \hline \cdot \\ \hline \cdot \\ \hline \end{array}$.
-		Questo è il vincolo di $SU(3)$! È una colonna di $N=3$ scatole. Questo diagramma è il singoletto $\mathbf{1}$.
-	\end{enumerate}
-	La decomposizione (che corrisponde a $T^i_j = (\text{traceless}) + (\text{trace})$) è quindi:
-	$$
-	\mathbf{3} \otimes \bar{\mathbf{3}} = \mathbf{8} \oplus \mathbf{1}
-	$$
-\end{esempio}
-
 \section{Regole di Decomposizione (Littlewood-Richardson)}
 
 Quando si calcola un prodotto tensoriale di due rappresentazioni irriducibili (irreps), $D_\lambda \otimes D_\mu$, il risultato è generalmente riducibile. Le regole di Littlewood-Richardson forniscono un algoritmo combinatorio preciso per determinare quali irreps $D_\nu$ appaiono nella decomposizione e con quale molteplicità (il coefficiente di Littlewood-Richardson $C_{\lambda\mu}^\nu$):
@@ -1962,7 +1897,7 @@ Formalizziamo le regole presentate nell'immagine, utilizzando $T_1$ per il diagr
 				Una parola $w$ è una Parola di Lattice se, leggendola da sinistra a destra, qualsiasi suo prefisso $w_k$ contiene un numero di '$a$' maggiore o uguale al numero di '$b$', che è maggiore o uguale al numero di '$c$', etc.
 				$$ n_a(w_k) \ge n_b(w_k) \ge n_c(w_k) \ge \dots \quad \forall k $$
 			\end{definizione}
-			*(Nota: La regola (b.3) nell'immagine è una descrizione non standard e potenzialmente ambigua di questa condizione fondamentale).*
+			*(Nota: La regola (b.3) nel Jones è una descrizione non standard e potenzialmente ambigua di questa condizione fondamentale).*
 		\end{enumerate}
 		
 		\item[\textbf{(c)}] Il coefficiente $C_{\lambda\mu}^{\nu}$ è il \textbf{numero totale di tableaux finali validi} (che soddisfano tutte le regole (b)) che hanno la forma (shape) $\nu$.
@@ -2061,7 +1996,7 @@ Abbiamo prodotto due tableaux finali validi:
 \item Il Tableau (D), con forma $\nu_2 = (1,1,1)$.
 \end{enumerate}
 La decomposizione è quindi $D_{(2,1)} \oplus D_{(1,1,1)}$.
-
+\newline
 \textbf{(d) Applicazione del Vincolo $SU(3)$}
 Siamo in $SU(N=3)$.
 \begin{itemize}
@@ -2074,6 +2009,203 @@ $$
 \mathbf{3} \otimes \bar{\mathbf{3}} = \mathbf{8} \oplus \mathbf{1}
 $$
 \end{esempio}
+\section{Young Tableaux e Momento Angolare ($SU(2)$)}
+
+L'apparato dei Diagrammi di Young fornisce un framework unificato per la teoria del momento angolare (rappresentazioni di $SU(2)$). Permette sia di determinare la decomposizione di un prodotto tensoriale (la serie di Clebsch-Gordan), sia di calcolare i coefficienti di cambio base (i coefficienti di Clebsch-Gordan).
+
+\subsection{Definizione Formale degli Spazi $j$}
+
+I numeri $j$ (come $0, 1/2, 1, 3/2, \dots$) sono le etichette che classificano le rappresentazioni irriducibili (irreps) del gruppo $SU(2)$, o equivalentemente, della sua algebra di Lie $\mathfrak{su}(2)$.
+
+\begin{definizione}[Spazio di Rappresentazione $V_j$]
+	L'algebra del momento angolare $\mathfrak{su}(2)$ è definita dai generatori $J_1, J_2, J_3$ con la relazione di commutazione $[J_i, J_j] = i \hbar \epsilon_{ijk} J_k$.
+	
+	Uno \textbf{spazio di rappresentazione irriducibile $V_j$} (chiamato "spazio $j$") è uno spazio vettoriale complesso tale che:
+	\begin{enumerate}
+		\item Gli operatori $J_i$ agiscono linearmente su $V_j$.
+		\item Lo spazio $V_j$ è \textbf{irriducibile} (non ha sottospazi invarianti non banali).
+		\item È uno spazio di autovettori dell'operatore di Casimir $J^2 = J_1^2 + J_2^2 + J_3^2$, con autovalore $j(j+1)\hbar^2$ per ogni vettore in $V_j$.
+	\end{enumerate}
+\end{definizione}
+
+\begin{corollario}[Proprietà dello Spazio $V_j$]
+	Lo spazio $V_j$ etichettato da $j$ ha:
+	\begin{itemize}
+		\item \textbf{Dimensione:} $\dim(V_j) = 2j+1$.
+		\item \textbf{Base standard:} Una base ortonormale $\{ \ket{j, m} \}$ di autovettori di $J_3$, dove $m$ assume i $2j+1$ valori:
+		$$m = -j, -j+1, \dots, j-1, j$$
+	\end{itemize}
+\end{corollario}
+
+\begin{esempio}
+	\begin{itemize}
+		\item \textbf{Spazio $j=1/2$:} $V_{1/2}$ ha dimensione $2$. Base: $\{ \ket{1/2, -1/2}, \ket{1/2, 1/2} \}$.
+		\item \textbf{Spazio $j=1$:} $V_1$ ha dimensione $3$. Base: $\{ \ket{1, -1}, \ket{1, 0}, \ket{1, 1} \}$.
+		\item \textbf{Spazio $j=3/2$:} $V_{3/2}$ ha dimensione $4$. Base: $\{ \ket{3/2, -3/2}, \dots, \ket{3/2, 3/2} \}$.
+	\end{itemize}
+\end{esempio}
+
+\subsection{Decomposizione ($j_1 \otimes j_2$) via Regole di Littlewood-Richardson}
+
+L'algoritmo di Littlewood-Richardson (aggiunta di scatole) determina quali irreps $V_J$ risultano dal prodotto tensoriale $V_{j_1} \otimes V_{j_2}$.
+
+\begin{teorema}[Corrispondenza $j \leftrightarrow$ Tableau]
+	Per $SU(2)$, una irrep $\mathbf{j}$ è costruita come la combinazione \textbf{totalmente simmetrica} di $k=2j$ stati fondamentali $j=1/2$.
+	Di conseguenza, $\mathbf{j}$ corrisponde a un Diagramma di Young con una \textbf{singola riga} di $\mathbf{k=2j}$ scatole.
+	\begin{itemize}
+		\item $j=1/2 \implies k=1 \implies \boxtab$
+		\item $j=1 \implies k=2 \implies \rowtwo$
+		\item $j=3/2 \implies k=3 \implies \rowthree$
+	\end{itemize}
+\end{teorema}
+
+\begin{corollario}[Vincolo di $SU(2)$]
+	Poiché $N=2$, qualsiasi colonna di 2 scatole ($\coltwo$) è un singoletto ($j=0$) e può essere rimossa da un diagramma senza alterare la rappresentazione (Regola (d)).
+	$$
+	\begin{array}{|c|c|} \hline \cdot & \cdot \\ \hline \cdot & \multicolumn{1}{c}{} \\ \cline{1-1} \end{array} \quad \cong \quad \boxtab \quad (\text{per } SU(2))
+	$$
+\end{corollario}
+
+\begin{esempio}[Decomposizione $\mathbf{1} \otimes \mathbf{1/2}$]
+	Vogliamo calcolare $j_1=1 \otimes j_2=1/2$.
+	
+	\textbf{(a) Scrivere i Tableaux:}
+	\begin{itemize}
+		\item $T_1$ (per $j_1=1$): $k=2$. $\implies T_1 = \rowtwo$
+		\item $T_2$ (per $j_2=1/2$): $k=1$. $\implies T_2 = \begin{array}{|c|} \hline a \\ \hline \end{array}$
+	\end{itemize}
+	
+	\textbf{(b) Aggiungere le scatole:}
+	Aggiungiamo la scatola 'a' a $T_1$ in tutti i modi validi:
+	\begin{itemize}
+		\item \textbf{Possibilità 1:} $\begin{array}{|c|c|c|} \hline \cdot & \cdot & a \\ \hline \end{array}$
+		\item \textbf{Possibilità 2:} $\begin{array}{|c|c|} \hline \cdot & \cdot \\ \hline a & \multicolumn{1}{c}{} \\ \cline{1-1} \end{array}$
+	\end{itemize}
+	
+	\textbf{(d) Interpretare i Risultati (Vincolo $SU(2)$):}
+	\begin{itemize}
+		\item \textbf{Risultato 1:} $\rowthree$. È una riga di $k=3$.
+		$j = k/2 = 3/2$. $\implies$ Rappresentazione $\mathbf{j=3/2}$.
+		
+		\item \textbf{Risultato 2:} $\begin{array}{|c|c|} \hline \cdot & \cdot \\ \hline \cdot & \multicolumn{1}{c}{} \\ \cline{1-1} \end{array}$. Questo diagramma contiene una colonna di 2.
+		Rimuovendo la colonna, rimane $\boxtab$. Questo è $k=1$.
+		$j = k/2 = 1/2$. $\implies$ Rappresentazione $\mathbf{j=1/2}$.
+	\end{itemize}
+	\textbf{Conclusione:} $\mathbf{1} \otimes \mathbf{1/2} = \mathbf{3/2} \oplus \mathbf{1/2}$.
+\end{esempio}
+
+	
+	\subsection{Calcolo dei Coefficienti di CG tramite Proiettori di Young}
+	
+	In questa sezione, si formalizza il metodo per il calcolo dei coefficienti di Clebsch-Gordan (CG) di $SU(2)$ utilizzando l'algebra del gruppo simmetrico $S_k$ e i proiettori di Young. Questo metodo è concettualmente fondamentale e alternativa diretta al tradizionale metodo degli operatori a scaletta ($J_\pm$).\newline
+	
+	Il metodo si basa sulla traduzione del problema del momento angolare ($SU(2)$) in un problema di simmetria di permutazione ($S_k$).
+	
+	\begin{definizione}[Stato Fondamentale e $k$ Particelle]
+		Ogni stato di spin $j$ è costruito come la combinazione \emph{totalmente simmetrica} di $k=2j$ particelle fondamentali di spin $j=1/2$.
+		Lo spazio fondamentale $V_{1/2}$ ha base $\ket{\uparrow}$ e $\ket{\downarrow}$.
+		Un prodotto $j_1 \otimes j_2$ è un sistema di $k_{tot} = 2j_1 + 2j_2$ particelle.
+	\end{definizione}
+	
+	\begin{definizione}[Le Basi del Problema]
+		Sia dato un sottospazio con $M_{tot}$ fissato, generato da una base non accoppiata $\{ \ket{A}, \ket{B}, \dots \}$.
+		\begin{itemize}
+			\item \textbf{Base Non Accoppiata} (es. $\ket{A} = \ket{j_1, m_1; j_2, m_2}$):
+			Questi stati hanno una simmetria \emph{parziale}, definita dal sottogruppo $S_{k_1} \times S_{k_2} \subset S_{k_{tot}}$.
+			
+			\item \textbf{Base Accoppiata} (es. $\ket{J, M}$):
+			Questi stati hanno una simmetria \emph{totale} $S_{k_{tot}}$, definita da un diagramma di Young $\lambda_J$.
+		\end{itemize}
+		I coefficienti di CG sono la matrice di trasformazione $\langle A | J \rangle$ tra queste due basi.
+	\end{definizione}
+	
+	\subsubsection{Procedura Formale di Calcolo}
+	
+	Il coefficiente di CG è un elemento di matrice del Proiettore di Young $Y_J$ (l'operatore $Y_{\lambda_J}$ associato al diagramma di $J$).
+	
+	\textbf{Calcolo dei Coefficienti (Metodo $Y_J$)}
+		Dato un sottospazio $M_{tot}$ con base non accoppiata $\{ \ket{A}, \ket{B}, \ket{C}, \dots \}$:
+		\begin{enumerate}
+			\item \textbf{Scegliere il $J$ desiderato.} Si identifica il diagramma di Young $\lambda_J$ corrispondente tramite la decomposizione di Littlewood-Richardson e il vincolo $SU(2)$ (rimozione di colonne $N=2$).
+			
+			\item \textbf{Definire il Proiettore $Y_J$.} Si costruisce l'operatore di simmetria mista $Y_J = Y_{\lambda_J} = Q_J P_J$ (dove $Q_J$ è l'antisimmetrizzatore di colonna e $P_J$ il simmetrizzatore di riga) che agisce su $S_{k_{tot}}$.
+			
+			\item \textbf{Scegliere uno Stato di Partenza.} Si seleziona \emph{un solo} stato della base non accoppiata, ad esempio $\ket{A}$.
+			
+			\item \textbf{Costruire lo Stato Accoppiato.} Si calcola il vettore proiettato (non normalizzato) $\YJ$:
+			$$ \YJ = Y_J \ket{A} $$
+			Questo vettore $\YJ$ \emph{è} lo stato $\ket{J, M}$ desiderato (a meno di una costante).
+			
+			\item \textbf{Trovare i Coefficienti.} I coefficienti di CG (non normalizzati) $a, b, c, \dots$ sono le componenti di $\YJ$ nella base non accoppiata. Si ottengono tramite proiezione (prodotto scalare):
+			\begin{align*}
+				a &= \langle A \YJ  = \langle A | Y_J | A \rangle \\
+				b &= \langle B \YJ  = \langle B | Y_J | A \rangle \\
+				c &= \langle C \YJ  = \langle C | Y_J | A \rangle \\
+				& \dots
+			\end{align*}
+			
+			\item \textbf{Normalizzare.} Il vettore $\vec{v}_J = (a, b, c, \dots)$ è il vettore dei CG. I coefficienti fisici si ottengono normalizzando $\vec{v}_J$:
+			$$ CG_i = \frac{a_i}{\|\vec{v}_J\|} \quad \text{dove} \quad \|\vec{v}_J\| = \sqrt{|a|^2 + |b|^2 + |c|^2 + \dots} $$
+		\end{enumerate}
+	
+	\subsubsection{Esempi (Analisi Concettuale)}
+	
+	\begin{esempio}[$1/2 \otimes 1/2 \to J=0$]
+		\begin{itemize}
+			\item $k=2$, $S_2$. $J=0 \to \lambda=(1,1)$. Proiettore $Y_{J=0} = (e - P_{12})$.
+			\item Base $M=0$: $\{ \ket{A} = \ket{\uparrow\downarrow}, \ket{B} = \ket{\downarrow\uparrow} \}$.
+			\item $\YJ = Y_{J=0} \ket{A} = (e - P_{12}) \ket{\uparrow\downarrow} = \ket{\uparrow\downarrow} - \ket{\downarrow\uparrow}$.
+			\item $a = \langle A \YJ = 1$.
+			\item $b = \langle B \YJ = -1$.
+			\item $\vec{v}_0 = (1, -1)$. Norma $\|\vec{v}_0\| = \sqrt{2}$.
+			\item CGs: $(1/\sqrt{2}, -1/\sqrt{2})$.
+		\end{itemize}
+	\end{esempio}
+	
+	\begin{esempio}[$2 \otimes 1 \to J=2$ (Il calcolo eseguito)]
+		\begin{itemize}
+			\item $k_{tot}=6$, $S_6$. $J=2 \to \lambda=(5,1)$. Proiettore $Y_{J=2} = Y_{(5,1)}$.
+			\item Base $M=1$: $\{ \ket{A} = \ket{2,2; 1,-1}, \ket{B} = \ket{2,1; 1,0}, \ket{C} = \ket{2,0; 1,1} \}$.
+			\item Si calcola lo stato proiettato $\YJ = Y_{(5,1)} \ket{A}$.
+			(Questo calcolo, come da discussione, ha richiesto l'applicazione del simmetrizzatore $P_{(5,1)}$ (riga 1-5) e dell'antisimmetrizzatore $Q_{(5,1)}$ (colonna 1-6) allo stato $\ket{A} = \ket{\uparrow\uparrow\uparrow\uparrow\downarrow\downarrow}$, producendo un vettore somma di 8 kets unici).
+			
+			\item Si calcolano (come eseguito) le proiezioni di $\YJ$ sulla base:
+			\begin{align*}
+				a &= \langle A \YJ = 1/\sqrt{8} \\
+				b &= \langle B \YJ = 1/4 \\
+				c &= \langle C \YJ = \sqrt{3}/4
+			\end{align*}
+			
+			\item \textbf{Normalizzazione:}
+			Si calcola la norma del vettore $\vec{v}_2 = (1/\sqrt{8}, 1/4, \sqrt{3}/4)$:
+			$$ \|\vec{v}_2\|^2 = (1/8) + (1/16) + (3/16) = 2/16 + 1/16 + 3/16 = 6/16 = 3/8 $$
+			La norma è $\|\vec{v}_2\| = \sqrt{3/8}$.
+			
+			\item \textbf{Coefficienti di CG Fisici (Valori Assoluti):}
+			\begin{itemize}
+				\item $\langle 2, 2; 1, -1 | 2, 1 \rangle = \frac{a}{\|\vec{v}_2\|} = \frac{1/\sqrt{8}}{\sqrt{3/8}} = \sqrt{\frac{1}{3}}$
+				\item $\langle 2, 1; 1, 0 | 2, 1 \rangle = \frac{b}{\|\vec{v}_2\|} = \frac{1/4}{\sqrt{3/8}} = \sqrt{\frac{1/16}{3/8}} = \sqrt{\frac{1}{6}}$
+				\item $\langle 2, 0; 1, 1 | 2, 1 \rangle = \frac{c}{\|\vec{v}_2\|} = \frac{\sqrt{3}/4}{\sqrt{3/8}} = \sqrt{\frac{3/16}{3/8}} = \sqrt{\frac{1}{2}}$
+			\end{itemize}
+		\end{itemize}
+	\end{esempio}
+	
+	\subsection{Commento sull'Equivalenza dei Metodi}
+	
+	\begin{osservazione}[Metodo $Y_\lambda$ vs. Metodo $J_\pm$]
+		I due metodi sono formalmente equivalenti e devono produrre i medesimi coefficienti (a meno di una fase globale, la convenzione di Condon-Shortley).
+		
+		\begin{itemize}
+			\item \textbf{Metodo Operatori a Scaletta ($J_\pm$):}
+			Sfrutta l'algebra di Lie $\mathfrak{su}(2)$. È un metodo \textbf{ricorsivo}. Si parte dallo stato "stretched" (allungato) $\ket{J_{max}, J_{max}}$ (che è unico) e si applica l'operatore di discesa $J_- = J_{1,-} + J_{2,-}$ per generare tutti gli altri stati. È computazionalmente efficiente per $SU(2)$.
+			
+			\item \textbf{Metodo Proiettori di Young ($Y_\lambda$):}
+			Sfrutta l'algebra del gruppo simmetrico $S_k$. È un metodo \textbf{diretto} (non ricorsivo). Si calcola lo stato $\ket{J, M}$ desiderato direttamente, senza dover prima trovare lo stato $\ket{J, J}$. Il suo svantaggio è l'enorme complessità algebrica (calcolo di plettismi e elementi di matrice di $S_k$), come visto nell'esempio $2 \otimes 1$.
+		\end{itemize}
+		L'equivalenza risiede nel fatto che entrambi i metodi sono procedure algoritmiche per trovare una base ortonormale per i sottospazi irriducibili $V_J$ all'interno dello spazio prodotto $V_{j_1} \otimes V_{j_2}$.
+	\end{osservazione}
+	
+\end{document}
 
 \end{document}
 

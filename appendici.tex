@@ -30,6 +30,8 @@
 \newcommand{\Identity}{\mathbb{I}}
 \newcommand{\Bor}{\mathscr{B}(X)}
 \newcommand{\ra}{\rightarrow}
+\newcommand{\D}{\mathcal{D}(\mathbb{R})}
+\newcommand{\Dp}{\mathcal{D}'(\mathbb{R})}
 
 \makeatletter
 \renewenvironment{definizione}[1][]{%
@@ -85,525 +87,7 @@
 	\vspace{1em}
 	\tableofcontents
 	\newpage
-	\section{Esempi ed osservazioni utili}
-	
-	\begin{esempio}[A cosa serve uno spazio normato e il prodotto scalare?]
-		Prendo un SR e fisso una $(O, e_1, e_2..., e_n)$ a questo punto un vettore diventa  $$v = (x,y) = x e_1 + y e_2$$ con 
-		\[
-			x : \mathbb{R}^2 \rightarrow \mathbb{R} \quad \quad \quad x(v) = x = (e_1 , v)\]\[
-			y : \mathbb{R}^2 \rightarrow \mathbb{R} \quad \quad \quad y(v) = y = (e_2 , v)
-		\]
-		$x$ e $y$ dipendono quindi dalla base. La norma di un vettore invece non dipende dalla base. Il prodotto scalare invece mi serve per distinguere due vettori della stessa norma.
-	\end{esempio}
-	
-	\begin{esempio}[Norma su $\mathcal{D}(\mathbb{R})$]
-		Si prenda $\mathcal{D}(\mathbb{R})$ lo spazio delle funzioni reali $C^\infty$ a supporto compatto. Posso definirci sopra la norma $||\cdot||_p$ si può fare perchè è liscia e avendo supporto compatto è limitata.
-	\end{esempio}
-	
-	\subsection{Spazi di Hilbert}
-	
-	\begin{esempio}[Spazi non separabili]
-		\begin{itemize}
-			\item \textbf{Oscilloscopio} \newline
-				Vorrei ricostruire $\psi(x) = \sum c_n e^{i \omega_n x}$. Il problema però è che quando si vuole ricostruire un suono per esempio si fa uno spettro continuo in frequenze (oppure non sono dei seni multipli). Non ho infatti periodicità e quindi nessuna  serie di Fourier .
-			\item \textbf{Funzioni quasi-periodiche} \newline
-				Prendiamo $f,g \in C^\infty(\mathbb{R})$
-				\[
-					(f,g) = \lim_{R \rightarrow \infty} \frac{1}{2R} \int_{-R}^{R} dx \overline{g(x)}f(x)
-				\]
-				questo permette di costruire uno spazio di Hilbert $B_2(\mathbb{R})$  con la $|| \cdot ||_2$. Una base è $\{e^{i\lambda x}\}_{\lambda \in \mathbb{R}}$. Questo spazio di Hilbert non è separabile.
-		\end{itemize}
-	\end{esempio}
-	
-	\begin{esempio}[Insiemi densi]
-		E' possibile lavorare con un certo insieme di funzioni e ottenere risultati che valgono per tutte le altre? Questo ci porta al concetto di insieme denso.\newline
-		$\mathcal{D}(\mathbb{R})$ e $\mathcal{S}(\mathbb{R})$ sono denso in $L^2(\mathbb{R})$. Non ha senso lavorarci in dimensione finita.
-	\end{esempio}
-	
-	\begin{esempio}[Perchè usiamo $L^2$]
-		Perchè non vogliamo imporre limiti geometrici a priori sul modello.
-	\end{esempio}
-	
-	\subsection{Spazio di Successioni}
-	\begin{itemize}
-		\item $l^p = \{(x_n)_{n \in \mathbb{N}} \subset \mathbb{K} \mid \sum_{n=1}^\infty |x_n|^p < \infty\}$, $1 \le p < \infty$
-		\item $l^\infty = \{(x_n) \subset \mathbb{K} \mid (x_n) \text{ è limitata}\}$
-		\\ $(x_n) \in l^\infty \Leftrightarrow \exists C > 0 \text{ t.c. } \sup_{n \in \mathbb{N}} |x_n| \le C < \infty$
-		\item $c = \{(x_n) \subset \mathbb{K} \mid (x_n) \text{ ammette limite } < \infty\}$
-		\item $c_0 = \{(x_n) \subset \mathbb{K} \mid \lim_{n \to \infty} x_n = 0\}$
-		\item $c_{00} = \{(x_n) \subset \mathbb{K} \mid x_n \text{ definitivamente nulla}\}$
-	\end{itemize}
-	
-	\paragraph{Norme}
-	\begin{itemize}
-		\item Su $l^p$: $||x||_p = \left(\sum_{n=1}^\infty |x_n|^p\right)^{1/p}$
-		\item Su $l^\infty, c, c_0, c_{00}$: $||x||_\infty := \sup_{n \in \mathbb{N}} |x_n|$
-	\end{itemize}
-	
-	\subsubsection*{Inclusioni Naturali tra Spazi $l^p / c / c_0 / c_{00}$}
-	Per $1 \le p < r < \infty$:
-	\[ c_{00} \subset l^p \subset l^r \subset c_0 \subset c \subset l^\infty \]
-	$c_{00}$ è denso in $l^p$ (per $p<\infty$) e in $c_0$. Le inclusioni sono continue.
-	\begin{itemize}
-		\item $(l^p, ||\cdot||_p)$ è Banach.
-		\item $(l^2, ||\cdot||_2)$ con $(x,y) = \sum_{n=1}^\infty \overline{x_n} y_n$ è Hilbert.
-		\item $(c_0, ||\cdot||_\infty)$ e $(c, ||\cdot||_\infty)$ sono Banach (sono sottospazi chiusi di $l^\infty$).
-		\item $(c_{00}, ||\cdot||_\infty)$ NON è banach (perchè non è completo).\newline
-		Controesempio: Si consideri la successione $(x^k)_{k \in \mathbb{N}}$ in $c_{00}$ data da $x_n^k = \begin{cases} 1/n & \text{se } 1 \le n \le k \\ 0 & \text{altrimenti} \end{cases}$.
-		\begin{itemize}
-			\item È una successione di Cauchy in $l^\infty$: per $l \ge 1$,
-			\[ ||x^k - x^{k+l}||_\infty = \sup_{n=k+1}^{k+l} \left|\frac{1}{n}\right| = \frac{1}{k+1} \xrightarrow[k \to \infty]{} 0 \]
-			\item Ma $(x^k)$ converge in $l^\infty$ alla successione $x = (1/n)_{n \in \mathbb{N}}$.
-			\item $x \in c_0$ (perché $1/n \to 0$), ma $x \notin c_{00}$ (non è definitivamente nulla).
-			\item Quindi $c_{00}$ non è uno spazio chiuso in $c_0$, perciò non è completo.
-		\end{itemize}
-	\end{itemize}
-	
-	\subsubsection*{Disuguaglianza di Hölder}
-	$\forall x \in l^p, \forall y \in l^q$ t.c. $\frac{1}{p} + \frac{1}{q} = 1$:
-	\[ \sum_{n=1}^\infty |x_n y_n| \le ||x||_p ||y||_q \]
-	Se $p=q=2 \implies$ Disuguaglianza di Cauchy-Schwartz.
-	
-	\subsubsection*{Separabilità di $l^p$}
-	\begin{itemize}
-		\item $l^p$ è separabile per $1 \le p < \infty$. ($l^\infty$ non è separabile).
-		\item Uno spazio è separabile $\Leftrightarrow \exists$ un sottospazio denso numerabile.
-		\item $c_{00}$ (in particolare l'insieme delle successioni a valori razionali) è denso in $(l^p, ||\cdot||_p)$ per $1 \le p < \infty$.
-		\item $\overline{c_{00}}^{||\cdot||_p} = l^p$.
-		\item $(\forall x \in l^p, \exists (x^k) \subset c_{00} \text{ t.c. } ||x^k - x||_p \to 0)$
-	\end{itemize}
-	
-	\subsubsection*{Riflessività}
-	Def: Uno spazio normato $(X, ||\cdot||_X)$ è riflessivo se l'immersione canonica $J: X \to X^{\star\star}$ è suriettiva.
-	\begin{itemize}
-		\item $J: x \mapsto \delta_x$
-		\item $\delta_x: X^\star \to \mathbb{K}$ è un funzionale lineare e continuo (un elemento del biduale $X^{\star\star}$) definito da:
-		\[ f \mapsto \delta_x(f) = f(x) \]
-		\item $X^\star = \{f: X \to \mathbb{K}, \text{lineare e continuo}\}$ (duale topologico)
-		\item $X^{\star\star} = (X^\star)^\star$ (biduale topologico)
-	\end{itemize}
-	\begin{itemize}
-		\item La riflessività vale per $(l^p, ||\cdot||_p)$ con $1 < p < \infty$.
-		\item Tutti gli spazi di Hilbert sono riflessivi.
-	\end{itemize}
-	
-	
-	\subsection{Spazi di Funzioni $L^p(\mathbb{R}^n)$ ($p \in [1, +\infty]$)}
-	Sia $\Omega \subseteq \mathbb{R}^n$ un aperto e $\mu$ la misura di Lebesgue.
-	
-	\begin{itemize}
-		\item $L^p(\Omega) = \{ [f]: \Omega \to \mathbb{K} \mid \int_\Omega |f(x)|^p d^n x < \infty \}$, per $1 \le p < \infty$.
-		\item $L^\infty(\Omega) = \{ [f]: \Omega \to \mathbb{K} \mid \exists C > 0 \text{ t.c. } |f(x)| \le C \text{ q.o. in } \Omega \}$
-		\item La norma in $L^\infty$ è $||f||_{L^\infty} = \inf \{ C > 0 \mid |f(x)| \le C \text{ q.o. in } \Omega \}$ (estremo superiore essenziale).
-	\end{itemize}
-	Si considerano classi di equivalenza $[f]$ (funzioni uguali quasi ovunque) affinché $||f||_{L^p} = 0 \Leftrightarrow f = 0$ q.o.
-	
-	\subsubsection*{Disuguaglianza di Hölder per $L^p$}
-	Siano $f \in L^p(\Omega)$ e $g \in L^q(\Omega)$ con $\frac{1}{p} + \frac{1}{q} = 1$.
-	Allora $fg \in L^1(\Omega)$ e
-	\[ \int_\Omega |f(x) g(x)| d^n x \le \left( \int_\Omega |f(x)|^p d^n x \right)^{1/p} \left( \int_\Omega |g(x)|^q d^n x \right)^{1/q} \]
-	ovvero $||fg||_{L^1} \le ||f||_{L^p} ||g||_{L^q}$.
-	
-	\subsubsection*{Inclusioni Naturali}
-	Se $mis(\Omega) = \int_\Omega 1 d^n x < \infty$ (misura finita) e $1 \le p < r \le \infty$:
-	\[ L^r(\Omega) \subset L^p(\Omega) \]
-	L'inclusione è continua.
-	
-	\subsubsection*{Riflessività}
-	\begin{itemize}
-		\item $L^p(\Omega)$ è riflessivo per $1 < p < \infty$.
-		\item $L^1(\Omega)$ e $L^\infty(\Omega)$ non sono riflessivi (in generale).
-	\end{itemize}
-	
-	\subsubsection*{Separabilità}
-	\begin{itemize}
-		\item $L^p(\Omega)$ è separabile per $1 \le p < \infty$.
-		\item $L^\infty(\Omega)$ non è separabile (in generale).
-		\item $C_0^\infty(\Omega)$ (funzioni $C^\infty$ a supporto compatto in $\Omega$) è denso in $L^p(\Omega)$ per $p < \infty$.
-		\item $\overline{C_0^\infty(\Omega)}^{||\cdot||_{L^p}} = L^p(\Omega)$.
-	\end{itemize}
-	
-	\subsubsection*{Convergenza Debole e Forte in $X^\star$}
-	Sia $(X, ||\cdot||_X)$ uno spazio normato e $\{f_n\} \subset X^\star$.
-	\begin{itemize}
-		\item \textbf{Convergenza Debole (puntuale):} $f_n \rightharpoonup f$ se $f_n(x) \to f(x)$ $\forall x \in X$.
-		\item \textbf{Convergenza Forte (in norma):} $f_n \to f$ se $||f_n - f||_{X^\star} \to 0$.
-		\item forte $\implies$ debole.
-		\item debole $\implies$ forte se $\dim X < \infty$.
-	\end{itemize}
-	
-	
-	\subsection{Spazi $L_{loc}^p(\mathbb{R}^n)$}
-	Def: $f \in L_{loc}^p(\mathbb{R}^n)$ (spazio delle funzioni localmente $p$-integrabili), $1 \le p \le \infty$, se:
-	\[ \forall K \subset \mathbb{R}^n \text{ compatto, } f \in L^p(K) \]
-	(cioè $\int_K |f(x)|^p dx < \infty$).\newline\newline
-	Esempi:
-	\begin{itemize}
-		\item $f(x) \equiv c \in \mathbb{R}$. Se $c \ne 0$, $f \notin L^1(\mathbb{R})$ ma $f \in L_{loc}^1(\mathbb{R})$ (e $L_{loc}^p$ per ogni $p$).
-		\item $f \in C^0(\mathbb{R}^n) \implies f \in L_{loc}^p(\mathbb{R}^n)$ per ogni $p$, perché $f$ è limitata sui compatti.
-		\item $f(x) = 1/x$ (con $f(0)=0$) non è in $L_{loc}^1(\mathbb{R})$. Basta prendere un compatto $K$ che contiene $0$, ad esempio $K=[-1,1]$, e si ha $\int_{-1}^1 |1/x| dx = \infty$.
-	\end{itemize}
-	
-	\subsubsection*{Lemma (Fondamentale Calcolo Variazioni, caso 1D)}
-	Sia $I = (a,b) \subset \mathbb{R}$, $a < b$, $f \in L_{loc}^1((a,b))$.
-	Se vale:
-	\[ \int_a^b f(x) \frac{d\varphi}{dx}(x) dx = 0 \quad \forall \varphi \in C_0^\infty((a,b)) \]
-	allora $\exists c \in \mathbb{R}$ t.c. $f(x) = c$ per q.o. $x \in (a,b)$.
-	
-	
-	\subsection{Richiami di Complementi di Analisi III}
-	Sia $\Omega \subseteq \mathbb{R}^n$ aperto.
-	
-	\begin{teorema}[Teorema di Beppo Levi (Convergenza Monotona)]
-	\noindent Sia $(f_n)_{n \in \mathbb{N}} \subset L^1(\Omega)$ una successione di funzioni tale che:
-	\begin{itemize}
-		\item $f_n \ge 0$ q.o.
-		\item $f_n(x) \le f_{n+1}(x)$ q.o. $\forall n \in \mathbb{N}$ (monotona non decrescente).
-	\end{itemize}
-	Sia $f(x) = \lim_{n \to \infty} f_n(x)$ q.o. (il limite esiste, eventualmente $+\infty$).
-	Allora:
-	\[ \int_\Omega f(x) dx = \lim_{n \to \infty} \int_\Omega f_n(x) dx \]
-\end{teorema}
-
-	\begin{teorema}[Lemma di Fatou]
-	\noindent Sia $(f_n)_{n \in \mathbb{N}} \subset L^1(\Omega)$ una successione di funzioni tale che $f_n \ge 0$ q.o.
-	Allora:
-	\[ \int_\Omega \liminf_{n \to \infty} f_n(x) dx \le \liminf_{n \to \infty} \int_\Omega f_n(x) dx \]
-	\end{teorema}
-	
-	\begin{teorema}[Teorema di Lebesgue (Convergenza Dominata)]
-	\noindent Sia $(f_n)_{n \in \mathbb{N}} \subset L^1(\Omega)$ una successione di funzioni tale che:
-	\begin{itemize}
-		\item $f_n(x) \to f(x)$ q.o. in $\Omega$.
-		\item $\exists g \in L^1(\Omega)$ (una funzione dominante) t.c. $\forall n \in \mathbb{N}$, $|f_n(x)| \le g(x)$ q.o.
-	\end{itemize}
-	Allora $f \in L^1(\Omega)$ e $||f_n - f||_{L^1} \to 0$ (cioè $f_n \to f$ in $L^1$).
-	\end{teorema}
-	
-	\subsection{Spazi di Sobolev $W^{k,p}(\mathbb{R}^n)$}
-	Esempio (Equazione di Schrödinger per una particella libera):
-	\[ i \hbar \frac{\partial}{\partial t} \psi(t, \underline{x}) = -\frac{\hbar^2}{2m} \Delta \psi(t, \underline{x}) \]
-	Si cerca $\psi$ tale che $\psi(t, \cdot) \in L^2(\mathbb{R}^3)$ (funzione d'onda) per ogni $t$.
-	L'equazione contiene $\Delta \psi = \sum_i \frac{\partial^2 \psi}{\partial x_i^2}$. Per dare senso a questo operatore, non basta richiedere $\psi \in C^2$. La richiesta corretta (in termini energetici) è $\psi(t, \cdot) \in H^2(\mathbb{R}^3)$.
-	
-	\subsubsection*{Definizione $W^{1,p}$ (Derivata Debole)}
-	Sia $\Omega \subseteq \mathbb{R}^n$ aperto, $1 \le p < \infty$.
-	Si dice che $u \in W^{1,p}(\Omega)$ se:
-	\begin{enumerate}
-		\item $u \in L^p(\Omega)$
-		\item $\exists f_1, \dots, f_n \in L^p(\Omega)$ tali che (integrando per parti):
-		\[ \int_\Omega u \frac{\partial \varphi}{\partial x_i} dx = - \int_\Omega f_i \varphi dx \quad \forall \varphi \in C_0^\infty(\Omega), \forall i = 1, \dots, n \]
-	\end{enumerate}
-	Le funzioni $f_i$ sono uniche (q.o.) e sono chiamate \textbf{derivate deboli} di $u$. Si pone $f_i =: \frac{\partial u}{\partial x_i}$.
-	\begin{itemize}
-		\item Se $u \in C^1(\Omega) \cap L^1(\Omega)$, le derivate deboli coincidono con le derivate classiche.
-	\end{itemize}
-	
-	\paragraph{Norma $W^{1,p}$}
-	La norma standard su $W^{1,p}(\Omega)$ è:
-	\[ ||u||_{W^{1,p}} = \left( ||u||_{L^p}^p + ||\nabla u||_{L^p}^p \right)^{1/p} = \left( \int_\Omega |u|^p dx + \sum_{i=1}^n \int_\Omega \left|\frac{\partial u}{\partial x_i}\right|^p dx \right)^{1/p} \]
-	(Per $p=\infty$ si usa la somma delle norme $L^\infty$).
-	
-	\paragraph{Proprietà}
-	$(W^{1,p}(\Omega), ||\cdot||_{W^{1,p}})$ è uno spazio di Banach.
-	\begin{itemize}
-		\item È separabile per $1 \le p < \infty$.
-		\item È riflessivo per $1 < p < \infty$.
-		\item Per $p=2$: $W^{1,2}(\Omega) = H^1(\Omega)$ è uno spazio di Hilbert con prodotto scalare:
-		\[ (u, v)_{H^1} := \int_\Omega (u v + \nabla u \cdot \nabla v) dx \]
-	\end{itemize}
-	
-	\subsubsection*{Definizione $W^{k,p}$}
-	Sia $\Omega \subseteq \mathbb{R}^n$ aperto. Per $k \in \mathbb{N}$:
-	\[ W^{k,p}(\Omega) = \{ u \in L^p(\Omega) \mid D^\alpha u \in L^p(\Omega) \quad \forall |\alpha| \le k \} \]
-	dove $\alpha = (\alpha_1, \dots, \alpha_n) \in \mathbb{N}_0^n$ è un multi-indice, $|\alpha| = \sum \alpha_i$ è l'ordine della derivata, e $D^\alpha u = \frac{\partial^{|\alpha|} u}{\partial x_1^{\alpha_1} \dots \partial x_n^{\alpha_n}}$ è la derivata debole.
-	\begin{itemize}
-		\item $W^{k,2}(\Omega) =: H^k(\Omega)$ (Spazi di Hilbert)
-		\item $W^{0,p}(\Omega) = L^p(\Omega)$, quindi $H^0 = L^2$.
-		\item Esempio Schrödinger: $\psi(t, \cdot) \in H^2(\mathbb{R}^3) = \{ \psi \in L^2(\mathbb{R}^3) \mid \partial_i \psi \in L^2, \partial_i \partial_j \psi \in L^2 \}$.
-	\end{itemize}
-	
-	\subsubsection*{Teoremi di Embedding di Sobolev}
-	I teoremi di Sobolev (o immersioni) stabiliscono relazioni tra gli spazi $W^{k,p}$ e gli spazi $C^m$ (spazi di funzioni continue con $m$ derivate continue).
-	\newline
-	Se $k - n/p > m$ (dove $m$ è un intero $\ge 0$), allora $W^{k,p}(\mathbb{R}^n) \subset C^m(\mathbb{R}^n)$.\newline
-	Una formula sintetica è: $u \in W^{k,p}(\mathbb{R}^n) \implies u \in C^m(\mathbb{R}^n)$ con $m = \lfloor k - n/p \rfloor$.
-	\newline
-	\begin{osservazione}[]
-	\begin{itemize}
-		\item $u \in H^2(\mathbb{R}^3)$. Qui $k=2, p=2, n=3$.
-		\item $m = \lfloor 2 - 3/2 \rfloor = \lfloor 0.5 \rfloor = 0$.
-		\item Quindi $H^2(\mathbb{R}^3) \subset C^0(\mathbb{R}^3)$.
-		\item Questo significa che una funzione $H^2$ (dopo eventuale modifica su un insieme di misura nulla) è continua e limitata.
-		\item Questo è fondamentale per poter "valutare la funzione $\psi$ in un punto $x_0$", $\psi(x_0)$, operazione che non ha senso per una generica funzione $L^2$.
-	\end{itemize}
-	\end{osservazione}
-	
-	\subsection{Operatori}
-	\begin{esempio}[Operatore posizione]
-		Prendiamo $\mathcal{H} = L^2((0,1))$ e definiamo
-		\[
-		\hat{X} : L^2((0,1)) \rightarrowtail L^2((0,1))  \quad \quad \quad \quad \hat{X}\psi = x \psi
-		\]
-		possiamo calcolare la norma usando che 
-		\[
-		\int_{0}^{1} dx |x \psi(x)|^2 \leq 	\int_{0}^{1} dx |\psi(x)|^2 \Rightarrow || \hat{X} || \leq 1
-		\]
-		Se però $\mathcal{H} = L^2(\mathbb{R})$ allora posso prendere $\psi(x) \in  L^2(\mathbb{R})$ tale che
-		\begin{equation*}
-			f(x) =
-			\begin{cases}
-				0 &\quad x < 1 \\
-				\frac{1}{x} &\quad x \geq 1
-			\end{cases}
-		\end{equation*}
-		ma $\hat{X} \psi \notin L^2(\mathbb{R})$ quindi gli operatori non limitati hanno bisogno di una teoria più estesa. \newline
-		Vogliamo costruire l'aggiunto di $\hat{X}$, supponiamo di saperne l'esistenza. Possiamo usare
-		\[
-		(\phi, \hat{X}\psi)=\int_0^1 dx \overline{\phi(x)}x\psi(x) = \int_0^1 dx \overline{x}\overline{\phi(x)}\psi(x)  = (\hat{X} \phi, \psi)
-		\]
-		quindi è autoaggiunto.\newline
-		Prendiamo $\mathcal{H} = L^2((0,1))$, proviamo a trovarne gli autovalori
-		\[
-		\hat{X} \psi = \lambda \psi
-		\]
-		anche se mi aspetto a priori che $\lambda = x$ $\forall \psi \in [0,1]$ $\exists \psi \neq 0 \in W_{\lambda}$ quindi deve esistere un sottospazio ortogonale a $W_{\lambda}$ quindi ho trovato una decomposizione con cardinalità di $[0,1]$, ma questo è assurdo perchè $L^2$ è separabile. Abbiamo postulato che $\hat{X}$ sia l'operatore giusto per la posizione magari ha autovalori diversi da quelli che ci aspttiamo però $\forall x$ troviamo il $\lambda$ tale che  
-		\[
-		x \psi(x) = \lambda \psi(x) \iff \psi(x) = 0
-		\] 
-		quindi non ho autovalori. Proviamo ad estendere la definizione di autovalore. Con le matrici quadrate 1 
-		\[
-		T v = \lambda v \iff (T - v \mathds{1}) = 0 \Rightarrow \nexists (T - v \mathds{1})^{-1}
-		\]
-		quindi se esiste l'inversa allora non $\lambda$ non è un autovalore. In dimensione finita non ho fatto niente. Vediamo il caso di $\hat{X}$
-		\[
-		\exists (\hat{X} - \lambda \mathds{1})^{-1} \text{   t.c.   } ((\hat{X} - \lambda \mathds{1})^{-1}\psi)(x) = \frac{1}{x - \lambda} \psi(x) \Rightarrow (\hat{X} - \lambda \mathds{1})^{-1} := \frac{1}{x - \lambda}
-		\]
-		Se $\lambda \in \mathbb{C} \setminus \mathbb{R} \cup \mathbb{R} \setminus[0,1] $ 
-		\[
-		\int_0^1 dx |\frac{\psi}{x - \lambda}|^2 < \infty
-		\]
-		quindi ho l'inverso ben definito. Dato che l'unico intervallo in cui quell'integrale non è definito sono $[0,1]$ non ho l'inversa quindi sono autovalori. Quindi possiamo introdurre questa nuova definizione pagando il prezzo di non avere più autofunzioni in $L^2$, useremo le distribuzioni.\newline
-		Questo operatore ha un ottimo comportamento nei limitati. Cambiando gli autovalori a seconda dello spazio in cui ci troviamo.
-	\end{esempio}
-	
-	\begin{esempio}[Operatore parità]
-		Prendiamo $\mathcal{H} = L^2(\mathbb{R})$ e definiamo
-		\[
-		\hat{P} : L^2(\mathbb{R}) \rightarrowtail L^2(\mathbb{R})  \quad \quad \quad \quad \hat{P}\psi(x) = \psi(-x)
-		\]
-		possiamo calcolare la norma
-		\[
-		|| \hat{P} || = 1
-		\]
-		esso è anche unitario, cioè non cambia le norme. \newline
-		Troviamo gli autovalori di $P$
-		\[
-		P\psi = \lambda \psi \rightarrow \psi(-x) = \lambda \psi(+x)
-		\]
-		usando $P^2$ possiamo trovare che $\lambda ^ 2 = 1$. Definiamo $\psi_{\pm} = \frac{\psi(x) \pm \psi(-x)}{2}$  si mostra che sono autovalori di $P$. Quindi ogni funzione di $L^2$ può essere decomposta in due funzioni, la parte pari e la parte dispari. \newline
-		Prendiamo una carica $q$ a destra di un semispazio infinito conduttore, prendiamo $\vec{E_q} = k \frac{q}{r^2} \hat{r}$ come se non ci fosse la parete e inoltre voglio che $\vec{E_q}(x = 0) = 0$ prendo quindi la parte dispari e rimane una soluzione delle Maxwell. Se invece avessi $\partial_x \vec{E_q} (x = 0) = 0$ prendo la parte pari. \newline
-		Si può dimostrare che l'operatore che prende la parte pari (dispari) sia un proiettore.
-	\end{esempio}
-	\begin{esempio}[Operatori finito dimensionali]
-		Un operatore su $\mathbb{C}^n$ è sempre rappresentabile tramite una matrice ed è sempre limitato. I seguenti sono indipendenti dalla base scelta
-		\begin{itemize}
-			\item Determinante (dipende dal prodotto degli autovalori)
-			\item Traccia (dipende dalla somma degli autovalori)
-			\item Autovalori
-		\end{itemize}
-		dato che voglio estrarre informazioni da un sistema fisico che è indipendente dalla base, queste devono essere contenute negli autovalori. Da ciò deriva il postulato della misura.  Ci interessiamo però di misure reali quindi vorremmo che i nostri autovalori fossero numeri reali.
-		Data una $A : \mathbb{C}^n \rightarrow \mathbb{C}^n$ e una b.o.c $\{e_i\}$ allora $A_{ij} = (e_i, Ae_j)$ se A è diagonalizzabile allora esiste una $U$ tale che
-		\[
-		UAU^{-1} = \sum \lambda_i P_i \quad \quad \quad \tilde{P}_i := U^{-1}PU \Rightarrow A = \sum \lambda_i \tilde{P}_i
-		\]
-		tramite il teorema spettrale si dimostra che $A = \bar{A}^\dagger  = A^\star$
-	\end{esempio}
-	\begin{esempio}[Operatore impulso]
-		Prendiamo una $\psi \in L^2$
-		\begin{equation*}
-			\psi(x) =
-			\begin{cases}
-				x^{-1/4} &\quad 0 \leq x < 1 \\
-				0 &\quad altrove
-			\end{cases}
-		\end{equation*}
-		applicando $\frac{d}{dx}$ usciamo da $L^2$. Ora provo a calcolare l'aggiunto
-		\[
-		\left(\phi, -i \frac{d \psi}{dx}\right) = -i \int_0^1 dx \overline{\phi(x)} \frac{d \psi}{dx} (x) = -i \overline{\phi}\psi |_0^1 + \int_0^1 dx \overline{\left(-i\frac{d \phi}{dx}\right)} \psi
-		\]
-		questo termine di bordo va rimosso. \newline
-		Questo operatore ha un ottimo comportamento negli illimitati, sistema il comportamento degli stati all'infinito e peggiora le singolarità in zero. Cambiando gli autovalori a seconda dello spazio in cui ci troviamo. Se lo spazio è limitato P e T NON sono più autoaggiunti. \newline
-		Prendiamo quindi $\mathcal{H} = L^2 (0,\infty)$, che è assimilabile al caso di una particella contro una parete e supponiamo inizialmente di prendere 
-		\[
-			\hat{P} = -i \frac{d}{dx} \quad \quad \quad D(\hat{P}) = C^\infty_0(0, \infty)
-		\]
-		stando attenti a prendere l'intervallo aperto e non chiuso se no si ammettono funzioni che non si annullano in 0. Quindi si trova che
-		\[
-		\left(\phi, -i \frac{d \psi}{dx}\right) = -i \int_0^1 dx \overline{\phi(x)} \frac{d \psi}{dx} (x) = -i \overline{\phi}\psi |_0^1 + \int_0^1 dx \overline{\left(-i\frac{d \phi}{dx}\right)} \psi = 
-		\left(\hat{P}^\star \phi, \psi\right)
-		\]
-		dove l'ultima uguaglianza ha senso se e solo se
-		\begin{enumerate}
-			\item il dominio di $\hat{P}$ permette l'annullamento del termine di bordo
-			\item $\psi \in L^2$  e $\phi' \in L^2$ $\Rightarrow$ $\psi \phi' \in L^1$ 
-		\end{enumerate}
-		quindi troviamo che $D(\hat{P}^\star)$ è massimale, cioè tutte le funzioni tali che la loro derivata è in $L^2$. A questo punto usiamo la teoria degli indici di difetto di Von Neumann, trovando il $ker(P^\star \pm i \Identity)$, risolvendo le due equazioni differenziali si arriva a scartare la soluzione esponenziale crescente perchè non è in $L^2(0, \infty)$ ma a tenere l'altra. Questo fa si che le dimensioni degli spazi siano diverse e quindi P non è autoaggiunto e quindi neanche un'osservabile fisica di quel sistema. Capiamo cosa significa, mettiamo caso di avere l'hamiltoniana di particella libera 
-		\[
-			\hat{H} = \hat{T} \quad \quad \hat{T} = -\frac{\hbar^2}{2m} \frac{d^2}{dx^2}
-		\]
-		(da notare che non ho fatto comparire P), che applicata alla soluzione esponenziale negativa mi restituisce un'autovalore negativo. Questo autovalore non è rimuovibile come in fisica classica aggiungendo una costante in quanto in MQ questo non è più valido. P non può più essere autoaggiunto, in quanto se questo fosse vero, avrei che
-		\[
-			\hat{P} = \sqrt{(2m \hat{H})}
-		\]
-		e quindi avrebbe un autovalore complesso, il che non lo renderebbe autoaggiunto (fisico).
-		A livello sperimentale quello che si fa è misurare sempre l'energia e mai l'impulso. Misurando vicino alla parete ci si accorge di questa soluzione e di questo autovalore, mentre mettendoci molto lontano dalle pareti questo effetto non viene distinto dal detector e si può lavorare con l'ipotesi di $\Hspace = L^2(\R)$.
-		\newline
-		Nel caso $\Hspace = L^2(0,1)$ si trova che $d_+ = d_- = 1$ e quindi P risulta essere un buon osservabile. Quindi ho una mappa $U : \C \rightarrow \C$  tra i due sottospazi $\mathcal{N}_\pm$ che manda $z \mapsto e^{i \alpha} z$ rappresentando un'isometria tra i due spazi. Costruendo tramite essa le estensioni autoaggiunte, si può notare che la scelta di $\alpha$ rappresenta la scelta della condizione al contorno del problema.
-	\end{esempio}
-	\begin{esempio}[Operatori compatti]
-		Possiamo immaginarceli come matrici infinite. Vorrei fare il conto di $\langle A \rangle$ con un certo $\psi = (\alpha, \beta)$ senza utilizzare una base. Non è che forse $\langle A \rangle = Tr(\rho A)$ dove 
-		\[
-		\rho = \begin{pmatrix}
-			|\alpha|^2& \bar{\alpha} \beta \\
-			\bar{\beta} \alpha & |\beta|^2 
-		\end{pmatrix}
-		\]
-		facendo il conto si trova che è vero. In MQ si può generalizzare uno stato con queste matrici di densità. In spazi infinito-dimensionali abbiamo bisogno di oggetti del genere con traccia finita, quali sono? Operatori classe traccia che sono compatti.\newline
-		Gli operatori compatti garantiscono che:
-		\begin{enumerate}
-			\item Gli autovalori ordinati tendono a 0
-			\item Ogni autovalore ha molteplicità finita
-		\end{enumerate}
-		quindi abbiamo speranza che la traccia converga.
-	\end{esempio}
-	
-	\begin{esempio}[Operatori non limitati]
-		Un esempio generale di operatore non limitato è (con $\Hspace= L^2(\R)$) 
-		\[
-			T = \sum_{k=0}^N c_k(x) \frac{d^k}{dx^k}
-		\]
-		se ho $\psi \in \mathcal{D}(\R)$ $T\psi \in \mathcal{D}(\R)$ e sono tutti stati.
-	\end{esempio}
-	
-	\begin{esempio}[Operatori densi]
-	Definiamo
-	\[
-		\hat{T} = -i \frac{d}{dx} \quad \quad \quad \hat{K} = - \frac{d^2}{dx^2}
-	\]
-	il dominio massimale è quello per cui ha senso applicarci l'impulso.
-	\[
-		D_{\text{massimale}}(\hat{T}) = H^1(\R)  \quad \quad \quad D_{\text{massimale}}(\hat{K}) = H^2(\R)
-	\]
-	dobbiamo anche assicurarci che (la corrente conservata)
-	\[
-		\lim_{x \rightarrow \infty} \overline{\psi} \frac{d \psi}{dx} = 0
-	\]
-	questa va a 0 solo in una dimensione su $H^1$  ma non in $\R^3$, questa va a 0 ma per tanti altri matti motivi.\newline
-	Un caso sensato in cui possiamo fare i conti senza soffrire è $\mathcal{D}(\R) = D_0(\hat{T})$ che è denso in tanti spazi e va tutto bene. Proviamo a trovare l'aggiunto
-	\[
-		(\phi, T\psi) = -i\int_\R \overline{\phi(x)} \frac{d \psi}{dx} = -i \overline{\phi} \psi \bigg|_{-\infty} ^{+\infty} + i\int_\R \frac{d \overline{\phi}(x)}{dx} \psi(x)
-	\]
-	dove il termine di bordo muore senza problemi, se avessi usato $H^1$ andava bene in una dimensione ma in tre assolutamente no. Continua però a non essere definito bene il secondo integrale, potrebbe essere comunque un integrale divergente. Se ho però la derivata di $\phi \in L^2(\R)$ allora va bene perchè il prodotto di due $L^2$ mi da una $L^1$ e quell'integrale si fa. Allora a quel punto posso dire che quel conto fa $(\hat{T} ^\star \phi, \psi)$ ottengo quindi che
-	\[
-		D(\hat{T}) = \mathcal{D}(\R) \quad \quad \quad \quad D(\hat{T}^\star) = H^1(\R)
-	\]
-	però
-	\[
-		T^\star \psi = -i \frac{d \psi}{dx} \quad \Rightarrow \quad T \subset T^\star
-	\]
-	La domanda che mi faccio è, esiste un S tale che
-	\[
-		T \subset S \subset T^\star \quad \text{t.c.} \quad S = S^\star
-	\]
-	La risposta può essere, non si può fare (operatore P su una semiretta), si può fare ed è unico (operatore P su $\R$), ci sono infiniti modi di farlo. 
-	\end{esempio}
-	
-	\subsection{Varie su operatori}
-	\begin{esempio}[Aggiunto di A]
-		Scelgo $A \in \mathcal{B}(\mathcal{H})$ e suppongo che $A \psi = \lambda_1 \psi$ quindi il sistema non cambia e io posso confrontarlo con uno stato di controllo $(\psi, \lambda_1 \psi) = (\psi, A \psi) = \lambda_1$ (dato che $|| \psi || = 1$). In generale posso farlo con un qualunque vettore di comtrollo o un array di essi. Posso ricavare la stessa informazione agendo sullo stato di controllo invece che sul sistema fisico? In altre parole, esiste un certo B tale che $(\phi, A \psi) = (B\phi, psi)$? La risposta ci porta all'aggiunto di A. Se questo operatore è lo stesso A si dice che è autoaggiunto e ha autovalori reali.
-	\end{esempio}
-	
-	
-	\begin{esempio}[Modulo di un operatore]
-		Prendiamo un $A \in \mathcal{B}(\mathbb{C}^n)$ diagonalizzabile e prendiamo una funzione $f : \mathbb{C} \rightarrow \mathbb{C}
-		$\[
-		A = \sum \lambda_i P_{\lambda_i}  \Rightarrow f(A) := \sum f(\lambda_i )P_{\lambda_i}
-		\]
-		il modulo serve perchè vorrei decomporre una matrice come decompongo un numero complesso in fase e modulo. A questo punto $f$ la scelgo come la funzione radice.
-	\end{esempio}
-	
-	\begin{esempio}[Traccia di un operatore]
-		Prendiamo per semplicità una matrice, la traccia di A posso definirla anche nel caso infinito dimensionale, ma converge? Ipotizziamo che la traccia sia la somma infinita dei suoi autovalori
-		\[
-			TrA = \sum^\infty_{j=1} \lambda_j
-		\]
-		Per il teorema di Riemann-Dini, dato un numero reale e una serie semplicemente convergente ma non assolutamente convergente (come $\sum^\infty \frac{(-1)^{n+1}}{n} = ln2$), esiste una permutazione di termini di tale successione che ha converge a quel numero. Questo è un problema in MQ perchè potrei avere stati normalizzati a seconda della permutazione della serie. Quindi va richiesta la convergenza assoluta. Facciamo un esempio in cui le cose vanno male.\newline Prendimamo un operatore $T : \mathcal{H} \in \mathcal{H}$ e un vettore che scomponiamo sulla base standard ${e_n}$
-		\[
-			\psi = \sum^\infty c_n e_n \quad \quad \Rightarrow \quad \quad T\psi := \sum^\infty \frac{(-1)^{n+1}}{n} c_n e_n
-		\]
-		T si può mostrare che è limitato quindi $T \in \mathcal{B}(\mathcal{H})$ e che $|| T || \leq 1$. Però
-		\[
-			Tr T = \sum^\infty \frac{(-1)^{n+1}}{n} = ln2
-		\]
-		Ora se cambio base, e quindi scelgo i vettori della nuova base prendendone due dispari e uno pari... cioè $v_1 = e_1$ $v_2 = e_3$ $v_3 = e_2$ $v_4 = e_5$... ottengo che
-		\[
-			TrT = \sum^\infty \left[\frac{1}{4k-3} +  \frac{1}{4k-1} -  \frac{1}{2k} \right]= \frac{3}{2} ln2
-		\]
-		infatti non è classe traccia e non può essere uno stato quantistico.
-	\end{esempio}
-	
-	\begin{esempio}[Chiusura di un operatore]
-		Negli spazi finito dimensionali è come la continuità però non vediamola così. \newline
-		Un operatore non chiuso è uno nel dominio non ci sono alcuni punti, come una retta che non ha il punto in zero. Uno che è chiudibile è uno che posso dire il suo valore dove non è definito.
-	\end{esempio}
-	
-	\subsection{Osservazioni sulla MQ}
-	\begin{esempio}[Misure in MQ]
-		In MQ ho una corrispondenza biunivoca tra osservabili e operatori su $L^2(\mathbb{R})$
-		\[
-		A : L^2(\mathbb{R}) \rightarrow L^2(\mathbb{R})
-		\]
-		voglio che il processo di misura restituisca sempre qualcosa nello stesso spazio e voglio che non sia troppo diverso dallo stato iniziale (che non cambino le propietà topologiche degli insiemi input) i.e. voglio continuità degli operatori. Per esempio prendiamo $U_a$ operatore che agisce su $\mathcal{D}(\mathbb{R})$ come
-		\[
-		(U_af)(x) = f(x-a)
-		\]
-		questa cosa funziona perchè l'integrale di Lebesgue è invariante per traslazioni. \newline
-		Prendo uno stato $\psi \in \mathcal{H}$ ci faccio agire $A$ (operatore su questo spazio) e ottengo un nuovo stato. Siamo interessati quale sia la "differenza" tra questo nuovo stato e quello inziale. Quindi viene introdotta la norma di un operatore.
-	\end{esempio}
-	\begin{esempio}[Successione di misure]
-		Vorrei inoltre poter fare una successione di misure sul mio sistema che generano una successione di stati che non so neanche se converge. Vorrei che a partire dai dati sperimentali riuscissi a concludere che la successione converge a qualcosa che posso approssimare a meno di un $\epsilon$. Devo avere quindi uno spazio in cui $Cauchy \iff Convergente$. I limiti sono SEMPRE in norma.
-	\end{esempio}
-	\begin{esempio}[Perchè la MQ è basata su $L^2(\mathbb{R})$]
-		Si consideri
-		\[
-		\varepsilon(E,B) = \int_\mathbb{R} dx(|E|^2 + |B|^2)
-		\]
-		quest'integrale ovviamente deve convergere, ma esistono soluzioni delle Maxwell che lo fanno divergere $e^{x-t}$. Quindi si richiede che $E,B \in L^2(\mathbb{R})$. Gli spazi di Hilbert separabili vogliono mantenere la finitezza di queste grandezze fisiche.
-	\end{esempio}
-	
-	\begin{esempio}[Statistica di Bose-Einstein e oscillatore armonico quantistico]
-		Si prenda l'oscillatore armonico quantistico
-		\[
-			\hat{H} = \frac{\hat{P}^2}{2m} + \frac{1}{2} m\omega^2 \hat{Q}^2
-		\]
-		esso presenta uno spettro discreto $E_n = \hbar \omega\left(n + \frac{1}{2}\right)$, da dove salta fuori l'ipotesi di Planck?
-		\newline Dato $\beta = (k_B T)^{-1} > 0$ si può prendere $e^{-\beta \hat{H}}$ e calcolarne la traccia con una boc di autovettori di $\hat{H}$
-		\[
-			Tr(e^{-\beta \hat{H}}) = \sum^\infty (\psi_n, e^{-\beta \hat{H}} \psi_n)  =  \sum^\infty (\psi_n, \sum^\infty \frac{1}{n!}(-\beta\hat{H})^n \psi_n) = \sum^\infty e^{-\beta E_n} = e^{-\beta \hbar \omega / 2} \frac{1}{1-e^{-\beta \hbar \omega}}
-		\]
-		dove nell'ultimo passaggio è stata calcolata la serie geometrica. Si mostra facilmente che $|\hat{H}| = \hat{H}$ (è positivo e autoaggiunto). L'informazione sulla statistica è contenuta nella traccia dell'Hamiltoniano.
-		\newline
-		Ci potremmo anche chiedere se $H$ sia autoaggiunto, la risposta è negli indici di difetto e nelle equazioni differenziali ad esse associate. Quello che si trova è che la soluzione esiste per Picard-Lindelhof (polinomi di Hermite) ma non sono $\in L^2$.
-	\end{esempio}
-	
-	
-
-	
-	
-	\newpage
-	
-	\section{Appendici}
+	\section{Appendici matematiche}
 	\subsection{Definizione di prodotto tensore}
 	\begin{definizione}[Spazio vettoriale libero]
 		Dato un insieme qualunque S possiamo definire lo spazio vettoriale libero su un campo $\mathbb{K}$ l'insieme
@@ -1021,7 +505,7 @@
 			\]
 			e quindi $P^{(A)}$ è concentrata su $\sigma(A)$
 			\[
-				P^{(A)} (E) )  = P^{(A)} (E \cap \sigma(A)) \quad \quad \forall E in \mathscr{B}(\R)
+				P^{(A)} (E) )  = P^{(A)} (E \cap \sigma(A)) \quad \quad \forall E \in \mathscr{B}(\R)
 			\]
 			\item $\lambda \in \sigma_p(A)$ se e solo se $P^{(A)}({\lambda}) \neq 0$, questo succede in particolare quando $\lambda$ è un punto isolato di $\sigma(A)$. $P^{(A)}(\lambda)$ è il proiettore ortogonale sull'autospazio relativo a $\lambda$.
 			\item $\lambda \in \sigma_c(A)$ se e solo se $P^{(A)}({\lambda}) = 0$ ma $P^{(A)}(E) \neq 0$ se $E \ni \lambda$ è un aperto in $\R$.
@@ -1069,6 +553,565 @@
  		\]
  	\end{osservazione}
  	
+ 	\subsection{Divergenza della serie di Dyson}
+ 	Generalmente le serie in fisica non sono convergenti e non importa che lo siano. 
+ 	In particolare, la serie proposta da Dyson per trovare approssimazioni successive dell'operatore evoluzione temporale con Hamiltoniane illimitate e tempo-dipendenti diverge molto velocemente.
+ 	
+ 	\begin{teorema}[Formula di Taylor con Resto di Peano]
+ 		Sia $I \subseteq \mathbb{R}$ un intervallo, $x_0$ un punto interno ad $I$, e sia $f: I \to \mathbb{R}$ una funzione.
+ 		
+ 		Se $f$ è derivabile $n$ volte nel punto $x_0$, allora esiste un unico polinomio $P_n(x)$ di grado minore o uguale a $n$ tale che
+ 		$$ f(x) = P_n(x) + o((x-x_0)^n) \quad \text{per } x \to x_0 $$
+ 		
+ 		Il polinomio $P_n(x)$ è il \textbf{Polinomio di Taylor} di $f$ centrato in $x_0$:
+ 		$$ P_n(x) = \sum_{k=0}^{n} \frac{f^{(k)}(x_0)}{k!} (x-x_0)^k $$
+ 		
+ 		La notazione $o((x-x_0)^n)$ (detto \textbf{Resto di Peano}) indica una funzione $R_n(x) = f(x) - P_n(x)$ tale che:
+ 		$$ \lim_{x \to x_0} \frac{R_n(x)}{(x-x_0)^n} = 0 $$
+ 	\end{teorema}
+ 	
+ 	Questo significa che possiamo sempre stimare di quanto stiamo sbagliando se supponiamo di prendere un intervallo delle $x$ e un espansione della serie fino all'ordine k-esimo.
+ 	\[
+ 		|R_n(x)| \leq M |x-x_0|^n
+ 	\]
+ 	dove M dipende dalla derivata n-esima e $|x-x_0|$ è l'intervallo che stiamo considerando.
+ 	\newline Calandoci nell'esempio della serie di Dyson (o di qualsiasi altra serie divergente), quello che ci mostra questo teorema è che se io scelgo una certa accuratezza $\varepsilon$ ()dovuta allo strumento) che stimi l'errore, allora $\forall \varepsilon > 0$ $\exists x $ t.c. $  M |x-x_0|^n > \varepsilon$ e non solo, infatti M, cresce con l'ordine della derivata (in questo tipo di serie) e quindi quello che succede è che più si vuole un resto accurato e ad un ordine alto, più si deve accorciare la scala dei tempi (x). Queste serie vengono dette asintotiche.
+ 	
 	\subsection{$C^\star$ algebre}
 	p.86 Moretti.
+	
+	\newpage
+	
+	\section{Esempi ed osservazioni utili}
+	
+	\begin{esempio}[A cosa serve uno spazio normato e il prodotto scalare?]
+		Prendo un SR e fisso una $(O, e_1, e_2..., e_n)$ a questo punto un vettore diventa  $$v = (x,y) = x e_1 + y e_2$$ con 
+		\[
+		x : \mathbb{R}^2 \rightarrow \mathbb{R} \quad \quad \quad x(v) = x = (e_1 , v)\]\[
+		y : \mathbb{R}^2 \rightarrow \mathbb{R} \quad \quad \quad y(v) = y = (e_2 , v)
+		\]
+		$x$ e $y$ dipendono quindi dalla base. La norma di un vettore invece non dipende dalla base. Il prodotto scalare invece mi serve per distinguere due vettori della stessa norma.
+	\end{esempio}
+	
+	\begin{esempio}[Norma su $\mathcal{D}(\mathbb{R})$]
+		Si prenda $\mathcal{D}(\mathbb{R})$ lo spazio delle funzioni reali $C^\infty$ a supporto compatto. Posso definirci sopra la norma $||\cdot||_p$ si può fare perchè è liscia e avendo supporto compatto è limitata.
+	\end{esempio}
+	
+	\subsection{Spazi di Hilbert}
+	
+	\begin{esempio}[Spazi non separabili]
+		\begin{itemize}
+			\item \textbf{Oscilloscopio} \newline
+			Vorrei ricostruire $\psi(x) = \sum c_n e^{i \omega_n x}$. Il problema però è che quando si vuole ricostruire un suono per esempio si fa uno spettro continuo in frequenze (oppure non sono dei seni multipli). Non ho infatti periodicità e quindi nessuna  serie di Fourier .
+			\item \textbf{Funzioni quasi-periodiche} \newline
+			Prendiamo $f,g \in C^\infty(\mathbb{R})$
+			\[
+			(f,g) = \lim_{R \rightarrow \infty} \frac{1}{2R} \int_{-R}^{R} dx \overline{g(x)}f(x)
+			\]
+			questo permette di costruire uno spazio di Hilbert $B_2(\mathbb{R})$  con la $|| \cdot ||_2$. Una base è $\{e^{i\lambda x}\}_{\lambda \in \mathbb{R}}$. Questo spazio di Hilbert non è separabile.
+		\end{itemize}
+	\end{esempio}
+	
+	\begin{esempio}[Insiemi densi]
+		E' possibile lavorare con un certo insieme di funzioni e ottenere risultati che valgono per tutte le altre? Questo ci porta al concetto di insieme denso.\newline
+		$\mathcal{D}(\mathbb{R})$ e $\mathcal{S}(\mathbb{R})$ sono denso in $L^2(\mathbb{R})$. Non ha senso lavorarci in dimensione finita.
+	\end{esempio}
+	
+	\begin{esempio}[Perchè usiamo $L^2$]
+		Perchè non vogliamo imporre limiti geometrici a priori sul modello.
+	\end{esempio}
+	
+	\subsection{Spazio di Successioni}
+	\begin{itemize}
+		\item $l^p = \{(x_n)_{n \in \mathbb{N}} \subset \mathbb{K} \mid \sum_{n=1}^\infty |x_n|^p < \infty\}$, $1 \le p < \infty$
+		\item $l^\infty = \{(x_n) \subset \mathbb{K} \mid (x_n) \text{ è limitata}\}$
+		\\ $(x_n) \in l^\infty \Leftrightarrow \exists C > 0 \text{ t.c. } \sup_{n \in \mathbb{N}} |x_n| \le C < \infty$
+		\item $c = \{(x_n) \subset \mathbb{K} \mid (x_n) \text{ ammette limite } < \infty\}$
+		\item $c_0 = \{(x_n) \subset \mathbb{K} \mid \lim_{n \to \infty} x_n = 0\}$
+		\item $c_{00} = \{(x_n) \subset \mathbb{K} \mid x_n \text{ definitivamente nulla}\}$
+	\end{itemize}
+	
+	\paragraph{Norme}
+	\begin{itemize}
+		\item Su $l^p$: $||x||_p = \left(\sum_{n=1}^\infty |x_n|^p\right)^{1/p}$
+		\item Su $l^\infty, c, c_0, c_{00}$: $||x||_\infty := \sup_{n \in \mathbb{N}} |x_n|$
+	\end{itemize}
+	
+	\subsubsection*{Inclusioni Naturali tra Spazi $l^p / c / c_0 / c_{00}$}
+	Per $1 \le p < r < \infty$:
+	\[ c_{00} \subset l^p \subset l^r \subset c_0 \subset c \subset l^\infty \]
+	$c_{00}$ è denso in $l^p$ (per $p<\infty$) e in $c_0$. Le inclusioni sono continue.
+	\begin{itemize}
+		\item $(l^p, ||\cdot||_p)$ è Banach.
+		\item $(l^2, ||\cdot||_2)$ con $(x,y) = \sum_{n=1}^\infty \overline{x_n} y_n$ è Hilbert.
+		\item $(c_0, ||\cdot||_\infty)$ e $(c, ||\cdot||_\infty)$ sono Banach (sono sottospazi chiusi di $l^\infty$).
+		\item $(c_{00}, ||\cdot||_\infty)$ NON è banach (perchè non è completo).\newline
+		Controesempio: Si consideri la successione $(x^k)_{k \in \mathbb{N}}$ in $c_{00}$ data da $x_n^k = \begin{cases} 1/n & \text{se } 1 \le n \le k \\ 0 & \text{altrimenti} \end{cases}$.
+		\begin{itemize}
+			\item È una successione di Cauchy in $l^\infty$: per $l \ge 1$,
+			\[ ||x^k - x^{k+l}||_\infty = \sup_{n=k+1}^{k+l} \left|\frac{1}{n}\right| = \frac{1}{k+1} \xrightarrow[k \to \infty]{} 0 \]
+			\item Ma $(x^k)$ converge in $l^\infty$ alla successione $x = (1/n)_{n \in \mathbb{N}}$.
+			\item $x \in c_0$ (perché $1/n \to 0$), ma $x \notin c_{00}$ (non è definitivamente nulla).
+			\item Quindi $c_{00}$ non è uno spazio chiuso in $c_0$, perciò non è completo.
+		\end{itemize}
+	\end{itemize}
+	
+	\subsubsection*{Disuguaglianza di Hölder}
+	$\forall x \in l^p, \forall y \in l^q$ t.c. $\frac{1}{p} + \frac{1}{q} = 1$:
+	\[ \sum_{n=1}^\infty |x_n y_n| \le ||x||_p ||y||_q \]
+	Se $p=q=2 \implies$ Disuguaglianza di Cauchy-Schwartz.
+	
+	\subsubsection*{Separabilità di $l^p$}
+	\begin{itemize}
+		\item $l^p$ è separabile per $1 \le p < \infty$. ($l^\infty$ non è separabile).
+		\item Uno spazio è separabile $\Leftrightarrow \exists$ un sottospazio denso numerabile.
+		\item $c_{00}$ (in particolare l'insieme delle successioni a valori razionali) è denso in $(l^p, ||\cdot||_p)$ per $1 \le p < \infty$.
+		\item $\overline{c_{00}}^{||\cdot||_p} = l^p$.
+		\item $(\forall x \in l^p, \exists (x^k) \subset c_{00} \text{ t.c. } ||x^k - x||_p \to 0)$
+	\end{itemize}
+	
+	\subsubsection*{Riflessività}
+	Def: Uno spazio normato $(X, ||\cdot||_X)$ è riflessivo se l'immersione canonica $J: X \to X^{\star\star}$ è suriettiva.
+	\begin{itemize}
+		\item $J: x \mapsto \delta_x$
+		\item $\delta_x: X^\star \to \mathbb{K}$ è un funzionale lineare e continuo (un elemento del biduale $X^{\star\star}$) definito da:
+		\[ f \mapsto \delta_x(f) = f(x) \]
+		\item $X^\star = \{f: X \to \mathbb{K}, \text{lineare e continuo}\}$ (duale topologico)
+		\item $X^{\star\star} = (X^\star)^\star$ (biduale topologico)
+	\end{itemize}
+	\begin{itemize}
+		\item La riflessività vale per $(l^p, ||\cdot||_p)$ con $1 < p < \infty$.
+		\item Tutti gli spazi di Hilbert sono riflessivi.
+	\end{itemize}
+	
+	
+	\subsection{Spazi di Funzioni $L^p(\mathbb{R}^n)$ ($p \in [1, +\infty]$)}
+	Sia $\Omega \subseteq \mathbb{R}^n$ un aperto e $\mu$ la misura di Lebesgue.
+	
+	\begin{itemize}
+		\item $L^p(\Omega) = \{ [f]: \Omega \to \mathbb{K} \mid \int_\Omega |f(x)|^p d^n x < \infty \}$, per $1 \le p < \infty$.
+		\item $L^\infty(\Omega) = \{ [f]: \Omega \to \mathbb{K} \mid \exists C > 0 \text{ t.c. } |f(x)| \le C \text{ q.o. in } \Omega \}$
+		\item La norma in $L^\infty$ è $||f||_{L^\infty} = \inf \{ C > 0 \mid |f(x)| \le C \text{ q.o. in } \Omega \}$ (estremo superiore essenziale).
+	\end{itemize}
+	Si considerano classi di equivalenza $[f]$ (funzioni uguali quasi ovunque) affinché $||f||_{L^p} = 0 \Leftrightarrow f = 0$ q.o.
+	
+	\subsubsection*{Disuguaglianza di Hölder per $L^p$}
+	Siano $f \in L^p(\Omega)$ e $g \in L^q(\Omega)$ con $\frac{1}{p} + \frac{1}{q} = 1$.
+	Allora $fg \in L^1(\Omega)$ e
+	\[ \int_\Omega |f(x) g(x)| d^n x \le \left( \int_\Omega |f(x)|^p d^n x \right)^{1/p} \left( \int_\Omega |g(x)|^q d^n x \right)^{1/q} \]
+	ovvero $||fg||_{L^1} \le ||f||_{L^p} ||g||_{L^q}$.
+	
+	\subsubsection*{Inclusioni Naturali}
+	Se $mis(\Omega) = \int_\Omega 1 d^n x < \infty$ (misura finita) e $1 \le p < r \le \infty$:
+	\[ L^r(\Omega) \subset L^p(\Omega) \]
+	L'inclusione è continua.
+	
+	\subsubsection*{Riflessività}
+	\begin{itemize}
+		\item $L^p(\Omega)$ è riflessivo per $1 < p < \infty$.
+		\item $L^1(\Omega)$ e $L^\infty(\Omega)$ non sono riflessivi (in generale).
+	\end{itemize}
+	
+	\subsubsection*{Separabilità}
+	\begin{itemize}
+		\item $L^p(\Omega)$ è separabile per $1 \le p < \infty$.
+		\item $L^\infty(\Omega)$ non è separabile (in generale).
+		\item $C_0^\infty(\Omega)$ (funzioni $C^\infty$ a supporto compatto in $\Omega$) è denso in $L^p(\Omega)$ per $p < \infty$.
+		\item $\overline{C_0^\infty(\Omega)}^{||\cdot||_{L^p}} = L^p(\Omega)$.
+	\end{itemize}
+	
+	\subsubsection*{Convergenza Debole e Forte in $X^\star$}
+	Sia $(X, ||\cdot||_X)$ uno spazio normato e $\{f_n\} \subset X^\star$.
+	\begin{itemize}
+		\item \textbf{Convergenza Debole (puntuale):} $f_n \rightharpoonup f$ se $f_n(x) \to f(x)$ $\forall x \in X$.
+		\item \textbf{Convergenza Forte (in norma):} $f_n \to f$ se $||f_n - f||_{X^\star} \to 0$.
+		\item forte $\implies$ debole.
+		\item debole $\implies$ forte se $\dim X < \infty$.
+	\end{itemize}
+	
+	
+	\subsection{Spazi $L_{loc}^p(\mathbb{R}^n)$}
+	Def: $f \in L_{loc}^p(\mathbb{R}^n)$ (spazio delle funzioni localmente $p$-integrabili), $1 \le p \le \infty$, se:
+	\[ \forall K \subset \mathbb{R}^n \text{ compatto, } f \in L^p(K) \]
+	(cioè $\int_K |f(x)|^p dx < \infty$).\newline\newline
+	Esempi:
+	\begin{itemize}
+		\item $f(x) \equiv c \in \mathbb{R}$. Se $c \ne 0$, $f \notin L^1(\mathbb{R})$ ma $f \in L_{loc}^1(\mathbb{R})$ (e $L_{loc}^p$ per ogni $p$).
+		\item $f \in C^0(\mathbb{R}^n) \implies f \in L_{loc}^p(\mathbb{R}^n)$ per ogni $p$, perché $f$ è limitata sui compatti.
+		\item $f(x) = 1/x$ (con $f(0)=0$) non è in $L_{loc}^1(\mathbb{R})$. Basta prendere un compatto $K$ che contiene $0$, ad esempio $K=[-1,1]$, e si ha $\int_{-1}^1 |1/x| dx = \infty$.
+	\end{itemize}
+	
+	\subsubsection*{Lemma (Fondamentale Calcolo Variazioni, caso 1D)}
+	Sia $I = (a,b) \subset \mathbb{R}$, $a < b$, $f \in L_{loc}^1((a,b))$.
+	Se vale:
+	\[ \int_a^b f(x) \frac{d\varphi}{dx}(x) dx = 0 \quad \forall \varphi \in C_0^\infty((a,b)) \]
+	allora $\exists c \in \mathbb{R}$ t.c. $f(x) = c$ per q.o. $x \in (a,b)$.
+	
+	
+	\subsection{Richiami di Complementi di Analisi III}
+	Sia $\Omega \subseteq \mathbb{R}^n$ aperto.
+	
+	\begin{teorema}[Teorema di Beppo Levi (Convergenza Monotona)]
+		\noindent Sia $(f_n)_{n \in \mathbb{N}} \subset L^1(\Omega)$ una successione di funzioni tale che:
+		\begin{itemize}
+			\item $f_n \ge 0$ q.o.
+			\item $f_n(x) \le f_{n+1}(x)$ q.o. $\forall n \in \mathbb{N}$ (monotona non decrescente).
+		\end{itemize}
+		Sia $f(x) = \lim_{n \to \infty} f_n(x)$ q.o. (il limite esiste, eventualmente $+\infty$).
+		Allora:
+		\[ \int_\Omega f(x) dx = \lim_{n \to \infty} \int_\Omega f_n(x) dx \]
+	\end{teorema}
+	
+	\begin{teorema}[Lemma di Fatou]
+		\noindent Sia $(f_n)_{n \in \mathbb{N}} \subset L^1(\Omega)$ una successione di funzioni tale che $f_n \ge 0$ q.o.
+		Allora:
+		\[ \int_\Omega \liminf_{n \to \infty} f_n(x) dx \le \liminf_{n \to \infty} \int_\Omega f_n(x) dx \]
+	\end{teorema}
+	
+	\begin{teorema}[Teorema di Lebesgue (Convergenza Dominata)]
+		\noindent Sia $(f_n)_{n \in \mathbb{N}} \subset L^1(\Omega)$ una successione di funzioni tale che:
+		\begin{itemize}
+			\item $f_n(x) \to f(x)$ q.o. in $\Omega$.
+			\item $\exists g \in L^1(\Omega)$ (una funzione dominante) t.c. $\forall n \in \mathbb{N}$, $|f_n(x)| \le g(x)$ q.o.
+		\end{itemize}
+		Allora $f \in L^1(\Omega)$ e $||f_n - f||_{L^1} \to 0$ (cioè $f_n \to f$ in $L^1$).
+	\end{teorema}
+	
+	\subsection{Spazi di Sobolev $W^{k,p}(\mathbb{R}^n)$}
+	Esempio (Equazione di Schrödinger per una particella libera):
+	\[ i \hbar \frac{\partial}{\partial t} \psi(t, \underline{x}) = -\frac{\hbar^2}{2m} \Delta \psi(t, \underline{x}) \]
+	Si cerca $\psi$ tale che $\psi(t, \cdot) \in L^2(\mathbb{R}^3)$ (funzione d'onda) per ogni $t$.
+	L'equazione contiene $\Delta \psi = \sum_i \frac{\partial^2 \psi}{\partial x_i^2}$. Per dare senso a questo operatore, non basta richiedere $\psi \in C^2$. La richiesta corretta (in termini energetici) è $\psi(t, \cdot) \in H^2(\mathbb{R}^3)$.
+	
+	\subsubsection*{Definizione $W^{1,p}$ (Derivata Debole)}
+	Sia $\Omega \subseteq \mathbb{R}^n$ aperto, $1 \le p < \infty$.
+	Si dice che $u \in W^{1,p}(\Omega)$ se:
+	\begin{enumerate}
+		\item $u \in L^p(\Omega)$
+		\item $\exists f_1, \dots, f_n \in L^p(\Omega)$ tali che (integrando per parti):
+		\[ \int_\Omega u \frac{\partial \varphi}{\partial x_i} dx = - \int_\Omega f_i \varphi dx \quad \forall \varphi \in C_0^\infty(\Omega), \forall i = 1, \dots, n \]
+	\end{enumerate}
+	Le funzioni $f_i$ sono uniche (q.o.) e sono chiamate \textbf{derivate deboli} di $u$. Si pone $f_i =: \frac{\partial u}{\partial x_i}$.
+	\begin{itemize}
+		\item Se $u \in C^1(\Omega) \cap L^1(\Omega)$, le derivate deboli coincidono con le derivate classiche.
+	\end{itemize}
+	
+	\paragraph{Norma $W^{1,p}$}
+	La norma standard su $W^{1,p}(\Omega)$ è:
+	\[ ||u||_{W^{1,p}} = \left( ||u||_{L^p}^p + ||\nabla u||_{L^p}^p \right)^{1/p} = \left( \int_\Omega |u|^p dx + \sum_{i=1}^n \int_\Omega \left|\frac{\partial u}{\partial x_i}\right|^p dx \right)^{1/p} \]
+	(Per $p=\infty$ si usa la somma delle norme $L^\infty$).
+	
+	\paragraph{Proprietà}
+	$(W^{1,p}(\Omega), ||\cdot||_{W^{1,p}})$ è uno spazio di Banach.
+	\begin{itemize}
+		\item È separabile per $1 \le p < \infty$.
+		\item È riflessivo per $1 < p < \infty$.
+		\item Per $p=2$: $W^{1,2}(\Omega) = H^1(\Omega)$ è uno spazio di Hilbert con prodotto scalare:
+		\[ (u, v)_{H^1} := \int_\Omega (u v + \nabla u \cdot \nabla v) dx \]
+	\end{itemize}
+	
+	\subsubsection*{Definizione $W^{k,p}$}
+	Sia $\Omega \subseteq \mathbb{R}^n$ aperto. Per $k \in \mathbb{N}$:
+	\[ W^{k,p}(\Omega) = \{ u \in L^p(\Omega) \mid D^\alpha u \in L^p(\Omega) \quad \forall |\alpha| \le k \} \]
+	dove $\alpha = (\alpha_1, \dots, \alpha_n) \in \mathbb{N}_0^n$ è un multi-indice, $|\alpha| = \sum \alpha_i$ è l'ordine della derivata, e $D^\alpha u = \frac{\partial^{|\alpha|} u}{\partial x_1^{\alpha_1} \dots \partial x_n^{\alpha_n}}$ è la derivata debole.
+	\begin{itemize}
+		\item $W^{k,2}(\Omega) =: H^k(\Omega)$ (Spazi di Hilbert)
+		\item $W^{0,p}(\Omega) = L^p(\Omega)$, quindi $H^0 = L^2$.
+		\item Esempio Schrödinger: $\psi(t, \cdot) \in H^2(\mathbb{R}^3) = \{ \psi \in L^2(\mathbb{R}^3) \mid \partial_i \psi \in L^2, \partial_i \partial_j \psi \in L^2 \}$.
+	\end{itemize}
+	
+	\subsubsection*{Teoremi di Embedding di Sobolev}
+	I teoremi di Sobolev (o immersioni) stabiliscono relazioni tra gli spazi $W^{k,p}$ e gli spazi $C^m$ (spazi di funzioni continue con $m$ derivate continue).
+	\newline
+	Se $k - n/p > m$ (dove $m$ è un intero $\ge 0$), allora $W^{k,p}(\mathbb{R}^n) \subset C^m(\mathbb{R}^n)$.\newline
+	Una formula sintetica è: $u \in W^{k,p}(\mathbb{R}^n) \implies u \in C^m(\mathbb{R}^n)$ con $m = \lfloor k - n/p \rfloor$.
+	\newline
+	\begin{osservazione}[]
+		\begin{itemize}
+			\item $u \in H^2(\mathbb{R}^3)$. Qui $k=2, p=2, n=3$.
+			\item $m = \lfloor 2 - 3/2 \rfloor = \lfloor 0.5 \rfloor = 0$.
+			\item Quindi $H^2(\mathbb{R}^3) \subset C^0(\mathbb{R}^3)$.
+			\item Questo significa che una funzione $H^2$ (dopo eventuale modifica su un insieme di misura nulla) è continua e limitata.
+			\item Questo è fondamentale per poter "valutare la funzione $\psi$ in un punto $x_0$", $\psi(x_0)$, operazione che non ha senso per una generica funzione $L^2$.
+		\end{itemize}
+	\end{osservazione}
+	
+	\subsection{Operatori}
+	\begin{esempio}[Operatore posizione]
+		Prendiamo $\mathcal{H} = L^2((0,1))$ e definiamo
+		\[
+		\hat{X} : L^2((0,1)) \rightarrowtail L^2((0,1))  \quad \quad \quad \quad \hat{X}\psi = x \psi
+		\]
+		possiamo calcolare la norma usando che 
+		\[
+		\int_{0}^{1} dx |x \psi(x)|^2 \leq 	\int_{0}^{1} dx |\psi(x)|^2 \Rightarrow || \hat{X} || \leq 1
+		\]
+		Se però $\mathcal{H} = L^2(\mathbb{R})$ allora posso prendere $\psi(x) \in  L^2(\mathbb{R})$ tale che
+		\begin{equation*}
+			f(x) =
+			\begin{cases}
+				0 &\quad x < 1 \\
+				\frac{1}{x} &\quad x \geq 1
+			\end{cases}
+		\end{equation*}
+		ma $\hat{X} \psi \notin L^2(\mathbb{R})$ quindi gli operatori non limitati hanno bisogno di una teoria più estesa. \newline
+		Vogliamo costruire l'aggiunto di $\hat{X}$, supponiamo di saperne l'esistenza. Possiamo usare
+		\[
+		(\phi, \hat{X}\psi)=\int_0^1 dx \overline{\phi(x)}x\psi(x) = \int_0^1 dx \overline{x}\overline{\phi(x)}\psi(x)  = (\hat{X} \phi, \psi)
+		\]
+		quindi è autoaggiunto.\newline
+		Prendiamo $\mathcal{H} = L^2((0,1))$, proviamo a trovarne gli autovalori
+		\[
+		\hat{X} \psi = \lambda \psi
+		\]
+		anche se mi aspetto a priori che $\lambda = x$ $\forall \psi \in [0,1]$ $\exists \psi \neq 0 \in W_{\lambda}$ quindi deve esistere un sottospazio ortogonale a $W_{\lambda}$ quindi ho trovato una decomposizione con cardinalità di $[0,1]$, ma questo è assurdo perchè $L^2$ è separabile. Abbiamo postulato che $\hat{X}$ sia l'operatore giusto per la posizione magari ha autovalori diversi da quelli che ci aspttiamo però $\forall x$ troviamo il $\lambda$ tale che  
+		\[
+		x \psi(x) = \lambda \psi(x) \iff \psi(x) = 0
+		\] 
+		quindi non ho autovalori. Proviamo ad estendere la definizione di autovalore. Con le matrici quadrate 1 
+		\[
+		T v = \lambda v \iff (T - v \mathds{1}) = 0 \Rightarrow \nexists (T - v \mathds{1})^{-1}
+		\]
+		quindi se esiste l'inversa allora non $\lambda$ non è un autovalore. In dimensione finita non ho fatto niente. Vediamo il caso di $\hat{X}$
+		\[
+		\exists (\hat{X} - \lambda \mathds{1})^{-1} \text{   t.c.   } ((\hat{X} - \lambda \mathds{1})^{-1}\psi)(x) = \frac{1}{x - \lambda} \psi(x) \Rightarrow (\hat{X} - \lambda \mathds{1})^{-1} := \frac{1}{x - \lambda}
+		\]
+		Se $\lambda \in \mathbb{C} \setminus \mathbb{R} \cup \mathbb{R} \setminus[0,1] $ 
+		\[
+		\int_0^1 dx |\frac{\psi}{x - \lambda}|^2 < \infty
+		\]
+		quindi ho l'inverso ben definito. Dato che l'unico intervallo in cui quell'integrale non è definito sono $[0,1]$ non ho l'inversa quindi sono autovalori. Quindi possiamo introdurre questa nuova definizione pagando il prezzo di non avere più autofunzioni in $L^2$, useremo le distribuzioni.\newline
+		Questo operatore ha un ottimo comportamento nei limitati. Cambiando gli autovalori a seconda dello spazio in cui ci troviamo.
+	\end{esempio}
+	
+	\begin{esempio}[Operatore parità]
+		Prendiamo $\mathcal{H} = L^2(\mathbb{R})$ e definiamo
+		\[
+		\hat{P} : L^2(\mathbb{R}) \rightarrowtail L^2(\mathbb{R})  \quad \quad \quad \quad \hat{P}\psi(x) = \psi(-x)
+		\]
+		possiamo calcolare la norma
+		\[
+		|| \hat{P} || = 1
+		\]
+		esso è anche unitario, cioè non cambia le norme. \newline
+		Troviamo gli autovalori di $P$
+		\[
+		P\psi = \lambda \psi \rightarrow \psi(-x) = \lambda \psi(+x)
+		\]
+		usando $P^2$ possiamo trovare che $\lambda ^ 2 = 1$. Definiamo $\psi_{\pm} = \frac{\psi(x) \pm \psi(-x)}{2}$  si mostra che sono autovalori di $P$. Quindi ogni funzione di $L^2$ può essere decomposta in due funzioni, la parte pari e la parte dispari. \newline
+		Prendiamo una carica $q$ a destra di un semispazio infinito conduttore, prendiamo $\vec{E_q} = k \frac{q}{r^2} \hat{r}$ come se non ci fosse la parete e inoltre voglio che $\vec{E_q}(x = 0) = 0$ prendo quindi la parte dispari e rimane una soluzione delle Maxwell. Se invece avessi $\partial_x \vec{E_q} (x = 0) = 0$ prendo la parte pari. \newline
+		Si può dimostrare che l'operatore che prende la parte pari (dispari) sia un proiettore.
+	\end{esempio}
+	\begin{esempio}[Operatori finito dimensionali]
+		Un operatore su $\mathbb{C}^n$ è sempre rappresentabile tramite una matrice ed è sempre limitato. I seguenti sono indipendenti dalla base scelta
+		\begin{itemize}
+			\item Determinante (dipende dal prodotto degli autovalori)
+			\item Traccia (dipende dalla somma degli autovalori)
+			\item Autovalori
+		\end{itemize}
+		dato che voglio estrarre informazioni da un sistema fisico che è indipendente dalla base, queste devono essere contenute negli autovalori. Da ciò deriva il postulato della misura.  Ci interessiamo però di misure reali quindi vorremmo che i nostri autovalori fossero numeri reali.
+		Data una $A : \mathbb{C}^n \rightarrow \mathbb{C}^n$ e una b.o.c $\{e_i\}$ allora $A_{ij} = (e_i, Ae_j)$ se A è diagonalizzabile allora esiste una $U$ tale che
+		\[
+		UAU^{-1} = \sum \lambda_i P_i \quad \quad \quad \tilde{P}_i := U^{-1}PU \Rightarrow A = \sum \lambda_i \tilde{P}_i
+		\]
+		tramite il teorema spettrale si dimostra che $A = \bar{A}^\dagger  = A^\star$
+	\end{esempio}
+	\begin{esempio}[Operatore impulso]
+		Prendiamo una $\psi \in L^2$
+		\begin{equation*}
+			\psi(x) =
+			\begin{cases}
+				x^{-1/4} &\quad 0 \leq x < 1 \\
+				0 &\quad altrove
+			\end{cases}
+		\end{equation*}
+		applicando $\frac{d}{dx}$ usciamo da $L^2$. Ora provo a calcolare l'aggiunto
+		\[
+		\left(\phi, -i \frac{d \psi}{dx}\right) = -i \int_0^1 dx \overline{\phi(x)} \frac{d \psi}{dx} (x) = -i \overline{\phi}\psi |_0^1 + \int_0^1 dx \overline{\left(-i\frac{d \phi}{dx}\right)} \psi
+		\]
+		questo termine di bordo va rimosso. \newline
+		Questo operatore ha un ottimo comportamento negli illimitati, sistema il comportamento degli stati all'infinito e peggiora le singolarità in zero. Cambiando gli autovalori a seconda dello spazio in cui ci troviamo. Se lo spazio è limitato P e T NON sono più autoaggiunti. \newline
+		Prendiamo quindi $\mathcal{H} = L^2 (0,\infty)$, che è assimilabile al caso di una particella contro una parete e supponiamo inizialmente di prendere 
+		\[
+		\hat{P} = -i \frac{d}{dx} \quad \quad \quad D(\hat{P}) = C^\infty_0(0, \infty)
+		\]
+		stando attenti a prendere l'intervallo aperto e non chiuso se no si ammettono funzioni che non si annullano in 0. Quindi si trova che
+		\[
+		\left(\phi, -i \frac{d \psi}{dx}\right) = -i \int_0^1 dx \overline{\phi(x)} \frac{d \psi}{dx} (x) = -i \overline{\phi}\psi |_0^1 + \int_0^1 dx \overline{\left(-i\frac{d \phi}{dx}\right)} \psi = 
+		\left(\hat{P}^\star \phi, \psi\right)
+		\]
+		dove l'ultima uguaglianza ha senso se e solo se
+		\begin{enumerate}
+			\item il dominio di $\hat{P}$ permette l'annullamento del termine di bordo
+			\item $\psi \in L^2$  e $\phi' \in L^2$ $\Rightarrow$ $\psi \phi' \in L^1$ 
+		\end{enumerate}
+		quindi troviamo che $D(\hat{P}^\star)$ è massimale, cioè tutte le funzioni tali che la loro derivata è in $L^2$. A questo punto usiamo la teoria degli indici di difetto di Von Neumann, trovando il $ker(P^\star \pm i \Identity)$, risolvendo le due equazioni differenziali si arriva a scartare la soluzione esponenziale crescente perchè non è in $L^2(0, \infty)$ ma a tenere l'altra. Questo fa si che le dimensioni degli spazi siano diverse e quindi P non è autoaggiunto e quindi neanche un'osservabile fisica di quel sistema. Capiamo cosa significa, mettiamo caso di avere l'hamiltoniana di particella libera 
+		\[
+		\hat{H} = \hat{T} \quad \quad \hat{T} = -\frac{\hbar^2}{2m} \frac{d^2}{dx^2}
+		\]
+		(da notare che non ho fatto comparire P), che applicata alla soluzione esponenziale negativa mi restituisce un'autovalore negativo. Questo autovalore non è rimuovibile come in fisica classica aggiungendo una costante in quanto in MQ questo non è più valido. P non può più essere autoaggiunto, in quanto se questo fosse vero, avrei che
+		\[
+		\hat{P} = \sqrt{(2m \hat{H})}
+		\]
+		e quindi avrebbe un autovalore complesso, il che non lo renderebbe autoaggiunto (fisico).
+		A livello sperimentale quello che si fa è misurare sempre l'energia e mai l'impulso. Misurando vicino alla parete ci si accorge di questa soluzione e di questo autovalore, mentre mettendoci molto lontano dalle pareti questo effetto non viene distinto dal detector e si può lavorare con l'ipotesi di $\Hspace = L^2(\R)$.
+		\newline
+		Nel caso $\Hspace = L^2(0,1)$ si trova che $d_+ = d_- = 1$ e quindi P risulta essere un buon osservabile. Quindi ho una mappa $U : \C \rightarrow \C$  tra i due sottospazi $\mathcal{N}_\pm$ che manda $z \mapsto e^{i \alpha} z$ rappresentando un'isometria tra i due spazi. Costruendo tramite essa le estensioni autoaggiunte, si può notare che la scelta di $\alpha$ rappresenta la scelta della condizione al contorno del problema.
+	\end{esempio}
+	\begin{esempio}[Operatori compatti]
+		Possiamo immaginarceli come matrici infinite. Vorrei fare il conto di $\langle A \rangle$ con un certo $\psi = (\alpha, \beta)$ senza utilizzare una base. Non è che forse $\langle A \rangle = Tr(\rho A)$ dove 
+		\[
+		\rho = \begin{pmatrix}
+			|\alpha|^2& \bar{\alpha} \beta \\
+			\bar{\beta} \alpha & |\beta|^2 
+		\end{pmatrix}
+		\]
+		facendo il conto si trova che è vero. In MQ si può generalizzare uno stato con queste matrici di densità. In spazi infinito-dimensionali abbiamo bisogno di oggetti del genere con traccia finita, quali sono? Operatori classe traccia che sono compatti.\newline
+		Gli operatori compatti garantiscono che:
+		\begin{enumerate}
+			\item Gli autovalori ordinati tendono a 0
+			\item Ogni autovalore ha molteplicità finita
+		\end{enumerate}
+		quindi abbiamo speranza che la traccia converga.
+	\end{esempio}
+	
+	\begin{esempio}[Operatori non limitati]
+		Un esempio generale di operatore non limitato è (con $\Hspace= L^2(\R)$) 
+		\[
+		T = \sum_{k=0}^N c_k(x) \frac{d^k}{dx^k}
+		\]
+		se ho $\psi \in \mathcal{D}(\R)$ $T\psi \in \mathcal{D}(\R)$ e sono tutti stati.
+	\end{esempio}
+	
+	\begin{esempio}[Operatori densi]
+		Definiamo
+		\[
+		\hat{T} = -i \frac{d}{dx} \quad \quad \quad \hat{K} = - \frac{d^2}{dx^2}
+		\]
+		il dominio massimale è quello per cui ha senso applicarci l'impulso.
+		\[
+		D_{\text{massimale}}(\hat{T}) = H^1(\R)  \quad \quad \quad D_{\text{massimale}}(\hat{K}) = H^2(\R)
+		\]
+		dobbiamo anche assicurarci che (la corrente conservata)
+		\[
+		\lim_{x \rightarrow \infty} \overline{\psi} \frac{d \psi}{dx} = 0
+		\]
+		questa va a 0 solo in una dimensione su $H^1$  ma non in $\R^3$, questa va a 0 ma per tanti altri matti motivi.\newline
+		Un caso sensato in cui possiamo fare i conti senza soffrire è $\mathcal{D}(\R) = D_0(\hat{T})$ che è denso in tanti spazi e va tutto bene. Proviamo a trovare l'aggiunto
+		\[
+		(\phi, T\psi) = -i\int_\R \overline{\phi(x)} \frac{d \psi}{dx} = -i \overline{\phi} \psi \bigg|_{-\infty} ^{+\infty} + i\int_\R \frac{d \overline{\phi}(x)}{dx} \psi(x)
+		\]
+		dove il termine di bordo muore senza problemi, se avessi usato $H^1$ andava bene in una dimensione ma in tre assolutamente no. Continua però a non essere definito bene il secondo integrale, potrebbe essere comunque un integrale divergente. Se ho però la derivata di $\phi \in L^2(\R)$ allora va bene perchè il prodotto di due $L^2$ mi da una $L^1$ e quell'integrale si fa. Allora a quel punto posso dire che quel conto fa $(\hat{T} ^\star \phi, \psi)$ ottengo quindi che
+		\[
+		D(\hat{T}) = \mathcal{D}(\R) \quad \quad \quad \quad D(\hat{T}^\star) = H^1(\R)
+		\]
+		però
+		\[
+		T^\star \psi = -i \frac{d \psi}{dx} \quad \Rightarrow \quad T \subset T^\star
+		\]
+		La domanda che mi faccio è, esiste un S tale che
+		\[
+		T \subset S \subset T^\star \quad \text{t.c.} \quad S = S^\star
+		\]
+		La risposta può essere, non si può fare (operatore P su una semiretta), si può fare ed è unico (operatore P su $\R$), ci sono infiniti modi di farlo. 
+	\end{esempio}
+	
+	\subsection{Varie su operatori}
+	\begin{esempio}[Aggiunto di A]
+		Scelgo $A \in \mathcal{B}(\mathcal{H})$ e suppongo che $A \psi = \lambda_1 \psi$ quindi il sistema non cambia e io posso confrontarlo con uno stato di controllo $(\psi, \lambda_1 \psi) = (\psi, A \psi) = \lambda_1$ (dato che $|| \psi || = 1$). In generale posso farlo con un qualunque vettore di comtrollo o un array di essi. Posso ricavare la stessa informazione agendo sullo stato di controllo invece che sul sistema fisico? In altre parole, esiste un certo B tale che $(\phi, A \psi) = (B\phi, psi)$? La risposta ci porta all'aggiunto di A. Se questo operatore è lo stesso A si dice che è autoaggiunto e ha autovalori reali.
+	\end{esempio}
+	
+	
+	\begin{esempio}[Modulo di un operatore]
+		Prendiamo un $A \in \mathcal{B}(\mathbb{C}^n)$ diagonalizzabile e prendiamo una funzione $f : \mathbb{C} \rightarrow \mathbb{C}
+		$\[
+		A = \sum \lambda_i P_{\lambda_i}  \Rightarrow f(A) := \sum f(\lambda_i )P_{\lambda_i}
+		\]
+		il modulo serve perchè vorrei decomporre una matrice come decompongo un numero complesso in fase e modulo. A questo punto $f$ la scelgo come la funzione radice.
+	\end{esempio}
+	
+	\begin{esempio}[Traccia di un operatore]
+		Prendiamo per semplicità una matrice, la traccia di A posso definirla anche nel caso infinito dimensionale, ma converge? Ipotizziamo che la traccia sia la somma infinita dei suoi autovalori
+		\[
+		TrA = \sum^\infty_{j=1} \lambda_j
+		\]
+		Per il teorema di Riemann-Dini, dato un numero reale e una serie semplicemente convergente ma non assolutamente convergente (come $\sum^\infty \frac{(-1)^{n+1}}{n} = ln2$), esiste una permutazione di termini di tale successione che ha converge a quel numero. Questo è un problema in MQ perchè potrei avere stati normalizzati a seconda della permutazione della serie. Quindi va richiesta la convergenza assoluta. Facciamo un esempio in cui le cose vanno male.\newline Prendimamo un operatore $T : \mathcal{H} \in \mathcal{H}$ e un vettore che scomponiamo sulla base standard ${e_n}$
+		\[
+		\psi = \sum^\infty c_n e_n \quad \quad \Rightarrow \quad \quad T\psi := \sum^\infty \frac{(-1)^{n+1}}{n} c_n e_n
+		\]
+		T si può mostrare che è limitato quindi $T \in \mathcal{B}(\mathcal{H})$ e che $|| T || \leq 1$. Però
+		\[
+		Tr T = \sum^\infty \frac{(-1)^{n+1}}{n} = ln2
+		\]
+		Ora se cambio base, e quindi scelgo i vettori della nuova base prendendone due dispari e uno pari... cioè $v_1 = e_1$ $v_2 = e_3$ $v_3 = e_2$ $v_4 = e_5$... ottengo che
+		\[
+		TrT = \sum^\infty \left[\frac{1}{4k-3} +  \frac{1}{4k-1} -  \frac{1}{2k} \right]= \frac{3}{2} ln2
+		\]
+		infatti non è classe traccia e non può essere uno stato quantistico.
+	\end{esempio}
+	
+	\begin{esempio}[Chiusura di un operatore]
+		Negli spazi finito dimensionali è come la continuità però non vediamola così. \newline
+		Un operatore non chiuso è uno nel dominio non ci sono alcuni punti, come una retta che non ha il punto in zero. Uno che è chiudibile è uno che posso dire il suo valore dove non è definito.
+	\end{esempio}
+	
+	\subsection{Osservazioni sulla MQ}
+	\begin{esempio}[Misure in MQ]
+		In MQ ho una corrispondenza biunivoca tra osservabili e operatori su $L^2(\mathbb{R})$
+		\[
+		A : L^2(\mathbb{R}) \rightarrow L^2(\mathbb{R})
+		\]
+		voglio che il processo di misura restituisca sempre qualcosa nello stesso spazio e voglio che non sia troppo diverso dallo stato iniziale (che non cambino le propietà topologiche degli insiemi input) i.e. voglio continuità degli operatori. Per esempio prendiamo $U_a$ operatore che agisce su $\mathcal{D}(\mathbb{R})$ come
+		\[
+		(U_af)(x) = f(x-a)
+		\]
+		questa cosa funziona perchè l'integrale di Lebesgue è invariante per traslazioni. \newline
+		Prendo uno stato $\psi \in \mathcal{H}$ ci faccio agire $A$ (operatore su questo spazio) e ottengo un nuovo stato. Siamo interessati quale sia la "differenza" tra questo nuovo stato e quello inziale. Quindi viene introdotta la norma di un operatore.
+	\end{esempio}
+	\begin{esempio}[Successione di misure]
+		Vorrei inoltre poter fare una successione di misure sul mio sistema che generano una successione di stati che non so neanche se converge. Vorrei che a partire dai dati sperimentali riuscissi a concludere che la successione converge a qualcosa che posso approssimare a meno di un $\epsilon$. Devo avere quindi uno spazio in cui $Cauchy \iff Convergente$. I limiti sono SEMPRE in norma.
+	\end{esempio}
+	\begin{esempio}[Perchè la MQ è basata su $L^2(\mathbb{R})$]
+		Si consideri
+		\[
+		\varepsilon(E,B) = \int_\mathbb{R} dx(|E|^2 + |B|^2)
+		\]
+		quest'integrale ovviamente deve convergere, ma esistono soluzioni delle Maxwell che lo fanno divergere $e^{x-t}$. Quindi si richiede che $E,B \in L^2(\mathbb{R})$. Gli spazi di Hilbert separabili vogliono mantenere la finitezza di queste grandezze fisiche.
+	\end{esempio}
+	
+	\begin{esempio}[Statistica di Bose-Einstein e oscillatore armonico quantistico]
+		Si prenda l'oscillatore armonico quantistico
+		\[
+		\hat{H} = \frac{\hat{P}^2}{2m} + \frac{1}{2} m\omega^2 \hat{Q}^2
+		\]
+		esso presenta uno spettro discreto $E_n = \hbar \omega\left(n + \frac{1}{2}\right)$, da dove salta fuori l'ipotesi di Planck?
+		\newline Dato $\beta = (k_B T)^{-1} > 0$ si può prendere $e^{-\beta \hat{H}}$ e calcolarne la traccia con una boc di autovettori di $\hat{H}$
+		\[
+		Tr(e^{-\beta \hat{H}}) = \sum^\infty (\psi_n, e^{-\beta \hat{H}} \psi_n)  =  \sum^\infty (\psi_n, \sum^\infty \frac{1}{n!}(-\beta\hat{H})^n \psi_n) = \sum^\infty e^{-\beta E_n} = e^{-\beta \hbar \omega / 2} \frac{1}{1-e^{-\beta \hbar \omega}}
+		\]
+		dove nell'ultimo passaggio è stata calcolata la serie geometrica. Si mostra facilmente che $|\hat{H}| = \hat{H}$ (è positivo e autoaggiunto). L'informazione sulla statistica è contenuta nella traccia dell'Hamiltoniano.
+		\newline
+		Ci potremmo anche chiedere se $H$ sia autoaggiunto, la risposta è negli indici di difetto e nelle equazioni differenziali ad esse associate. Quello che si trova è che la soluzione esiste per Picard-Lindelhof (polinomi di Hermite) ma non sono $\in L^2$.
+	\end{esempio}
+	
+	\subsection{Distribuzioni}
+	\begin{esempio}[Distribuzioni tramite funzioni $L^1_{\text{Loc}}$]
+		Sia $\psi \in L^1(\R)$ allora il funzionale $u_\psi : \D \in \C$ tale che
+		\[
+			f \mapsto u_{\psi}(f) := \int_\R dx f(x) \psi(x)
+		\]
+		(che esiste sicuramente) è una distribuzione?  Cioè è continuo?\newline Si verifica facilmente che è sequenzialmente continua. 
+		\[
+			|\int_\R dx f_j(x) \psi(x)| \leq \int_\R dx |f_j(x)| |\psi| \leq M\int_\R dx |\psi| = M'
+		\]
+		dove l'ultima disuguaglianza è data perchè è a supporto compatto con M massimo. Per convergenza dominata posso passare il limite sotto al segno d'integrale e ottengo che tutto tende a 0. Quindi è sequenzialmente continua quindi possiamo scrivere impropriamente che 
+		\[
+			L^1_{\text{Loc}} \subset \Dp 
+		\]
+	\end{esempio}
+	
+	
+	\newpage
+	
+	
 \end{document}
