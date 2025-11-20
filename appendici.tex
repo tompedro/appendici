@@ -575,13 +575,1281 @@
  		|R_n(x)| \leq M |x-x_0|^n
  	\]
  	dove M dipende dalla derivata n-esima e $|x-x_0|$ è l'intervallo che stiamo considerando.
- 	\newline Calandoci nell'esempio della serie di Dyson (o di qualsiasi altra serie divergente), quello che ci mostra questo teorema è che se io scelgo una certa accuratezza $\varepsilon$ ()dovuta allo strumento) che stimi l'errore, allora $\forall \varepsilon > 0$ $\exists x $ t.c. $  M |x-x_0|^n > \varepsilon$ e non solo, infatti M, cresce con l'ordine della derivata (in questo tipo di serie) e quindi quello che succede è che più si vuole un resto accurato e ad un ordine alto, più si deve accorciare la scala dei tempi (x). Queste serie vengono dette asintotiche.
- 	
+ 	\newline Calandoci nell'esempio della serie di Dyson (o di qualsiasi altra serie divergente), quello che ci mostra questo teorema è che se io scelgo una certa accuratezza $\varepsilon$ (dovuta allo strumento) che stimi l'errore, allora $\forall \varepsilon > 0$ $\exists x $ t.c. $  M |x-x_0|^n > \varepsilon$ e non solo, infatti M, cresce con l'ordine della derivata (in questo tipo di serie) e quindi quello che succede è che più si vuole un resto accurato e ad un ordine alto, più si deve accorciare la scala dei tempi (x). Queste serie vengono dette asintotiche.
+	
 	\subsection{$C^\star$ algebre}
-	p.86 Moretti.
+	La coniugazione hermitiana fornisce il pretesto naturale per introdurre uno dei concetti matematici più utili nelle formulazioni avanzate della Meccanica Quantistica: le \textbf{$C^*$-algebre} (note in passato anche come $B^*$-algebre).
+	Riprenderemo questi concetti nei capitoli successivi per discutere il teorema di decomposizione spettrale e la formulazione algebrica delle teorie quantistiche.
+	
+	\begin{definizione}[*-algebra e $C^*$-algebra]
+		Sia $\mathfrak{A}$ un'algebra (commutativa o meno, con unità o meno) sul campo $\mathbb{C}$.
+		Un'applicazione ${}^* : \mathfrak{A} \to \mathfrak{A}$ è detta \textbf{involuzione} se soddisfa le seguenti proprietà per ogni $x, y \in \mathfrak{A}$ e $\alpha, \beta \in \mathbb{C}$:
+		\begin{enumerate}
+			\item \textbf{Antilinearità:} $(\alpha x + \beta y)^* = \bar{\alpha} x^* + \bar{\beta} y^*$;
+			\item \textbf{Involutività:} $(x^*)^* = x$;
+			\item \textbf{Antimoltiplicatività:} $(xy)^* = y^* x^*$.
+		\end{enumerate}
+		La struttura $(\mathfrak{A}, {}^*)$ è chiamata \textbf{*-algebra}.
+		
+		Se $\mathfrak{A}$ è anche un'algebra di Banach (normata e completa), essa è detta \textbf{Banach *-algebra} se l'involuzione è isometrica, ovvero $\|x^*\| = \|x\|$ (o equivalentemente $\|x^* x\| \le \|x\|^2$).
+		
+		Una Banach *-algebra è detta \textbf{$C^*$-algebra} se la norma soddisfa l'identità $C^*$:
+		\begin{equation}
+			\|x^* x\| = \|x\|^2 \quad \text{per ogni } x \in \mathfrak{A} \,.
+		\end{equation}
+	\end{definizione}
+	
+	\begin{definizione}[Morfismi di *-algebre]
+		Siano $\mathfrak{A}_1$ e $\mathfrak{A}_2$ due *-algebre (con unità). Un omomorfismo di algebre $f: \mathfrak{A}_1 \to \mathfrak{A}_2$ si dice \textbf{*-omomorfismo} se preserva l'involuzione:
+		$$ f(x^*) = f(x)^* \quad \text{per ogni } x \in \mathfrak{A}_1 \,,$$
+		e preserva l'unità (se presente), ovvero $f(\mathbb{I}_1) = \mathbb{I}_2$.
+		\begin{itemize}
+			\item Se $f$ è anche biunivoco, si chiama \textbf{*-isomorfismo}.
+			\item Un *-isomorfismo da $\mathfrak{A}$ in se stessa ($\mathfrak{A}_1 = \mathfrak{A}_2$) è detto \textbf{*-automorfismo}.
+		\end{itemize}
+	\end{definizione}
+	
+	Possiamo classificare gli elementi di una *-algebra in base al loro comportamento rispetto all'involuzione.
+	
+	\begin{definizione}[Elementi speciali]
+		Un elemento $x$ in una *-algebra $\mathfrak{A}$ (con unità $\mathbb{I}$) si dice:
+		\begin{itemize}
+			\item[(i)] \textbf{Normale}: se commuta con il suo aggiunto, $x^* x = x x^*$;
+			\item[(ii)] \textbf{Hermitiano} (o autoaggiunto): se coincide con il suo aggiunto, $x^* = x$;
+			\item[(iii)] \textbf{Isometria}: se $x^* x = \mathbb{I}$;
+			\item[(iv)] \textbf{Unitario}: se $x^* x = x x^* = \mathbb{I}$ (cioè l'inverso è l'aggiunto).
+		\end{itemize}
+	\end{definizione}
+	
+	\begin{osservazione}[Sottoalgebre e Generatori]
+		\begin{enumerate}
+			\item Una \textbf{*-sottoalgebra} di $\mathfrak{A}$ è una sottoalgebra chiusa rispetto all'operazione di involuzione. Nel caso delle $C^*$-algebre, una \textbf{$C^*$-sottoalgebra} deve essere anche chiusa nella topologia della norma (quindi completa).
+			\item L'intersezione arbitraria di *-sottoalgebre è ancora una *-sottoalgebra. Dato un sottoinsieme $S \subset \mathfrak{A}$, la *-algebra \textbf{generata} da $S$ è l'intersezione di tutte le *-sottoalgebre che contengono $S$. Lo stesso vale, mutatis mutandis, per le $C^*$-sottoalgebre (che saranno chiuse).
+			\item L'inverso di un *-isomorfismo è anch'esso un *-isomorfismo.
+		\end{enumerate}
+	\end{osservazione}
+	
+	Concludiamo con un risultato tecnico utile riguardante gli omomorfismi.
+	
+	\begin{proposizione}
+		Siano $\mathfrak{A}_1, \mathfrak{A}_2$ due *-algebre con unità e sia $\phi: \mathfrak{A}_1 \to \mathfrak{A}_2$ una mappa lineare che preserva il prodotto e l'involuzione.
+		Se $\phi$ è \textbf{suriettiva}, allora essa è automaticamente un *-omomorfismo (ovvero preserva necessariamente l'unità: $\phi(\mathbb{I}_1) = \mathbb{I}_2$).
+	\end{proposizione}
+	
+	\begin{osservazione}[Conservazione dell'unità]
+		Vale un fatto algebrico generale: una mappa lineare suriettiva tra algebre con unità che preserva il prodotto preserva necessariamente anche l'elemento unitario ($\phi(\mathbb{I}_1) = \mathbb{I}_2$).
+	\end{osservazione}
+	
+	Elenchiamo alcune proprietà cruciali che discendono direttamente dalla definizione di $C^*$-algebra.
+	
+	\begin{proposizione}[Proprietà fondamentali delle $C^*$-algebre]
+		Sia $(\mathfrak{A}, \|\cdot\|)$ una $C^*$-algebra con involuzione $^*$.
+		\begin{itemize}
+			\item[(a)] Se $x \in \mathfrak{A}$ è un elemento \textbf{normale} ($x^*x = xx^*$), allora per ogni $n \in \mathbb{N}$:
+			$$ \|x^n\| = \|x\|^n \,.$$
+			\item[(b)] L'involuzione è un'\textbf{isometria}: per ogni $x \in \mathfrak{A}$,
+			$$ \|x^*\| = \|x\| \,.$$
+			\item[(c)] Se $\mathfrak{A}$ possiede unità $\mathbb{I}$, allora $\mathbb{I}^* = \mathbb{I}$. Inoltre, $x$ è invertibile se e solo se $x^*$ lo è, e vale la relazione:
+			$$ (x^{-1})^* = (x^*)^{-1} \,.$$
+		\end{itemize}
+	\end{proposizione}
+	
+	È possibile costruire nuove $C^*$-algebre a partire da famiglie esistenti.
+	
+	\begin{definizione}[Somma diretta di $C^*$-algebre]
+		Sia $\{\mathfrak{A}_j\}_{j \in J}$ una famiglia di $C^*$-algebre (dove $J$ ha cardinalità arbitraria). Consideriamo l'insieme delle famiglie $\{a_j\}_{j \in J}$ (con $a_j \in \mathfrak{A}_j$) che sono limitate in norma, equipaggiato con la norma del sup:
+		\begin{equation}
+			\| \{a_j\}_{j \in J} \| := \sup_{j \in J} \|a_j\|_j < +\infty \,.
+		\end{equation}
+		Dotando questo insieme delle operazioni puntuali (somma, prodotto, involuzione componente per componente), si ottiene una struttura di algebra chiamata \textbf{somma diretta} e indicata con:
+		$$ \bigoplus_{j \in J} \mathfrak{A}_j \,. $$
+		Tale struttura risulta essere una $C^*$-algebra rispetto alla norma definita.
+	\end{definizione}
+	
+	\begin{osservazione}[Rigidità delle $C^*$-algebre]
+		La struttura di una $C^*$-algebra è notevole perché le sue proprietà topologiche e algebriche sono profondamente intrecciate. Si può dimostrare (e lo vedremo più avanti) che:
+		\begin{itemize}
+			\item Ogni *-omomorfismo $\phi$ tra $C^*$-algebre con unità è \textbf{automaticamente continuo} (anzi, contrattivo: $\|\phi(a)\| \le \|a\|$).
+			\item Un *-omomorfismo è un'isometria ($\|\phi(a)\| = \|a\|$) se e solo se è \textbf{iniettivo}.
+		\end{itemize}
+	\end{osservazione}
+	
+	\begin{esempio}[Esempi principali]
+		\begin{enumerate}
+			\item Le algebre di funzioni complesse (come $C(K)$ o $L^\infty$) sono esempi di $C^*$-algebre \textbf{commutative}, dove l'involuzione è la complessa coniugazione.
+			\item \textbf{Operatori limitati:} Se $\Hspace$ è uno spazio di Hilbert, l'algebra $\mathscr{B}(\Hspace)$ degli operatori lineari limitati è una $C^*$-algebra con unità (non commutativa, se $\dim(\Hspace)>1$), dove l'involuzione è data dall'aggiunto hermitiano.
+		\end{enumerate}
+	\end{esempio}
+	
+	Prima di addentrarci nelle rappresentazioni, è utile menzionare la struttura dei \textbf{quaternioni} $\mathbb{H}$. Essa può essere vista come un'algebra reale normata con unità. Sebbene il campo base sia $\mathbb{R}$, è possibile definire un'involuzione tramite il coniugato quaternionico, rendendo $\mathbb{H}$ una $C^*$-algebra reale (soddisfa $\|q^* q\| = \|q\|^2$).
+	
+	Una rappresentazione concreta di $\mathbb{H}$ è data dalla sottoalgebra reale delle matrici $2 \times 2$ complesse generata dall'identità $\Identity$ e dalle matrici $-i\sigma_1, -i\sigma_2, -i\sigma_3$ (dove $\sigma_i$ sono le matrici di Pauli).
+	$\mathbb{H}$ è un \textbf{anello con divisione} (ogni elemento non nullo è invertibile) non commutativo.
+	
+	Esistono risultati fondamentali che classificano tali strutture, rilevanti per i fondamenti della fisica quantistica (si ricordi il Teorema di Solèr).
+	
+	\begin{teorema}[Frobenius e Hurwitz]
+		\begin{itemize}
+			\item \textbf{Teorema di Frobenius (1887):} Ogni algebra associativa con divisione a dimensione finita sul campo reale $\mathbb{R}$ è necessariamente isomorfa a $\mathbb{R}$, $\mathbb{C}$ o $\mathbb{H}$.
+			\item \textbf{Teorema di Hurwitz (1923):} Ogni algebra $\mathfrak{A}$ con divisione, associativa, normata e unitale su $\mathbb{R}$ tale che $\|ab\| = \|a\|\|b\|$ è isometricamente isomorfa a $\mathbb{R}$, $\mathbb{C}$ o $\mathbb{H}$.
+		\end{itemize}
+		(Rilasciando l'associatività si ottengono anche gli ottetti di Cayley $\mathbb{O}$).
+	\end{teorema}
+	
+	\subsubsection{Rappresentazioni di *-algebre}
+	
+	Una definizione centrale nelle teorie quantistiche avanzate (come la QFT) è quella di rappresentazione di un'algebra di operatori astratti su uno spazio di Hilbert concreto.
+	
+	\begin{definizione}[Rappresentazione]
+		Sia $\mathfrak{A}$ una *-algebra (non necessariamente unitale o $C^*$) e $\Hspace$ uno spazio di Hilbert.
+		Un *-omomorfismo $\pi: \mathfrak{A} \to \mathscr{B}(\Hspace)$ è detto \textbf{rappresentazione} di $\mathfrak{A}$ su $\Hspace$.
+		Si richiede esplicitamente che la rappresentazione preservi l'unità se presente nell'algebra, ovvero $\pi(\mathbb{I}_\mathfrak{A}) = \Identity_\Hspace$.
+		
+		Si definiscono le seguenti proprietà per una rappresentazione $\pi$:
+		\begin{itemize}
+			\item[(a)] \textbf{Fedele (Faithful):} se $\pi$ è iniettiva (il kernel è nullo).
+			\item[(b)] \textbf{Irriducibile:} se non esistono sottospazi chiusi di $\Hspace$ (diversi da $\{0\}$ e $\Hspace$ stesso) che siano invarianti sotto l'azione di $\pi(\mathfrak{A})$. Ovvero, se $M \subset \Hspace$ è chiuso e $\pi(a)M \subset M$ per ogni $a \in \mathfrak{A}$, allora $M=\{0\}$ o $M=\Hspace$.
+			\item[(c)] \textbf{Unitariamente Equivalente:} Due rappresentazioni $\pi$ su $\Hspace$ e $\pi'$ su $\Hspace'$ sono equivalenti se esiste un'isometria suriettiva (unitario) $U: \Hspace \to \Hspace'$ tale che $U \pi(a) U^{-1} = \pi'(a)$ per ogni $a \in \mathfrak{A}$.
+		\end{itemize}
+	\end{definizione}
+	
+	\begin{definizione}[Vettore Ciclico]
+		Un vettore $\psi \in \Hspace$ si dice \textbf{ciclico} per la rappresentazione $\pi$ se l'insieme $\{\pi(a)\psi \mid a \in \mathfrak{A}\}$ è denso in $\Hspace$.
+	\end{definizione}
+	
+	Le proprietà di irriducibilità e ciclicità sono strettamente legate:
+	
+	\begin{proposizione}
+		Sia $\pi$ una rappresentazione irriducibile di una *-algebra con unità su $\Hspace \neq \{0\}$. Allora \textbf{ogni} vettore non nullo $\psi \in \Hspace$ è ciclico per $\pi$.
+	\end{proposizione}
+	
+	\begin{osservazione}[Continuità Automatica]
+		Se $\mathfrak{A}$ è una $C^*$-algebra con unità, ogni rappresentazione è automaticamente continua (rispetto alla norma di $\mathfrak{A}$ e alla norma operatoriale su $\mathscr{B}(\Hspace)$). In particolare, è una contrazione: $\|\pi(a)\| \le \|a\|$.
+	\end{osservazione}
+	
+	Infine, analizziamo il caso in cui una mappa lineare preservi prodotti e involuzioni ma "manchi" l'identità, non qualificandosi come rappresentazione secondo la Definizione 3.52.
+	
+	\begin{proposizione}[Rappresentazione ridotta]
+		Sia $\mathfrak{A}$ una *-algebra con unità e $\phi: \mathfrak{A} \to \mathscr{B}(\Hspace)$ una mappa lineare che preserva prodotti e involuzioni (ma non necessariamente l'unità).
+		Allora lo spazio di Hilbert si decompone come $\Hspace = \Hspace_\phi \oplus \Hspace_\phi^\perp$, dove $\Hspace_\phi = \text{Ran}(\phi(\mathbb{I}))$.
+		Valgono i seguenti fatti:
+		\begin{enumerate}
+			\item Entrambi i sottospazi sono invarianti sotto $\phi(a)$ per ogni $a$.
+			\item La restrizione su $\Hspace_\phi^\perp$ è nulla: $\phi(a)\restriction_{\Hspace_\phi^\perp} = 0$.
+			\item La restrizione sul complemento $\pi_\phi: \mathfrak{A} \ni a \mapsto \phi(a)\restriction_{\Hspace_\phi} \in \mathscr{B}(\Hspace_\phi)$ è una \textbf{rappresentazione} (preserva l'unità su $\Hspace_\phi$).
+		\end{enumerate}
+		Inoltre, $\pi_\phi$ è irriducibile se e solo se $\phi$ non è la mappa nulla e non esistono sottospazi propri invarianti non banali in $\Hspace$.
+	\end{proposizione}
+	
+	\subsection{Algebre di von Neumann (o $W^*$-algebre)}
+	
+	Un concetto centrale nello studio delle algebre di operatori è quello di commutante, che descrive l'insieme degli operatori che commutano con una data classe.
+	
+	\begin{definizione}[Commutante]
+		Sia $\mathfrak{M} \subset \mathscr{B}(\Hspace)$ un sottoinsieme di operatori limitati su uno spazio di Hilbert complesso. Il \textbf{commutante} di $\mathfrak{M}$ è definito come:
+		$$
+		\mathfrak{M}' := \{ T \in \mathscr{B}(\Hspace) \mid TA - AT = 0 \quad \text{per ogni } A \in \mathfrak{M} \} \,.
+		$$
+		Iterando la costruzione, si definisce il \textbf{bicommutante} come $\mathfrak{M}'' := (\mathfrak{M}')'$.
+	\end{definizione}
+	
+	\begin{osservazione}[Proprietà algebriche e topologiche]
+		\begin{enumerate}
+			\item Se $\mathfrak{M}$ è chiuso rispetto all'involuzione (cioè è un *-insieme), allora $\mathfrak{M}'$ è una *-algebra con unità.
+			\item Vale sempre l'inclusione $\mathfrak{M} \subset \mathfrak{M}''$.
+			\item Non si ottengono nuovi insiemi oltre il secondo commutante, poiché $\mathfrak{M}' = \mathfrak{M}'''$.
+			\item Una proprietà cruciale è la chiusura topologica: $\mathfrak{M}'$ è sempre chiuso non solo nella topologia uniforme, ma anche nelle topologie \textbf{debole} e \textbf{forte} degli operatori.
+		\end{enumerate}
+	\end{osservazione}
+	
+	Il legame tra proprietà algebriche (il commutante) e topologiche (la chiusura) è sancito da uno dei teoremi più importanti dell'analisi funzionale, dovuto a von Neumann.
+	
+	\begin{teorema}[Teorema del Bicommutante di von Neumann]
+		Sia $\Hspace$ uno spazio di Hilbert complesso e $\mathfrak{A}$ una *-sottoalgebra con unità di $\mathscr{B}(\Hspace)$. I seguenti fatti sono equivalenti:
+		\begin{itemize}
+			\item[(a)] $\mathfrak{A} = \mathfrak{A}''$ (l'algebra coincide con il suo bicommutante);
+			\item[(b)] $\mathfrak{A}$ è chiusa nella topologia debole degli operatori;
+			\item[(c)] $\mathfrak{A}$ è chiusa nella topologia forte degli operatori.
+		\end{itemize}
+		Inoltre, se $\mathfrak{B}$ è una qualunque *-sottoalgebra con unità, il suo bicommutante $\mathfrak{B}''$ coincide con la sua chiusura debole e con la sua chiusura forte:
+		$$ \mathfrak{B}'' = \overline{\mathfrak{B}}^w = \overline{\mathfrak{B}}^s \,. $$
+	\end{teorema}
+	
+	Grazie al teorema precedente, siamo pronti a definire una classe speciale di algebre di operatori.
+	
+	\begin{definizione}[Algebra di von Neumann]
+		Sia $\Hspace \neq \{0\}$ uno spazio di Hilbert complesso. Un'\textbf{Algebra di von Neumann} (o \textbf{$W^*$-algebra}) su $\Hspace$ è una *-sottoalgebra con unità $\mathfrak{R} \subset \mathscr{B}(\Hspace)$ che soddisfa una delle tre proprietà equivalenti del Teorema del Bicommutante (solitamente si usa la definizione $\mathfrak{R} = \mathfrak{R}''$).
+	\end{definizione}
+	
+	\begin{osservazione}[Relazione con le $C^*$-algebre]
+		Poiché la chiusura nella topologia forte implica la chiusura nella topologia uniforme (della norma), ogni algebra di von Neumann è, in particolare, una $C^*$-algebra.
+		Il termine $W^*$-algebra è spesso usato come sinonimo, anche se originariamente indicava una definizione astratta (come duale topologico di uno spazio di Banach, risultato provato da Sakai nel 1970). In questo contesto concreto, i termini sono interscambiabili.
+	\end{osservazione}
+	
+	\begin{definizione}[Centro e Fattori]
+		Data un'algebra di von Neumann $\mathfrak{R}$:
+		\begin{itemize}
+			\item Il \textbf{centro} di $\mathfrak{R}$ è l'insieme degli elementi che commutano con tutti gli elementi dell'algebra:
+			$$ \mathfrak{Z}(\mathfrak{R}) := \mathfrak{R} \cap \mathfrak{R}' \,. $$
+			\item Un \textbf{fattore} è un'algebra di von Neumann con centro banale, ovvero contenente solo i multipli scalari dell'identità:
+			$$ \mathfrak{R} \cap \mathfrak{R}' = \{ c \Identity \}_{c \in \mathbb{C}} \,. $$
+		\end{itemize}
+		La classificazione dei fattori è un capitolo centrale nella teoria delle algebre di operatori, con profonde conseguenze nella teoria quantistica dei campi.
+	\end{definizione}
+	
+	\subsubsection{Generazione e Operazioni Reticolari}
+	
+	Se $\mathfrak{M} \subset \mathscr{B}(\Hspace)$ è un insieme chiuso rispetto all'involuzione, l'algebra di von Neumann \textbf{generata} da $\mathfrak{M}$ è la più piccola algebra di von Neumann che contiene $\mathfrak{M}$. Grazie al teorema del bicommutante, essa è esattamente $\mathfrak{M}''$.
+	
+	Possiamo definire operazioni reticolari sulla famiglia delle algebre di von Neumann su $\Hspace$:
+	\begin{itemize}
+		\item \textbf{Intersezione (Meet):} L'intersezione arbitraria di algebre di von Neumann $\{\mathfrak{R}_\alpha\}$ è ancora un'algebra di von Neumann:
+		$$ \bigwedge_{\alpha} \mathfrak{R}_\alpha := \bigcap_{\alpha} \mathfrak{R}_\alpha \,. $$
+		\item \textbf{Unione generata (Join):} L'unione insiemistica non è in genere un'algebra. Si definisce il join come l'algebra generata dall'unione:
+		$$ \bigvee_{\alpha} \mathfrak{R}_\alpha := \left( \bigcup_{\alpha} \mathfrak{R}_\alpha \right)'' \,. $$
+	\end{itemize}
+	
+	Concludiamo con il caso più semplice e fondamentale.
+	
+	\begin{proposizione}[Il caso $\mathscr{B}(\Hspace)$]
+		Sia $\Hspace \neq \{0\}$. Allora:
+		\begin{itemize}
+			\item[(a)] Il commutante dell'intera algebra degli operatori è costituito dai soli scalari: $\mathscr{B}(\Hspace)' = \{ c \Identity \}$. Di conseguenza, $\mathscr{B}(\Hspace)'' = \mathscr{B}(\Hspace)$, confermando che è un'algebra di von Neumann.
+			\item[(b)] Poiché il centro è banale ($\mathscr{B}(\Hspace) \cap \{c \Identity\} = \{c \Identity\}$), $\mathscr{B}(\Hspace)$ è un \textbf{fattore}.
+			\item[(c)] Non esistono sottospazi chiusi non banali che siano invarianti sotto l'azione di \textit{tutti} gli elementi di $\mathscr{B}(\Hspace)$ (proprietà di transistività o irriducibilità).
+		\end{itemize}
+	\end{proposizione}
+	
+	\subsubsection{Somma Hilbertiana di Algebre di von Neumann}
+	
+	Esiste una naturale corrispondenza tra la somma diretta di spazi di Hilbert e la somma diretta di $C^*$-algebre, che si specializza nel caso delle algebre di von Neumann.
+	
+	\begin{proposizione}[Costruzione della Somma Diretta di Operatori]
+		Consideriamo una famiglia di spazi di Hilbert non banali $\{\Hspace_j\}_{j \in J}$ e una famiglia di $C^*$-algebre di operatori $\{\mathfrak{A}_j\}_{j \in J}$, con $\mathfrak{A}_j \subset \mathscr{B}(\Hspace_j)$.
+		
+		\begin{itemize}
+			\item[(a)] \textbf{Isomorfismo Isometrico:} Dato un elemento astratto della somma diretta $\bigoplus_{j \in J} \mathfrak{A}_j$ (ovvero una famiglia limitata di operatori), possiamo definire l'operatore globale $\hat{\bigoplus}_{j \in J} A_j$ agente sullo spazio somma $\bigoplus_{j \in J} \Hspace_j$ come:
+			\begin{equation}
+				\left( \hat{\bigoplus}_{j \in J} A_j \right) \left( \bigoplus_{j \in J} x_j \right) := \bigoplus_{j \in J} (A_j x_j) \,.
+			\end{equation}
+			Tale operatore è ben definito e limitato. Inoltre, la norma dell'operatore coincide con la $C^*$-norma della somma diretta astratta:
+			$$ \left\| \hat{\bigoplus}_{j \in J} A_j \right\|_{\mathscr{B}(\oplus \Hspace_j)} = \left\| \bigoplus_{j \in J} A_j \right\|_{\oplus \mathfrak{A}_j} = \sup_{j \in J} \|A_j\| \,. $$
+			La mappa che associa la somma astratta all'operatore concreto è un *-omomorfismo isometrico.
+			
+			\item[(b)] \textbf{Commutante della somma:} Il commutante della somma diretta è la somma diretta dei commutanti:
+			$$ \left( \hat{\bigoplus}_{j \in J} \mathfrak{A}_j \right)' = \hat{\bigoplus}_{j \in J} \mathfrak{A}_j' \,. $$
+			
+			\item[(c)] \textbf{Proprietà di von Neumann:} Se ogni componente $\mathfrak{A}_j$ è un'algebra di von Neumann, allora anche l'algebra somma $\hat{\bigoplus}_{j \in J} \mathfrak{A}_j$ è un'algebra di von Neumann.
+		\end{itemize}
+	\end{proposizione}
+	
+	\begin{definizione}[Somma diretta di Algebre di von Neumann]
+		Sia $\{\mathfrak{R}_j\}_{j \in J}$ una famiglia di algebre di von Neumann su spazi $\{\Hspace_j\}_{j \in J}$. L'algebra di von Neumann definita nella proposizione precedente è chiamata \textbf{somma diretta della famiglia di algebre di von Neumann}.
+	\end{definizione}
+	
+	\begin{osservazione}[Notazione semplificata]
+		Poiché la costruzione definisce un isomorfismo isometrico canonico tra l'algebra astratta delle famiglie limitate e l'algebra concreta degli operatori sullo spazio somma, nel seguito si semplificherà la notazione rimuovendo il simbolo ``cappello''.
+		Indicheremo con lo stesso simbolo $\bigoplus_{j \in J} A_j$ sia l'elemento astratto che l'operatore concreto, e con $\bigoplus_{j \in J} \mathfrak{R}_j$ l'algebra somma.
+	\end{osservazione}
 	
 	\newpage
 	
+	\section{Fondamenti logico-matematici della Meccanica Quantistica}
+	\subsection{Grandezze Classiche e Misurabilità}
+	
+	Le quantità classiche più complesse di un sistema possono essere descritte mediante funzioni misurabili secondo Borel definite sullo spazio delle fasi $\Gamma$. La scelta della $\sigma$-algebra di Borel è naturale in quanto determinata dalla topologia che si assume esistere su $\Gamma$.
+	
+	\begin{definizione}[Grandezza Fisica e Valore di Aspettazione]
+		Una grandezza fisica è rappresentata da una funzione Borel-misurabile $f: \Gamma \to \mathbb{R}$. La misurabilità è un requisito fondamentale che permette di definire operazioni fisiche, come il calcolo del \textit{valore di aspettazione} quando lo stato è descritto da una misura $\mu$:
+		$$
+		\langle f \rangle_\mu = \int_\Gamma f \, d\mu \,.
+		$$
+	\end{definizione}
+	
+	\begin{osservazione}[Proprietà Elementari]
+		Le cosiddette ``proprietà elementari'' del sistema sono descritte da funzioni misurabili che assumono solo valori binari, ovvero $g: \Gamma \to \{0,1\}$. Queste funzioni sono identificate fedelmente con le funzioni caratteristiche (o indicatrici) di insiemi di Borel.
+		Dato un insieme di Borel $E_g = g^{-1}(\{1\})$, si ha infatti $g = \chi_{E_g}$.
+		È importante notare che richiedere la continuità per queste funzioni sarebbe troppo restrittivo: le proprietà elementari non sarebbero rappresentabili se ci si limitasse alle mappe continue.
+	\end{osservazione}
+	
+	Una generica quantità fisica $f: \Gamma \to \mathbb{R}$ è completamente determinata dalla classe degli insiemi di Borel $E_B^{(f)}$, definiti come la controimmagine di un insieme $B \in \mathscr{B}(\mathbb{R})$:
+	\begin{equation}
+		E_B^{(f)} := f^{-1}(B) \,.
+	\end{equation}
+	Il significato fisico dell'insieme $E_B^{(f)}$ è: ``l'insieme degli stati in cui il valore di $f$ appartiene a $B$''.
+	
+	\begin{proposizione}[Proprietà della Mappa Inversa]
+		La mappa $\mathscr{B}(\mathbb{R}) \ni B \mapsto E_B^{(f)}$ permette di ricostruire la funzione $f$. La classe degli insiemi $E_B^{(f)}$ forma una $\sigma$-algebra e soddisfa le seguenti proprietà elementari al variare di $B$ in $\mathscr{B}(\mathbb{R})$:
+		\begin{itemize}
+			\item[(Fi)] $E_{\mathbb{R}}^{(f)} = \Gamma$;
+			\item[(Fii)] $E_B^{(f)} \cap E_C^{(f)} = E_{B \cap C}^{(f)}$;
+			\item[(Fiii)] Se $N \subset \mathbb{N}$ e $\{B_k\}_{k \in N} \subset \mathscr{B}(\mathbb{R})$ è una famiglia di insiemi a due a due disgiunti ($B_j \cap B_k = \varnothing$ per $k \neq j$), allora:
+			$$
+			\bigcup_{j \in N} E_{B_j}^{(f)} = E_{\bigcup_{j \in N} B_j}^{(f)} \,.
+			$$
+		\end{itemize}
+	\end{proposizione}
+	
+	\begin{osservazione}[Commenti sulle proprietà]
+		Si possono fare alcune precisazioni sulle proprietà sopra elencate:
+		\begin{enumerate}
+			\item[(a)] Utilizzando (Fi) e (Fiii), la proprietà (Fii) può essere sostituita dalla proprietà sul complemento: $E_{\mathbb{R}\setminus E}^{(f)} = \Gamma \setminus E_E^{(f)}$. In particolare, si ha $E_{\varnothing}^{(f)} = \varnothing$.
+			\item[(b)] Le proprietà (Fii) e (Fiii) implicano che la condizione di disgiunzione in (Fiii) non è strettamente necessaria; l'uguaglianza vale anche rimuovendo il vincolo $B_j \cap B_k = \varnothing$.
+			\item[(c)] Infine, invocando le leggi di De Morgan, la proprietà (Fiii) è valida anche sostituendo l'unione $\cup$ con l'intersezione $\cap$.
+		\end{enumerate}
+	\end{osservazione}
+	
+	\subsection{La nozione di Reticolo}
+	
+	Tornando alla struttura matematica delle proprietà elementari classiche, osserviamo che esse possono essere inquadrate nella nozione algebrica di \textit{reticolo}.
+	
+	Richiamiamo brevemente che in un insieme parzialmente ordinato (o \textit{poset}) $(X, \geq)$, se $Y \subset X$, il simbolo $\sup Y$ denota (se esiste) il più piccolo elemento $x \in X$ tale che $x \geq y$ per ogni $y \in Y$. Analogamente, $\inf Y$ denota (se esiste) il più grande elemento $x \in X$ tale che $y \geq x$ per ogni $y \in Y$.
+	
+	\begin{definizione}[Reticolo]
+		Un insieme parzialmente ordinato $(X, \geq)$ è definito \textbf{reticolo} (in inglese \textit{lattice}) se, per ogni coppia di elementi $a, b \in X$:
+		\begin{itemize}
+			\item[(a)] Esiste in $X$ $\sup\{a, b\}$, denominato \textbf{join} e indicato con $a \lor b$;
+			\item[(b)] Esiste in $X$ $\inf\{a, b\}$, denominato \textbf{meet} e indicato con $a \land b$.
+		\end{itemize}
+		Si noti che il poset $(X, \geq)$ non deve necessariamente essere totalmente ordinato. La notazione $a \leq b$ è equivalente a $b \geq a$.
+	\end{definizione}
+	
+	\begin{osservazione}
+		\begin{itemize}
+			\item[(a)] Nei casi concreti in cui $X = \mathscr{B}(\mathbb{R})$ o $X = \mathscr{B}(\Gamma)$, la relazione d'ordine $\geq$ coincide con l'inclusione insiemistica $\supseteq$. Di conseguenza, l'operazione di join $\lor$ corrisponde all'unione $\cup$, mentre il meet $\land$ corrisponde all'intersezione $\cap$.
+			\item[(b)] In un reticolo generale, le operazioni $\lor$ e $\land$ risultano essere \textit{associative} e \textit{commutative}. Valgono inoltre le \textbf{leggi di assorbimento}:
+			$$
+			a \lor (a \land b) = a \quad \text{e} \quad a \land (a \lor b) = a \,.
+			$$
+			\item[(c)] Esiste una stretta relazione tra l'ordine e le operazioni: in un reticolo, $a \geq b$ se e solo se $a \lor b = a$ (o equivalentemente $a \land b = b$).
+		\end{itemize}
+	\end{osservazione}
+	
+	\begin{definizione}[Algebra di Boole]
+		Un reticolo $(X, \geq)$ si dice:
+		\begin{itemize}
+			\item[(a)] \textbf{Distributivo}: se le operazioni $\lor$ e $\land$ si distribuiscono l'una rispetto all'altra. Per ogni $a, b, c \in X$:
+			$$
+			a \lor (b \land c) = (a \lor b) \land (a \lor c) \,, \quad a \land (b \lor c) = (a \land b) \lor (a \land c) \,.
+			$$
+			
+			\item[(b)] \textbf{Limitato} (o \textit{bounded}): se ammette un elemento minimo $\mathbf{0}$ (\textit{bottom}) e un elemento massimo $\mathbf{1}$ (\textit{top}).
+			
+			\item[(c)] \textbf{Ortocomplementato}: se è limitato ed è dotato di una mappa $X \ni a \mapsto \neg a$, detta \textbf{ortocomplemento} di $a$, tale che:
+			\begin{enumerate}
+				\item[(i)] $a \lor \neg a = \mathbf{1}$ per ogni $a \in X$;
+				\item[(ii)] $a \land \neg a = \mathbf{0}$ per ogni $a \in X$;
+				\item[(iii)] $\neg(\neg a) = a$ per ogni $a \in X$ (involutività);
+				\item[(iv)] $a \geq b \implies \neg b \geq \neg a$ per ogni $a, b \in X$ (inversione dell'ordine).
+			\end{enumerate}
+			\item[(d)] \textbf{completo (risp. $\sigma$-completo)}, se ogni insieme (numerabile) $\{a_j\} \subset X$ ammette inf: $\displaystyle\bigwedge_{j\in J} a_j$ e sup: $\displaystyle\bigvee_{j\in J} a_j$.
+			\end{itemize}
+			Un reticolo con proprietà (a), (b) e (c) è chiamato \textbf{Algebra di Boole}. Un'algebra di Boole che soddisfa (d) con $J = \mathbb{N}$ è una $\sigma$-algebra di Boole.
+		\end{definizione}
+	
+	\begin{definizione}[Sottoreticolo]
+		Un \textbf{sottoreticolo} è un sottoinsieme $X_0 \subset X$ che eredita la struttura di reticolo da $X$ nel seguente senso preciso: l'estremo inferiore e l'estremo superiore di ogni coppia di elementi di $X_0$ devono esistere e coincidere con i corrispondenti estremo inferiore e superiore calcolati in $X$.
+		
+		Facendo riferimento a sottoreticoli limitati (\textit{bounded}) o ortocomplementati, si richiede per definizione che:
+		\begin{itemize}
+			\item L'elemento minimo (\textbf{bottom}) e l'elemento massimo (\textbf{top}) della sottostruttura coincidano con quelli della struttura maggiore;
+			\item L'ortocomplemento di un elemento nella sottostruttura coincida con quello definito nella struttura maggiore.
+		\end{itemize}
+	\end{definizione}
+	In modo banale si può definire omomorfismi e isomorfismi su reticoli.
+	\begin{osservazione}[Rappresentazione delle Algebre di Boole]
+		È naturale chiedersi se un'algebra di Boole astratta corrisponda sempre a un'algebra di insiemi.
+		\begin{itemize}
+			\item Il \textbf{Teorema di Loomis-Sikorski} garantisce che ogni $\sigma$-algebra di Boole astratta è isomorfa al quoziente $\Sigma / \mathcal{N}$ di una $\sigma$-algebra concreta $\Sigma$ su uno spazio di misura, modulo un ideale $\mathcal{N}$ di insiemi di misura nulla.
+			\item Nel caso più semplice di algebre di Boole (non $\sigma$), il \textbf{Teorema di rappresentazione di Stone} prova l'isomorfismo con un'algebra concreta di insiemi.
+		\end{itemize}
+		Pertanto, il reticolo delle proprietà elementari di un sistema classico è a tutti gli effetti una $\sigma$-algebra di Boole concreta: è distributivo, limitato (con $\mathbf{0}=\varnothing$ e $\mathbf{1}=\Gamma$), ortocomplementato (complemento insiemistico) e $\sigma$-completo. La mappa definita in precedenza, $\mathscr{B}(\mathbb{R}) \ni B \mapsto E_B^{(f)} \in \mathscr{B}(\Gamma)$, è un omomorfismo di $\sigma$-algebre di Boole.
+	\end{osservazione}
+	
+	\subsection{La logica non-Booleana della Meccanica Quantistica}
+	
+	Il quadro classico appena descritto diviene insostenibile per i sistemi quantistici. La ragione profonda risiede nell'esistenza di proprietà elementari \textit{incompatibili}.
+	Le idee fondamentali introdotte da von Neumann per formalizzare questa nuova logica si basano sui seguenti postulati:
+	
+	\begin{itemize}
+		\item[\textbf{(N1)}] Dato un sistema quantistico, esiste uno spazio di Hilbert complesso e separabile $\Hspace$ tale che le osservabili elementari (quelle che assumono solo valori in $\{0,1\}$) sono rappresentate fedelmente dall'insieme $\mathscr{L}(\Hspace)$ dei \textbf{proiettori ortogonali} su $\Hspace$.
+		\item[\textbf{(N2)}] Due osservabili elementari $P, Q$ sono \textit{compatibili} se e solo se i corrispondenti proiettori commutano ($PQ = QP$).
+	\end{itemize}
+	
+	\begin{osservazione}
+		La richiesta di separabilità in (N1) è utile per molte costruzioni tecniche, ma talvolta può essere omessa o dedotta da requisiti fisici. Inoltre, per sistemi che ammettono \textit{regole di superselezione}, il postulato (N1) richiede delle modifiche, ma per ora ci atteniamo alla versione standard.
+	\end{osservazione}
+	
+	L'insieme $\mathscr{L}(\Hspace)$ possiede una naturale struttura d'ordine parziale indotta dall'inclusione dei sottospazi immagine. Scriviamo $P \geq Q$ se e solo se $P(\Hspace) \supseteq Q(\Hspace)$. Dotato di questo ordine, $\mathscr{L}(\Hspace)$ diventa un reticolo con proprietà specifiche molto diverse da quelle classiche.
+	
+	\begin{proposizione}[Struttura del reticolo quantistico $\mathscr{L}(\Hspace)$]
+		Sia $\Hspace$ uno spazio di Hilbert complesso (non necessariamente separabile). Per ogni $P \in \mathscr{L}(\Hspace)$, definiamo l'ortocomplemento $\neg P := \Identity - P$ (il proiettore sul complemento ortogonale $P(\Hspace)^\perp$).
+		La struttura $$(\mathscr{L}(\Hspace), \geq, \mathbf{0}, \Identity, \neg)$$ è un reticolo limitato, ortocomplementato e completo (e quindi $\sigma$-completo), che tuttavia \textbf{non è distributivo} se $\dim(\Hspace) \geq 2$.
+		
+		In dettaglio, date $P, Q \in \mathscr{L}(\Hspace)$ e una famiglia $\{P_j\}_{j \in J} \subset \mathscr{L}(\Hspace)$:
+		
+		\begin{itemize}
+			\item[(i)] Il \textbf{Join} $P \lor Q$ è il proiettore ortogonale sulla somma chiusa dei range:
+			$$ P \lor Q = \text{proj su } \overline{P(\Hspace) + Q(\Hspace)} \,.$$
+			Analogamente, $\bigvee_{j \in J} P_j$ è il proiettore sullo spazio chiuso generato dall'unione dei range: $\text{span}\{P_j(\Hspace)\}_{j \in J}$.
+			
+			\item[(ii)] Il \textbf{Meet} $P \land Q$ è il proiettore ortogonale sull'intersezione dei range:
+			$$ P \land Q = \text{proj su } P(\Hspace) \cap Q(\Hspace) \,.$$
+			Analogamente, $\bigwedge_{j \in J} P_j$ è il proiettore sull'intersezione $\bigcap_{j \in J} P_j(\Hspace)$.
+			
+			\item[(iii)] Gli elementi minimo (\textit{bottom}) e massimo (\textit{top}) sono rispettivamente l'operatore nullo $0$ e l'identità $\Identity$.
+			
+			\item[(iv)] Nel caso numerabile ($J = \mathbb{N}$), le operazioni di reticolo sono legate ai limiti nella \textit{topologia forte degli operatori} ($s\text{-}\lim$):
+			$$
+			\bigvee_{n \in \mathbb{N}} P_n = s\text{-}\lim_{k \to +\infty} \bigvee_{n \le k} P_n \quad \text{e} \quad \bigwedge_{n \in \mathbb{N}} P_n = s\text{-}\lim_{k \to +\infty} \bigwedge_{n \le k} P_n \,.
+			$$
+		\end{itemize}
+	\end{proposizione}
+	
+	\begin{proposizione}[Sottoinsiemi Massimali e Algebre di Boole]
+		Sia $\Hspace$ uno spazio di Hilbert complesso e separabile e si consideri il reticolo ortocomplementato e $\sigma$-completo dei proiettori ortogonali $(\mathscr{L}(\Hspace), \geq, \mathbf{0}, \Identity, \neg)$.
+		
+		Assumiamo che $\mathcal{L}_0 \subset \mathscr{L}(\Hspace)$ sia un sottoinsieme \textit{massimale} di elementi che commutano a due a due (ovvero, se $Q \in \mathscr{L}(\Hspace)$ commuta con ogni $P \in \mathcal{L}_0$, allora $Q \in \mathcal{L}_0$). Valgono i seguenti fatti:
+		
+		\begin{enumerate}
+			\item \textbf{Struttura di Sottoreticolo:}
+			\begin{itemize}
+				\item[(a)] $\mathcal{L}_0$ contiene l'operatore nullo $\mathbf{0}$ e l'identità $\Identity$;
+				\item[(b)] $\mathcal{L}_0$ è chiuso rispetto all'ortocomplemento ($\neg$);
+				\item[(c)] L'estremo superiore e l'estremo inferiore di successioni di elementi calcolati in $\mathcal{L}_0$ coincidono con i corrispondenti sup e inf calcolati nell'intero $\mathscr{L}(\Hspace)$.
+			\end{itemize}
+			Di conseguenza, $\mathcal{L}_0$ è un sottoreticolo di $\mathscr{L}(\Hspace)$.
+			
+			\item \textbf{Struttura Booleana:} $\mathcal{L}_0$ è anche una $\sigma$-algebra di Boole. Inoltre, per ogni $P, Q \in \mathcal{L}_0$, le operazioni di reticolo assumono la seguente forma algebrica:
+			\begin{itemize}
+				\item[(i)] $P \lor Q = P + Q - PQ$;
+				\item[(ii)] $P \land Q = PQ$.
+			\end{itemize}
+			
+			\item \textbf{Generalizzazione:} Le identità algebriche riportate al punto (2) sono valide più in generale per qualsiasi coppia di proiettori $P, Q \in \mathscr{L}(\Hspace)$, sotto la sola ipotesi che essi commutino ($PQ=QP$).
+		\end{enumerate}
+	\end{proposizione}
+	
+	\begin{teorema}[Caratterizzazione della $\wedge$ logica]
+		In uno spazio di Hilbert $\Hspace$ per ogni $P,Q \in \mathscr{L}(\Hspace)$ e $x \in \Hspace$
+		\[
+			(P \wedge Q)x = \lim_{n \to +\infty} (PQ)^nx
+		\]
+	\end{teorema}
+	\begin{osservazione}[Misurazioni Alternate e Convergenza]
+		La dimostrazione matematica sui proiettori implica un fatto fisico più forte riguardante le misurazioni consecutive. Si ha infatti che le successioni alternate di proiettori convergono al proiettore sull'intersezione dei sottospazi:
+		$$
+		P x, \, Q P x, \, P Q P x, \dots \longrightarrow (P \land Q)x \quad \forall x \in \Hspace \,.
+		$$
+		Poiché $P \land Q = Q \land P$, il risultato vale anche scambiando l'ordine.
+		Fisicamente, se assumiamo che lo stato post-misurazione sia descritto dalla proiezione, il lato destro della formula
+		$$
+		\|(P \land Q)x\|^2 = \lim_{n \to +\infty} \|(PQ)^n x\|^2
+		$$
+		rappresenta la probabilità che una sequenza infinita di misurazioni alternate di $P$ e $Q$ (anche incompatibili) dia esito positivo a ogni passo, partendo dallo stato $x$.
+	\end{osservazione}
+	
+	\subsection{Perché le osservabili sono operatori autoaggiunti}
+	
+	Siamo ora in grado di chiarire perché, in questo contesto, le osservabili corrispondano alle \textbf{PVM} (Projection-Valued Measures) su $\mathscr{B}(\mathbb{R})$ e, di conseguenza, agli operatori autoaggiunti grazie ai teoremi di integrazione spettrale.
+	
+	Analogamente al caso classico, un'osservabile $A$ può essere vista come una collezione di osservabili elementari SI-NO $\{P_E\}_{E \in \mathscr{B}(\mathbb{R})}$, etichettate sugli insiemi di Borel di $\mathbb{R}$. Il significato di $P_E$ è:
+	\begin{equation}
+		P_E = \text{``il valore dell'osservabile appartiene a } E \text{''} \,.
+	\end{equation}
+	
+	Assumendo che queste osservabili elementari siano \textit{a due a due compatibili} (ipotesi cruciale che permette di lavorare in un sottoinsieme massimale $\mathcal{L}_0$ che si comporta come un'algebra di Boole), ci aspettiamo che soddisfino le proprietà analoghe a quelle classiche (Fi)-(Fiii), tradotte nel linguaggio dei proiettori:
+	
+	\begin{enumerate}
+		\item[(i')] $P_{\mathbb{R}} = \Identity$;
+		\item[(ii')] $P_E \land P_F = P_{E \cap F}$;
+		\item[(iii')] Se $\{E_k\}_{k \in \mathbb{N}}$ sono disgiunti, allora $\bigvee_{j \in \mathbb{N}} P_{E_j} = P_{\bigcup_{j \in \mathbb{N}} E_j}$.
+	\end{enumerate}
+	
+	Tenendo conto delle proprietà dei proiettori compatibili e della convergenza nella topologia forte per le serie infinite, queste relazioni diventano la definizione esatta di una PVM su $\mathbb{R}$:
+	
+	\begin{enumerate}
+		\item[(i)] $P_{\mathbb{R}} = \Identity$;
+		\item[(ii)] $P_E P_F = P_{E \cap F}$ (poiché per proiettori commutanti il meet è il prodotto);
+		\item[(iii)] Per insiemi disgiunti $\{E_k\}$, vale la $\sigma$-additività nella topologia forte degli operatori:
+		$$ \sum_{j \in \mathbb{N}} P_{E_j} x = P_{\bigcup_{j \in \mathbb{N}} E_j} x \quad \text{per ogni } x \in \Hspace \,. $$
+	\end{enumerate}
+	
+	\begin{teorema}[Corrispondenza con Operatori Autoaggiunti]
+		Le PVM su $\mathbb{R}$ sono associate in modo biunivoco agli operatori autoaggiunti. Integrando la funzione identità $\imath: \mathbb{R} \ni r \mapsto r \in \mathbb{R}$ rispetto alla misura $P$, otteniamo l'operatore normale:
+		$$
+		A_P = \int_{\mathbb{R}} r \, dP(r) \,.
+		$$
+		Poiché la funzione integranda è a valori reali, $A_P$ è autoaggiunto. Inoltre, $P$ è l'unica PVM associata ad $A_P$ e il supporto di $P$ coincide con lo spettro $\sigma(A_P)$.
+	\end{teorema}
+	
+	Concludiamo che, adottando il framework di von Neumann, le osservabili in Meccanica Quantistica sono naturalmente descritte da operatori autoaggiunti, i cui spettri coincidono con l'insieme dei valori assumibili dalle osservabili stesse.
+	
+	\subsection{Il Teorema di Soler}
+	
+	Per affrontare il problema della coordinatizzazione, elenchiamo alcune proprietà speciali del reticolo dei proiettori ortogonali. Poiché la distributività non vale in $\mathscr{L}(\Hspace)$, si introduce la nozione più debole di \textbf{ortomodularità}. Un altro concetto centrale è quello di \textit{atomo}.
+	
+	\begin{definizione}[Atomo]
+		Sia $(\mathscr{L}, \geq, \mathbf{0}, \mathbf{1})$ un reticolo limitato. Un elemento $a \in \mathscr{L} \setminus \{\mathbf{0}\}$ è chiamato \textbf{atomo} se $p \leq a$ implica $p = \mathbf{0}$ oppure $p = a$.
+	\end{definizione}
+	
+	Il seguente teorema raccoglie le proprietà rilevanti del reticolo $\mathscr{L}(\Hspace)$, definendo contestualmente le proprietà astratte che possono applicarsi a reticoli ortocomplementati generici.
+	
+	\begin{teorema}[Proprietà di $\mathscr{L}(\Hspace)$]
+		Nel reticolo ortocomplementato $(\mathscr{L}(\Hspace), \geq, 0, I, \neg)$ dei proiettori ortogonali su uno spazio di Hilbert complesso $\Hspace$, gli unici atomi sono i proiettori su sottospazi monodimensionali.
+		Inoltre, $\mathscr{L}(\Hspace)$ soddisfa le seguenti proprietà:
+		
+		\begin{itemize}
+			\item[(i)] \textbf{Separabilità} (per $\Hspace$ separabile): se una famiglia $\{P_j\}_{j \in J} \subset \mathscr{L}(\Hspace) \setminus \{0\}$ è ortogonale (cioè $P_i \leq \neg P_j$ per $i \neq j$), allora l'insieme degli indici $J$ è al più numerabile.
+			
+			\item[(ii)] \textbf{Atomicita e Atomisticità}:
+			\begin{enumerate}
+				\item Per ogni $P \in \mathscr{L}(\Hspace) \setminus \{0\}$ esiste un atomo $A$ tale che $A \leq P$ (\textit{atomicità}).
+				\item Ogni $P \in \mathscr{L}(\Hspace) \setminus \{0\}$ è il join degli atomi che contiene: $P = \bigvee \{A \leq P \mid A \text{ è un atomo}\}$ (\textit{atomisticità}).
+			\end{enumerate}
+			
+			\item[(iii)] \textbf{Ortomodularità}: La relazione d'ordine implica una forma debole di distributività:
+			$$ P \leq Q \implies Q = P \lor ((\neg P) \land Q) \,.$$
+			
+			\item[(iv)] \textbf{Proprietà di copertura}: Se $A$ è un atomo e $P \in \mathscr{L}(\Hspace)$ tali che $A \land P = 0$, allora valgono specifiche relazioni tra $P$ e $A \lor P$ che regolano l'altezza degli elementi nel reticolo.
+			
+			\item[(v)] \textbf{Irriducibilità}: Solo gli operatori $0$ e $I$ commutano con ogni elemento di $\mathscr{L}(\Hspace)$.
+		\end{itemize}
+	\end{teorema}
+	
+	\begin{teorema}[Atomicità $\Rightarrow$ atomisticità]
+		In un reticolo ortocomplementato $(\mathscr{L}(\Hspace), \geq, \mathbf{0}, \Identity, \neg)$ ortomodularità e atomicità implica atomisticità.
+	\end{teorema}
+	
+	È possibile definire le operazioni di negazione logica e compatibilità direttamente sulla struttura astratta del reticolo, senza fare inizialmente riferimento alla natura operatoriale. Tuttavia, queste definizioni astratte si rivelano equivalenti alle nozioni standard sugli operatori.
+	
+	\begin{definizione}[Ortogonalità e Commutatività in Reticoli]
+		Sia $(\mathscr{L}, \geq, \mathbf{0}, \mathbf{1}, \neg)$ un reticolo ortocomplementato e siano $a, b \in \mathscr{L}$.
+		\begin{itemize}
+			\item[(a)] $a$ e $b$ si dicono \textbf{ortogonali} (scritto $a \perp b$) se $a \leq \neg b$ (o equivalentemente $b \leq \neg a$).
+			\item[(b)] $a$ e $b$ si dicono \textbf{commutanti} se esistono tre elementi a due a due ortogonali $c_1, c_2, c_3$ ($c_i \perp c_j$ per $i \neq j$) tali che:
+			$$ a = c_1 \lor c_3 \quad \text{e} \quad b = c_2 \lor c_3 \,.$$
+		\end{itemize}
+	\end{definizione}
+	
+	\begin{osservazione}
+		La definizione astratta di commutatività è equivalente a richiedere che il sottoreticolo ortocomplementato generato da $p$ e $q$ sia Booleano. Questo conferma che la commutatività rappresenta la "compatibilità classica" tra proposizioni.
+	\end{osservazione}
+	
+	Queste nozioni astratte recuperano esattamente il loro significato fisico usuale quando applicate al caso concreto dei proiettori.
+	
+	\begin{proposizione}[Equivalenza con le proprietà degli operatori]
+		Sia $\Hspace$ uno spazio di Hilbert e consideriamo $\mathscr{L}(\Hspace)$ come reticolo ortocomplementato. Due elementi $P, Q \in \mathscr{L}(\Hspace)$:
+		\begin{itemize}
+			\item[(i)] Sono \textbf{ortogonali} nel senso della Definizione precedente se e solo se proiettano su sottospazi mutuamente ortogonali, il che equivale alla condizione operatoriale $PQ = QP = 0$.
+			\item[(ii)] \textbf{Commutano} nel senso della Definizione precedente se e solo se commutano come operatori, ovvero $PQ = QP$.
+		\end{itemize}
+	\end{proposizione}
+	
+	Piron ha dimostrato che, assumendo l'esistenza di almeno 4 atomi a due a due ortogonali, il reticolo delle proposizioni può essere identificato canonicamente con i sottospazi chiusi di uno \textit{spazio di Hilbert generalizzato}, dove il campo scalare è sostituito da un \textbf{anello con divisione} $\mathbb{D}$ (dotato di involuzione).
+	
+	È stato a lungo congetturato che, aggiungendo ipotesi di separabilità e ortomodularità, l'anello $\mathbb{D}$ si restringesse ai soli casi reali, complessi o quaternionici. La conferma formale è arrivata con il seguente teorema fondamentale.
+	
+	\begin{teorema}[Teorema di Solèr]
+		Consideriamo un reticolo separabile, ortomodulare, $\sigma$-completo, atomico e irriducibile, che soddisfi la proprietà di copertura.
+		
+		Se tale reticolo ammette un insieme \textbf{infinito} di atomi a due a due ortogonali, allora esso è isomorfo al reticolo dei sottospazi chiusi (ordinati per inclusione insiemistica) di uno spazio di Hilbert separabile definito sul corpo $\mathbb{K}$, dove $\mathbb{K}$ può essere scelto esclusivamente tra: $\R$ $\C$ o $\mathbb{H}$.
+	\end{teorema}
+	
+	Come di consueto, il reticolo dei sottospazi chiusi può essere interpretato come il reticolo $\mathscr{L}(\Hspace)$ dei proiettori ortogonali corrispondenti.
+	
+	\begin{osservazione}[La natura del corpo e l'irriducibilità]
+		\begin{itemize}
+			\item \textbf{Irriducibilità e Superselezione:} La proprietà di irriducibilità non è strettamente necessaria per la validità fisica. Se fallisce, il reticolo si decompone in sottoreticoli irriducibili. Fisicamente, questa situazione è naturale in presenza di \textit{regole di superselezione}.
+			
+			\item \textbf{La scelta dei numeri complessi:} Il teorema di Solèr lascia aperta la scelta tra $\mathbb{R}, \mathbb{C}$ e $\mathbb{H}$. Perché la fisica standard usa $\mathbb{C}$? Studi recenti suggeriscono che, per sistemi elementari relativistici, la struttura complessa sia imposta dalla simmetria relativistica stessa. Tuttavia, se non diversamente specificato, nel seguito assumeremo l'uso del campo $\mathbb{C}$ per descrivere i sistemi quantistici.
+		\end{itemize}
+	\end{osservazione}
+	
+	\begin{osservazione}[Necessità delle ipotesi di Solèr e Spazio-Tempo]
+		È fondamentale sottolineare che la validità di \textit{tutte} le proprietà elencate nel Teorema 4.16 (Solèr) è cruciale per ottenere la tesi, ovvero la struttura di spazio di Hilbert.
+		Esistono infatti strutture di reticolo fisicamente rilevanti che soddisfano molte di quelle proprietà, come l'ortomodularità, ma falliscono in altre.
+		
+		Un esempio notevole è la famiglia degli \textbf{insiemi causalmente completi} nello spazio-tempo di Minkowski $M$.
+		Definiamo il \textit{complemento causale} $\Sigma^\perp$ di un sottoinsieme di Borel $\Sigma \subset M$ come:
+		$$
+		\Sigma^\perp := \{ x \in M \mid x \notin \Sigma \text{ e } x, y \text{ sono cronologicamente separati per ogni } y \in \Sigma \} \,.
+		$$
+		(Ricordiamo che $x, y$ sono cronologicamente separati se $x \neq y$ e non esiste alcun segmento di tipo tempo che li congiunge).
+		Una regione $\Delta$ si dice \textbf{causalmente completa} se $\Delta = (\Delta^\perp)^\perp$.
+		
+		Il reticolo costituito da tutte le regioni causalmente completi di $M$, ordinato tramite l'inclusione insiemistica, risulta essere:
+		\begin{itemize}
+			\item Un reticolo non-Booleano, atomico, atomistico, irriducibile e ortomodulare;
+			\item Dotato di ortocomplemento $\perp$, con minimo $\varnothing$ e massimo $M$.
+		\end{itemize}
+		Tuttavia, questo reticolo \textbf{non soddisfa la proprietà di copertura} (e anche la separabilità è problematica). Il fallimento della proprietà di copertura impedisce di dotare lo spazio-tempo di una naturale struttura di Hilbert generalizzata. Questo risultato distingue strutturalmente la logica quantistica standard dalla logica causale dello spazio-tempo, offrendo forse spunti per una formulazione della gravità quantistica.
+	\end{osservazione}
+	
+	\subsection{Argomenti avanzati su Teoremi di Soler e Piron}
+	
+	Abbiamo finora stabilito che il reticolo dei proiettori $\mathscr{L}(\Hspace)$ soddisfa proprietà specifiche (completezza, ortomodularità, atomicità, proprietà di copertura). Il problema inverso, noto come \textit{problema della coordinatizzazione}, consiste nel dimostrare che un reticolo astratto $\mathscr{L}$ che soddisfi tali assiomi sia necessariamente isomorfo al reticolo dei sottospazi di uno spazio di Hilbert.
+	
+	Questo programma di ricerca, avviato da Birkhoff e von Neumann e sviluppato da Jauch, Piron e altri, ha trovato il suo culmine nel Teorema di Solèr (1995).
+	
+	\subsubsection{Dagli assiomi allo Spazio Vettoriale Generalizzato}
+	
+	Il primo passo consiste nel recuperare una struttura di spazio vettoriale su un corpo generico.
+	
+	\begin{teorema}[Piron-Maeda-Maeda]
+		Sia $\mathscr{L}$ un reticolo ortocomplementato, completo, irriducibile e atomistico che soddisfa la \textbf{proprietà di copertura}. Supponiamo inoltre che $\mathscr{L}$ contenga almeno 4 atomi a due a due ortogonali.
+		
+		Allora esistono:
+		\begin{enumerate}
+			\item Un anello con divisione (corpo) $\mathbb{K}$ dotato di un'involuzione antiautomorfica $\lambda \mapsto \bar{\lambda}$;
+			\item Uno spazio vettoriale ``generalizzato'' $E$ su $\mathbb{K}$;
+			\item Una forma hermitiana $\langle \cdot | \cdot \rangle : E \times E \to \mathbb{K}$ non singolare (tale cioè che $\langle x | x \rangle = 0 \implies x=0$);
+		\end{enumerate}
+		tali che $\mathscr{L}$ è isomorfo al reticolo dei sottospazi ``chiusi'' $\mathbf{M} \subset E$ (dove la chiusura è definita algebricamente come $\mathbf{M} = \mathbf{M}^{\perp\perp}$ rispetto alla forma hermitiana), ordinati per inclusione.
+		
+		Inoltre, $\mathscr{L}$ è ortomodulare se e solo se la forma soddisfa la condizione: $\mathbf{M} + \mathbf{M}^\perp = E$ per ogni sottospazio chiuso $\mathbf{M}$.
+	\end{teorema}
+	
+	\subsubsection{Il Teorema di Solèr e la natura del campo}
+	
+	Il risultato precedente lascia aperta la natura dell'anello $\mathbb{K}$. Molti autori congetturarono che l'aggiunta dell'ipotesi di ortomodularità e di infinitezza dimensionale costringesse $\mathbb{K}$ ad essere uno dei campi classici ($\mathbb{R}, \mathbb{C}, \mathbb{H}$). Questa congettura è stata dimostrata da Solèr (e indipendentemente da Holland per condizioni equivalenti).
+	
+	\begin{teorema}[Solèr-Holland]
+		Consideriamo un reticolo $\mathscr{L}$ che soddisfi tutte le ipotesi del teorema precedente (ortocomplementato, completo, irriducibile, atomistico, con proprietà di copertura e almeno 4 atomi ortogonali) e assumiamo inoltre che sia \textbf{ortomodulare}.
+		
+		Supponiamo che valga una delle seguenti condizioni equivalenti (che impongono l'infinitezza dimensionale):
+		\begin{itemize}
+			\item[(a)] \textbf{(Solèr)} Esiste una successione ortonormale infinita $\{e_n\}_{n \in \mathbb{N}}$ (ovvero $\langle e_n | e_n \rangle = 1$);
+			\item[(b)] \textbf{(Holland)} Esiste una successione ortogonale infinita con norma fissata;
+			\item[(c)] Lo spazio non ha dimensione finita e il reticolo ammette sufficienti simmetrie unitarie tra gli atomi.
+		\end{itemize}
+		
+		Allora valgono le seguenti conclusioni fondamentali:
+		\begin{enumerate}
+			\item Il corpo $\mathbb{K}$ può essere solo uno tra i \textbf{Reali} $\mathbb{R}$, i \textbf{Complessi} $\mathbb{C}$ o i \textbf{Quaternioni} $\mathbb{H}$.
+			\item La forma hermitiana è definita positiva.
+			\item Lo spazio $E$ è \textbf{completo} rispetto alla norma indotta, ed è quindi uno \textbf{Spazio di Hilbert} (reale, complesso o quaternionico).
+			\item Lo spazio di Hilbert è separabile se e solo se il reticolo $\mathscr{L}$ è separabile.
+		\end{enumerate}
+	\end{teorema}
+	
+	\begin{osservazione}[Significato delle Ipotesi e Fisica]
+		\begin{itemize}
+			\item \textbf{Irriducibilità e Superselezione:} L'ipotesi di irriducibilità non è essenziale. Senza di essa, il reticolo si decompone in sottoreticoli irriducibili. In fisica, questo corrisponde alla presenza di \textit{regole di superselezione}, dove lo spazio di Hilbert totale è somma diretta di settori coerenti tra i quali non sono possibili sovrapposizioni.
+			
+			\item \textbf{Proprietà di Copertura e Gravità Quantistica:} La \textit{covering property} è invece cruciale. Esistono strutture fisicamente rilevanti che la violano. Ad esempio, il reticolo delle regioni \textit{causalmente complete} nello spaziotempo di Minkowski soddisfa quasi tutte le proprietà (inclusa l'ortomodularità) ma non la proprietà di copertura. Questo impedisce di associare allo spaziotempo una struttura di Hilbert naturale, suggerendo che in una teoria di Gravità Quantistica la struttura geometrica dello spaziotempo e quella lineare della meccanica quantistica potrebbero divergere.
+			
+			\item \textbf{La scelta di $\mathbb{C}$:} Il teorema di Solèr ammette ancora $\mathbb{R}$ e $\mathbb{H}$. Risultati recenti (Oppio et al.) mostrano che se si richiede che il sistema supporti un'azione del gruppo di Poincaré (necessaria per le particelle elementari relativistiche), i casi reale e quaternionico possono essere esclusi, lasciando $\mathbb{C}$ come unica scelta consistente.
+		\end{itemize}
+	\end{osservazione}
+	
+	\subsection{Il Teorema di Gleason}
+	
+	Sulla base della struttura di reticolo dei proiettori, possiamo formulare una definizione generale di probabilità in ambito quantistico.
+	
+	\begin{definizione}[Misura di Probabilità Quantistica]
+		Sia $\Hspace$ uno spazio di Hilbert. Una \textbf{misura di probabilità quantistica} su $\Hspace$ è una mappa $\rho: \mathscr{L}(\Hspace) \to [0,1]$ che soddisfa i seguenti requisiti:
+		\begin{enumerate}
+			\item $\rho(\Identity) = 1$;
+			\item $\sigma$-additività su proiettori ortogonali: se $\{P_n\}_{n \in \mathbb{N}} \subset \mathscr{L}(\Hspace)$ è una famiglia tale che $P_h P_k = 0$ per $h \neq k$, allora:
+			$$
+			\rho\left( \text{s-}\!\sum_{n \in \mathbb{N}} P_n \right) = \sum_{n \in \mathbb{N}} \rho(P_n) \,.
+			$$
+		\end{enumerate}
+		L'insieme convesso delle misure di probabilità quantistiche su $\Hspace$ viene denotato con $\mathscr{M}(\Hspace)$.
+	\end{definizione}
+	
+	\begin{osservazione}[Stati e Operatori]
+		È fondamentale distinguere tra la nozione matematica astratta di misura di probabilità e quella di \textit{operatore di stato quantistico}.
+		Come caso particolare, ogni vettore unitario $\psi \in \Hspace$ definisce una misura $\rho_\psi(P) := \langle \psi | P \psi \rangle$. Poiché $\mathscr{M}(\Hspace)$ è convesso, anche le combinazioni convesse finite $\rho = \sum p_k \rho_{\psi_k}$ sono misure.
+		Associando a tale somma l'operatore $T = \sum p_k \ket{\psi_k}\bra{\psi_k}$, si osserva che il valore della probabilità può essere calcolato tramite la traccia:
+		$$
+		\rho(P) = \text{tr}(TP) \,.
+		$$
+		Questo suggerisce la definizione della seguente classe di operatori.
+	\end{osservazione}
+	
+	\begin{definizione}[Operatori di Stato Quantistico]
+		Si definisce l'insieme chiuso e convesso degli \textbf{operatori di stato quantistico} (o matrici densità) $\mathscr{S}(\Hspace)$ come il sottoinsieme degli operatori di classe traccia $\mathfrak{B}_1(\Hspace)$ positivi e con traccia unitaria:
+		$$
+		\mathscr{S}(\Hspace) := \{ T \in \mathfrak{B}_1(\Hspace) \mid T \geq 0, \, \text{tr}(T) = 1 \} \,.
+		$$
+	\end{definizione}
+	
+	La relazione tra le due definizioni è formalizzata dalla seguente proposizione.
+	
+	\begin{proposizione}
+		Sia $\Hspace$ uno spazio di Hilbert. Se $T \in \mathscr{S}(\Hspace)$, la mappa
+		$$
+		\rho_T: \mathscr{L}(\Hspace) \ni P \mapsto \text{tr}(TP)
+		$$
+		è ben definita e rappresenta una misura di probabilità quantistica, ovvero $\rho_T \in \mathscr{M}(\Hspace)$.
+	\end{proposizione}
+	
+	Il risultato più profondo, che stabilisce una corrispondenza biunivoca tra le misure astratte sul reticolo e gli operatori di stato, è il celebre teorema di Gleason.
+	
+	\begin{teorema}[Teorema di Gleason]
+		Sia $\Hspace$ uno spazio di Hilbert di dimensione finita $\neq 2$, oppure di dimensione infinita e separabile.
+		L'insieme delle misure di probabilità quantistica $\rho \in \mathscr{M}(\Hspace)$ è in corrispondenza biunivoca con l'insieme degli operatori di stato quantistico $T \in \mathscr{S}(\Hspace)$.
+		La biiezione è data dalla formula:
+		$$
+		\text{tr}(TP) = \rho(P) \quad \text{per ogni } P \in \mathscr{L}(\Hspace) \,.
+		$$
+		Inoltre, tale corrispondenza preserva la struttura convessa dei due insiemi.
+	\end{teorema}
+	
+	\begin{osservazione}[Confronto con la notazione fisica standard]
+		È utile notare una differenza di convenzione rispetto ai testi standard di Meccanica Quantistica.
+		\begin{itemize}
+			\item In questi appunti, $T$ denota l'\textit{operatore di stato} (o matrice densità), mentre $\rho$ indica la misura di probabilità astratta.
+			\item Nella letteratura fisica, è l'operatore stesso ad essere solitamente indicato con il simbolo $\rho$ (o $\hat{\rho}$).
+		\end{itemize}
+		Pertanto, l'uguaglianza $\rho(P) = \text{tr}(TP)$ espressa nel Teorema di Gleason equivale alla formula standard per il calcolo del valore di aspettazione (o probabilità) di un proiettore $P$ su uno stato misto $\hat{\rho}$:
+		$$
+		\langle P \rangle_{\hat{\rho}} = \text{tr}(\hat{\rho} P) \,.
+		$$
+		Nel caso particolare in cui il sistema si trovi in uno stato puro descritto dal vettore unitario $\ket{\psi}$, l'operatore di stato diventa il proiettore $T = \ket{\psi}\bra{\psi}$ e la formula restituisce la celebre \textbf{regola di Born}:
+		$$
+		\text{tr}\big( (\ket{\psi}\bra{\psi}) P \big) = \bra{\psi} P \ket{\psi} \,.
+		$$
+	\end{osservazione}
+	
+	\begin{osservazione}[Il caso dim $\Hspace = 2$ e altre note]
+		\begin{itemize}
+			\item[(a)] L'ipotesi $\dim(\Hspace) \neq 2$ nel Teorema di Gleason è fondamentale. Esiste infatti un noto controesempio per $\Hspace = \mathbb{C}^2$.
+			
+			Identificando i proiettori unidimensionali $P \in \mathscr{L}(\mathbb{C}^2)$ con i vettori unitari $\mathbf{n} = (n_1, n_2, n_3)^t \in \mathbb{R}^3$ sulla sfera di Bloch, possiamo scrivere ogni proiettore come:
+			$$
+			P_{\mathbf{n}} = \frac{1}{2} \left( \Identity + \sum_{j=1}^3 n_j \sigma_j \right) \,,
+			$$
+			dove $\sigma_j$ sono le matrici di Pauli standard. Si osserva che due proiettori sono ortogonali, $P_{\mathbf{n}} \perp P_{\mathbf{n}'}$, se e solo se i vettori corrispondenti sono antipodi, ovvero $\mathbf{n} = -\mathbf{n}'$.
+			
+			Fissiamo ora un vettore unitario $\mathbf{m} \in \mathbb{R}^3$ e definiamo la mappa $\rho: \mathscr{L}(\mathbb{C}^2) \to [0,1]$ come segue:
+			$$
+			\rho(P_{\mathbf{n}}) := \frac{1}{2} \left( 1 + \sum_{j=1}^3 (n_j m_j)^3 \right) \,.
+			$$
+			Questa mappa si estende univocamente a una misura di probabilità quantistica. Infatti, verifichiamo l'additività per proiettori ortogonali ($\mathbf{n}$ e $-\mathbf{n}$):
+			$$
+			\rho(P_{\mathbf{n}}) + \rho(P_{-\mathbf{n}}) = \frac{1}{2} (1 + \Sigma) + \frac{1}{2} (1 - \Sigma) = 1 \,,
+			$$
+			dato che il termine cubico è dispari, $(-n_j)^3 = -n_j^3$.
+			
+			Tuttavia, \textbf{non esiste alcun operatore} $T$ (matrice densità) tale che $\text{tr}(T P_{\mathbf{n}}) = \rho(P_{\mathbf{n}})$ per ogni $\mathbf{n}$.
+			Se esistesse, imponendo l'uguaglianza avremmo:
+			$$
+			\text{tr}\left[ T \frac{1}{2} (\Identity + \mathbf{n} \cdot \boldsymbol{\sigma}) \right] = \frac{1}{2} + \frac{1}{2} \sum_{j=1}^3 n_j \text{tr}(T \sigma_j) = \frac{1}{2} + \frac{1}{2} \sum_{j=1}^3 (n_j m_j)^3 \,.
+			$$
+			Semplificando, si otterrebbe una relazione del tipo:
+			$$
+			\sum_{j=1}^3 n_j T_j = \sum_{j=1}^3 n_j^3 m_j^3 \,,
+			$$
+			dove $T_j = \text{tr}(T \sigma_j)$ sono costanti. Questo è impossibile da soddisfare per ogni $\mathbf{n}$, poiché il membro di sinistra dipende \textbf{linearmente} dalle componenti $n_j$, mentre il membro di destra dipende da esse in modo cubico.
+			\item[(b)] Il teorema può essere esteso a spazi di Hilbert reali o quaternionici (in accordo con il teorema di Solèr), sebbene con complicazioni tecniche legate alla definizione di traccia.
+			\item[(c)] Il teorema di Gleason ha conseguenze cruciali per l'interpretazione della Meccanica Quantistica, in particolare escludendo la possibilità di stati "sharp" (senza dispersione) per tutte le osservabili, anticipando concetti legati ai teoremi di \textit{no-go} per variabili nascoste (Bell, Kochen-Specker).
+		\end{itemize}
+	\end{osservazione}
+	
+	\subsection{Teorema di Bell debole}
+	
+	In Meccanica Classica esistono misure di probabilità che assegnano valore 1 a certe proprietà elementari e 0 alle rimanenti (stati deterministici). In Meccanica Quantistica, invece, la natura è intrinsecamente probabilistica: non esistono misure ``sharp'' (senza dispersione). Questo fatto è sancito matematicamente dal seguente teorema, spesso citato come versione matematica del Teorema di Bell (o legato al Teorema di Kochen-Specker).
+	
+	\begin{teorema}[Teorema di Bell debole]
+		Sia $\Hspace$ uno spazio di Hilbert con $\dim(\Hspace) > 2$ (finito o infinito separabile).
+		Non esiste alcuna misura di probabilità quantistica $\rho: \mathscr{L}(\Hspace) \to \{0,1\}$ che assuma esclusivamente i valori 0 e 1.
+	\end{teorema}
+	\begin{proof}(Sintesi) La dimostrazione sfrutta il Teorema di Gleason. Se tale misura esistesse, sarebbe rappresentata da un operatore $T$. La funzione $f(\psi) = \langle \psi | T \psi \rangle$ mapperebbe la sfera unitaria (che è connessa) nell'insieme discreto $\{0,1\}$. Per continuità, l'immagine dovrebbe essere connessa, quindi costante (tutta 0 o tutta 1). Ma questo contraddice il fatto che $\text{tr}(T)=1$.
+	\end{proof}
+	
+	\begin{osservazione}
+		Questo risultato implica che non è possibile spiegare la MQ classica in termini di ``variabili nascoste'' non contestuali che assegnino valori definiti a tutte le osservabili simultaneamente.
+		Alla luce delle precedenti discussioni, identificheremo d'ora in poi l'insieme delle misure fisicamente rilevanti con l'insieme convesso $\mathscr{S}(\Hspace)$ degli operatori di stato (matrici densità), anche nel caso in cui $\Hspace$ non fosse separabile.
+	\end{osservazione}
+	
+	\subsubsection{Stati Puri e Misti: Struttura convessa}
+	
+	Siamo ora in grado di analizzare la geometria dell'insieme degli stati $\mathscr{S}(\Hspace)$, introducendo la distinzione fondamentale per i fisici tra stati puri e misti.
+	Ricordiamo che, dato un insieme convesso $C$ in uno spazio vettoriale, un punto $e \in C$ si dice \textbf{estremale} se non può essere scritto come combinazione convessa non banale di altri punti (cioè $e = \lambda x + (1-\lambda)y$ implica $x=y=e$).
+	
+	\begin{proposizione}[Struttura di $\mathscr{S}(\Hspace)$]
+		Sia $\Hspace$ uno spazio di Hilbert.
+		
+		\begin{itemize}
+			\item[(a)] \textbf{Stati Puri (Punti Estremali):} I punti estremali dell'insieme convesso $\mathscr{S}(\Hspace)$ sono esattamente i proiettori di rango 1, ovvero gli operatori della forma:
+			$$ P_\psi = \ket{\psi}\bra{\psi} \quad \text{con } \|\psi\|=1 \,. $$
+			Esiste quindi una biiezione tra i punti estremali e i raggi dello spazio proiettivo complesso $\mathbb{P}\Hspace$. In fisica, questi corrispondono agli \textbf{stati puri}. Gli indicheremo con $\mathscr{S}(\Hspace)_p$
+			
+			\item[(b)] \textbf{Stati Misti (Decomposizione):} Ogni operatore di stato $T \in \mathscr{S}(\Hspace)$ è una combinazione lineare convessa (eventualmente infinita) di stati puri. In particolare, esiste sempre una decomposizione spettrale:
+			$$
+			T = \sum_{u \in M} p_u \ket{u}\bra{u} \,,
+			$$
+			dove $M$ è una base hilbertiana di autovettori di $T$, i coefficienti $p_u \in [0,1]$ soddisfano $\sum p_u = 1$, e la serie converge nella norma della classe traccia $\|\cdot\|_1$ (e quindi anche uniformemente). Tali stati non estremali sono detti \textbf{stati misti}.
+		\end{itemize}
+	\end{proposizione}
+	
+	\begin{osservazione}[Sulla dimostrazione]
+		La parte (b) è una conseguenza diretta del fatto che gli operatori di classe traccia sono compatti e autoaggiunti (essendo positivi), ammettendo quindi una base di autovettori. La condizione $\text{tr}(T)=1$ assicura che la somma degli autovalori sia unitaria, definendo una distribuzione di probabilità classica $\{p_u\}$ sugli stati puri $\ket{u}$.
+	\end{osservazione}
+	\subsection{Tipologie di Sovrapposizione e Stati Misti}
+	
+	In questa sezione approfondiamo la natura degli stati non puri e le diverse modalità con cui gli stati quantistici possono combinarsi.
+	
+	\begin{definizione}[Stati Misti e Matrici Densità]
+		Gli operatori di stato che non sono estremali (cioè non sono proiettori di rango 1 della forma $\ket{\psi}\bra{\psi}$) sono chiamati \textbf{operatori statistici} o \textbf{matrici densità}. In fisica, si dice che essi descrivono \textbf{stati misti}, miscele o stati non puri.
+	\end{definizione}
+	
+	È fondamentale distinguere due modi in cui gli stati possono essere "sommati":
+	
+	\begin{enumerate}
+		\item \textbf{Sovrapposizione Coerente (Somma vettoriale):}
+		Dati dei vettori $\phi_i \in \Hspace$, consideriamo il vettore somma:
+		$$ \psi = \sum_{i \in I} a_i \phi_i $$
+		con la serie convergente nella topologia di $\Hspace$ se l'insieme $I$ è infinito. Lo stato puro $T_\psi = \ket{\psi}\bra{\psi}$ generato da questo vettore è detto \textit{sovrapposizione coerente} degli stati puri associati ai $\phi_i$. Questo è il contenuto del \textbf{Principio di Sovrapposizione} degli stati puri.
+		
+		\item \textbf{Sovrapposizione Incoerente (Somma convessa di operatori):}
+		Se consideriamo una famiglia di operatori di stato $\{T_i\}_{i \in I}$ e dei pesi $p_i \in [0,1]$ tali che $\sum p_i = 1$, definiamo:
+		$$ T = \sum_{i \in I} p_i T_i \,.$$
+		In questo caso, l'operatore $T$ descrive una \textit{sovrapposizione incoerente} (o miscela statistica). Qui non si sommano le ampiezze di probabilità, ma le probabilità classiche di trovare il sistema in uno degli stati $T_i$.
+	\end{enumerate}
+	
+	\begin{definizione}[Ampiezza e Probabilità di Transizione]
+		Siano $\psi, \phi \in \Hspace$ vettori unitari.
+		\begin{itemize}
+			\item Il numero complesso $\braket{\psi}{\phi}$ è detto \textbf{ampiezza di transizione} (o ampiezza di probabilità).
+			\item Il numero reale non negativo $|\braket{\psi}{\phi}|^2$ è la \textbf{probabilità di transizione} dello stato $\ket{\phi}\bra{\phi}$ sullo stato $\ket{\psi}\bra{\psi}$.
+		\end{itemize}
+		Interpretiamo $|\braket{\psi}{\phi}|^2 = \text{tr}(T_\psi P_\phi)$ come la probabilità che il sistema, preparato nello stato $\psi$, venga trovato nello stato $\phi$ a seguito di una misurazione (al tempo $t$). Si noti la simmetria $|\braket{\psi}{\phi}|^2 = |\braket{\phi}{\psi}|^2$.
+	\end{definizione}
+	
+	\subsubsection{L'origine dell'Interferenza Quantistica}
+	
+	La differenza fisica tra sovrapposizione coerente e incoerente diventa evidente calcolando le probabilità dei risultati di una misura.
+	Consideriamo due vettori unitari $\psi, \phi \in \Hspace$ e costruiamo due stati diversi basati su di essi.
+	
+	\begin{osservazione}[Analisi comparata delle probabilità]
+		Siano $a, b \in \mathbb{C}$ coefficienti tali che $|a|^2 + |b|^2 = 1$.
+		
+		1. \textbf{Caso Coerente (Stato Puro):} Definiamo il vettore $\chi := a\psi + b\phi$. Lo stato è $T_\chi = \ket{\chi}\bra{\chi}$.
+		La probabilità che una proposizione elementare $Q \in \mathscr{L}(\Hspace)$ sia vera in questo stato è data da:
+		\begin{align*}
+			\text{tr}(T_\chi Q) = \bra{\chi} Q \ket{\chi} &= \bra{a\psi + b\phi} Q \ket{a\psi + b\phi} \\
+			&= |a|^2 \bra{\psi}Q\ket{\psi} + |b|^2 \bra{\phi}Q\ket{\phi} + \underbrace{\bar{a}b \bra{\psi}Q\ket{\phi} + \bar{b}a \bra{\phi}Q\ket{\psi}}_{\text{Termini misti}} \,.
+		\end{align*}
+		
+		2. \textbf{Caso Incoerente (Stato Misto):} Usiamo gli stessi pesi $|a|^2$ e $|b|^2$ per costruire una miscela statistica:
+		$$ T := |a|^2 T_\psi + |b|^2 T_\phi = |a|^2 \ket{\psi}\bra{\psi} + |b|^2 \ket{\phi}\bra{\phi} \,.$$
+		La probabilità che $Q$ sia vera in questo stato è semplicemente la media pesata delle probabilità:
+		$$ \text{tr}(T Q) = |a|^2 \bra{\psi}Q\ket{\psi} + |b|^2 \bra{\phi}Q\ket{\phi} \,.$$
+	\end{osservazione}
+	
+	La differenza tra le due probabilità (4.23 e 4.24 nel testo) è esattamente il \textbf{Termine di Interferenza Quantistica}:
+	$$
+	r(T_\chi Q) - \text{tr}(TQ) = \bar{a}b \braket{\psi}{Q\phi} + \bar{b}a \braket{\phi}{Q\psi} \,.
+	$$
+	Questo termine (che può essere positivo o negativo) è assente nella miscela statistica classica. È proprio questo termine a spiegare fenomeni sperimentali come l'interferenza degli elettroni nell'esperimento della doppia fenditura: la sovrapposizione coerente permette alle "traiettorie" (o meglio, alle ampiezze) di interferire costruttivamente o distruttivamente, mentre la miscela incoerente somma semplicemente le intensità.
+	
+	\subsection{Stati post-misurazione: una critica al postulata del collasso}
+	
+	Dopo aver ridefinito lo stato in termini di operatori di classe traccia $\mathscr{S}(\Hspace)$, è necessario aggiornare l'assioma relativo al collasso della funzione d'onda. La formulazione standard (introdotta da von Neumann e generalizzata da Lüders) descrive cosa accade al sistema fisico, in uno stato $T \in \mathscr{S}(\Hspace)$, quando viene sottoposto alla misurazione di un'osservabile elementare $P \in \mathscr{L}(\Hspace)$ (assumendo che il risultato sia positivo, $\text{tr}(TP)>0$).
+	
+	Ci riferiamo qui a \textit{misurazioni non distruttive} (o di prima specie), dove il sistema esaminato (tipicamente una particella) non viene assorbito o annichilito dallo strumento.
+	
+	\begin{definizione}[Postulato di proiezione generale]
+		Se un sistema quantistico si trova nello stato descritto dall'operatore statistico $T \in \mathscr{S}(\Hspace)$ al tempo $t_0$, e la proposizione $P \in \mathscr{L}(\Hspace)$ risulta vera dopo una misurazione, lo stato del sistema immediatamente dopo la misura è descritto dall'operatore:
+		\begin{equation}
+			T_P := \frac{PTP}{\text{tr}(TP)} \,.
+		\end{equation}
+		Il termine al denominatore è semplicemente la probabilità che l'evento $P$ si verifichi nello stato $T$, necessaria per rinormalizzare la traccia a 1.
+	\end{definizione}
+	
+	\begin{osservazione}[Caso dello stato puro]
+		Se lo stato iniziale è puro, ovvero $T = \ket{\psi}\bra{\psi}$ per un vettore unitario $\psi$, la formula generale si riduce alla nota proiezione del vettore di stato. Lo stato post-misura è ancora puro ed è determinato dal vettore:
+		$$
+		\psi_P = \frac{P\psi}{\|P\psi\|} \,.
+		$$
+	\end{osservazione}
+	
+	\begin{osservazione}[Misurazione di Osservabili e Spettro]
+		Il postulato si applica concretamente alla misurazione di un'osservabile $A$ con misura spettrale $P^{(A)}$. Negli esperimenti reali, si testa una famiglia di proposizioni elementari mutuamente esclusive $\{P_{E_j}^{(A)}\}$, costruite su una partizione dello spettro $\sigma(A)$. L'ampiezza di questa partizione corrisponde alla sensibilità (risoluzione) dello strumento di misura. Misurare l'osservabile equivale a testare simultaneamente quale di queste proposizioni è vera.
+	\end{osservazione}
+	
+	Il postulato di proiezione sopra enunciato non è arbitrario, ma possiede un'importante caratterizzazione legata al concetto di probabilità condizionata.
+	
+	Supponiamo di misurare $P$ (ottenendo successo) e di volerci chiedere, subito dopo, qual è la probabilità di misurare una proposizione $Q$.
+	In generale, se $P$ e $Q$ non commutano, la logica quantistica rende il problema della probabilità condizionata molto complesso e diverso dal caso classico.
+	
+	Tuttavia, se ci restringiamo al caso di proposizioni compatibili, in particolare quando $Q \leq P$ (ovvero il sottospazio di $Q$ è contenuto in quello di $P$, il che implica $Q$ implica $P$), ci aspettiamo che valgano le intuizioni classiche. In questo caso $P \land Q = Q$, quindi la regola classica di Bayes suggerisce:
+	$$
+	\mathbb{P}_T(Q|P) = \frac{\mathbb{P}_T(Q \cap P)}{\mathbb{P}_T(P)} = \frac{\text{tr}(TQ)}{\text{tr}(TP)} \,.
+	$$
+	Se imponiamo che questa relazione debba valere per lo stato post-misurazione $T'$, otteniamo una caratterizzazione univoca del postulato di collasso.
+	
+	\begin{proposizione}[Caratterizzazione di Lüders]
+		Sia $T \in \mathscr{S}(\Hspace)$ uno stato quantistico e supponiamo che per $P \in \mathscr{L}(\Hspace)$ si abbia $\text{tr}(TP) > 0$.
+		Esiste \textbf{esattamente un} altro operatore di stato $T' \in \mathscr{S}(\Hspace)$ tale che:
+		\begin{equation}
+			\text{tr}(T'Q) = \frac{\text{tr}(TQ)}{\text{tr}(TP)} \quad \text{per ogni } Q \in \mathscr{L}(\Hspace) \text{ con } Q \leq P \,.
+		\end{equation}
+		Tale operatore è esattamente quello fornito dal postulato di Lüders-von Neumann:
+		$$
+		T' = \frac{PTP}{\text{tr}(TP)} \,.
+		$$
+	\end{proposizione}
+	
+	\begin{osservazione}[Critica Fisica]
+		Contrariamente a quanto potrebbe sembrare, l'ipotesi che giustifica la proposizione precedente (ovvero la validità della formula classica per la probabilità condizionata quando $Q \leq P$) non è fisicamente banale.
+		Essa si basa sull'idea che una misurazione consecutiva di $P$ e poi di $Q$ sia equivalente a una singola misurazione simultanea. Questa assunzione idealizza il processo, trascurando il fatto che due misurazioni in sequenza potrebbero coinvolgere strumenti e azioni fisiche differenti rispetto a una misura congiunta.
+	\end{osservazione}
+	
+	\subsubsection{Confronto tra i postulati di von Neumann e Lüders}
+	
+	Sebbene il postulato di proiezione sembri univoco, storicamente esistono due formulazioni che differiscono nel modo di trattare gli autospazi degeneri (con dimensione $>1$).
+	
+	\begin{osservazione}[Differenza tra von Neumann e Lüders]
+		Consideriamo un'osservabile $A$ con spettro discreto e decomposizione spettrale $A = \sum_\lambda \lambda P^{(\lambda)}$, dove $P^{(\lambda)}$ è il proiettore sull'autospazio relativo all'autovalore $\lambda$, avente dimensione $d_\lambda$.
+		
+		\begin{enumerate}
+			\item \textbf{Approccio di von Neumann:} L'idea originale prevedeva che la misura di $A$ proiettasse lo stato sugli autovettori di una base fissata $\{ \psi_j^{(\lambda)} \}_{j=1}^{d_\lambda}$ dell'autospazio. Se il risultato è $\lambda$, lo stato post-misura diventa una miscela statistica (incoerente) delle proiezioni sugli assi della base:
+			\begin{equation}
+				T'_{vN} := \sum_{j=1}^{d_\lambda} P_j^{(\lambda)} T P_j^{(\lambda)} \,,
+			\end{equation}
+			dove $P_j^{(\lambda)} = \ket{\psi_j^{(\lambda)}}\bra{\psi_j^{(\lambda)}}$. Questo processo distrugge eventuali coerenze (sovrapposizioni) interne all'autospazio degenere.
+			
+			\item \textbf{Approccio di Lüders:} Il postulato moderno (che abbiamo adottato nella formula 4.25) prevede invece una proiezione sull'intero autospazio $P^{(\lambda)}$. Lo stato post-misura è:
+			\begin{equation}
+				T'_{L} := \frac{P^{(\lambda)} T P^{(\lambda)}}{\text{tr}(P^{(\lambda)} T P^{(\lambda)})} \,.
+			\end{equation}
+			Questo approccio preserva la coerenza quantistica all'interno dell'autospazio degenere (principio di minima perturbazione).
+		\end{enumerate}
+		
+		Le due prescrizioni coincidono se e solo se lo spettro è non degenere ($d_\lambda = 1$). Tuttavia, notiamo che le probabilità dei risultati calcolate con i due metodi sono identiche: $\text{tr}(T'_{vN}) = \text{tr}(T'_{L}) = 1$.
+	\end{osservazione}
+	
+	\subsubsection{Dipendenza dello stato dalla procedura di misura}
+	
+	Un aspetto sottile ma fondamentale è che lo stato post-misura dipende strettamente da \textit{cosa} è stato effettivamente misurato e da \textit{come} l'informazione è stata raccolta. Non basta sapere "quale valore" ha assunto una grandezza, ma bisogna sapere se lo strumento era in grado di distinguere valori più fini.
+	
+	\begin{esempio}[Misura di funzioni di osservabili]
+		Consideriamo un sistema preparato in uno stato $\rho$ (usiamo $\rho$ per brevità al posto di $T$) e un'osservabile $A$ con spettro puntuale $\sigma(A) = \{\lambda_1, \lambda_2, \lambda_3, \lambda_4\}$. Supponiamo che i proiettori spettrali $P_i := P_{\lambda_i}$ siano unidimensionali.
+		
+		Definiamo una funzione $f(A)$ tale che:
+		$$ f(\lambda_1) = f(\lambda_2) = 1 \quad \text{e} \quad f(\lambda_3) = f(\lambda_4) = -1 \,.$$
+		Lo spettro dell'osservabile $f(A)$ è quindi $\sigma(f(A)) = \{1, -1\}$.
+		
+		Analizziamo due procedure diverse per ottenere il risultato "1":
+		
+		\begin{enumerate}
+			\item \textbf{Misura diretta di $f(A)$:} Usiamo uno strumento che distingue solo tra il valore $1$ e $-1$. Se otteniamo $1$, secondo Lüders proiettiamo sul proiettore somma $P_{1,2} = P_1 + P_2$. Lo stato collassa in:
+			$$ \rho' = \frac{(P_1 + P_2) \rho (P_1 + P_2)}{\text{tr}((P_1 + P_2)\rho)} \,. $$
+			In questo stato, la \textit{coerenza} (i termini di interferenza) tra i sottospazi associati a $\lambda_1$ e $\lambda_2$ viene preservata. Se $\rho$ era uno stato puro, $\rho'$ rimane puro (ma confinato nel sottospazio $1,2$).
+			
+			\item \textbf{Misura di $A$ con "dimenticanza":} Misuriamo l'osservabile $A$ completa, distinguendo $\lambda_1$ e $\lambda_2$, ma successivamente raggruppiamo i dati (o ignoriamo la distinzione) dicendo solo "è uscito 1".
+			Fisicamente, lo strumento ha interagito distinguendo i singoli autostati. Lo stato risultante è una miscela statistica dei risultati possibili pesati con le loro probabilità condizionate:
+			$$ \rho'' = \frac{P_1 \rho P_1 + P_2 \rho P_2}{\text{tr}((P_1 + P_2)\rho)} \,. $$
+			Qui i termini incrociati (tipo $P_1 \rho P_2$) sono spariti. $\rho''$ è una miscela incoerente (stato misto), anche se $\rho$ era puro. Questo è un caso di probabilità \textbf{epistemica} ossia derivante da un'ignoranza di informazioni sul sistema. L'osservatore che ignora la distinzione dei risultati ha un'informazione sullo stato del sistema che non è totale, anche se non può saperlo. Ciò non è sintomo di un'interpretazione soggettivistica della meccanica quantistica, quanto suggerisce che lo stato è "oggettivo" tra osservatori che hanno la stessa conoscenza sul sistema.
+		\end{enumerate}
+		In conclusione, $\rho' \neq \rho''$. La probabilità di ottenere il risultato $1$ è la stessa, ma lo stato fisico finale è diverso. Questo dimostra che misurare $f(A)$ non è equivalente a misurare $A$ e poi calcolare la funzione, se ci interessa lo stato successivo del sistema.
+	\end{esempio}
+	
+	\begin{esempio}[Esistono stati rappresentati da matrici densità che sono "intrinsecamente" probabilistiche?]
+		Sì, si prenda una coppia entangled. Se ho accesso solo ad un sottosistema e non all'altro, lo stato di esso è rappresentato da una matrice densità intrinsecamente probabilistica.
+	\end{esempio}
+	
+	\subsubsection{Misurazioni Non Selettive (Ideali)}
+	
+	Il caso (2) dell'esempio precedente introduce il concetto di \textbf{misura non selettiva}.
+	Una misura selettiva filtra il sistema in base al risultato (come nell'equazione 4.25). Una misura non selettiva avviene quando l'apparato interagisce con il sistema misurando un'osservabile $A$, ma l'osservatore non legge il risultato o raccoglie tutti i sistemi uscenti in un unico ensemble.
+	
+	Se $\sigma(A) = \bigcup_{j \in \mathbb{N}} E_j$ è una decomposizione in insiemi disgiunti di risultati e misuriamo $A$ senza selezionare l'uscita, lo stato finale $T'$ è la sovrapposizione incoerente di tutti i possibili stati post-misura pesati con la loro probabilità.
+	
+	\begin{definizione}[Misura Non Selettiva]
+		Dato uno stato iniziale $T \in \mathscr{S}(\Hspace)$ e una misura spettrale $\{P_{E_j}^{(A)}\}$, lo stato dopo una misura non selettiva è:
+		\begin{equation}
+			T' = \sum_{j \in \mathbb{N}} P_{E_j}^{(A)} T P_{E_j}^{(A)} \,. \label{eq:non_selective}
+		\end{equation}
+		Ponendo $p_j = \text{tr}(T P_{E_j}^{(A)})$ e definendo gli stati condizionati normalizzati $T_j$, possiamo scrivere:
+		$$ T' = \sum_{j \in \mathbb{N}} p_j T_j \,. $$
+	\end{definizione}
+	
+	\begin{osservazione}
+		È importante notare due aspetti:
+		\begin{itemize}
+			\item La mappa $T \mapsto T'$ descritta dalla (\ref{eq:non_selective}) è \textbf{lineare}. Al contrario, la mappa della misura selettiva (il collasso standard) non è lineare a causa del fattore di normalizzazione al denominatore che dipende da $T$.
+			\item Questo formalismo giustifica la creazione di stati misti a partire da stati puri mediante l'interazione con un apparato di misura (decoerenza). Una volta creato uno stato misto in questo modo, la meccanica quantistica non offre alcun modo per distinguere tramite esperimenti diretti se tale miscela provenga da una misura non selettiva su un autovettore di $A$ o da un'altra preparazione che ha generato la stessa matrice densità (ambiguità della decomposizione dell'ensemble).
+		\end{itemize}
+	\end{osservazione}
+	
+	\subsection{Logica delle Algebre di von Neumann e Classificazione dei Fattori}
+	
+	Un punto storicamente cruciale nello sviluppo della teoria di von Neumann fu il tentativo di recuperare la proprietà di \textit{modularità} per il reticolo delle proposizioni quantistiche, proprietà che fallisce nel reticolo standard $\mathscr{L}(\Hspace)$ in dimensione infinita.
+	L'idea è di restringere l'insieme delle osservabili e delle proposizioni a quelle appartenenti a una specifica algebra di von Neumann $\mathfrak{R}$.
+	
+	Data un'algebra di von Neumann $\mathfrak{R}$ su uno spazio di Hilbert $\Hspace$, definiamo la \textbf{logica dell'algebra} come l'insieme dei suoi proiettori ortogonali:
+	\begin{equation}
+		\mathscr{L}_{\mathfrak{R}}(\Hspace) := \mathfrak{R} \cap \mathscr{L}(\Hspace) \,.
+	\end{equation}
+	Fisicamente, questo rappresenta l'insieme delle proposizioni elementari associate al sistema fisico descritto dall'algebra $\mathfrak{R}$.
+	
+	\begin{proposizione}[Proprietà di $\mathscr{L}_{\mathfrak{R}}(\Hspace)$]
+		Sia $\mathfrak{R}$ un'algebra di von Neumann su $\Hspace \neq \{0\}$. Valgono i seguenti fatti:
+		\begin{itemize}
+			\item[(a)] $\mathscr{L}_{\mathfrak{R}}(\Hspace)$ è un reticolo completo e ortomodulare (eredita la struttura da $\mathscr{L}(\Hspace)$).
+			\item[(b)] Il reticolo genera l'algebra: $\mathfrak{R} = (\mathscr{L}_{\mathfrak{R}}(\Hspace))''$.
+			\item[(c)] Il centro del reticolo genera il centro dell'algebra: $(\mathscr{L}_{\mathfrak{R}}(\Hspace) \cap \mathscr{L}_{\mathfrak{R}}(\Hspace)')'' = \mathfrak{R} \cap \mathfrak{R}'$.
+			\item[(d)] $\mathfrak{R}$ è un \textbf{fattore} (centro banale) se e solo se il reticolo $\mathscr{L}_{\mathfrak{R}}(\Hspace)$ è irriducibile.
+			\item[(e)] $\mathfrak{R} = \mathscr{B}(\Hspace)$ se e solo se il reticolo coincide con tutto $\mathscr{L}(\Hspace)$.
+		\end{itemize}
+	\end{proposizione}
+	
+	La classificazione dei fattori, opera monumentale di Murray e von Neumann, si basa sulla capacità di confrontare la "grandezza" dei proiettori all'interno dell'algebra, generalizzando il concetto di dimensione del sottospazio.
+	
+	\begin{definizione}[Equivalenza di Murray-von Neumann]
+		Due proiettori $P, Q \in \mathscr{L}_{\mathfrak{R}}(\Hspace)$ si dicono \textbf{equivalenti} (scritto $P \sim Q$) se esiste un'isometria parziale $U \in \mathfrak{R}$ tale che:
+		$$ P = U^* U \quad \text{e} \quad Q = U U^* \,.$$
+		Intuitivamente, questo significa che i sottospazi $P(\Hspace)$ e $Q(\Hspace)$ sono isometrici attraverso una mappa che "vive" nell'algebra $\mathfrak{R}$.
+		Si introduce un ordinamento parziale: $P \preceq Q$ se esiste $P' \in \mathscr{L}_{\mathfrak{R}}(\Hspace)$ tale che $P \sim P' \le Q$.
+	\end{definizione}
+	
+	Questa relazione permette di definire quando un proiettore è "finito" o "infinito", analogamente agli insiemi nella teoria degli insiemi.
+	
+	\begin{definizione}[Finitezza]
+		Un elemento $P \in \mathscr{L}_{\mathfrak{R}}(\Hspace)$ si dice:
+		\begin{itemize}
+			\item[(a)] \textbf{Finito:} se $P \sim Q \le P$ implica $P=Q$ (ovvero, non è equivalente a nessun suo sottoproiettore proprio).
+			\item[(b)] \textbf{Infinito:} se non è finito.
+			\item[(c)] \textbf{Propriamente infinito:} se è infinito e "centrally infinite".
+		\end{itemize}
+	\end{definizione}
+	
+	\subsubsection{Funzione Dimensione e Classificazione dei Tipi}
+	
+	Se $\mathfrak{R}$ è un fattore (i.e., non può essere decomposto ulteriormente), è possibile definire una "misura" della grandezza dei proiettori.
+	
+	\begin{proposizione}[Funzione Dimensione]
+		Se $\mathfrak{R}$ è un fattore, esiste una mappa $d: \mathscr{L}_{\mathfrak{R}}(\Hspace) \to [0, +\infty]$, detta \textbf{funzione dimensione}, unica a meno di costanti moltiplicative, tale che:
+		\begin{itemize}
+			\item $d(P) = 0 \iff P = 0$;
+			\item $d(P) = d(Q) \iff P \sim Q$;
+			\item $d(P+Q) = d(P) + d(Q)$ se $P \perp Q$.
+		\end{itemize}
+	\end{proposizione}
+	
+	In base al codominio (range) della funzione dimensione $d(\mathscr{L}_{\mathfrak{R}}(\Hspace))$, i fattori sono classificati in tre Tipi principali. Questa classificazione è esaustiva.
+	
+	\begin{description}
+		\item[Tipo I (Discretezza):] Il range è discreto: $\{0, 1, \dots, n\}$ (dove $n$ può essere $\infty$).
+		\begin{itemize}
+			\item Corrisponde alla Meccanica Quantistica standard.
+			\item I fattori di Tipo I sono isomorfi a $\mathscr{B}(\Hspace)$ per qualche spazio di Hilbert.
+			\item Il reticolo contiene atomi (proiettori minimali).
+		\end{itemize}
+		
+		\item[Tipo II (Geometria Continua):] Il range è continuo.
+		\begin{itemize}
+			\item \textbf{Tipo II$_1$:} Il range è l'intervallo unitario $[0, 1]$. Qui l'elemento identità $\Identity$ è finito. Questo è il caso in cui il reticolo diventa \textbf{modulare}.
+			\item \textbf{Tipo II$_\infty$:} Il range è $[0, \infty)$.
+		\end{itemize}
+		
+		\item[Tipo III (Patologico/QFT):] Il range è $\{0, \infty\}$.
+		\begin{itemize}
+			\item Tutti i proiettori non nulli sono infiniti. Non esiste una traccia normale finita.
+			\item Sebbene sembrino patologici, questi fattori sono fondamentali nelle \textit{Teorie Quantistiche dei Campi Algebriche} (AQFT) e nella meccanica statistica di sistemi infiniti.
+		\end{itemize}
+	\end{description}
+	
+	\begin{osservazione}
+		La distinzione tra i tipi ha profonde implicazioni fisiche.
+		Mentre la QM ordinaria (sistemi finiti di particelle) vive nei fattori di Tipo I, la descrizione di sistemi con infiniti gradi di libertà (campi relativistici, limite termodinamico) richiede inevitabilmente l'uso di fattori di Tipo III, dove concetti come "stati puri" o "autovettori" diventano problematici o inesistenti.
+	\end{osservazione}
+	
+	\subsection{Proprietà Reticolari e Classificazione Generale}
+	
+	Le proprietà strutturali del reticolo dei proiettori $\mathscr{L}_{\mathfrak{R}}(\Hspace)$ variano drasticamente a seconda del tipo di fattore $\mathfrak{R}$. Di seguito riassumiamo le caratteristiche fondamentali (distributività, modularità, atomicità):
+	
+	\begin{table}[h]
+		\centering
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|l|c|c|c|}
+			\hline
+			\textbf{Tipo di Fattore} & \textbf{Modulare?} & \textbf{Atomico?} & \textbf{Note} \\
+			\hline
+			\textbf{Tipo $I_n$} ($n < \infty$) & Sì & Sì & Non distributivo per $n \ge 2$. $d(P)=\dim(P)$. \\
+			\hline
+			\textbf{Tipo $I_\infty$} & No & Sì & Isomorfo a $\mathscr{B}(\Hspace)$ con $\dim \Hspace = \infty$. \\
+			\hline
+			\textbf{Tipo $II_1$} & \textbf{Sì} & \textbf{No} & \textit{Geometria Continua}: modulare ma senza atomi. \\
+			\hline
+			\textbf{Tipo $II_\infty$ e $III$} & No & No & Né modulari, né atomici. \\
+			\hline
+		\end{tabular}
+		\caption{Proprietà del reticolo dei proiettori per i diversi tipi di fattori.}
+	\end{table}
+	
+	\subsubsection{Estensione alle Algebre di von Neumann Generali}
+	
+	Se $\mathfrak{R}$ non è un fattore (cioè il suo centro $\mathfrak{R} \cap \mathfrak{R}'$ non è banale), non ricade necessariamente in un unico tipo. Tuttavia, ogni algebra di von Neumann può essere decomposta nella \textbf{somma diretta} di algebre appartenenti ai tipi disgiunti definiti sopra.
+	
+	Per classificare un'algebra generale, è necessario introdurre due definizioni tecniche riguardanti la struttura interna dei proiettori.
+	
+	\begin{definizione}[Proiettore Abeliano e Supporto Centrale]
+		Sia $\mathfrak{R}$ un'algebra di von Neumann su $\Hspace$.
+		\begin{itemize}
+			\item[(a)] Un proiettore finito $P \in \mathscr{L}_{\mathfrak{R}}(\Hspace)$ si dice \textbf{Abeliano} se l'algebra ridotta $P\mathfrak{R}P := \{ PAP \mid A \in \mathfrak{R} \}$ è un'algebra commutativa (abeliana).
+			\item[(b)] Dato un operatore $A \in \mathfrak{R}$, il suo \textbf{supporto centrale} (o \textit{central carrier}) $C_A$ è il più piccolo proiettore del centro che "copre" $A$. Formalmente:
+			$$ C_A := \Identity - \bigvee \{ P \in \mathscr{L}_{\mathfrak{R}}(\Hspace) \cap \mathfrak{R}' \mid PA = 0 \} \,.$$
+			In termini intuitivi, $C_A$ proietta sul sottospazio generato dall'azione del commutante $\mathfrak{R}'$ sul range di $A$.
+		\end{itemize}
+	\end{definizione}
+	
+	Utilizzando queste nozioni, possiamo definire i Tipi per una generica algebra di von Neumann $\mathfrak{R}$.
+	
+	\begin{definizione}[Classificazione di $\mathfrak{R}$]
+		Un'algebra di von Neumann $\mathfrak{R}$ si dice di:
+		\begin{itemize}
+			\item \textbf{Tipo I:} se contiene un proiettore abeliano avente supporto centrale $\Identity$.
+			(È di tipo $I_n$ se l'identità è somma ortogonale di $n$ proiettori abeliani equivalenti).
+			
+			\item \textbf{Tipo II:} se \textbf{non} contiene proiettori abeliani non nulli, ma contiene un proiettore \textit{finito} avente supporto centrale $\Identity$.
+			(È di tipo $II_1$ se $\Identity$ è finito, $II_\infty$ se $\Identity$ è propriamente infinito).
+			
+			\item \textbf{Tipo III:} se non contiene alcun proiettore finito non nullo (è puramente infinita).
+		\end{itemize}
+	\end{definizione}
+	
+	\begin{osservazione}[Legame tra Fattori e Algebre Generali]
+		Esiste un legame profondo tra la classificazione dei fattori e quella delle algebre generali:
+		\begin{enumerate}
+			\item Un \textbf{fattore} è di tipo $X$ (dove $X \in \{I_n, II_1, II_\infty, III\}$) secondo la Definizione 7.66 se e solo se lo è secondo la classificazione basata sulla funzione dimensione (Prop. 7.63).
+			\item In uno spazio di Hilbert separabile, vale il teorema di decomposizione in \textbf{Integrale Diretto}: un'algebra di von Neumann di tipo $X$ è isomorfa a un integrale diretto di fattori, tutti dello stesso tipo $X$. Questo generalizza il concetto di somma diretta al caso continuo.
+		\end{enumerate}
+	\end{osservazione}
+	
+	\subsection{Il Teorema di Gleason Generalizzato}
+	
+	Il celebre risultato di Gleason, che associa le misure di probabilità quantistica agli operatori di classe traccia (matrici densità), può essere esteso dal caso standard $\mathscr{B}(\Hspace)$ al caso di una generica algebra di von Neumann $\mathfrak{R}$. Tuttavia, è necessario escludere casi patologici (il fattore $I_2$) e considerare forme di additività più forti.
+	
+	\begin{teorema}[Gleason Generalizzato]
+		Sia $\mathfrak{R}$ un'algebra di von Neumann su uno spazio di Hilbert complesso $\Hspace \neq \{\mathbf{0}\}$, la cui decomposizione in tipi non includa alcuna componente di Tipo $I_2$.
+		Sia $\mu: \mathscr{L}_{\mathfrak{R}}(\Hspace) \to [0, +\infty]$ una misura sul reticolo dei proiettori tale che $0 < \mu(\Identity) < +\infty$ e che sia \textbf{$\sigma$-additiva} (additiva su successioni numerabili di proiettori ortogonali).
+		
+		Le seguenti tre condizioni sono equivalenti all'esistenza di un operatore positivo di classe traccia $T \in \mathfrak{B}_1(\Hspace)$ tale che $\mu(P) = \text{tr}(TP)$ per ogni $P \in \mathscr{L}_{\mathfrak{R}}(\Hspace)$:
+		
+		\begin{itemize}
+			\item[(i)] $\mu$ è \textbf{completamente additiva}:
+			Per ogni famiglia arbitraria (non necessariamente numerabile) $\{P_j\}_{j \in J} \subset \mathscr{L}_{\mathfrak{R}}(\Hspace)$ di elementi a due a due ortogonali:
+			\begin{equation}
+				\mu \left( \bigvee_{j \in J} P_j \right) = \sum_{j \in J} \mu(P_j) \,.
+			\end{equation}
+			
+			\item[(ii)] $\mu$ ammette un \textbf{supporto}:
+			Esiste un elemento $P \in \mathscr{L}_{\mathfrak{R}}(\Hspace)$ tale che $\mu(Q) = 0$ se e solo se $Q \perp P$ (per ogni $Q \in \mathscr{L}_{\mathfrak{R}}(\Hspace)$).
+			
+			\item[(iii)] $\mu$ è normale:
+			La funzione normalizzata $\frac{1}{\mu(\Identity)}\mu$ è la restrizione al reticolo dei proiettori di uno \textit{stato algebrico normale} sulla $C^*$-algebra $\mathfrak{R}$.
+		\end{itemize}
+	\end{teorema}
+	
+	\begin{osservazione}[Implicazioni Fisiche e Matematiche]
+		Analizziamo le conseguenze di questo teorema:
+		
+		\begin{enumerate}
+			\item \textbf{Il caso Separabile:} Se lo spazio di Hilbert $\Hspace$ è \textbf{separabile}, ogni famiglia di proiettori a due a due ortogonali è al più numerabile. Di conseguenza, la $\sigma$-additività implica automaticamente la completa additività.
+			Pertanto, in uno spazio separabile (e senza componenti $I_2$), ogni misura $\sigma$-additiva è automaticamente generata da un operatore di classe traccia.
+			\textbf{Attenzione:} A differenza del caso $\mathfrak{R} = \mathscr{B}(\Hspace)$, se l'algebra è un sottoinsieme proprio, l'operatore $T$ che rappresenta $\mu$ non è in generale unico.
+			
+			\item \textbf{Stati Normali:} Una misura di probabilità $\mu_T$ su un'algebra di von Neumann $\mathfrak{R}$ indotta da un operatore $T$ di traccia unitaria ($\text{tr}(T)=1$) è chiamata \textbf{stato normale} di $\mathfrak{R}$.
+			Tale misura è la restrizione al reticolo dei proiettori del funzionale lineare $\omega_T: \mathfrak{R} \to \mathbb{C}$ definito da:
+			$$ \omega_T(A) := \text{tr}(TA) \,. $$
+			Il concetto di stato normale (che corrisponde alla continuità nella topologia ultra-debole) è centrale nella trattazione algebrica della Meccanica Quantistica e sarà approfondito nel Capitolo 14.
+		\end{enumerate}
+	\end{osservazione}
+	
+	\subsection{Caratterizzazione Algebrica degli Stati: Il Teorema di Riesz Non Commutativo}
+	
+	Questa sezione esplora una caratterizzazione puramente matematica dello spazio degli stati $\mathscr{S}(\Hspace)$, fondamentale per la formulazione algebrica delle teorie quantistiche (che vedremo in seguito). L'idea centrale è mostrare che la relazione tra stati e operatori è l'analogo "non commutativo" del celebre Teorema di Rappresentazione di Riesz per le misure classiche.
+	
+	\subsubsection{Stati come Funzionali Lineari}
+	
+	Ricordiamo che un operatore di classe traccia positivo $T \in \mathfrak{B}_1(\Hspace)$ definisce un funzionale lineare sull'algebra degli operatori compatti $\mathfrak{B}_\infty(\Hspace)$ tramite la traccia:
+	$$ \omega_T: \mathfrak{B}_\infty(\Hspace) \to \mathbb{C}, \quad \omega_T(A) := \text{tr}(TA) \,. $$
+	Questo funzionale è positivo ($\omega_T(A^*A) \ge 0$) e la sua norma coincide con la traccia di $T$: $\|\omega_T\| = \text{tr}(T)$.
+	
+	Possiamo quindi ribaltare la prospettiva e definire gli stati in modo astratto.
+	
+	\begin{definizione}[Stato Algebrico]
+		Sia $\Hspace$ uno spazio di Hilbert complesso. Chiamiamo \textbf{stato algebrico} sulla $C^*$-algebra $\mathfrak{B}_\infty(\Hspace)$ ogni funzionale lineare $\omega: \mathfrak{B}_\infty(\Hspace) \to \mathbb{C}$ che sia:
+		\begin{enumerate}
+			\item \textbf{Positivo:} $\omega(A^*A) \ge 0$ per ogni $A \in \mathfrak{B}_\infty(\Hspace)$;
+			\item \textbf{Normalizzato:} $\|\omega\| = 1$.
+		\end{enumerate}
+		L'insieme di tali stati è denotato con $\mathfrak{E}(\mathfrak{B}_\infty(\Hspace))$.
+	\end{definizione}
+	
+	Il seguente teorema stabilisce che questa definizione astratta cattura esattamente gli stati fisici (matrici densità) che conosciamo.
+	
+	\begin{teorema}[Caratterizzazione degli Stati]
+		La mappa $T \mapsto \omega_T$ definita da $\omega_T(A) = \text{tr}(TA)$ è una biiezione tra l'insieme degli operatori di stato $\mathscr{S}(\Hspace)$ e l'insieme degli stati algebrici $\mathfrak{E}(\mathfrak{B}_\infty(\Hspace))$.
+		In altre parole, ogni funzionale positivo e normalizzato sugli operatori compatti proviene da un unico operatore densità.
+	\end{teorema}
+	
+	\subsubsection{Analisi del Ragionamento: L'analogia con Riesz}
+	
+	Per comprendere appieno il significato "non commutativo" di questo risultato, è utile confrontarlo con il Teorema di Riesz classico per l'integrazione.
+	
+	\textbf{Teorema di Riesz Classico (Analisi):}
+	Consideriamo uno spazio di Hausdorff localmente compatto $X$.
+	Il teorema afferma che ogni funzionale lineare positivo limitato $\Lambda$ sullo spazio delle funzioni continue che svaniscono all'infinito, $C_0(X)$, è rappresentato da un'unica misura di Borel regolare $\mu$:
+	$$ \Lambda(f) = \int_X f \, d\mu \,. $$
+	
+	\textbf{Versione Quantistica (Non Commutativa):}
+	In Meccanica Quantistica, lo spazio delle fasi viene sostituito dallo spazio di Hilbert e le funzioni commutano diventano operatori.
+	Possiamo istituire il seguente parallelismo:
+	
+	
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{|c|c|}
+			\hline
+			\textbf{Caso Classico (Commutativo)} & \textbf{Caso Quantistico (Non Commutativo)} \\
+			\hline
+			Spazio $X$ (localmente compatto) & Spazio di Hilbert $\Hspace$ ($\dim \Hspace = \infty$) \\
+			\hline
+			Funzioni $C_0(X)$ (svaniscono all'$\infty$) & Operatori Compatti $\mathfrak{B}_\infty(\Hspace)$ (spettro tende a 0) \\
+			\hline
+			Funzionale Positivo $\Lambda$ & Funzionale Positivo $\omega$ \\
+			\hline
+			Misura di Probabilità $\mu$ & Operatore di Stato $T$ (Matrice Densità) \\
+			\hline
+			Integrale $\Lambda(f) = \int f d\mu$ & Traccia $\omega(A) = \text{tr}(TA)$ \\
+			\hline
+		\end{tabular}
+		\caption{Dizionario tra Teoria della Misura Classica e Meccanica Quantistica.}
+	\end{table}
+	
+	\begin{osservazione}[Interpretazione Fisica]
+		La proposizione implica che possiamo pensare alla traccia $\text{tr}(TA)$ come a un \textbf{integrale non commutativo} dell'osservabile $A$ rispetto alla "misura" definita dallo stato $T$.
+		Formalmente, se $T_\rho$ è l'operatore associato a una misura di probabilità $\rho$ sul reticolo $\mathscr{L}(\Hspace)$ (grazie al teorema di Gleason), scriveremo simbolicamente:
+		\begin{equation}
+			\int_{\mathscr{L}(\Hspace)} A \, d\rho := \text{tr}(T_\rho A) \,.
+		\end{equation}
+		Questa notazione unifica il concetto di valore di aspettazione quantistico con quello classico di media integrale.
+	\end{osservazione}
+	
+	Concludiamo con la formulazione formale del teorema di rappresentazione in questo contesto.
+	
+	\begin{teorema}[Teorema di Riesz Non Commutativo]
+		Sia $\Hspace$ uno spazio di Hilbert complesso (separabile o di dimensione finita $\neq 2$).
+		Sia $\omega: \mathfrak{B}_\infty(\Hspace) \to \mathbb{C}$ un funzionale lineare positivo limitato con norma unitaria.
+		Allora esiste un'unica misura di probabilità $\rho_\omega: \mathscr{L}(\Hspace) \to [0,1]$ (soddisfacente gli assiomi della misura quantistica) tale che:
+		\begin{equation}
+			\omega(A) = \int_{\mathscr{L}(\Hspace)} A \, d\rho_\omega \quad \forall A \in \mathfrak{B}_\infty(\Hspace) \,.
+		\end{equation}
+		In concreto, questo integrale è calcolato come $\text{tr}(T A)$, dove $T$ è l'operatore di stato associato a $\omega$.
+	\end{teorema}
+	
+	
+	
+	
+	\newpage
 	\section{Esempi ed osservazioni utili}
 	
 	\begin{esempio}[A cosa serve uno spazio normato e il prodotto scalare?]
@@ -628,7 +1896,7 @@
 		\\ $(x_n) \in l^\infty \Leftrightarrow \exists C > 0 \text{ t.c. } \sup_{n \in \mathbb{N}} |x_n| \le C < \infty$
 		\item $c = \{(x_n) \subset \mathbb{K} \mid (x_n) \text{ ammette limite } < \infty\}$
 		\item $c_0 = \{(x_n) \subset \mathbb{K} \mid \lim_{n \to \infty} x_n = 0\}$
-		\item $c_{00} = \{(x_n) \subset \mathbb{K} \mid x_n \text{ definitivamente nulla}\}$
+		\item $c_{00} = \{(x_n) \subset \mathbb{K} \mid x_n \text{ defi nitivamente nulla}\}$
 	\end{itemize}
 	
 	\paragraph{Norme}
@@ -740,6 +2008,8 @@
 		\item $f \in C^0(\mathbb{R}^n) \implies f \in L_{loc}^p(\mathbb{R}^n)$ per ogni $p$, perché $f$ è limitata sui compatti.
 		\item $f(x) = 1/x$ (con $f(0)=0$) non è in $L_{loc}^1(\mathbb{R})$. Basta prendere un compatto $K$ che contiene $0$, ad esempio $K=[-1,1]$, e si ha $\int_{-1}^1 |1/x| dx = \infty$.
 	\end{itemize}
+	Valgono le seguenti inclusioni:
+	$$L^p(\R^n),C^\infty(\R^n) \subset L^1_{\text{Loc}}(\R^n) \subset  \mathcal{D}'(\R^n)$$
 	
 	\subsubsection*{Lemma (Fondamentale Calcolo Variazioni, caso 1D)}
 	Sia $I = (a,b) \subset \mathbb{R}$, $a < b$, $f \in L_{loc}^1((a,b))$.
@@ -1055,6 +2325,58 @@
 		Un operatore non chiuso è uno nel dominio non ci sono alcuni punti, come una retta che non ha il punto in zero. Uno che è chiudibile è uno che posso dire il suo valore dove non è definito.
 	\end{esempio}
 	
+	\subsection{Distribuzioni}
+	\begin{esempio}[Distribuzioni tramite funzioni $L^1_{\text{Loc}}$]
+		Sia $\psi \in L^1(\R)$ allora il funzionale $u_\psi : \D \in \C$ tale che
+		\[
+			f \mapsto u_{\psi}(f) := \int_\R dx f(x) \psi(x)
+		\]
+		(che esiste sicuramente) è una distribuzione?  Cioè è continuo?\newline Si verifica facilmente che è sequenzialmente continua. 
+		\[
+			\bigg|\int_\R dx f_j(x) \psi(x)\bigg| \leq \int_\R dx |f_j(x)| |\psi| \leq M\int_\R dx |\psi| = M'
+		\]
+		dove l'ultima disuguaglianza è data perchè è a supporto compatto con M massimo. Per convergenza dominata posso passare il limite sotto al segno d'integrale e ottengo che tutto tende a 0. Quindi è sequenzialmente continua quindi possiamo scrivere impropriamente che 
+		\[
+			L^1_{\text{Loc}} \subset \Dp 
+		\]
+		che sono le funzioni integrabili su tutti i compatti di $\R$. Inoltre si ha che
+		\[
+			L^p(\R) \subset L^1_{\text{Loc}} \quad \quad \quad \forall p \in \N
+		\]
+		quindi la MQ sta denrto $\Dp$ se consideriamo $p=2$.
+	\end{esempio}
+	
+	\begin{esempio}[Derivata di funzioni non derivabili]
+		La theta di Heaviside è $L^1_{\text{Loc}}(\R)$ ed è il prototipo di situazioni fisiche nelle quali ho un campo tangente a una superfice che dentro di essa deve essere nullo (conduttore, lago, tubo...). La componente tangente salta da un certo numero a 0. Come deriviamo una funzione del genere?
+		\[
+			\frac{\Theta(x)}{dx}(f) = -\Theta \left(\frac{df}{dx}\right) = -\int_\R dx \Theta(x)\frac{df}{dx} =  -\int_0^\infty dx \frac{df}{dx} = -f(x)|_0^\infty = f(0) = \delta(f)
+		\]
+		Ora posso derivare qualunque cosa. Per esempio $f(x) = |x|$, derivata otteniamo 
+		\[
+			\text{sign}(x) = \Theta(x) - \Theta(-x)
+		\]
+		e quindi
+		\[
+			\frac{d}{dx} \text{sign}(x)= \frac{d}{dx}\Theta(x) -\frac{d}{dx}\Theta(-x) = 2 \delta
+		\]
+		Fondamentalemente quando derivo qualcosa non derivabile (con derivabilità di salto), in ogni punto di salto ottengo una delta.
+	\end{esempio}
+	
+	\begin{esempio}[Posso integrare su $\Dp$?]
+		Se voglio mantenere la linearità (e quindi l'invarianza per traslazioni) no. Se no si fa e si chiama path integral.
+	\end{esempio}
+	
+	\begin{esempio}[Serie di Taylor]
+		Prendiamo la serie di Taylor centrata in 0 di una f
+		\[
+			f(x) = \sum_{n=0}^\infty \frac{f^{(n)}(x)}{n!}x^n = \left[\sum_{n=0}^\infty \frac{(-1)^n}{n!}x^n \delta^{(n)} \right](f)
+		\]
+		si nota che
+		\[
+			x \delta^{(1)}(f) = \delta^{(1)}(xf) = -\delta(f + xf')  = -\delta(f) - 0 \delta(f')= -\delta(f)
+		\]
+	\end{esempio}
+	
 	\subsection{Osservazioni sulla MQ}
 	\begin{esempio}[Misure in MQ]
 		In MQ ho una corrispondenza biunivoca tra osservabili e operatori su $L^2(\mathbb{R})$
@@ -1092,22 +2414,6 @@
 		dove nell'ultimo passaggio è stata calcolata la serie geometrica. Si mostra facilmente che $|\hat{H}| = \hat{H}$ (è positivo e autoaggiunto). L'informazione sulla statistica è contenuta nella traccia dell'Hamiltoniano.
 		\newline
 		Ci potremmo anche chiedere se $H$ sia autoaggiunto, la risposta è negli indici di difetto e nelle equazioni differenziali ad esse associate. Quello che si trova è che la soluzione esiste per Picard-Lindelhof (polinomi di Hermite) ma non sono $\in L^2$.
-	\end{esempio}
-	
-	\subsection{Distribuzioni}
-	\begin{esempio}[Distribuzioni tramite funzioni $L^1_{\text{Loc}}$]
-		Sia $\psi \in L^1(\R)$ allora il funzionale $u_\psi : \D \in \C$ tale che
-		\[
-			f \mapsto u_{\psi}(f) := \int_\R dx f(x) \psi(x)
-		\]
-		(che esiste sicuramente) è una distribuzione?  Cioè è continuo?\newline Si verifica facilmente che è sequenzialmente continua. 
-		\[
-			|\int_\R dx f_j(x) \psi(x)| \leq \int_\R dx |f_j(x)| |\psi| \leq M\int_\R dx |\psi| = M'
-		\]
-		dove l'ultima disuguaglianza è data perchè è a supporto compatto con M massimo. Per convergenza dominata posso passare il limite sotto al segno d'integrale e ottengo che tutto tende a 0. Quindi è sequenzialmente continua quindi possiamo scrivere impropriamente che 
-		\[
-			L^1_{\text{Loc}} \subset \Dp 
-		\]
 	\end{esempio}
 	
 	
