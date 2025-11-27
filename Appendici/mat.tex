@@ -1,0 +1,765 @@
+%!TeX root = main.tex
+\section{Appendici matematiche}
+\subsection{Definizione di prodotto tensore}
+\begin{definizione}[Spazio vettoriale libero]
+	Dato un insieme qualunque S possiamo definire lo spazio vettoriale libero su un campo $\mathbb{K}$ l'insieme
+	\[
+	\mathbb{K}(S) : = \{f : S \rightarrow \mathbb{K} | f \neq 0 \text{ su un numero finito di elementi di S }\}
+	\]
+\end{definizione}
+\begin{definizione}[Funzione caratteristica]
+	Definisco una funzione $\chi: S \rightarrow \mathbb{K}(S)$ in modo che un elemento di un qualunque insieme S sia in relazione con la $f \in \mathbb{K}(S)$ che fa 1 su quell'elemento e fa 0 su tutti gli altri. 
+\end{definizione}
+Abbiamo quindi trovato una base $\mathcal{B}$ di $\mathbb{K}(S)$ che è l'insieme delle funzioni caratteristiche dell'insieme S tale che $\mathcal{B} \subset \mathbb{K}(S)$. Quindi ci sono elementi di $\mathbb{K}(S)$ che non sono funzione caratteristica di nessun elemento in S però possiamo sempre scrivere per un certo $k \in \mathbb{K}(S)$
+\[
+k = \sum \lambda_i k_i = \sum \lambda_i \chi(s_i)
+\]
+dove $k_i \in \mathcal{B}$.\newline
+Identifichiamo ora S con il prodotto cartesiano di una serie di spazi vettoriali $U_1,...,U_n$ su un campo $\mathbb{K}$. 
+Definiamo inoltre un sottoinsieme $\mathcal{R} \subset \mathbb{K}(S)$ nel seguente modo:
+\begin{itemize}
+	\item $q \in \mathcal{R}$ $\iff$ dato un certo $\lambda \in \mathbb{K}$ e un certo $j \in \mathbb{N}$ esistano due elementi in S, $s_1 = (v_1,...,v_n)$ e $s_2 = (v_1,...,\lambda v_j,...,v_n)$ tale che 
+	\[
+	q = \lambda \chi(s_1) - \chi(s_2)
+	\]
+	\item $q \in \mathcal{R}$ $\iff$ dato $j \in \mathbb{N}$ esistano tre elementi in S, $s_1 = (v_1,...,v_n)$, $s_2 = (v_1,...,v'_j,...,v_n)$ e $s_3 = (v_1,...,v_j + v'_j,...,v_n)$ tale che 
+	\[
+	q = \chi(s_1) + \chi(s_2) - \chi(s_3)
+	\]
+\end{itemize}
+Ora possiamo quozientare su questo insieme definendo $U_T := \mathbb{K}(S) \slash \mathcal{R}$ e una mappa di proiezione $T : S \rightarrow U_T$ che associa ad ogni elemento la sua classe di equivalenza (definita per esempio associando ogni elemento di S alla classe di equivalenza di cui fa parte $\chi(s)$). 
+\begin{teorema}
+	La mappa T soddisfa la proprietà di universalità cioè per ogni spazio vettoriale $W$ e per ogni mappa multilineare $f : U_1 \times... \times U_n \rightarrow W$ esiste un'unica mappa lineare $f^T: U_T \rightarrow W$ che fa commutare il seguente diagramma
+	
+	\[
+	\begin{tikzcd}
+		U_1 \times \dots \times U_n \arrow[r, "T"] \arrow[dr, swap, "f"] & U_T \arrow[d, "f^T"] \\
+		& W
+	\end{tikzcd}
+	\]
+	
+	Quindi $U_T$ è lo spazio prodotto tensore $U_T = U_1 \otimes ... \otimes U_n$
+\end{teorema}
+\begin{proof}
+	Definiamo l'applicazione $\tilde{f} : \mathbb{K}(U_1 \times \dots \times U_n) \rightarrow W$ in modo che, dopo aver fissato la base $\{k_i\}$, e preso un $k = \sum_i a_i k_i$ $$\tilde{f}(k) := \sum_i a_i f(\chi^{-1}(k_i))$$ dato che l'inversa di $\chi$ esiste per gli elementi della base.
+	Ora, posso prendere $f^T$ come $f^T ([k]) := \tilde{f}(k)$ dove $[k]$ è la classe di equivalenza dell'elemento $k \in \mathbb{K}(S)$ di cui $k$ è un rappresentativo. Troviamo infatti che in questo modo $f = f^T \circ T$ che fa commutare il diagramma. 
+	\newline $f^T$ è lineare, infatti
+	\[
+	f^T(a[v] + b[w]) = f^T([av] + [bw]) = f^T([av + bw]) = f(av+bw) = af(a) + bf(w) = af^T([v]) + vf^T([w])
+	\]
+	per le proprietà di linearità del modulo e di f.	\newline
+	Inoltre se io avessi $f^T$ e $g^T$ entrambe con le proprietà dimostrate sopra avrei che $f = f^T \circ T= g^T \circ T$  quindi che 
+	\[
+	(f^T \circ T)(s) = f^T([\chi(s)]) = f^T([k]) = f(s) =  (g^T \circ T)(s) = g^T([k])
+	\]
+	quindi sono uguali in un sistema di generatori per $U_T$, in quanto le classi di equivalenza che contengono almeno un rappresentativo della base sono un sistema di generatori per tutto $U_T$. Per risultati di algebra lineare si trova che se le due mappe sono uguali su un sistema di generatori allora lo sono per tutto lo spazio.
+\end{proof}
+\textbf{Notazione} In meccanica quantistica \[
+[\chi(v_1,...,v_n)] =: |v_1\rangle |v_2\rangle... |v_n\rangle
+\]
+
+\subsection{Dualità e Riflessività negli Spazi Normati}
+
+Per comprendere appieno il framework matematico della meccanica quantistica, dobbiamo introdurre i concetti di spazio duale e riflessività.
+
+\begin{definizione}[Spazio Duale Topologico]
+	Dato uno spazio normato $X$ sul campo $\mathbb{K}$ ($\R$ o $\C$), il suo \textbf{duale topologico}, denotato con $X^{\star}$, è lo spazio di tutti i funzionali lineari \textbf{continui} (o equivalentemente, limitati) $f: X \to \mathbb{K}$.
+\end{definizione}
+
+Possiamo iterare questo processo. Il duale di $X^{\star}$ è $X^{\star\star} = (X^{\star})^\star$, chiamato \textbf{biduale topologico} di $X$.
+
+Esiste un'applicazione "canonica" (naturale) $\hat{J}: X \to X^{\star\star}$ che mappa ogni vettore $x \in X$ in un funzionale lineare continuo su $X^{\star}$. Questo funzionale, $\hat{J}(x)$, agisce su un elemento $f \in X^{\star}$ nel seguente modo:
+\[ (\hat{J}(x))(f) = f(x) \]
+Si può dimostrare che $\hat{J}$ è un'isometria (cioè conserva la norma: $||\hat{J}(x)||_{X^{\star\star}} = ||x||_X$).
+
+\begin{definizione}[Riflessività]
+	Uno spazio normato $X$ è detto \textbf{riflessivo} se l'immersione canonica $\hat{J}: X \to X^{\star\star}$ è \textbf{surgettiva}, cioè se $\hat{J}(X) = X^{\star\star}$.
+\end{definizione}
+
+In termini semplici, uno spazio è riflessivo se il suo biduale topologico "non è più grande" dello spazio stesso. Ogni elemento di $X^{\star\star}$ (ogni funzionale lineare continuo sui funzionali lineari continui su $X$) è, di fatto, solo l'immagine di un vettore $x \in X$ originale.
+
+\subsubsection*{Condizioni per la Riflessività}
+
+La riflessività è una proprietà potente ma non universale.
+
+\paragraph{Spazi Riflessivi (Sì):}
+\begin{itemize}
+	\item \textbf{Tutti gli spazi di Hilbert.} Questo è il risultato più importante per la meccanica quantistica, come vedremo, ed è una conseguenza diretta del Teorema di Riesz-Fréchet.
+	\item Tutti gli spazi normati di dimensione finita.
+	\item Gli spazi $L^p(\Omega)$ e $l^p$ per $1 < p < \infty$.
+\end{itemize}
+
+\paragraph{Spazi Non Riflessivi (No):}
+\begin{itemize}
+	\item Lo spazio $L^1(\Omega)$. Il suo duale è $L^\infty(\Omega)$, ma il duale di $L^\infty(\Omega)$ è uno spazio molto più vasto (lo spazio delle misure di Borel finitamente additive) di $L^1(\Omega)$.
+	\item Lo spazio $L^\infty(\Omega)$.
+	\item Lo spazio $C(K)$ delle funzioni continue su un insieme compatto $K$.
+	\item Lo spazio $c_0$ delle successioni che tendono a zero (il suo duale è $l^1$, ma il suo biduale è $l^\infty$).
+\end{itemize}
+
+Il motivo per cui gli spazi di Hilbert ($\Hspace$) sono così speciali e "ben comportati" è codificato nel seguente teorema fondamentale.
+
+\begin{teorema}[di Rappresentazione di Riesz-Fréchet]
+	Sia $\Hspace$ uno spazio di Hilbert. Per ogni funzionale lineare continuo $f \in \\Hspace^{\star}$, esiste un \textbf{unico} vettore $y_f \in \Hspace$ tale che:
+	\[ f(x) = \innerprod{y_f}{x} \quad \text{per ogni } x \in \Hspace \]
+	Inoltre, $||f||_{\Hspace^{\star}} = ||y_f||_{\Hspace}$.
+\end{teorema}
+(Nota: se il prodotto scalare $\innerprod{\cdot}{\cdot}$ è antilineare nel primo argomento, come in fisica, l'isomorfismo è antilineare. Se è antilineare nel secondo, è lineare).
+
+\paragraph{Conseguenze per la Riflessività:}
+Questo teorema stabilisce un isomorfismo (anti-lineare) tra $\Hspace$ e il suo duale $\Hspace^\star$. Poiché $\Hspace \cong \Hspace^\star$, segue banalmente che $\Hspace^\star \cong \Hspace^{\star \star}$. Combinando i due, $\Hspace \cong \Hspace^{\star \star}$. Si può dimostrare che questo isomorfismo è esattamente l'immersione canonica $\hat{J}$.
+\textbf{Pertanto, ogni spazio di Hilbert è riflessivo.}
+
+\subsection{La Notazione di Dirac in uno Spazio di Hilbert}
+
+La notazione di Dirac è un modo geniale per sfruttare la riflessività di $\Hspace$.
+\begin{enumerate}
+	\item \textbf{Kets:} Un vettore $\psi$ nello spazio di Hilbert $\Hspace$ (ad esempio, $L^2(\R)$) è denotato da un "ket": $\ket{\psi} \in \Hspace$.
+	
+	\item \textbf{Bras:} Un funzionale lineare continuo $f \in \Hspace^{\star}$ è denotato da un "bra": $\bra{f}$.
+	
+	\item \textbf{Il Teorema di Riesz in azione:} Grazie a Riesz, per ogni ket $\ket{\psi} \in \Hspace$, esiste un unico bra $\bra{\psi} \in \Hspace^{\star}$ (il funzionale $f_\psi(\cdot) = \innerprod{\psi}{\cdot}$) e viceversa. C'è una corrispondenza biunivoca tra kets e bras.
+	
+	\item \textbf{Il Bracket:} L'azione del bra $\bra{\phi} \in \Hspace^{\star}$ sul ket $\ket{\psi} \in \Hspace$ è scritta come $\braket{\phi}{\psi}$. Matematicamente, questo è:
+	\[ \braket{\phi}{\psi} \equiv f_\phi(\ket{\psi}) \equiv \innerprod{\phi}{\psi} \]
+	Il risultato è uno scalare (un numero complesso). La notazione "bracket" è la chiusura di un "bra" e un "ket".
+\end{enumerate}
+
+\noindent La notazione di Dirac brilla per la sua gestione delle "basi continue", come la base della posizione $\{\ket{x}\}_{x \in \R}$. Qui sorgono le sottigliezze.
+
+L'oggetto $\ket{x}$ dovrebbe essere l'autovettore dell'operatore posizione $\hat{X}$, tale che $\hat{X}\ket{x} = x\ket{x}$. Se lavoriamo in $\Hspace = L^2(\R)$, dove $\hat{X}$ agisce come $(\hat{X}\psi)(y) = y \cdot \psi(y)$, la "funzione d'onda" di $\ket{x}$ sarebbe $\psi_x(y) = \delta(y-x)$, la delta di Dirac.
+\textbf{Problema:} La delta di Dirac non è una funzione e non è in $L^2(\R)$.
+\[ \int_{\R} |\delta(y-x)|^2 dy = \infty \]
+Quindi, $\ket{x}$ non è un vettore nel nostro spazio di Hilbert $\Hspace$.
+
+\subsubsection{Duali Algebrici vs. Topologici}
+
+Il prompt solleva un punto cruciale: la distinzione tra duale *algebrico* e *topologico*.
+\begin{itemize}
+	\item \textbf{Duale Algebrico ($\mathcal{L}(X)$):} Lo spazio di \textit{tutti} i funzionali lineari $f: X \to \mathbb{K}$, senza alcun requisito di continuità.
+	\item \textbf{Duale Topologico ($X^{\star}$):} Il sottospazio $X^{\star} \subset X^*$ che contiene solo i funzionali lineari \textit{continui}.
+\end{itemize}
+Sempre $X^{\star} \subseteq \mathcal{L}(X)$, e $X^{\star\star} \subseteq \mathcal{L}(X)^*$ (biduali).
+
+Consideriamo il funzionale "valutazione nel punto $x$":
+\[ E_x : \psi \mapsto \psi(x) \]
+Questo funzionale $E_x$ è lineare. Ma è continuo sulla norma $L^2$? No. Si può costruire una successione di funzioni $\psi_n \in L^2(\R)$ tale che $||\psi_n||_{L^2} \to 0$ (converge a zero in norma), ma $\psi_n(x) \to \infty$ (diverge nel punto $x$). Poiché il funzionale mappa una successione convergente (a 0) in una non convergente, $E_x$ è \textbf{non continuo} (non limitato) sulla topologia di $L^2$.
+
+Dunque, $\ket{x}$ (o più precisamente, il bra $\bra{x}$ che implementa $E_x$) \textbf{non è in $\Hspace^{\star}$}. Risiede nello spazio molto più ampio $\mathcal{L}(X)$ (il duale algebrico).
+
+Bisogna quindi vedere $\ket{x}$ come un elemento del \textbf{biduale algebrico $\mathcal{L}(X)^*$}. In questo caso, $\ket{x}$ è un funzionale $F_x: \Hspace^{\star} \to \C$ che agisce su un bra $\bra{y} \in \Hspace^{\star}$.
+Se $\ket{x}$ è non limitato, allora la sua azione su un elemento $\bra{y} \in \Hspace^{\star}$ non è ben definita in termini semplici.
+
+\subsection{Gli Spazi di Hilbert Attrezzati (Rigged Hilbert Spaces)}
+
+La fisica risolve questo problema in modo più elegante, non usando l'ingestibile duale algebrico (che indicheremo con $\mathcal{L}(X)$ per uno spazio $X$), ma introducendo una struttura più fine nota come \textbf{Spazio di Hilbert Attrezzato} o \textbf{Triade di Gelfand}.
+
+\begin{definizione}[Spazio di Hilbert Attrezzato (Gelfand Triple)]
+	Sia $\Hspace$ uno spazio di Hilbert (ad esempio, $\Hspace = L^2(\R)$).
+	Uno \textbf{Spazio di Hilbert Attrezzato} è una terna di spazi $(\Phi, \Hspace, \Phi^\star)$ con le seguenti proprietà:
+	\begin{enumerate}
+		\item $\Phi$ è un sottospazio vettoriale di $\Hspace$ che è \textbf{denso} in $\Hspace$.
+		\item $\Phi$ è dotato di una sua topologia (spesso derivante da una norma $||\cdot||_\Phi$) che è \textbf{più fine} (più forte) della topologia indotta da $\Hspace$.
+		\\ (Ciò significa che $||v||_\Hspace \le C ||v||_\Phi$ per qualche $C$, e quindi ogni successione che converge in $\Phi$, converge anche in $\Hspace$).
+		\item $\Phi^\star$ è il \textbf{duale topologico} di $\Phi$ rispetto alla topologia di $\Phi$.
+	\end{enumerate}
+	L'esempio canonico è prendere $\Phi = \Schwartz(\R)$ (lo spazio delle funzioni $C^\infty$ a decrescenza rapida) e $\Hspace = L^2(\R)$. La topologia di $\Schwartz$ è più fine di quella $L^2$.
+\end{definizione}
+
+Questa costruzione porta a una "triade" di inclusioni canoniche:
+\[ \Phi \subset \Hspace \subset \Phi^\star \]
+
+Spieghiamo la seconda inclusione, $\Hspace \subset \Phi^\star$:
+\begin{itemize}
+	\item Grazie al Teorema di Riesz, identifichiamo $\Hspace$ con il suo duale topologico $\Hspace^\star$. Quindi $\Phi \subset \Hspace \cong \Hspace^\star$.
+	\item L'inclusione $\Phi \subset \Hspace$ è continua (come visto al punto 2 della definizione).
+	\item Per proprietà generali degli spazi duali, questo implica un'inclusione continua "al contrario" per i loro duali topologici: $\Hspace^\star \subset \Phi^\star$.
+	\item Combinando i passaggi, otteniamo la catena di inclusioni: $\Phi \subset \Hspace \cong \Hspace^\star \subset \Phi^\star$.
+\end{itemize}
+Lo spazio $\Phi^\star$ è lo spazio delle \textbf{distribuzioni temperate} $\Schwartz'(\R)$, che è molto più grande di $L^2(\R)$ ma molto più "gestibile" del duale algebrico $\mathcal{L}(\Hspace)$.
+
+\paragraph{Conseguenze per la Notazione di Dirac}
+Questo formalismo ci permette di collocare rigorosamente ogni oggetto:
+\begin{itemize}
+	\item I \textbf{"veri" kets} (stati fisici normalizzabili) $\ket{\psi}$ sono in $\Hspace$. Gli stati "particolarmente belli" (es. funzioni d'onda $C^\infty$ e a decrescenza rapida) sono in $\Phi$.
+	\item I \textbf{"kets generalizzati"} (autostati non normalizzabili) come $\ket{x}$ \textbf{sono elementi di $\Phi^\star$}.
+\end{itemize}
+Il bracket $\braket{y}{x}$, che coinvolge due "kets generalizzati" appartenenti entrambi al duale topologico $\Phi^\star$ (ad esempio $\ket{x} = \delta_x \in \Schwartz'(\R)$), non può essere interpretato come un prodotto scalare (definito su $\Hspace \times \Hspace$) né come l'azione di un funzionale su un vettore test (definita su $\Phi^\star \times \Phi$). Il suo significato emerge invece operazionalmente considerando la \emph{risoluzione dell'identità}, $\Identity = \int dx \ket{x}\bra{x}$. Se applichiamo questa identità a un vettore test $\ket{\psi} \in \Phi$ e poi proiettiamo sul "bra" $\bra{y} \in \Phi^\star$, otteniamo un'identità: $\braket{y}{\psi} = \braket{y}{\Identity \psi}$. Sviluppando il lato destro, assumendo la linearità per scambiare l'integrale con il bracket (un'operazione che richiede il rigore della teoria delle distribuzioni), abbiamo $\braket{y}{\Identity \psi} = \braket{y}{\left( \int dx \ket{x}\bra{x} \right) \psi} = \int dx \braket{y}{x} \braket{x}{\psi}$.
+\newline \newline
+La rigorosità menzionata è fondamentale perché l'operazione non è banale: $\bra{y}$ è essa stessa una distribuzione ($\delta_y \in \Phi^\star$), non un funzionale continuo su $\Hspace$, e l'integrale $\int dx \ket{x}\psi(x)$ è un integrale "debole" (o integrale di Bochner generalizzato), poiché l'integrando $\ket{x}$ appartiene a $\Phi^\star$, non a $\Hspace$. L'atto di "portare il bra dentro l'integrale" (scambiare $\braket{y}{\int \dots} \to \int \braket{y}{\dots}$) è uno scambio tra un funzionale e un'integrazione, analogo allo scambio tra un limite e un integrale, che non è universalmente lecito. Il \textbf{Teorema del Nucleo (Kernel Theorem) di Schwartz} fornisce il framework matematico rigoroso per definire tali integrali a valori operatoriali e per giustificare questa procedura, stabilendo che un operatore lineare (come l'Identità) da $\Phi$ a $\Phi^\star$ può essere rappresentato da un "nucleo" $K(y,x)$ (una distribuzione in due variabili) tale che la sua azione $\psi(y)$ è data proprio da $\int dx K(y,x) \psi(x)$.
+\newline \newline
+Poiché $\braket{y}{\psi} = \psi(y)$ e $\braket{x}{\psi} = \psi(x)$, l'equazione diventa $\psi(y) = \int_{\R} dx \braket{y}{x} \psi(x)$. Questa relazione definisce $\braket{y}{x}$ non come uno scalare, ma come il \textbf{nucleo (kernel)} $K(y,x)$ dell'operatore identità. L'unico oggetto matematico che soddisfa questa proprietà per ogni funzione test $\psi$ è la \textbf{distribuzione delta di Dirac $\delta(y-x)$}, che è una distribuzione (un funzionale lineare continuo) definita sullo spazio delle funzioni test in due variabili (es. $\Schwartz(\R^2)$), non uno scalare.
+
+\subsubsection{La Decomposizione di un Vettore di $\Hspace$}
+
+Consideriamo ora la decomposizione di un "vero" ket $\ket{\psi} \in \Hspace$ sulla base continua:
+\[ \ket{\psi} = \int_{\R} dx \ket{x} \braket{x}{\psi} \]
+\begin{itemize}
+	\item $\ket{\psi} \in \Hspace = L^2(\R)$.
+	\item $\braket{x}{\psi} = \psi(x)$. Questa è la "funzione d'onda", una funzione in $L^2(\R)$. È uno scalare (complesso) per ogni $x$.
+	\item $\ket{x} \in \Phi^\star$. È una distribuzione.
+\end{itemize}
+L'integrale è quindi:
+\[ \ket{\psi} = \int_{\R} dx \ket{x} \psi(x) \]
+Questa non è un'integrazione di Riemann o Lebesgue. È un \textbf{integrale debole}. È l'oggetto $\ket{\Psi} \in \Phi'$ definito dalla sua azione su un qualsiasi "bra test" $\bra{\phi} \in \Phi$:
+\[ \braket{\phi}{\Psi} := \int_{\R} dx \braket{\phi}{x} \psi(x) = \int_{\R} dx \, \overline{\phi(x)} \psi(x) \]
+L'ultimo termine è semplicemente il prodotto scalare $L^2$: $\innerprod{\phi}{\psi}_{\Hspace}$.
+
+\subsubsection{Perché l'Integrale "Torna" in $\Hspace$?}
+
+Qui sta il punto cruciale. Abbiamo definito un oggetto $\ket{\Psi}$ (l'integrale) che agisce come un funzionale $f_\psi$ su tutti gli elementi $\phi \in \Phi$:
+\[ f_\psi(\phi) = \braket{\phi}{\Psi} = \innerprod{\phi}{\psi}_{\Hspace} \]
+Questo funzionale $f_\psi$ è definito su $\Phi$. Ma è continuo anche sulla norma di $\Hspace$?
+Sì. Per la disuguaglianza di Cauchy-Schwarz, per ogni $\phi \in \Hspace$:
+\[ |f_\psi(\phi)| = |\innerprod{\phi}{\psi}| \le ||\phi||_{\Hspace} \cdot ||\psi||_{\Hspace} \]
+Poiché $\psi \in \Hspace$, $||\psi||_{\Hspace}$ è finito. Dunque $f_\psi$ è un funzionale lineare \textbf{continuo sull'intero spazio di Hilbert $\Hspace$}.
+\noindent \newline
+Questo significa che l'oggetto $\ket{\Psi}$ (l'integrale) \textbf{è un elemento di $\Hspace^{\star}$}, il duale topologico di $\Hspace$.
+Infine, per il \textbf{Teorema di Riesz-Fréchet}, ogni elemento di $\Hspace^{\star}$ corrisponde a un unico vettore in $\Hspace$. E quale vettore in $\Hspace$ genera il funzionale $f_\psi(\cdot) = \innerprod{\cdot}{\psi}$? Per l'unicità garantita da Riesz, è proprio il vettore $\ket{\psi}$ da cui eravamo partiti.
+\noindent \newline
+\begin{enumerate}
+	\item Decomponiamo $\ket{\psi} \in \Hspace$ usando kets "cattivi" $\ket{x} \in \Phi^\star$ e coefficienti "buoni" $\psi(x) \in L^2$.
+	\item  L'integrale $\int dx \ket{x} \psi(x)$ è definito in senso debole (distribuzionale).
+	\item Questo integrale definisce un funzionale lineare $f_\psi$ che, grazie al fatto che $\psi(x) \in L^2$, risulta essere \textbf{continuo su $\Hspace$}.
+	\item L'integrale, quindi, "collassa" da $\Phi'$ (distribuzioni) a $\Hspace^{\star}$ (duale topologico di $\Hspace$).
+	\item Poiché $\Hspace$ è \textbf{riflessivo} (via Riesz, $\Hspace \cong \Hspace^{\star}$), questo elemento $\ket{\Psi} \in \Hspace^{\star}$ è identificato con un unico elemento in $\Hspace$, che è esattamente il $\ket{\psi}$ originale.
+\end{enumerate}
+
+La riflessività dello spazio di Hilbert è la garanzia matematica che la decomposizione di un vettore $L^2$ lungo una "base" di distribuzioni, pesata con i coefficienti $L^2$ (la funzione d'onda), ricostruisce fedelmente il vettore $L^2$ di partenza.
+
+\subsection{PVMs}
+\begin{definizione}[Misura complessa]
+	Sia $\Sigma(X)$ una $\sigma$-algebra su un insieme X, allora $\mu : \Sigma(X) \rightarrow \C$ è una misura complessa if $\mu(\emptyset) = 0$ e se vale la $\sigma$-addittività in modo che la somma converga nonostante l'ordine (converge assolutamente).
+\end{definizione}
+
+\begin{definizione}[Variazione]
+	La variazione $|\mu| : \Sigma(X) \rightarrow [0, +\infty)$ è una misura positiva $\sigma$-additiva definita come
+	\[
+	|\mu| (E) := \sup \left\{ \sum_{F \in P(E)} |\mu(F)| \bigg| P(E) \subset \Sigma(X) \text{al più partizione numerabile di E} \right\}
+	\]
+	Si dimostra che la variazione totale $||\mu|| := |\mu|(X)$ è sempre finita.
+\end{definizione}
+
+\begin{teorema}[Radon-Nikodym]
+	Data una misura complessa, esiste una funzione misurabile $h: X \rightarrow \C$ con $|h(x)| = 1$ rispetto a $|\mu|$ q.o. che è unica a meno di set di misura nulla, tale che
+	\[
+	\mu(E) = \int_E h d|\mu| \quad \quad \forall E \in \Sigma(X)
+	\]
+\end{teorema}
+
+\begin{definizione}[Integrale di una funzione misurabile]
+	la nozione di integrale rispetto a $\mu$ è riservata a funzioni misurabili che sono assolutamente $\mu$-integrabili definito come
+	\[
+	\int_X f d\mu := \int_X fh d|\mu|
+	\]
+	tutte le proprietà della misura positiva possono essere trasportate a misure complesse.
+\end{definizione}
+
+\begin{definizione}[PVMs]
+	Sia $\Hspace$ uno spazio di Hilbert e $\Sigma(X)$ una $\sigma$-algebra su X. Una PVM su X è una mappa $P: \Sigma(X) \ni E \mapsto P_E \in \mathcal{P}(H)$ dove $\mathcal{P}(H)$ è lo spazio dei proiettori su $\Hspace$ tale che
+	\begin{enumerate}
+		\item $P_X = \Identity$
+		\item $P_E P_F = P_{E \cap F}$
+		\item Si sommano per famiglie di insiemi disgiunte numerabili
+	\end{enumerate}
+\end{definizione}
+L'ultima proprietà ha senso, in quanto si nota con la disuguaglianza di Bessel, che quella somma converge sempre.\newline
+Prendiamo ora $x,y \in \Hspace, \Sigma(X) \ni E \mapsto \langle x | P_E y \rangle =: \mu_{xy}^{(P)}(E)$, si noti che è una misura complessa con le seguenti proprietà
+\begin{itemize}
+	\item $\mu_{xy}^{(P)} (\cup_{n\in \N} E_n) = \sum_{n \in \N} \mu_{xy}^{(P)} (E_n)$ per le proprietà del prodotto interno
+	\item $\mu_{xy}^{(P)}(X) = \langle x | \rangle$
+	\item $\mu_{xx}^{(P)}$ è sempre positiva e finita
+\end{itemize}
+Se consideriamo ora una funzione semplice $s$ e denotiamo con $h$ la funzione relativa al teorema di Radon vista precedentemente possiamo scrivere
+\[
+\int_X s d\mu_{xy} := \int_X sh d|\mu_{xy}| = \sum s_k \int_{E_k} h d|\mu_{xy}| = \left \langle x \bigg| \sum_k s_k P_{E_k} y \right \rangle
+\]
+a questo punto possiamo finalmente definire 
+\[
+\int_X s(\lambda) dP(\lambda) := \sum s_k P_{E_k}
+\]
+e quindi abbiamo che
+\[
+\int_X s d\mu_{xy} =  \left \langle x \bigg|\int_X s(\lambda) dP(\lambda)y \right \rangle
+\]
+\begin{esempio}[Esempio di PVM con proiettori numerabili]
+	Se ponessimo che $\Hspace = \bigoplus_{j \in J} H_j$ e prendessimo come $\sigma$-algebra $\Sigma(J)$ allora avrei che per $E \in \Sigma(J)$
+	\[
+	P_E z = \sum_{j \in E} Q_j z
+	\]
+	con $Q_j$ proiettore su $H_j$, si può dimostrare che $P_E$ sono una PVM. In particolare se $f: J \in \C$ è $\mu_{xx}$-integrabile
+	\[
+	\int_J f(j) d\mu_{xx}(j) = \sum_{j \in J} f(j) ||Q_jx||^2
+	\]
+	questo è il cosiddetto integrale su una "counting measure" e si può estendere a mappe generali usando il teorema della convergenza monotona e poi il teorema di Lebesgue.
+\end{esempio}
+\begin{esempio}[Esempio di PVM su boreliani]
+	Prendiamo $\Hspace = \L^2(\R^n, d^nx)$ e un $E \in \mathfrak{B}(\R^n)$ nella $\sigma$-algebra di Borel associato al proiettore ortonormale dato dalla funzione caratteristica sul tale insieme. Si può mostrare che 
+	\[
+	\mu_{hg}^{(P)}(E) = \langle h | P_E g \rangle = \int_E \overline{h(x)} g(x) d^n x
+	\]
+\end{esempio}
+\begin{teorema}
+	Sia $\Hspace$ uno spazio di Hilbert, P una PVM e $f: X \rightarrow \C$ una funzione misurabile, si definisca
+	\[
+	\Delta_f := \left\{  x\in \Hspace \bigg| \int_X |f(\lambda)|^2 \mu_{xx}^{(P)}(\lambda) < \infty \right\}
+	\]
+	valgono le seguenti proprietà
+	\begin{itemize}
+		\item $\Delta_f$ è un sottospazio denso in $H$ ed esiste un operatore unico
+		\[
+		\int_X f(\lambda) dP(\lambda) : \Delta_f \in \Hspace \tag{$\star$}
+		\]
+		tale che
+		\[
+		\left \langle x \bigg|\int_X f(\lambda) dP(\lambda)y \right \rangle = \int_X f(\lambda) d\mu_{xy}^{(P)}(\lambda) \quad \quad \forall x \in \Hspace, \forall y \in \Delta_f
+		\]
+		in particolare $f$ è integrabile
+		\item L'operatore $\star$ è chiuso e normale
+		\item L'operatore aggiunto è 
+		\[
+		\left(\int_X f(\lambda) dP(\lambda) \right)^\star = \int_X \overline{f(\lambda)} dP(\lambda) 
+		\]
+		\item Vale che
+		\[
+		\bigg|\bigg| \int_X f(\lambda) dP(\lambda) x \bigg|\bigg|^2 = \int_X |f(\lambda)|^2 d\mu_{xx}^{(P)}(\lambda) 
+		\]
+	\end{itemize}
+\end{teorema}
+\begin{corollario}
+	Se $f: X \rightarrow \C$ solo assume valori non negativi reali allora
+	\[
+	\left \langle x \bigg|\int_X f dP x \right \rangle \geq 0 \quad \forall x \in \Delta_f
+	\]
+	Se T è un operatore con $D(T) = \Delta_f$ in modo che
+	\[
+	\langle x | Tx \rangle = \int_X f(\lambda) d\mu_{xx}^{(P)}(\lambda) \quad \forall x \in \Delta_f
+	\]
+	allora
+	\[
+	T = \int_X f(\lambda) dP(\lambda)
+	\]
+\end{corollario}
+Possiamo ora definire la seguente proprietà.
+\begin{definizione}[P-essenzialmente limitatezza]
+	Sia $f: X \rightarrow \C$ misurabile e P una PVM
+	\[
+	||f||_\infty^{(P)} := \inf\{r \geq 0 | P({x \in X | |f(x)| > r}) = 0\}
+	\]
+	allora se $||f||_\infty^{(P)}  < +\infty$, P è essenzialmente limitato.
+\end{definizione}
+\noindent Allora possiamo dare il seguente teorema devastante per le funzioni limitate.
+\begin{teorema}
+	\begin{enumerate}
+		\item Una mappa misurabile $f$ è P-essenzialmente limitata se e solo se
+		$$ \int_X f(\lambda) \, dP(\lambda) \in \mathfrak{B}(\Hspace) \,. $$
+		In quel caso
+		$$ \left\| \int_X f(\lambda) \, dP(\lambda) \right\| \le \|f\|_{\infty}^{(P)} \le \|f\|_{\infty} $$
+		In particolare, se $f, f_n : X \to \C$ sono limitate e $f_n \to f$ uniformemente come $n \to +\infty$ - o più debolmente $\|f - f_n\|_{\infty}^{(P)} \to 0$ dove $f$ e tutte le $f_n$ sono P-essenzialmente limitate - allora
+		$$ \left\| \int_X f_n(\lambda) \, dP(\lambda) - \int_X f(\lambda) \, dP(\lambda) \right\| \to 0 \quad \text{as } n \to +\infty. $$
+		Risulta anche che 
+		\[
+		\left\| \int_X f(\lambda) \, dP(\lambda) \right\| = \|f\|_{\infty}^{(P)} 
+		\]
+		
+		\item Abbiamo che 
+		$$ \int_X \chi_E \, dP = P_E \,, \quad \text{if } E \in \Sigma(X) $$
+		In particolare,
+		$$ \int_X 1 \, dP = \Identity $$
+		Per una funzione semplice $s = \sum_{k=1}^n s_k \chi_{E_k}$, dove $s_k \in \C$ e $E_k \in \Sigma(X)$, $k=1,\dots,n$,
+		$$ \int_X \sum_{k=1}^n s_k \chi_{E_k} dP = \sum_{k=1}^n s_k P_{E_k} $$
+		
+		\item Sia $f, f_n : X \to \C$ funzioni misurabili tali che $\|f\|_{\infty}^{(P)}, \|f_n\|_{\infty}^{(P)} \le K < +\infty$ per  qualche $K \in \mathbb{R}$ e tutti $n \in \mathbb{N}$. Se $f_n \to f$ puntualmente come $n \to +\infty$, allora
+		$$ \int_X f_n dP x \to \int_X f dP x \quad \text{as } n \to +\infty, \text{ for every } x \in \Hspace $$
+		
+		\item If $f, g : X \to \C$ sono P-essenzialmente limitate e $a, b \in \C$, allora
+		$$ \int_X (af + bg) \, dP = a \int_X f dP + b \int_X g dP $$
+		$$ \int_X f dP \int_X g dP = \int_X f \cdot g \, dP$$
+	\end{enumerate}
+\end{teorema}
+\noindent Possiamo quindi estendere a quelle non limitate.
+\begin{teorema}
+	Consideriamo una PVM $P: \Sigma(X) \rightarrow \mathcal{P}(\Hspace)$, due funzioni misurabili $f,g : X \rightarrow \C$ e sia $a \in \C$
+	\begin{enumerate}
+		\item \[
+		a \int_X f dP = \int_X af dP
+		\]
+		\item $D(\int_X fdP + \int_X g dP) = \Delta_F \cap \Delta_g$ e
+		\[
+		\int_X fdP + \int_X g dP \subset \int_X (f+ g) dP
+		\]
+		con l'uguaglianza se e solo se $ \Delta_f \cap \Delta_g = \Delta_{f + g}$
+		\item Stesso con il prodotto
+		\item Funziona bene con l'aggiunto
+		\item Se $U: \Hspace \rightarrow\Hspace' $ è un'isometria lineare e suriettiva $\Sigma(X) \ni E \mapsto P'_E := UP_EU^{-1}$ è una PVM su $\Hspace'$ e 
+		\[
+		U(\int_Xf dP) U^{-1} = \int_X fdP'
+		\]
+		e il suo dominio è $U(\Delta_f)$
+		\item Si può comporre per mappe misurabili del tipo $\phi : X \rightarrow X'$
+	\end{enumerate}
+\end{teorema}
+
+\subsection{Decomposizione spettrale per operatori autoaggiunti}
+\textbf{Notazione}. Denotiamo con $\mathscr{B}(X)$ la $\sigma$-algebra di Borel sullo spazio topologico X.
+
+\begin{teorema}[Spettrale per operatori autoaggiunti]
+	Sia A un operatore autoaggiunto sullo spazio di Hilbert complesso $\Hspace$
+	\begin{itemize}
+		\item Esiste un unica PVM $P^{(A)} : \Bor \ra \mathcal{P}(\Hspace)$ chiamata la misura spettrale di A, tale che
+		\[
+		A = \int_\R \lambda dP^{(A)}(\lambda)
+		\]
+		In particolare $D(A) = \Delta_\iota$ dove $\iota : \R \ni \lambda \ra \lambda$
+		\item Abbiamo inoltre che il supporto della PVM P, ossia il complemento in X dell'unione di tutti i set aperti $O \subset X$ con $P_O = 0$ è tale che
+		\[
+		\text{supp}(P^{(A)}) = \sigma(A)
+		\]
+		e quindi $P^{(A)}$ è concentrata su $\sigma(A)$
+		\[
+		P^{(A)} (E) )  = P^{(A)} (E \cap \sigma(A)) \quad \quad \forall E \in \mathscr{B}(\R)
+		\]
+		\item $\lambda \in \sigma_p(A)$ se e solo se $P^{(A)}({\lambda}) \neq 0$, questo succede in particolare quando $\lambda$ è un punto isolato di $\sigma(A)$. $P^{(A)}(\lambda)$ è il proiettore ortogonale sull'autospazio relativo a $\lambda$.
+		\item $\lambda \in \sigma_c(A)$ se e solo se $P^{(A)}({\lambda}) = 0$ ma $P^{(A)}(E) \neq 0$ se $E \ni \lambda$ è un aperto in $\R$.
+	\end{itemize}
+\end{teorema}
+
+\begin{osservazione}[]
+	Sia data una PVM P e $\iota : \R \ni \lambda \mapsto \lambda$ possiamo definire l'operatore normale
+	\[
+	A = \int_\R \iota(\lambda) dP(\lambda)
+	\]
+	che è autoaggiunto dato che $\iota$ è reale. Dato che il teorema spettrale fornisce il risultato di unicità abbiamo che $P^{(A)} = P$, quindi abbiamo una corrispondenza biunivoca tra le PVM reali sui boreliani e gli operatori autoaggiunti su $\Hspace$. 
+\end{osservazione}
+
+Vale inoltre che dato un operatore A autoaggiunto e una $f: \sigma(A) \in \C$ mappa continua 
+\[
+\sigma(f(A)) = \overline{f(\sigma(A))}
+\]
+dove la chiusura non è necessaria se A è limitato.
+
+\begin{teorema}[Misura spettrale in comune]
+	Sia $\mathfrak{U} := \{A_1,A_2,...,A_n\}$ sia un set di operatori autoaggiunti su $\Hspace$ supponiamo che la loro misura spettrale commuti. Allora esiste un unica PVM, $P^{\mathfrak{(U)}}$ in modo che
+	\[
+	P_{E_1 \times E_2...}^{(\mathfrak{U})} = P_{E_1}^{(A_1)}...P_{E_n}^{(A_n)}
+	\]
+	$\forall E_i \in \Bor$. Inoltre per ogni  $f: \R \in \C$ misurabile
+	\[
+	\int_{\R^n}f(x_k)dP^{(\mathfrak{U})}(x) = f(A_k):=\int_\R f(\lambda) dP^{(A_k)} \quad \quad \forall k=1,...,n
+	\]
+	e infine, ogni proiettore commuta con la misura congiunta se commuta con tutti i $P^{(A_k)}$.
+\end{teorema}
+
+\begin{osservazione}[Formalismo in MQ]
+	Dato uno stato $\psi \in \Hspace$ descrivente un ensamble di sistemi identici preparati in ugual modo, la probabilità di ottenere il risultato nel boreliano $E \subset \sigma(A)$ quando misuro A è 
+	\[
+	\mu_{\psi, \psi}^{(P(A))} (E) := || P_E^{(A)}\psi ||^2
+	\]
+	dove $P^{(A)}$ è la PVM dell'operatore A. Il valore di aspttazione di A, $\langle A\rangle_\psi$ risulta essere
+	\[
+	\langle A \rangle_\psi := \int_{\sigma(A)} \lambda d\mu_{\psi,\psi} ^{(P(A))} (\lambda)
+	\]
+	possiamo derivarne la famosa formula
+	\[
+	\langle A \rangle_\psi = \langle \psi | A\psi \rangle
+	\]
+\end{osservazione}
+
+\subsection{Divergenza della serie di Dyson}
+Generalmente le serie in fisica non sono convergenti e non importa che lo siano. 
+In particolare, la serie proposta da Dyson per trovare approssimazioni successive dell'operatore evoluzione temporale con Hamiltoniane illimitate e tempo-dipendenti diverge molto velocemente.
+
+\begin{teorema}[Formula di Taylor con Resto di Peano]
+	Sia $I \subseteq \mathbb{R}$ un intervallo, $x_0$ un punto interno ad $I$, e sia $f: I \to \mathbb{R}$ una funzione.
+	
+	Se $f$ è derivabile $n$ volte nel punto $x_0$, allora esiste un unico polinomio $P_n(x)$ di grado minore o uguale a $n$ tale che
+	$$ f(x) = P_n(x) + o((x-x_0)^n) \quad \text{per } x \to x_0 $$
+	
+	Il polinomio $P_n(x)$ è il \textbf{Polinomio di Taylor} di $f$ centrato in $x_0$:
+	$$ P_n(x) = \sum_{k=0}^{n} \frac{f^{(k)}(x_0)}{k!} (x-x_0)^k $$
+	
+	La notazione $o((x-x_0)^n)$ (detto \textbf{Resto di Peano}) indica una funzione $R_n(x) = f(x) - P_n(x)$ tale che:
+	$$ \lim_{x \to x_0} \frac{R_n(x)}{(x-x_0)^n} = 0 $$
+\end{teorema}
+
+Questo significa che possiamo sempre stimare di quanto stiamo sbagliando se supponiamo di prendere un intervallo delle $x$ e un espansione della serie fino all'ordine k-esimo.
+\[
+|R_n(x)| \leq M |x-x_0|^n
+\]
+dove M dipende dalla derivata n-esima e $|x-x_0|$ è l'intervallo che stiamo considerando.
+\newline Calandoci nell'esempio della serie di Dyson (o di qualsiasi altra serie divergente), quello che ci mostra questo teorema è che se io scelgo una certa accuratezza $\varepsilon$ (dovuta allo strumento) che stimi l'errore, allora $\forall \varepsilon > 0$ $\exists x $ t.c. $  M |x-x_0|^n > \varepsilon$ e non solo, infatti M, cresce con l'ordine della derivata (in questo tipo di serie) e quindi quello che succede è che più si vuole un resto accurato e ad un ordine alto, più si deve accorciare la scala dei tempi (x). Queste serie vengono dette asintotiche.
+
+\subsection{$C^\star$ algebre}
+La coniugazione hermitiana fornisce il pretesto naturale per introdurre uno dei concetti matematici più utili nelle formulazioni avanzate della Meccanica Quantistica: le \textbf{$C^*$-algebre} (note in passato anche come $B^*$-algebre).
+Riprenderemo questi concetti nei capitoli successivi per discutere il teorema di decomposizione spettrale e la formulazione algebrica delle teorie quantistiche.
+
+\begin{definizione}[*-algebra e $C^*$-algebra]
+	Sia $\mathfrak{A}$ un'algebra (commutativa o meno, con unità o meno) sul campo $\mathbb{C}$.
+	Un'applicazione ${}^* : \mathfrak{A} \to \mathfrak{A}$ è detta \textbf{involuzione} se soddisfa le seguenti proprietà per ogni $x, y \in \mathfrak{A}$ e $\alpha, \beta \in \mathbb{C}$:
+	\begin{enumerate}
+		\item \textbf{Antilinearità:} $(\alpha x + \beta y)^* = \bar{\alpha} x^* + \bar{\beta} y^*$;
+		\item \textbf{Involutività:} $(x^*)^* = x$;
+		\item \textbf{Antimoltiplicatività:} $(xy)^* = y^* x^*$.
+	\end{enumerate}
+	La struttura $(\mathfrak{A}, {}^*)$ è chiamata \textbf{*-algebra}.
+	
+	Se $\mathfrak{A}$ è anche un'algebra di Banach (normata e completa), essa è detta \textbf{Banach *-algebra} se l'involuzione è isometrica, ovvero $\|x^*\| = \|x\|$ (o equivalentemente $\|x^* x\| \le \|x\|^2$).
+	
+	Una Banach *-algebra è detta \textbf{$C^*$-algebra} se la norma soddisfa l'identità $C^*$:
+	\begin{equation}
+		\|x^* x\| = \|x\|^2 \quad \text{per ogni } x \in \mathfrak{A} \,.
+	\end{equation}
+\end{definizione}
+
+\begin{definizione}[Morfismi di *-algebre]
+	Siano $\mathfrak{A}_1$ e $\mathfrak{A}_2$ due *-algebre (con unità). Un omomorfismo di algebre $f: \mathfrak{A}_1 \to \mathfrak{A}_2$ si dice \textbf{*-omomorfismo} se preserva l'involuzione:
+	$$ f(x^*) = f(x)^* \quad \text{per ogni } x \in \mathfrak{A}_1 \,,$$
+	e preserva l'unità (se presente), ovvero $f(\mathbb{I}_1) = \mathbb{I}_2$.
+	\begin{itemize}
+		\item Se $f$ è anche biunivoco, si chiama \textbf{*-isomorfismo}.
+		\item Un *-isomorfismo da $\mathfrak{A}$ in se stessa ($\mathfrak{A}_1 = \mathfrak{A}_2$) è detto \textbf{*-automorfismo}.
+	\end{itemize}
+\end{definizione}
+
+Possiamo classificare gli elementi di una *-algebra in base al loro comportamento rispetto all'involuzione.
+
+\begin{definizione}[Elementi speciali]
+	Un elemento $x$ in una *-algebra $\mathfrak{A}$ (con unità $\mathbb{I}$) si dice:
+	\begin{itemize}
+		\item[(i)] \textbf{Normale}: se commuta con il suo aggiunto, $x^* x = x x^*$;
+		\item[(ii)] \textbf{Hermitiano} (o autoaggiunto): se coincide con il suo aggiunto, $x^* = x$;
+		\item[(iii)] \textbf{Isometria}: se $x^* x = \mathbb{I}$;
+		\item[(iv)] \textbf{Unitario}: se $x^* x = x x^* = \mathbb{I}$ (cioè l'inverso è l'aggiunto).
+	\end{itemize}
+\end{definizione}
+
+\begin{osservazione}[Sottoalgebre e Generatori]
+	\begin{enumerate}
+		\item Una \textbf{*-sottoalgebra} di $\mathfrak{A}$ è una sottoalgebra chiusa rispetto all'operazione di involuzione. Nel caso delle $C^*$-algebre, una \textbf{$C^*$-sottoalgebra} deve essere anche chiusa nella topologia della norma (quindi completa).
+		\item L'intersezione arbitraria di *-sottoalgebre è ancora una *-sottoalgebra. Dato un sottoinsieme $S \subset \mathfrak{A}$, la *-algebra \textbf{generata} da $S$ è l'intersezione di tutte le *-sottoalgebre che contengono $S$. Lo stesso vale, mutatis mutandis, per le $C^*$-sottoalgebre (che saranno chiuse).
+		\item L'inverso di un *-isomorfismo è anch'esso un *-isomorfismo.
+	\end{enumerate}
+\end{osservazione}
+
+Concludiamo con un risultato tecnico utile riguardante gli omomorfismi.
+
+\begin{proposizione}
+	Siano $\mathfrak{A}_1, \mathfrak{A}_2$ due *-algebre con unità e sia $\phi: \mathfrak{A}_1 \to \mathfrak{A}_2$ una mappa lineare che preserva il prodotto e l'involuzione.
+	Se $\phi$ è \textbf{suriettiva}, allora essa è automaticamente un *-omomorfismo (ovvero preserva necessariamente l'unità: $\phi(\mathbb{I}_1) = \mathbb{I}_2$).
+\end{proposizione}
+
+\begin{osservazione}[Conservazione dell'unità]
+	Vale un fatto algebrico generale: una mappa lineare suriettiva tra algebre con unità che preserva il prodotto preserva necessariamente anche l'elemento unitario ($\phi(\mathbb{I}_1) = \mathbb{I}_2$).
+\end{osservazione}
+
+Elenchiamo alcune proprietà cruciali che discendono direttamente dalla definizione di $C^*$-algebra.
+
+\begin{proposizione}[Proprietà fondamentali delle $C^*$-algebre]
+	Sia $(\mathfrak{A}, \|\cdot\|)$ una $C^*$-algebra con involuzione $^*$.
+	\begin{itemize}
+		\item[(a)] Se $x \in \mathfrak{A}$ è un elemento \textbf{normale} ($x^*x = xx^*$), allora per ogni $n \in \mathbb{N}$:
+		$$ \|x^n\| = \|x\|^n \,.$$
+		\item[(b)] L'involuzione è un'\textbf{isometria}: per ogni $x \in \mathfrak{A}$,
+		$$ \|x^*\| = \|x\| \,.$$
+		\item[(c)] Se $\mathfrak{A}$ possiede unità $\mathbb{I}$, allora $\mathbb{I}^* = \mathbb{I}$. Inoltre, $x$ è invertibile se e solo se $x^*$ lo è, e vale la relazione:
+		$$ (x^{-1})^* = (x^*)^{-1} \,.$$
+	\end{itemize}
+\end{proposizione}
+
+È possibile costruire nuove $C^*$-algebre a partire da famiglie esistenti.
+
+\begin{definizione}[Somma diretta di $C^*$-algebre]
+	Sia $\{\mathfrak{A}_j\}_{j \in J}$ una famiglia di $C^*$-algebre (dove $J$ ha cardinalità arbitraria). Consideriamo l'insieme delle famiglie $\{a_j\}_{j \in J}$ (con $a_j \in \mathfrak{A}_j$) che sono limitate in norma, equipaggiato con la norma del sup:
+	\begin{equation}
+		\| \{a_j\}_{j \in J} \| := \sup_{j \in J} \|a_j\|_j < +\infty \,.
+	\end{equation}
+	Dotando questo insieme delle operazioni puntuali (somma, prodotto, involuzione componente per componente), si ottiene una struttura di algebra chiamata \textbf{somma diretta} e indicata con:
+	$$ \bigoplus_{j \in J} \mathfrak{A}_j \,. $$
+	Tale struttura risulta essere una $C^*$-algebra rispetto alla norma definita.
+\end{definizione}
+
+\begin{osservazione}[Rigidità delle $C^*$-algebre]
+	La struttura di una $C^*$-algebra è notevole perché le sue proprietà topologiche e algebriche sono profondamente intrecciate. Si può dimostrare (e lo vedremo più avanti) che:
+	\begin{itemize}
+		\item Ogni *-omomorfismo $\phi$ tra $C^*$-algebre con unità è \textbf{automaticamente continuo} (anzi, contrattivo: $\|\phi(a)\| \le \|a\|$).
+		\item Un *-omomorfismo è un'isometria ($\|\phi(a)\| = \|a\|$) se e solo se è \textbf{iniettivo}.
+	\end{itemize}
+\end{osservazione}
+
+\begin{esempio}[Esempi principali]
+	\begin{enumerate}
+		\item Le algebre di funzioni complesse (come $C(K)$ o $L^\infty$) sono esempi di $C^*$-algebre \textbf{commutative}, dove l'involuzione è la complessa coniugazione.
+		\item \textbf{Operatori limitati:} Se $\Hspace$ è uno spazio di Hilbert, l'algebra $\mathscr{B}(\Hspace)$ degli operatori lineari limitati è una $C^*$-algebra con unità (non commutativa, se $\dim(\Hspace)>1$), dove l'involuzione è data dall'aggiunto hermitiano.
+	\end{enumerate}
+\end{esempio}
+
+Prima di addentrarci nelle rappresentazioni, è utile menzionare la struttura dei \textbf{quaternioni} $\mathbb{H}$. Essa può essere vista come un'algebra reale normata con unità. Sebbene il campo base sia $\mathbb{R}$, è possibile definire un'involuzione tramite il coniugato quaternionico, rendendo $\mathbb{H}$ una $C^*$-algebra reale (soddisfa $\|q^* q\| = \|q\|^2$).
+
+Una rappresentazione concreta di $\mathbb{H}$ è data dalla sottoalgebra reale delle matrici $2 \times 2$ complesse generata dall'identità $\Identity$ e dalle matrici $-i\sigma_1, -i\sigma_2, -i\sigma_3$ (dove $\sigma_i$ sono le matrici di Pauli).
+$\mathbb{H}$ è un \textbf{anello con divisione} (ogni elemento non nullo è invertibile) non commutativo.
+
+Esistono risultati fondamentali che classificano tali strutture, rilevanti per i fondamenti della fisica quantistica (si ricordi il Teorema di Solèr).
+
+\begin{teorema}[Frobenius e Hurwitz]
+	\begin{itemize}
+		\item \textbf{Teorema di Frobenius (1887):} Ogni algebra associativa con divisione a dimensione finita sul campo reale $\mathbb{R}$ è necessariamente isomorfa a $\mathbb{R}$, $\mathbb{C}$ o $\mathbb{H}$.
+		\item \textbf{Teorema di Hurwitz (1923):} Ogni algebra $\mathfrak{A}$ con divisione, associativa, normata e unitale su $\mathbb{R}$ tale che $\|ab\| = \|a\|\|b\|$ è isometricamente isomorfa a $\mathbb{R}$, $\mathbb{C}$ o $\mathbb{H}$.
+	\end{itemize}
+	(Rilasciando l'associatività si ottengono anche gli ottetti di Cayley $\mathbb{O}$).
+\end{teorema}
+
+\subsubsection{Rappresentazioni di *-algebre}
+
+Una definizione centrale nelle teorie quantistiche avanzate (come la QFT) è quella di rappresentazione di un'algebra di operatori astratti su uno spazio di Hilbert concreto.
+
+\begin{definizione}[Rappresentazione]
+	Sia $\mathfrak{A}$ una *-algebra (non necessariamente unitale o $C^*$) e $\Hspace$ uno spazio di Hilbert.
+	Un *-omomorfismo $\pi: \mathfrak{A} \to \mathscr{B}(\Hspace)$ è detto \textbf{rappresentazione} di $\mathfrak{A}$ su $\Hspace$.
+	Si richiede esplicitamente che la rappresentazione preservi l'unità se presente nell'algebra, ovvero $\pi(\mathbb{I}_\mathfrak{A}) = \Identity_\Hspace$.
+	
+	Si definiscono le seguenti proprietà per una rappresentazione $\pi$:
+	\begin{itemize}
+		\item[(a)] \textbf{Fedele (Faithful):} se $\pi$ è iniettiva (il kernel è nullo).
+		\item[(b)] \textbf{Irriducibile:} se non esistono sottospazi chiusi di $\Hspace$ (diversi da $\{0\}$ e $\Hspace$ stesso) che siano invarianti sotto l'azione di $\pi(\mathfrak{A})$. Ovvero, se $M \subset \Hspace$ è chiuso e $\pi(a)M \subset M$ per ogni $a \in \mathfrak{A}$, allora $M=\{0\}$ o $M=\Hspace$.
+		\item[(c)] \textbf{Unitariamente Equivalente:} Due rappresentazioni $\pi$ su $\Hspace$ e $\pi'$ su $\Hspace'$ sono equivalenti se esiste un'isometria suriettiva (unitario) $U: \Hspace \to \Hspace'$ tale che $U \pi(a) U^{-1} = \pi'(a)$ per ogni $a \in \mathfrak{A}$.
+	\end{itemize}
+\end{definizione}
+
+\begin{definizione}[Vettore Ciclico]
+	Un vettore $\psi \in \Hspace$ si dice \textbf{ciclico} per la rappresentazione $\pi$ se l'insieme $\{\pi(a)\psi \mid a \in \mathfrak{A}\}$ è denso in $\Hspace$.
+\end{definizione}
+
+Le proprietà di irriducibilità e ciclicità sono strettamente legate:
+
+\begin{proposizione}
+	Sia $\pi$ una rappresentazione irriducibile di una *-algebra con unità su $\Hspace \neq \{0\}$. Allora \textbf{ogni} vettore non nullo $\psi \in \Hspace$ è ciclico per $\pi$.
+\end{proposizione}
+
+\begin{osservazione}[Continuità Automatica]
+	Se $\mathfrak{A}$ è una $C^*$-algebra con unità, ogni rappresentazione è automaticamente continua (rispetto alla norma di $\mathfrak{A}$ e alla norma operatoriale su $\mathscr{B}(\Hspace)$). In particolare, è una contrazione: $\|\pi(a)\| \le \|a\|$.
+\end{osservazione}
+
+Infine, analizziamo il caso in cui una mappa lineare preservi prodotti e involuzioni ma "manchi" l'identità, non qualificandosi come rappresentazione secondo la Definizione 3.52.
+
+\begin{proposizione}[Rappresentazione ridotta]
+	Sia $\mathfrak{A}$ una *-algebra con unità e $\phi: \mathfrak{A} \to \mathscr{B}(\Hspace)$ una mappa lineare che preserva prodotti e involuzioni (ma non necessariamente l'unità).
+	Allora lo spazio di Hilbert si decompone come $\Hspace = \Hspace_\phi \oplus \Hspace_\phi^\perp$, dove $\Hspace_\phi = \text{Ran}(\phi(\mathbb{I}))$.
+	Valgono i seguenti fatti:
+	\begin{enumerate}
+		\item Entrambi i sottospazi sono invarianti sotto $\phi(a)$ per ogni $a$.
+		\item La restrizione su $\Hspace_\phi^\perp$ è nulla: $\phi(a)\restriction_{\Hspace_\phi^\perp} = 0$.
+		\item La restrizione sul complemento $\pi_\phi: \mathfrak{A} \ni a \mapsto \phi(a)\restriction_{\Hspace_\phi} \in \mathscr{B}(\Hspace_\phi)$ è una \textbf{rappresentazione} (preserva l'unità su $\Hspace_\phi$).
+	\end{enumerate}
+	Inoltre, $\pi_\phi$ è irriducibile se e solo se $\phi$ non è la mappa nulla e non esistono sottospazi propri invarianti non banali in $\Hspace$.
+\end{proposizione}
+
+\subsection{Algebre di von Neumann (o $W^*$-algebre)}
+
+Un concetto centrale nello studio delle algebre di operatori è quello di commutante, che descrive l'insieme degli operatori che commutano con una data classe.
+
+\begin{definizione}[Commutante]
+	Sia $\mathfrak{M} \subset \mathscr{B}(\Hspace)$ un sottoinsieme di operatori limitati su uno spazio di Hilbert complesso. Il \textbf{commutante} di $\mathfrak{M}$ è definito come:
+	$$
+	\mathfrak{M}' := \{ T \in \mathscr{B}(\Hspace) \mid TA - AT = 0 \quad \text{per ogni } A \in \mathfrak{M} \} \,.
+	$$
+	Iterando la costruzione, si definisce il \textbf{bicommutante} come $\mathfrak{M}'' := (\mathfrak{M}')'$.
+\end{definizione}
+
+\begin{osservazione}[Proprietà algebriche e topologiche]
+	\begin{enumerate}
+		\item Se $\mathfrak{M}$ è chiuso rispetto all'involuzione (cioè è un *-insieme), allora $\mathfrak{M}'$ è una *-algebra con unità.
+		\item Vale sempre l'inclusione $\mathfrak{M} \subset \mathfrak{M}''$.
+		\item Non si ottengono nuovi insiemi oltre il secondo commutante, poiché $\mathfrak{M}' = \mathfrak{M}'''$.
+		\item Una proprietà cruciale è la chiusura topologica: $\mathfrak{M}'$ è sempre chiuso non solo nella topologia uniforme, ma anche nelle topologie \textbf{debole} e \textbf{forte} degli operatori.
+	\end{enumerate}
+\end{osservazione}
+
+Il legame tra proprietà algebriche (il commutante) e topologiche (la chiusura) è sancito da uno dei teoremi più importanti dell'analisi funzionale, dovuto a von Neumann.
+
+\begin{teorema}[Teorema del Bicommutante di von Neumann]
+	Sia $\Hspace$ uno spazio di Hilbert complesso e $\mathfrak{A}$ una *-sottoalgebra con unità di $\mathscr{B}(\Hspace)$. I seguenti fatti sono equivalenti:
+	\begin{itemize}
+		\item[(a)] $\mathfrak{A} = \mathfrak{A}''$ (l'algebra coincide con il suo bicommutante);
+		\item[(b)] $\mathfrak{A}$ è chiusa nella topologia debole degli operatori;
+		\item[(c)] $\mathfrak{A}$ è chiusa nella topologia forte degli operatori.
+	\end{itemize}
+	Inoltre, se $\mathfrak{B}$ è una qualunque *-sottoalgebra con unità, il suo bicommutante $\mathfrak{B}''$ coincide con la sua chiusura debole e con la sua chiusura forte:
+	$$ \mathfrak{B}'' = \overline{\mathfrak{B}}^w = \overline{\mathfrak{B}}^s \,. $$
+\end{teorema}
+
+Grazie al teorema precedente, siamo pronti a definire una classe speciale di algebre di operatori.
+
+\begin{definizione}[Algebra di von Neumann]
+	Sia $\Hspace \neq \{0\}$ uno spazio di Hilbert complesso. Un'\textbf{Algebra di von Neumann} (o \textbf{$W^*$-algebra}) su $\Hspace$ è una *-sottoalgebra con unità $\mathfrak{R} \subset \mathscr{B}(\Hspace)$ che soddisfa una delle tre proprietà equivalenti del Teorema del Bicommutante (solitamente si usa la definizione $\mathfrak{R} = \mathfrak{R}''$).
+\end{definizione}
+
+\begin{osservazione}[Relazione con le $C^*$-algebre]
+	Poiché la chiusura nella topologia forte implica la chiusura nella topologia uniforme (della norma), ogni algebra di von Neumann è, in particolare, una $C^*$-algebra.
+	Il termine $W^*$-algebra è spesso usato come sinonimo, anche se originariamente indicava una definizione astratta (come duale topologico di uno spazio di Banach, risultato provato da Sakai nel 1970). In questo contesto concreto, i termini sono interscambiabili.
+\end{osservazione}
+
+\begin{definizione}[Centro e Fattori]
+	Data un'algebra di von Neumann $\mathfrak{R}$:
+	\begin{itemize}
+		\item Il \textbf{centro} di $\mathfrak{R}$ è l'insieme degli elementi che commutano con tutti gli elementi dell'algebra:
+		$$ \mathfrak{Z}(\mathfrak{R}) := \mathfrak{R} \cap \mathfrak{R}' \,. $$
+		\item Un \textbf{fattore} è un'algebra di von Neumann con centro banale, ovvero contenente solo i multipli scalari dell'identità:
+		$$ \mathfrak{R} \cap \mathfrak{R}' = \{ c \Identity \}_{c \in \mathbb{C}} \,. $$
+	\end{itemize}
+	La classificazione dei fattori è un capitolo centrale nella teoria delle algebre di operatori, con profonde conseguenze nella teoria quantistica dei campi.
+\end{definizione}
+
+\subsubsection{Generazione e Operazioni Reticolari}
+
+Se $\mathfrak{M} \subset \mathscr{B}(\Hspace)$ è un insieme chiuso rispetto all'involuzione, l'algebra di von Neumann \textbf{generata} da $\mathfrak{M}$ è la più piccola algebra di von Neumann che contiene $\mathfrak{M}$. Grazie al teorema del bicommutante, essa è esattamente $\mathfrak{M}''$.
+
+Possiamo definire operazioni reticolari sulla famiglia delle algebre di von Neumann su $\Hspace$:
+\begin{itemize}
+	\item \textbf{Intersezione (Meet):} L'intersezione arbitraria di algebre di von Neumann $\{\mathfrak{R}_\alpha\}$ è ancora un'algebra di von Neumann:
+	$$ \bigwedge_{\alpha} \mathfrak{R}_\alpha := \bigcap_{\alpha} \mathfrak{R}_\alpha \,. $$
+	\item \textbf{Unione generata (Join):} L'unione insiemistica non è in genere un'algebra. Si definisce il join come l'algebra generata dall'unione:
+	$$ \bigvee_{\alpha} \mathfrak{R}_\alpha := \left( \bigcup_{\alpha} \mathfrak{R}_\alpha \right)'' \,. $$
+\end{itemize}
+
+Concludiamo con il caso più semplice e fondamentale.
+
+\begin{proposizione}[Il caso $\mathscr{B}(\Hspace)$]
+	Sia $\Hspace \neq \{0\}$. Allora:
+	\begin{itemize}
+		\item[(a)] Il commutante dell'intera algebra degli operatori è costituito dai soli scalari: $\mathscr{B}(\Hspace)' = \{ c \Identity \}$. Di conseguenza, $\mathscr{B}(\Hspace)'' = \mathscr{B}(\Hspace)$, confermando che è un'algebra di von Neumann.
+		\item[(b)] Poiché il centro è banale ($\mathscr{B}(\Hspace) \cap \{c \Identity\} = \{c \Identity\}$), $\mathscr{B}(\Hspace)$ è un \textbf{fattore}.
+		\item[(c)] Non esistono sottospazi chiusi non banali che siano invarianti sotto l'azione di \textit{tutti} gli elementi di $\mathscr{B}(\Hspace)$ (proprietà di transistività o irriducibilità).
+	\end{itemize}
+\end{proposizione}
+
+\subsubsection{Somma Hilbertiana di Algebre di von Neumann}
+
+Esiste una naturale corrispondenza tra la somma diretta di spazi di Hilbert e la somma diretta di $C^*$-algebre, che si specializza nel caso delle algebre di von Neumann.
+
+\begin{proposizione}[Costruzione della Somma Diretta di Operatori]
+	Consideriamo una famiglia di spazi di Hilbert non banali $\{\Hspace_j\}_{j \in J}$ e una famiglia di $C^*$-algebre di operatori $\{\mathfrak{A}_j\}_{j \in J}$, con $\mathfrak{A}_j \subset \mathscr{B}(\Hspace_j)$.
+	
+	\begin{itemize}
+		\item[(a)] \textbf{Isomorfismo Isometrico:} Dato un elemento astratto della somma diretta $\bigoplus_{j \in J} \mathfrak{A}_j$ (ovvero una famiglia limitata di operatori), possiamo definire l'operatore globale $\hat{\bigoplus}_{j \in J} A_j$ agente sullo spazio somma $\bigoplus_{j \in J} \Hspace_j$ come:
+		\begin{equation}
+			\left( \hat{\bigoplus}_{j \in J} A_j \right) \left( \bigoplus_{j \in J} x_j \right) := \bigoplus_{j \in J} (A_j x_j) \,.
+		\end{equation}
+		Tale operatore è ben definito e limitato. Inoltre, la norma dell'operatore coincide con la $C^*$-norma della somma diretta astratta:
+		$$ \left\| \hat{\bigoplus}_{j \in J} A_j \right\|_{\mathscr{B}(\oplus \Hspace_j)} = \left\| \bigoplus_{j \in J} A_j \right\|_{\oplus \mathfrak{A}_j} = \sup_{j \in J} \|A_j\| \,. $$
+		La mappa che associa la somma astratta all'operatore concreto è un *-omomorfismo isometrico.
+		
+		\item[(b)] \textbf{Commutante della somma:} Il commutante della somma diretta è la somma diretta dei commutanti:
+		$$ \left( \hat{\bigoplus}_{j \in J} \mathfrak{A}_j \right)' = \hat{\bigoplus}_{j \in J} \mathfrak{A}_j' \,. $$
+		
+		\item[(c)] \textbf{Proprietà di von Neumann:} Se ogni componente $\mathfrak{A}_j$ è un'algebra di von Neumann, allora anche l'algebra somma $\hat{\bigoplus}_{j \in J} \mathfrak{A}_j$ è un'algebra di von Neumann.
+	\end{itemize}
+\end{proposizione}
+
+\begin{definizione}[Somma diretta di Algebre di von Neumann]
+	Sia $\{\mathfrak{R}_j\}_{j \in J}$ una famiglia di algebre di von Neumann su spazi $\{\Hspace_j\}_{j \in J}$. L'algebra di von Neumann definita nella proposizione precedente è chiamata \textbf{somma diretta della famiglia di algebre di von Neumann}.
+\end{definizione}
+
+\begin{osservazione}[Notazione semplificata]
+	Poiché la costruzione definisce un isomorfismo isometrico canonico tra l'algebra astratta delle famiglie limitate e l'algebra concreta degli operatori sullo spazio somma, nel seguito si semplificherà la notazione rimuovendo il simbolo ``cappello''.
+	Indicheremo con lo stesso simbolo $\bigoplus_{j \in J} A_j$ sia l'elemento astratto che l'operatore concreto, e con $\bigoplus_{j \in J} \mathfrak{R}_j$ l'algebra somma.
+\end{osservazione}
