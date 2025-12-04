@@ -34,6 +34,11 @@
 \newcommand{\Op}[1]{\hat{#1}}
 \newcommand{\vecOp}[1]{\hat{\mathbf{#1}}}
 \newcommand{\normprime}[1]{\left\lVert#1\right\rVert'}
+\newcommand{\closure}[1]{\overline{#1}}
+\newcommand{\KK}{\mathcal{K}} % Usato per H'
+\newcommand{\Id}{\mathbb{I}}
+\newcommand{\innerH}[2]{\left\langle #1, #2 \right\rangle_{\HH}}
+\newcommand{\innerK}[2]{\left\langle #1, #2 \right\rangle_{\HH'}}
 
 \title{\textbf{Esercizi Operatori}}
 \author{Tommaso Pedroni}
@@ -43,7 +48,261 @@
 	
 	\maketitle
 	
-	\section*{Traccia dell'Esercizio}
+	\section*{Traccia dell'Esercizio 1-F}
+	Dati due spazi di Hilbert $\HH$ e $\HH'$ e denotando con $\Id$ e $\Id'$ i rispettivi operatori identità, si mostri che $T \in \mathcal{L}(\HH; \HH')$ è unitario se e solo se è limitato e $T^*T = \Id$ mentre $TT^* = \Id'$.
+	
+	\hrule
+	\vspace{0.5cm}
+	
+	\begin{sol}
+		Ricordiamo preliminariarmente la definizione di operatore unitario. Un operatore $U: \HH \to \HH'$ si dice \textit{unitario} se è un isomorfismo isometrico suriettivo tra i due spazi di Hilbert. Ovvero, se conserva il prodotto scalare (e quindi è un'isometria) ed è suriettivo.
+		
+		\paragraph{Implicazione diretta ($\Rightarrow$):}
+		Sia $T$ unitario.
+		\begin{itemize}
+			\item \textbf{Limitatezza:} Poiché $T$ è unitario, preserva la norma: $\norm{T\psi}_{\HH'} = \norm{\psi}_{\HH}$ per ogni $\psi \in \HH$. Di conseguenza, la norma operatoriale è $\norm{T} = \sup_{\norm{\psi}=1} \norm{T\psi} = 1 < \infty$. Dunque $T$ è limitato.
+			\item \textbf{Relazioni con l'aggiunto:} Poiché $T$ conserva il prodotto scalare, per ogni $\phi, \psi \in \HH$ vale:
+			\[
+			\innerK{T\phi}{T\psi} = \innerH{\phi}{\psi}.
+			\]
+			Usando la definizione di operatore aggiunto $T^*$, il membro di sinistra diventa $\innerH{\phi}{T^*T\psi}$. Dunque:
+			\[
+			\innerH{\phi}{T^*T\psi} = \innerH{\phi}{\Id \psi} \quad \forall \phi, \psi \in \HH \implies T^*T = \Id.
+			\]
+			Essendo $T$ un'isometria suriettiva, esso è invertibile. Poiché $T^*T = \Id$, ne segue che $T^*$ è l'inverso sinistro di $T$. In uno spazio di Hilbert (e più in generale per operatori invertibili), l'inverso sinistro coincide con l'inverso destro e con l'inverso $T^{-1}$. Pertanto $T^* = T^{-1}$, da cui segue immediatamente che:
+			\[
+			TT^* = T T^{-1} = \Id'.
+			\]
+		\end{itemize}
+		
+		\paragraph{Implicazione inversa ($\Leftarrow$):}
+		Sia $T \in \mathcal{L}(\HH; \HH')$ limitato tale che $T^*T = \Id$ e $TT^* = \Id'$.
+		\begin{itemize}
+			\item \textbf{Isometria:} Dalla condizione $T^*T = \Id$, per ogni $\psi \in \HH$ abbiamo:
+			\[
+			\norm{T\psi}^2_{\HH'} = \innerK{T\psi}{T\psi} = \innerH{\psi}{T^*T\psi} = \innerH{\psi}{\Id\psi} = \norm{\psi}^2_{\HH}.
+			\]
+			Quindi $T$ è un'isometria.
+			\item \textbf{Suriettività:} Dobbiamo mostrare che $\text{Ran}(T) = \HH'$. Sia $\eta \in \HH'$ un vettore arbitrario. Consideriamo il vettore $\xi = T^*\eta \in \HH$. Applicando $T$ otteniamo:
+			\[
+			T\xi = T(T^*\eta) = (TT^*)\eta = \Id'\eta = \eta.
+			\]
+			Dunque, per ogni $\eta \in \HH'$ esiste una controimmagine $\xi \in \HH$, il che prova che $T$ è suriettivo.
+		\end{itemize}
+		Essendo $T$ un'isometria suriettiva limitata, $T$ è unitario.
+	\end{sol}
+	
+	\vspace{1cm}
+	
+	\section*{Traccia dell'Esercizio 2-F}
+	Sia dato uno spazio di Hilbert infinito dimensionale, mostrare che l'operatore identità non può mai essere compatto.
+	
+	\hrule
+	\vspace{0.5cm}
+	
+	\begin{sol}
+		Sia $\HH$ uno spazio di Hilbert separabile con $\dim(\HH) = \infty$ e sia $\Id: \HH \to \HH$ l'operatore identità.
+		
+		Un operatore $K$ si dice \textit{compatto} se mappa insiemi limitati in insiemi relativamente compatti. Equivalentemente, $K$ è compatto se, per ogni successione limitata $\{x_n\}_{n \in \mathbb{N}} \subset \HH$, la successione trasformata $\{Kx_n\}_{n \in \mathbb{N}}$ ammette una sottosuccessione convergente in $\HH$.
+		
+		Poiché $\HH$ è infinito dimensionale, esiste in esso un sistema ortonormale infinito $\{e_n\}_{n=1}^\infty$ (si pensi al risultato della procedura di Gram-Schmidt applicata a un insieme numerabile linearmente indipendente).
+		
+		Consideriamo la successione $\{e_n\}_{n \in \mathbb{N}}$. Essa è limitata poiché $\norm{e_n} = 1$ per ogni $n$.
+		Valutiamo l'azione dell'identità su tale successione: $\Id e_n = e_n$.
+		
+		Affinché $\Id$ sia compatto, dalla successione $\{e_n\}$ si dovrebbe poter estrarre una sottosuccessione convergente (e quindi di Cauchy). Tuttavia, per ogni $n \neq m$, calcoliamo la distanza tra due elementi della base ortonormale:
+		\[
+		\norm{e_n - e_m}^2 = \inner{e_n - e_m}{e_n - e_m} = \norm{e_n}^2 + \norm{e_m}^2 - 2\text{Re}\inner{e_n}{e_m} = 1 + 1 - 0 = 2.
+		\]
+		Dunque $\norm{e_n - e_m} = \sqrt{2}$ per ogni $n \neq m$.
+		
+		Questo implica che non è possibile estrarre alcuna sottosuccessione di Cauchy da $\{e_n\}$, poiché gli elementi mantengono una distanza costante e non nulla l'uno dall'altro. Di conseguenza, la successione $\{ \Id e_n \}$ non ammette sottosuccessioni convergenti.
+		
+		Concludiamo che l'operatore identità in uno spazio di Hilbert infinito dimensionale non è compatto.
+	\end{sol}
+	
+	\section*{Traccia dell'Esercizio 3-F}
+	Sia $\HH$ uno spazio di Hilbert e siano $T$ e $T'$ due operatori densamente definiti. Si mostri che:
+	\begin{enumerate}
+		\item[(a)] Se $T \subset T'$, allora $(T')^* \subset T^*$.
+		\item[(b)] $(T')^*T^* \subseteq (TT')^*$ e l'uguaglianza vale se $T \in \BB(\HH)$.
+	\end{enumerate}
+	
+	\hrule
+	\vspace{0.5cm}
+	
+	\begin{sol}
+		\subsection*{Punto (a)}
+		L'ipotesi $T \subset T'$ significa che:
+		\[
+		\Dom{(T)} \subset \Dom{(T')} \quad \text{e} \quad Tx = T'x \quad \forall x \in \Dom{(T)}.
+		\]
+		Sia $\phi \in \Dom{(T')^*}$. Per definizione di operatore aggiunto, ciò significa che esiste un vettore $\eta \in \HH$ (denotato con $(T')^*\phi$) tale che:
+		\[
+		\inner{\phi}{T'x} = \inner{\eta}{x} \quad \forall x \in \Dom{(T')}.
+		\]
+		Poiché $\Dom{(T)} \subset \Dom{(T')}$, la relazione sopra vale in particolare per ogni $x \in \Dom{(T)}$. Inoltre, per tali $x$, abbiamo $T'x = Tx$. Possiamo quindi scrivere:
+		\[
+		\inner{\phi}{Tx} = \inner{\eta}{x} \quad \forall x \in \Dom{(T)}.
+		\]
+		Questa è esattamente la definizione che assicura che $\phi \in \Dom{(T^*)}$ e che $T^*\phi = \eta$.
+		
+		Abbiamo mostrato che $\phi \in \Dom{((T')^*)} \implies \phi \in \Dom{(T^*)}$ e che l'azione degli operatori coincide. Pertanto:
+		\[
+		(T')^* \subset T^*.
+		\]
+		
+		\subsection*{Punto (b)}
+		\paragraph{Inclusione $(T')^*T^* \subseteq (TT')^*$.}
+		Sia $\phi \in \Dom{(T'^*T^*)}$. Per definizione di dominio del prodotto di operatori, questo implica che:
+		\[
+		\phi \in \Dom{(T^*)} \quad \text{e} \quad T^*\phi \in \Dom{(T'^*)}.
+		\]
+		Vogliamo mostrare che $\phi \in \Dom{((TT')^*)}$. Consideriamo un generico $x \in \Dom{(TT')}$.
+		Ricordiamo che $x \in \Dom{(TT')} \iff x \in \Dom{(T')} \land T'x \in \Dom{(T)}$.
+		
+		Valutiamo il prodotto scalare $\inner{\phi}{TT'x}$:
+		\begin{enumerate}
+			\item Poiché $T'x \in \Dom{(T)}$ e $\phi \in \Dom{(T^*)}$, possiamo scaricare $T$:
+			\[
+			\inner{\phi}{T(T'x)} = \inner{T^*\phi}{T'x}.
+			\]
+			\item Ora, poniamo $\psi \coloneqq T^*\phi$. Sappiamo per ipotesi che $\psi \in \Dom{((T')^*)}$. Inoltre $x \in \Dom{(T')}$. Possiamo scaricare $T'$:
+			\[
+			\inner{\psi}{T'x} = \inner{(T')^*\psi}{x} = \inner{(T')^*T^*\phi}{x}.
+			\]
+		\end{enumerate}
+		Mettendo insieme i passaggi, abbiamo trovato che per ogni $x \in \Dom{(TT')}$:
+		\[
+		\inner{\phi}{TT'x} = \inner{(T')^*T^*\phi}{x}.
+		\]
+		Questo prova che $\phi \in \Dom{((TT')^*)}$ e che $(TT')^*\phi = (T')^*T^*\phi$.
+		
+		\paragraph{Uguaglianza nel caso limitato.}
+		Sia ora $T \in \BB(\HH)$. Questo implica che $T$ è limitato e definito su tutto lo spazio, ovvero $\Dom{(T)} = \HH$ e $\Dom{(T^*)} = \HH$.
+		Dobbiamo mostrare l'inclusione inversa: $(TT')^* \subseteq (T')^*T^*$.
+		
+		Osserviamo preliminarmente che, essendo $\Dom{(T)}=\HH$, il dominio del prodotto $TT'$ si semplifica:
+		\[
+		\Dom{(TT')} = \{ x \in \Dom{(T')} : T'x \in \Dom{(T)} \} = \{ x \in \Dom{(T')} : T'x \in \HH \} = \Dom{(T')}.
+		\]
+		Sia ora $\phi \in \Dom{((TT')^*)}$. Questo significa che esiste un $\eta$ tale che:
+		\[
+		\inner{\phi}{TT'x} = \inner{\eta}{x} \quad \forall x \in \Dom{(TT')} = \Dom{(T')}.
+		\]
+		Essendo $T$ limitato e definito ovunque, il suo aggiunto $T^*$ è anch'esso definito ovunque ($T^* \in \BB(\HH)$). Possiamo usare la proprietà dell'aggiunto per operatori limitati $\inner{\phi}{Ty} = \inner{T^*\phi}{y}$ per qualsiasi $y \in \HH$. Ponendo $y = T'x$ (che è un vettore lecito in $\HH$), otteniamo:
+		\[
+		\inner{\phi}{T(T'x)} = \inner{T^*\phi}{(T'x)}.
+		\]
+		Confrontando le due espressioni, abbiamo:
+		\[
+		\inner{T^*\phi}{T'x} = \inner{\eta}{x} \quad \forall x \in \Dom{(T')}.
+		\]
+		Questa uguaglianza ci dice esattamente che il funzionale lineare $x \mapsto \inner{T^*\phi}{T'x}$ è limitato (rappresentabile da $\eta$). Per definizione di aggiunto di $T'$, ciò implica che il vettore $T^*\phi$ appartiene al dominio di $(T')^*$, ovvero:
+		\[
+		T^*\phi \in \Dom{((T')^*)}.
+		\]
+		Poiché $\phi \in \HH = \Dom{(T^*)}$ è sempre vero, la condizione $T^*\phi \in \Dom{((T')^*)}$ è sufficiente per affermare che:
+		\[
+		\phi \in \Dom{((T')^*T^*)}.
+		\]
+		Ciò conclude la dimostrazione dell'uguaglianza.
+	\end{sol}
+	
+	\section*{Traccia dell'Esercizio 4-F}
+	Sia $\HH$ uno spazio di Hilbert e sia dato $T : \Dom(T) \subset \HH \to \HH$. Si mostri che $T$ è essenzialmente autoaggiunto se e solo se $T$ è denso e chiudibile in $\HH$ e $T^* = \closure{T}$.
+	
+	\hrule
+	\vspace{0.5cm}
+	
+	\begin{sol}
+		
+	\textbf{Implicazione diretta ($\Rightarrow$):}
+		Sia $T$ essenzialmente autoaggiunto.
+		Per la \textbf{Definizione 84}, questo implica tre fatti:
+		
+		\begin{enumerate}
+			\item $\Dom(T)$ è denso in $\HH$
+			\item $\Dom(T^*)$ è denso in $\HH$
+			\item $T^* = (T^*)^*$
+		\end{enumerate}
+		Poiché $\Dom(T^*)$ è denso, per il \textbf{Teorema 82 (punto 2)}, possiamo affermare che $T$ è chiudibile e che vale l'identità fondamentale:
+		\[
+		\closure{T} = (T^*)^*.
+		\]
+		Sostituendo questa identità nella condizione 3 (essenziale autoaggiunzione), otteniamo:
+		\[
+		T^* = \closure{T}.
+		\]
+		Abbiamo quindi mostrato che $T$ è denso (cond. 1), chiudibile (dal Teorema 82) e che $T^* = \closure{T}$.
+		\newline
+		\textbf{Implicazione inversa ($\Leftarrow$):}
+		Supponiamo che:
+		\begin{enumerate}
+			\item[H1.] $\Dom(T)$ sia denso.
+			\item[H2.] $T$ sia chiudibile.
+			\item[H3.] $T^* = \closure{T}$.
+		\end{enumerate}
+		Dobbiamo verificare che $T$ soddisfi la \textbf{Definizione 84}.
+		La prima condizione della definizione ($\Dom(T)$ denso) è garantita da H1.
+		
+		Poiché $T$ è chiudibile (H2), il \textbf{Teorema 82 (punto 2)} assicura che $\Dom(T^*)$ è denso (soddisfacendo così la seconda condizione della Def. 84) e che vale:
+		\[
+		(T^*)^* = \closure{T}.
+		\]
+		Utilizzando l'ipotesi H3 ($T^* = \closure{T}$), possiamo sostituire $\closure{T}$ nell'equazione precedente:
+		\[
+		(T^*)^* = T^*.
+		\]
+		Questo soddisfa la terza condizione della \textbf{Definizione 84}. Dunque $T$ è essenzialmente autoaggiunto.
+	\end{sol}
+	
+	\vspace{1cm}
+	
+	\section*{Traccia dell'Esercizio 5-F}
+	Dati due spazi di Hilbert $\HH$ e $\KK$ e un operatore unitario $U : \KK \to \HH$, si mostri che se $T : \Dom(T) \subset \HH \to \HH$ è essenzialmente autoaggiunto, allora lo è anche l'operatore $T' \doteq U^{-1} T U$ definito su $\Dom(T') = U^{-1}\Dom(T)$.
+	
+	\hrule
+	\vspace{0.5cm}
+	
+	\begin{sol}
+		Sia $T$ essenzialmente autoaggiunto. Per la \textbf{Definizione 84}, valgono:
+		\begin{itemize}
+			\item $\Dom(T)$ e $\Dom(T^*)$ sono densi in $\HH$.
+			\item $T^* = (T^*)^*$.
+		\end{itemize}
+		Dobbiamo verificare le stesse condizioni per $T'$.
+		
+		\paragraph{1. Densità dei domini.}
+		L'operatore $U$ è unitario, dunque è un isomorfismo isometrico suriettivo. Un tale operatore mappa insiemi densi in insiemi densi.
+		\begin{itemize}
+			\item Poiché $\Dom(T)$ è denso in $\HH$, allora $\Dom(T') = U^{-1}\Dom(T)$ è denso in $\KK$.
+			\item Calcoliamo l'aggiunto $(T')^*$. Essendo $U$ limitato con inverso limitato ($U^*=U^{-1}$), vale la regola dell'aggiunto del prodotto:
+			\[
+			(T')^* = (U^{-1}TU)^* = U^* T^* (U^{-1})^* = U^{-1} T^* U.
+			\]
+			Il dominio di $(T')^*$ è $\Dom((T')^*) = U^{-1}\Dom(T^*)$. Poiché $\Dom(T^*)$ è denso per ipotesi, anche $\Dom((T')^*)$ è denso in $\KK$.
+		\end{itemize}
+		
+		\paragraph{2. Condizione autoaggiuntezza dell'aggiunto.}
+		Dobbiamo verificare che $(T')^* = ((T')^*)^*$.
+		Calcoliamo l'aggiunto dell'aggiunto di $T'$:
+		\[
+		((T')^*)^* = \left( U^{-1} T^* U \right)^* = U^* (T^*)^* (U^{-1})^* = U^{-1} (T^*)^* U.
+		\]
+		Poiché $T$ è essenzialmente autoaggiunto, per definizione sappiamo che $T^* = (T^*)^*$. Sostituendo questa uguaglianza nell'equazione sopra:
+		\[
+		((T')^*)^* = U^{-1} T^* U.
+		\]
+		Osserviamo che il membro di destra è esattamente l'espressione di $(T')^*$ trovata in precedenza. Dunque:
+		\[
+		((T')^*)^* = (T')^*.
+		\]
+		
+		Tutte le condizioni della \textbf{Definizione 84} sono soddisfatte per $T'$, che è quindi essenzialmente autoaggiunto.
+	\end{sol}
+	
+	\section*{Traccia dell'Esercizio 1}
 	Sia $\HH$ uno spazio di Hilbert e sia $T = T^* \in \BB_\infty(\HH)$ un operatore compatto autoaggiunto. Dato $\psi_0 \in \HH$, si considerino le equazioni:
 	\begin{enumerate}
 		\item $T\psi = \psi$
@@ -196,7 +455,7 @@
 		
 	\end{sol}
 	
-	\section*{Traccia dell'Esercizio}
+	\section*{Traccia dell'Esercizio 2}
 	Sia $g \in L^2([0, 2\pi])$. Definito l'operatore $T: L^2([0, 2\pi]) \to L^2([0, 2\pi])$ come:
 	\[
 	f \mapsto T(f) \doteq g * f = \int_0^{2\pi} g(x-y)f(y) \, dy
@@ -294,7 +553,7 @@
 		
 	\end{sol}
 	
-	\section*{Traccia dell'Esercizio}
+	\section*{Traccia dell'Esercizio 3}
 	Sia data una matrice $\sigma \in \mathcal{M}(n; \mathbb{R})$ positiva e sia $\psi \in L^2(\mathbb{R}^n)$. Si mostri che l'operatore
 	\[
 	L \doteq \text{div}(\sigma \nabla) = \nabla \cdot (\sigma \nabla)
@@ -379,7 +638,7 @@
 		\qed
 	\end{sol}
 	
-	\section*{Traccia dell'Esercizio}
+	\section*{Traccia dell'Esercizio 4}
 	Sia dato il dominio $I = [0,1]$ e si consideri il problema di Dirichlet per $\psi: I \to \mathbb{R}$:
 	\[
 	\begin{cases}
@@ -462,7 +721,7 @@
 		\qed
 	\end{sol}
 	
-	\section*{Traccia dell'Esercizio}
+	\section*{Traccia dell'Esercizio 5}
 	Sia $I = [0,1]$. Si consideri l'equazione differenziale:
 	\[
 	-\frac{d\psi}{dx} + \psi = f, \quad \text{con } f \in L^2(I).
@@ -581,7 +840,7 @@
 		\qed
 	\end{sol}
 	
-	\section*{Traccia dell'Esercizio}
+	\section*{Traccia dell'Esercizio 6}
 	Su $L^2(\R)$ si consideri l'operatore differenziale:
 	\[
 	T = -\frac{d^2}{dx^2} + x^2 + i\frac{d}{dx}.
@@ -680,7 +939,7 @@
 		\qed
 	\end{sol}
 	
-	\section*{Traccia dell'Esercizio}
+	\section*{Traccia dell'Esercizio 7}
 	Sia $\HH$ uno spazio di Hilbert separabile e si consideri l'equazione:
 	\[
 	T\psi = \lambda \psi + f,
@@ -747,7 +1006,7 @@
 		\qed
 	\end{sol}
 	
-	\section*{Traccia dell'Esercizio}
+	\section*{Traccia dell'Esercizio 8}
 	Si consideri una particella di massa $m > 0$ in $\mathbb{R}^3$, soggetta a un potenziale centrale $V(r)$. Sia dato l'operatore:
 	\[
 	T = \vecOp{r} \cdot \vecOp{p} + \vecOp{p} \cdot \vecOp{r},
@@ -790,6 +1049,7 @@
 		\[
 		\frac{d}{dt}\expval{T} = \frac{1}{i\hbar} \expval{[T, H]}.
 		\]
+		Inoltre si vede dalle esercitazioni che T ammette un'unica estensione autoaggiunta e il suo dominio è denso in H, l'argomento quindi non può essere esteso a $\forall \psi \in \HH$ di norma unitaria perchè il valore di aspettazione potrebbe divergere, si prenda per esempio $e^{inx}$.
 		
 		\subsection*{Calcolo del Commutatore}
 		L'Hamiltoniana per una particella in un potenziale $V(r)$ è data da:
@@ -854,7 +1114,7 @@
 		
 		\qed
 	\end{sol}
-	\section*{Traccia dell'Esercizio}
+	\section*{Traccia dell'Esercizio 9 Versione Hard}
 	Siano $T: \Dom(T) \to \HH$ e $V: \Dom(V) \to \HH$ due operatori su uno spazio di Hilbert $\HH$ tali che:
 	\begin{enumerate}
 		\item[(a)] $T$ è autoaggiunto ($T = T^*$);
@@ -937,7 +1197,30 @@
 		\qed
 	\end{sol}
 	
-	\section*{Traccia dell'Esercizio}
+		\section*{Traccia dell'Esercizio 9 Versione Soft}
+	Siano $T: \Dom(T) \to \HH$ e $V: \Dom(V) \to \HH$ due operatori su uno spazio di Hilbert $\HH$ tali che:
+	\begin{enumerate}
+		\item[(a)] $T$ è autoaggiunto ($T = T^*$);
+		\item[(b)] $V$ è simmetrico;
+		\item[(c)] $V$ è $T$-limitato con limite relativo $a < 1$. Ovvero, $T \subset V$ ed esistono costanti $a \in [0, 1)$ e $b \ge 0$ tali che:
+		\[
+		\norm{V\psi} \le a\norm{T\psi} + b\norm{\psi}, \quad \forall \psi \in \Dom(T).
+		\]
+	\end{enumerate}
+	Si mostri che l'operatore somma $S \doteq T + V$, definito su $\Dom(S) = \Dom(T)$, è autoaggiunto.
+	
+	\hrule
+	\vspace{0.5cm}
+	\begin{sol}
+		Si ottiene dalla disuguaglianza che
+		\[
+			\norm{V\psi} = \norm{T\psi}  \Rightarrow (1-a)\norm{T\psi} \le  b\norm{\psi}, \quad \forall \psi \in \Dom(T)
+		\]
+		quindi T è limitato, essendo autoaggiunto è ovunque definito. Essendo ovunque definito allora V è ovunque definito essendo $\Dom{(T)} \subseteq \Dom{(V)}$ per ipotesi. Ma ovunque definito e simmetrico implica limitato per Hellinger-Toepliz. Quindi V è limitato quindi T+V è limitato e simmetrico ossia autoaggiunto.
+		\qed
+	\end{sol}
+	
+	\section*{Traccia dell'Esercizio 10 Metodo I}
 	Sia $\HH$ uno spazio di Hilbert con norma $\norm{\cdot}$. Sia $\norm{\cdot}'$ una seconda norma su $\HH$ tale che $\exists C > 0$:
 	\[ \norm{\psi} \le C\normprime{\psi}, \quad \forall \psi \in \HH. \]
 	Sia $T: D(T) \to \HH$ un operatore simmetrico tale che $\exists \kappa > 0$:
@@ -1001,11 +1284,12 @@
 		\qed
 	\end{sol}
 	
-	\section*{Traccia dell'Esercizio}
+	\section*{Traccia dell'Esercizio 10 Metodo II}
 	Sia $\HH$ uno spazio di Hilbert con norma $\norm{\cdot}$. Sia $\norm{\cdot}'$ una seconda norma su $\HH$ tale che $\exists C > 0$:
 	\[ \norm{\psi} \le C\normprime{\psi}, \quad \forall \psi \in \HH. \]
-	Sia $T: D(T) \to \HH$ un operatore simmetrico (con $D(T)$ denso in $\HH$) tale che $\exists \kappa > 0$:
-	\[ \normprime{T\psi} \le \kappa\normprime{\psi}, \quad \forall \psi \in D(T). \]
+	Sia $T: D(T) \to \HH$ un operatore simmetrico tale che $\exists \kappa > 0$:
+	\[ \normprime{T\psi} \le \kappa\normprime{\psi}, \quad \forall \psi \in \HH'. \]
+	dove per $\HH'=(\HH, ||\cdot||')$ si intende lo spazio di Hilbert definito dagli elementi di $(\HH, ||\cdot||)$ che sono finiti rispetto alla norma $||\cdot||'$ decorato della stessa.
 	Mostrare che $T$ è limitato rispetto alla norma $\norm{\cdot}$ (ovvero $T \in \mathcal{B}(\HH)$ nel senso dell'estensione).
 	\begin{quote}
 		\textit{[Hint: Un operatore lineare chiuso tra spazi di Banach e con dominio denso è limitato]}
@@ -1017,7 +1301,7 @@
 	\begin{sol}
 		L'obiettivo è dimostrare che l'operatore $T$ è limitato rispetto alla norma naturale dello spazio di Hilbert $\norm{\cdot}$, ossia che esiste $M > 0$ tale che $\norm{T\psi} \le M\norm{\psi}$ per ogni $\psi \in D(T)$.
 		
-		Per fare ciò, sfrutteremo l'Hint interpretando lo spazio $(\HH, \norm{\cdot}')$ come uno spazio di Banach e utilizzando il \textbf{Teorema dell'Isomorfismo di Banach} (o dell'Applicazione Inversa) per stabilire l'equivalenza tra le due norme.
+		Per fare ciò, sfrutteremo l'Hint interpretando lo spazio $(\HH, \norm{\cdot}')$ come uno spazio di Banach e utilizzando il \textbf{Teorema dell'Isomorfismo di Banach} (o dell'Applicazione Inversa, Teorema 25 nelle dispense) per stabilire l'equivalenza tra le due norme.
 		
 		\subsection*{1. Equivalenza delle Norme}
 		Consideriamo lo spazio vettoriale $\HH$ equipaggiato con le due norme.
