@@ -523,9 +523,35 @@
 \end{esempio}
 
 \section{Rappresentazioni dei gruppi}
-\begin{definizione}[Rappresentazione di un gruppo]
-	Una rappresentazione di dimensione  $n$ di un gruppo astratto $G$ è un omomorfismo $D: G \mapsto GL(n, \R)$. Viene detta \textbf{fedele} quando è un isomorfismo ossia quando $KerD = e \in G$.
+
+\begin{definizione}[Rappresentazione Lineare]
+	Sia $G$ un gruppo e $V$ uno spazio vettoriale su un campo $\K$. Una \textbf{rappresentazione} di $G$ su $V$ è un omomorfismo di gruppi:
+	\begin{equation}
+		\rho: G \to GL(V)
+	\end{equation}
+	dove $GL(V)$ denota il gruppo generale lineare, ovvero l'insieme degli isomorfismi lineari da $V$ in sé stesso.
+	La dimensione della rappresentazione è definita come $n = \dim_\K(V)$.
+	Esplicitamente, per ogni $g, h \in G$, la mappa soddisfa:
+	\begin{equation}
+		\rho(gh) = \rho(g) \circ \rho(h) \quad \text{e} \quad \rho(e) = \Identity_V
+	\end{equation}
 \end{definizione}
+
+\begin{definizione}[Rappresentazione Fedele]
+	Una rappresentazione $(V, \rho)$ si dice \textbf{fedele} se l'omomorfismo $\rho$ è iniettivo. In termini algebrici, il nucleo della rappresentazione deve essere banale:
+	\begin{equation}
+		\ker(\rho) = \{ g \in G \mid \rho(g) = \Identity_V \} = \{ e \}
+	\end{equation}
+	Intuitivamente, una rappresentazione fedele preserva tutta l'informazione del gruppo $G$ senza "collassare" elementi distinti nello stesso operatore lineare.
+\end{definizione}
+
+\begin{osservazione}[Struttura di $\K{[G]}$-modulo]
+	Una rappresentazione $(V, \rho)$ induce naturalmente su $V$ una struttura di modulo sull'algebra del gruppo $\K[G]$. L'azione scalare "generalizzata" di un elemento $g \in G$ su un vettore $v \in V$ è definita come:
+	\begin{equation}
+		g \cdot v := \rho(g)(v)
+	\end{equation}
+	Questa identificazione permette di utilizzare gli strumenti dell'algebra omologica, come il prodotto tensore su anelli $\otimes_{\K[H]}$, per definire le rappresentazioni indotte.
+\end{osservazione}
 
 \begin{definizione}[Equivalenza di rappresentazioni]
 	Due rappresentazioni di un gruppo sono equivalenti se $\exists S \in GL(n, \R)$ tale che
@@ -586,7 +612,7 @@ con $A \in GL(m, \R)$. Si può mostrare che esiste una base nella quale C è la 
 Ora, per dimostrare anche la freccia inversa basta trovare un modo per definire un prodotto scalare che, per un dato T, sia unitario rispetto a T stesso.
 \begin{definizione}[Prodotto scalare invariante per gruppi]
 	\[
-	{v, v' } = \frac{1}{[g]} \sum_g (T(g)v, T(g)v')
+	(v, v') = \frac{1}{[g]} \sum_g (T(g)v, T(g)v')
 	\]
 	si dimostra facilmente che è una buona definizione per composizione e che rende unitaria la trasformazione T. La definizione risulta essere ben data anche per un gruppo compatto cioè un gruppo continuo con infiniti elementi, nella quale però la somma si sostituisce con un'integrazione convergente gruppo-invariante, in quanto è cruciale per la definizione l'esistenza di una somma (o integrale) gruppo-invariante ossia che  
 	\[
@@ -1021,6 +1047,212 @@ Applicando la relazione di ortogonalità dei caratteri, i coefficienti di moltep
 a_\sigma = \langle \chi^{(\sigma)}, \chi^{(\mu)} \chi^{(\nu)} \rangle.
 \]
 
+\section{Rappresentazioni Indotte}
+
+In questa sezione formalizziamo la costruzione che permette di produrre rappresentazioni di un gruppo $G$ a partire da rappresentazioni di un suo sottogruppo $H$. Questa operazione è in un certo senso l'inverso della restrizione.
+
+Sia $H \subset G$ un sottogruppo. Se $V$ è una rappresentazione di $G$, essa si restringe naturalmente a una rappresentazione di $H$, denotata con $\mathrm{Res}^G_H V$ (o semplicemente $\mathrm{Res}\, V$).
+Per definire l'operazione inversa, consideriamo prima il caso in cui una rappresentazione di $G$ contenga una rappresentazione di $H$ come sottospazio.
+
+\begin{definizione}[Rappresentazione Indotta]
+	Sia $V$ una rappresentazione di $G$ e sia $W \subset V$ un sottospazio che è $H$-invariante (ovvero $W$ è una rappresentazione di $H$).
+	Per ogni $g \in G$, il sottospazio $g \cdot W = \{g \cdot w \mid w \in W\}$ dipende solo dalla classe laterale sinistra (coset) $gH$, poiché per ogni $h \in H$ si ha $gh \cdot W = g \cdot (h \cdot W) = g \cdot W$.
+	Denotiamo con $\sigma \cdot W$ il sottospazio associato alla classe $\sigma \in G/H$.
+	
+	Diciamo che $V$ è \textbf{indotta} da $W$ se ogni elemento di $V$ può essere scritto in modo unico come somma di elementi in tali traslati di $W$. In altre parole, se $V$ si decompone come somma diretta indicizzata dalle classi laterali:
+	\begin{equation}
+		V = \bigoplus_{\sigma \in G/H} \sigma \cdot W
+	\end{equation}
+	In questo caso, scriviamo $V = \mathrm{Ind}_H^G W = \mathrm{Ind}\, W$.
+\end{definizione}
+
+\subsection{Costruzione ed Esistenza}
+È possibile dimostrare che, data una qualsiasi rappresentazione $W$ di $H$, esiste sempre una rappresentazione $V$ di $G$ che soddisfa la definizione sopra. Costruiamola esplicitamente.
+
+Scegliamo un rappresentante $g_\sigma \in G$ per ogni classe laterale $\sigma \in G/H$. Lo spazio vettoriale $V$ è definito formalmente come la somma diretta di copie di $W$, una per ogni classe:
+\begin{equation}
+	V = \bigoplus_{\sigma \in G/H} W^\sigma
+\end{equation}
+dove ogni elemento $v \in V$ si scrive univocamente come $v = \sum_{\sigma} g_\sigma w_\sigma$, con $w_\sigma \in W$.
+
+Per definire l'azione di un generico $g \in G$, osserviamo che per ogni $\sigma$, il prodotto $g \cdot g_\sigma$ apparterrà a una nuova classe laterale $\tau$, quindi $g \cdot g_\sigma = g_\tau \cdot h$ per un certo $h \in H$. Definiamo l'azione su un elemento della base "traslata" come:
+\begin{equation}
+	g \cdot (g_\sigma w) = g_\tau (h \cdot w)
+\end{equation}
+Questa costruzione è indipendente dalla scelta dei rappresentanti e rende $V$ un $G$-modulo ben definito.
+
+\begin{osservazione}[Confronto con il prodotto tensore]
+	La costruzione sopra è isomorfa alla definizione algebrica tramite prodotto tensore:
+	\[ \mathrm{Ind}_H^G W \cong \C[G] \otimes_{\C[H]} W \]
+	Il sottospazio $g_\sigma W$ nella definizione geometrica corrisponde al sottospazio $g_\sigma \otimes W$ nel prodotto tensore.
+\end{osservazione}
+
+\begin{esempio}
+	\begin{itemize}
+		\item Se $W$ è la rappresentazione banale unidimensionale di $H$, allora $\mathrm{Ind}_H^G W$ è la \textbf{rappresentazione di permutazione} di $G$ che agisce sull'insieme delle classi laterali $G/H$.
+		\item Se $W$ è la rappresentazione regolare di $H$, allora $\mathrm{Ind}_H^G W$ è isomorfa alla rappresentazione regolare di $G$.
+	\end{itemize}
+\end{esempio}
+
+\subsection{Proprietà Universale e Reciprocità di Frobenius}
+
+La rappresentazione indotta gode di una proprietà universale che lega gli omomorfismi di $H$-moduli con quelli di $G$-moduli.
+
+\begin{proposizione}[Proprietà Universale]
+	Sia $W$ una rappresentazione di $H$ e $U$ una rappresentazione di $G$. Supponiamo che $V = \mathrm{Ind}_H^G W$. Allora ogni omomorfismo di $H$-moduli $\varphi: W \to \mathrm{Res}\, U$ si estende in modo unico a un omomorfismo di $G$-moduli $\Phi: V \to U$.
+	Vale l'isomorfismo canonico:
+	\begin{equation}
+		\mathrm{Hom}_H(W, \mathrm{Res}_H^G U) \cong \mathrm{Hom}_G(\mathrm{Ind}_H^G W, U)
+	\end{equation}
+\end{proposizione}
+
+Questa relazione di aggiunzione porta direttamente alla celebre Reciprocità di Frobenius per i caratteri. Poiché la dimensione dello spazio degli omomorfismi tra due rappresentazioni è legata al prodotto scalare dei loro caratteri (lemma di Schur), otteniamo:
+
+\begin{corollario}[Reciprocità di Frobenius]
+	Sia $W$ una rappresentazione di $H$ e $U$ una rappresentazione di $G$. Siano $\chi_W$ e $\chi_U$ i rispettivi caratteri. Allora vale l'uguaglianza tra i prodotti scalari:
+	\begin{equation}
+		\innerprod{\chi_{\mathrm{Ind}\, W}}{\chi_U}_G = \innerprod{\chi_W}{\chi_{\mathrm{Res}\, U}}_H
+	\end{equation}
+	In termini pratici, se $W$ e $U$ sono irriducibili, il numero di volte che $U$ appare nella decomposizione di $\mathrm{Ind}\, W$ è uguale al numero di volte che $W$ appare nella decomposizione della restrizione $\mathrm{Res}\, U$.
+\end{corollario}
+
+\subsection{Carattere della Rappresentazione Indotta}
+È possibile calcolare il valore del carattere indotto $\chi_{\mathrm{Ind}\, W}$ sugli elementi di $G$ partendo dai valori di $\chi_W$ su $H$.
+Poiché $G$ permuta le copie $g_\sigma W$, gli unici termini che contribuiscono alla traccia sono quelli per cui $g$ manda il sottospazio $g_\sigma W$ in sé stesso, ovvero quando $g g_\sigma H = g_\sigma H$, il che implica $g_\sigma^{-1} g g_\sigma \in H$.
+
+La formula per il carattere è data da:
+\begin{equation} \label{eq:induced_char}
+	\chi_{\mathrm{Ind}\, W}(g) = \sum_{g_\sigma \in G/H, \, g_\sigma^{-1} g g_\sigma \in H} \chi_W(g_\sigma^{-1} g g_\sigma)
+\end{equation}
+Se $g$ non è coniugato a nessun elemento di $H$, il carattere è zero. Nel caso particolare in cui $W$ sia la rappresentazione banale, il carattere conta semplicemente il numero di classi laterali fissate dall'azione di $g$.
+
+\section{L'Algebra del Gruppo $\C G$}
+
+Associamo a un gruppo finito $G$ uno spazio vettoriale $\C G$ avente come base l'insieme degli elementi del gruppo $\{e_g \mid g \in G\}$. Un generico elemento $\alpha \in \C G$ è una combinazione lineare formale:
+\begin{equation}
+	\alpha = \sum_{g \in G} a_g e_g, \quad a_g \in \C
+\end{equation}
+Definiamo la struttura di algebra (prodotto) estendendo per linearità l'operazione del gruppo:
+\begin{equation}
+	\left( \sum_{g} a_g e_g \right) \cdot \left( \sum_{h} b_h e_h \right) = \sum_{g,h} a_g b_h e_{gh}
+\end{equation}
+Esiste una corrispondenza biunivoca tra le rappresentazioni di $G$ e i $\C G$-moduli.
+Se $\rho: G \to GL(V)$ è una rappresentazione, possiamo estenderla a un omomorfismo di algebre $\tilde{\rho}: \C G \to \mathrm{End}(V)$ ponendo:
+\begin{equation}
+	\tilde{\rho}\left( \sum a_g e_g \right) = \sum a_g \rho(g)
+\end{equation}
+Viceversa, ogni $\C G$-modulo sinistro definisce una rappresentazione restringendo l'azione agli elementi di base $e_g$. In particolare, la rappresentazione regolare di $G$ corrisponde al modulo $\C G$ visto come modulo su se stesso.
+
+\subsection{Decomposizione di Wedderburn}
+
+Il risultato fondamentale sulla struttura di $\C G$ stabilisce che l'algebra del gruppo si decompone in una somma diretta di algebre di matrici.
+
+\begin{proposizione}[3.29]
+	Siano $W_1, \dots, W_k$ le rappresentazioni irriducibili non isomorfe di $G$. Esiste un isomorfismo di algebre:
+	\begin{equation} \label{eq:wedderburn}
+		\C G \cong \bigoplus_{i=1}^k \mathrm{End}(W_i) \cong \bigoplus_{i=1}^k M_{d_i}(\C)
+	\end{equation}
+	dove $d_i = \dim(W_i)$.
+\end{proposizione}
+
+\begin{proof}
+	Consideriamo l'applicazione $\varphi: \C G \to \bigoplus_i \mathrm{End}(W_i)$ definita estendendo le rappresentazioni irriducibili:
+	\begin{equation}
+		\varphi(\alpha) = (\tilde{\rho}_1(\alpha), \tilde{\rho}_2(\alpha), \dots, \tilde{\rho}_k(\alpha))
+	\end{equation}
+	Questa mappa è un omomorfismo di algebre. Poiché la rappresentazione regolare è fedele e contiene tutte le irriducibili, il nucleo di $\varphi$ è banale, dunque $\varphi$ è iniettiva.
+	Confrontando le dimensioni:
+	\begin{equation}
+		\dim(\C G) = |G| \quad \text{e} \quad \dim\left( \bigoplus_i \mathrm{End}(W_i) \right) = \sum_i d_i^2
+	\end{equation}
+	Dalla teoria dei caratteri sappiamo che $\sum d_i^2 = |G|$. Poiché le dimensioni coincidono e la mappa è iniettiva, $\varphi$ è un isomorfismo.
+\end{proof}
+
+\subsection{Analisi di Fourier su Gruppi Finiti}
+
+L'isomorfismo $\varphi$ discusso sopra può essere interpretato come una Trasformata di Fourier.
+Identifichiamo un elemento $\alpha = \sum a_g e_g \in \C G$ con una funzione $\phi: G \to \C$ tale che $\phi(g) = a_g$.
+
+\begin{definizione}[Trasformata di Fourier]
+	Sia $\phi: G \to \C$ una funzione. La sua trasformata di Fourier in $\rho$ (dove $\rho$ è una rappresentazione di $G$) è l'operatore lineare:
+	\begin{equation}
+		\widehat{\phi}(\rho) = \sum_{g \in G} \phi(g) \rho(g) \in \mathrm{End}(V_\rho)
+	\end{equation}
+	L'isomorfismo (\ref{eq:wedderburn}) ci dice che conoscere la funzione $\phi$ è equivalente a conoscere la collezione delle matrici $\widehat{\phi}(\rho_i)$ per tutte le rappresentazioni irriducibili.
+\end{definizione}
+
+
+\subsubsection*{1. Teorema di Convoluzione}
+Date due funzioni $\phi, \psi$ su $G$, la loro convoluzione è definita come:
+\begin{equation}
+	(\phi * \psi)(g) = \sum_{h \in G} \phi(h) \psi(h^{-1}g)
+\end{equation}
+\textbf{Teorema:} $\widehat{\phi * \psi}(\rho) = \widehat{\phi}(\rho) \cdot \widehat{\psi}(\rho)$.
+
+\begin{proof}
+	Calcoliamo la trasformata della convoluzione per definizione:
+	\begin{align*}
+		\widehat{\phi * \psi}(\rho) &= \sum_{g \in G} (\phi * \psi)(g) \rho(g) \\
+		&= \sum_{g \in G} \left( \sum_{h \in G} \phi(h) \psi(h^{-1}g) \right) \rho(g)
+	\end{align*}
+	Poniamo $k = h^{-1}g$, da cui $g = hk$. Poiché $h$ scorre su tutto $G$, per ogni $h$ fissato anche $k$ copre tutto $G$. Sostituiamo nella somma:
+	\begin{align*}
+		&= \sum_{h \in G} \sum_{k \in G} \phi(h) \psi(k) \rho(hk) \\
+		&= \sum_{h \in G} \sum_{k \in G} \phi(h) \psi(k) \rho(h)\rho(k) \quad (\text{poiché } \rho \text{ è omomorfismo}) \\
+		&= \left( \sum_{h \in G} \phi(h)\rho(h) \right) \cdot \left( \sum_{k \in G} \psi(k)\rho(k) \right) \\
+		&= \widehat{\phi}(\rho) \cdot \widehat{\psi}(\rho)
+	\end{align*}
+	Questo dimostra che la trasformata di Fourier converte la convoluzione (operazione complessa in $\C G$) nel prodotto di matrici (operazione puntuale nello spazio trasformato).
+\end{proof}
+
+\subsubsection*{2. Formula di Inversione di Fourier}
+Possiamo ricostruire la funzione originale $\phi$ conoscendo le sue trasformate.
+\textbf{Formula:}
+\begin{equation}
+	\phi(g) = \frac{1}{|G|} \sum_{\rho \in \mathrm{Irr}(G)} \dim(V_\rho) \cdot \mathrm{Trace}(\rho(g^{-1}) \widehat{\phi}(\rho))
+\end{equation}
+
+\begin{proof}
+	Sostituiamo la definizione di $\widehat{\phi}(\rho)$ nel membro destro (RHS):
+	\begin{align*}
+		\text{RHS} &= \frac{1}{|G|} \sum_{\rho} d_\rho \mathrm{Trace}\left( \rho(g^{-1}) \sum_{h \in G} \phi(h) \rho(h) \right) \\
+		&= \frac{1}{|G|} \sum_{h \in G} \phi(h) \sum_{\rho} d_\rho \mathrm{Trace}(\rho(g^{-1}h))
+	\end{align*}
+	Notiamo che $\mathrm{Trace}(\rho(x)) = \chi_\rho(x)$. Usiamo la \textit{Seconda Relazione di Ortogonalità} per i caratteri, che afferma:
+	\begin{equation}
+		\sum_{\rho \in \mathrm{Irr}(G)} \chi_\rho(x) \chi_\rho(e) = \sum_{\rho} d_\rho \chi_\rho(x) = \begin{cases} |G| & \text{se } x=e \\ 0 & \text{se } x \neq e \end{cases}
+	\end{equation}
+	Nel nostro caso $x = g^{-1}h$. La somma interna è non nulla (e vale $|G|$) solo quando $g^{-1}h = e$, ovvero $h=g$.
+	Tutti i termini della somma su $h$ si annullano tranne quello per $h=g$:
+	\begin{align*}
+		\text{RHS} &= \frac{1}{|G|} \cdot \phi(g) \cdot |G| = \phi(g)
+	\end{align*}
+\end{proof}
+
+\subsubsection*{3. Formula di Plancherel}
+Esiste una relazione che conserva il prodotto scalare (o l'energia) tra lo spazio delle funzioni e lo spazio delle matrici.
+\textbf{Formula:}
+\begin{equation}
+	\sum_{g \in G} \phi(g^{-1})\psi(g) = \frac{1}{|G|} \sum_{\rho} d_\rho \mathrm{Trace}(\widehat{\phi}(\rho)\widehat{\psi}(\rho))
+\end{equation}
+
+\begin{proof}
+	Osserviamo che il membro sinistro è esattamente il valore della convoluzione $(\phi * \psi)$ calcolato nell'identità $e$:
+	\begin{equation}
+		(\phi * \psi)(e) = \sum_{h} \phi(h) \psi(h^{-1}e) = \sum_{h} \phi(h)\psi(h^{-1})
+	\end{equation}
+	(Nota: ponendo $g=h^{-1}$, otteniamo la forma $\sum \phi(g^{-1})\psi(g)$).
+	Applichiamo la Formula di Inversione alla funzione $\Theta = \phi * \psi$ valutata in $g=e$:
+	\begin{align*}
+		(\phi * \psi)(e) &= \frac{1}{|G|} \sum_{\rho} d_\rho \mathrm{Trace}(\rho(e^{-1}) \widehat{\Theta}(\rho)) \\
+		&= \frac{1}{|G|} \sum_{\rho} d_\rho \mathrm{Trace}(\Identity \cdot \widehat{\phi * \psi}(\rho))
+	\end{align*}
+	Usando il Teorema di Convoluzione $\widehat{\phi * \psi} = \widehat{\phi} \cdot \widehat{\psi}$, otteniamo:
+	\begin{equation}
+		= \frac{1}{|G|} \sum_{\rho} d_\rho \mathrm{Trace}(\widehat{\phi}(\rho)\widehat{\psi}(\rho))
+	\end{equation}
+\end{proof}
+
 \section{Gruppi continui}
 In questa sezione, introduciamo i concetti fondamentali di gruppo di Lie e algebra di Lie, stabilendo la connessione tra queste due strutture attraverso i generatori infinitesimali e la mappa esponenziale.
 
@@ -1065,71 +1297,214 @@ In questa sezione, introduciamo i concetti fondamentali di gruppo di Lie e algeb
 
 \subsection{Algebre di Lie}
 
-A ogni gruppo di Lie è associata un'algebra di Lie, che ne costituisce la "linearizzazione" infinitesimale vicino all'identità.
+Lo studio delle rappresentazioni dei gruppi di Lie richiede il passaggio dalla struttura globale del gruppo a quella locale e linearizzata dell'algebra di Lie. In questa sezione introduciamo formalmente le definizioni di Algebra di Lie, le mappe esponenziale e aggiunta, e i principi fondamentali che legano i gruppi alle loro algebre.
+
+\subsubsection{Motivazione e il Primo Principio}
+
+Il punto di partenza è l'osservazione che la struttura di un gruppo di Lie connesso è interamente determinata dal comportamento locale attorno all'identità.
+
+\begin{lemma}
+	Sia $G$ un gruppo di Lie connesso e $U \subset G$ un qualsiasi intorno dell'identità. Allora $U$ genera $G$.
+\end{lemma}
+
+Questa proprietà implica che un omomorfismo è determinato localmente. Formuliamo questo concetto come il \textbf{Primo Principio}:
+
+\begin{teorema}[Primo Principio]
+	Siano $G$ e $H$ gruppi di Lie, con $G$ connesso. Una mappa $\rho: G \to H$ è univocamente determinata dal suo differenziale all'identità, $d\rho_e: T_e G \to T_e H$.
+\end{teorema}
+
+Questo riduce il problema di descrivere un omomorfismo tra gruppi a una mappa lineare tra spazi vettoriali. Tuttavia, sorge la domanda inversa: quali mappe lineari tra $T_e G$ e $T_e H$ provengono da omomorfismi di gruppi? La risposta risiede nella struttura algebrica addizionale che lo spazio tangente possiede, ovvero il \textit{bracket} di Lie.
+
+\subsubsection{La Rappresentazione Aggiunta}
+
+Per definire una struttura sullo spazio tangente $T_e G$, dobbiamo considerare un'azione del gruppo che fissi l'identità. La moltiplicazione sinistra o destra non è adatta poiché non fissa $e$. Consideriamo invece l'azione per coniugio $\Psi_g: G \to G$, definita da:
+\begin{equation}
+	\Psi_g(h) = g h g^{-1}
+\end{equation}
+Poiché $\Psi_g(e) = e$, possiamo calcolarne il differenziale all'identità.
+
+\begin{definizione}[Rappresentazione Aggiunta $Ad$]
+	Definiamo la mappa $\mathrm{Ad}: G \to \mathrm{Aut}(T_e G)$ ponendo:
+	\begin{equation}
+		\mathrm{Ad}(g) = (d\Psi_g)_e: T_e G \to T_e G
+	\end{equation}
+	Questa è una rappresentazione del gruppo $G$ sul proprio spazio tangente, detta \textbf{rappresentazione aggiunta}.
+\end{definizione}
+
+La condizione che $\rho: G \to H$ sia un omomorfismo implica che $\rho$ rispetti l'azione di coniugio, ovvero il seguente diagramma commuta:
+\[
+\begin{tikzcd}
+	G \arrow[r, "\rho"] \arrow[d, "\Psi_g"'] & H \arrow[d, "\Psi_{\rho(g)}"] \\
+	G \arrow[r, "\rho"] & H
+\end{tikzcd}
+\]
+Passando ai differenziali all'identità, otteniamo che il differenziale $d\rho$ deve essere un omomorfismo di rappresentazioni rispetto all'azione aggiunta. Per ogni $v \in T_e G$:
+\begin{equation} \label{eq:Ad_commutes}
+	d\rho(\mathrm{Ad}(g)(v)) = \mathrm{Ad}(\rho(g))(d\rho(v))
+\end{equation}
+Ovvero, il seguente diagramma commuta:
+\[
+\begin{tikzcd}
+	T_e G \arrow[r, "d\rho"] \arrow[d, "\mathrm{Ad}(g)"'] & T_e H \arrow[d, "\mathrm{Ad}(\rho(g))"] \\
+	T_e G \arrow[r, "d\rho"] & T_e H
+\end{tikzcd}
+\]
+
+La condizione (\ref{eq:Ad_commutes}) coinvolge ancora il gruppo $G$. Per linearizzare completamente il problema, deriviamo la mappa $\mathrm{Ad}: G \to \mathrm{Aut}(T_e G)$ all'identità.
+Lo spazio tangente di $\mathrm{Aut}(T_e G)$ (che è un sottoinsieme aperto di $\mathrm{End}(T_e G)$) è identificato con $\mathrm{End}(T_e G)$ stesso.
+
+\begin{definizione}[Mappa aggiunta $ad$]
+	Il differenziale della rappresentazione aggiunta all'identità è denotato con minuscolo $\mathrm{ad}$:
+	\begin{equation}
+		\mathrm{ad} = (d\mathrm{Ad})_e : T_e G \to \mathrm{End}(T_e G)
+	\end{equation}
+	Questa è una mappa lineare. Per due vettori tangenti $X, Y \in T_e G$, definiamo il \textbf{bracket di Lie} come:
+	\begin{equation}
+		[X, Y] := \mathrm{ad}(X)(Y)
+	\end{equation}
+\end{definizione}
+
+La condizione che $\rho$ rispetti la struttura di gruppo si traduce, a livello di algebra, nel fatto che $d\rho$ rispetti l'azione aggiunta infinitesimale. Differenziando la relazione (\ref{eq:Ad_commutes}), otteniamo che il seguente diagramma commuta:
+\[
+\begin{tikzcd}
+	T_e G \arrow[r, "d\rho"] \arrow[d, "\mathrm{ad}(v)"'] & T_e H \arrow[d, "\mathrm{ad}(d\rho(v))"] \\
+	T_e G \arrow[r, "d\rho"] & T_e H
+\end{tikzcd}
+\]
+Formalmente, per ogni coppia di vettori tangenti $X, Y \in T_e G$:
+\begin{equation}
+	d\rho([X, Y]) = [d\rho(X), d\rho(Y)]
+\end{equation}
+
+Sebbene la definizione tramite $\mathrm{ad}$ sia astratta, essa coincide con il commutatore di matrici nel caso dei gruppi lineari.
+Sia $G = GL_n(\mathbb{R})$. In questo caso $T_e G \cong M_n(\mathbb{R})$.
+L'azione aggiunta è il coniugio di matrici: $\mathrm{Ad}(g)(M) = g M g^{-1}$.
+Siano $X, Y \in M_n(\mathbb{R})$. Sia $\gamma(t)$ una curva in $G$ tale che $\gamma(0) = I$ e $\gamma'(0) = X$. Allora:
+\begin{align*}
+	[X, Y] &= \mathrm{ad}(X)(Y) = \frac{d}{dt}\Big|_{t=0} (\mathrm{Ad}(\gamma(t))(Y)) \\
+	&= \frac{d}{dt}\Big|_{t=0} (\gamma(t) Y \gamma(t)^{-1})
+\end{align*}
+Applicando la regola di Leibniz e ricordando che $\frac{d}{dt}(\gamma^{-1}) = -\gamma^{-1} \dot{\gamma} \gamma^{-1}$ (che in $t=0$ vale $-X$), otteniamo:
+\begin{align*}
+	&= \gamma'(0) Y \gamma(0)^{-1} + \gamma(0) Y (-\gamma(0)^{-1} \gamma'(0) \gamma(0)^{-1}) \\
+	&= X \cdot Y \cdot I + I \cdot Y \cdot (-I \cdot X \cdot I) \\
+	&= XY - YX
+\end{align*}
+Questo giustifica la notazione a parentesi e dimostra che il bracket misura la non commutatività infinitesimale.
+
+\subsubsection{Definizione Formale e Secondo Principio}
+
+Il bracket soddisfa due proprietà fondamentali derivanti dalla sua natura di commutatore (o dalla definizione tramite $\mathrm{ad}$):
+\begin{enumerate}
+	\item \textbf{Antisimmetria:} $[X, Y] = -[Y, X]$.
+	\item \textbf{Identità di Jacobi:} $[X, [Y, Z]] + [Y, [Z, X]] + [Z, [X, Y]] = 0$.
+\end{enumerate}
+
+Siamo ora pronti per dare la definizione generale.
 
 \begin{definizione}[Algebra di Lie]
-	Un'\textbf{algebra di Lie} $\g$ è uno spazio vettoriale su un campo $\K$ (tipicamente $\R$ o $\mathbb{C}$), dotato di un'operazione binaria detta \textbf{parentesi di Lie} (o commutatore):
-	$$
-	[\cdot, \cdot] : \g \times \g \to \g \quad (X, Y) \mapsto [X, Y]
-	$$
-	che soddisfa le seguenti proprietà per ogni $X, Y, Z \in \g$ e $a, b \in \K$:
-	\begin{enumerate}
-		\item \textbf{Bilinearità}:
-		$[aX + bY, Z] = a[X, Z] + b[Y, Z]$ \\
-		$[X, aY + bZ] = a[X, Y] + b[X, Z]$
-		\item \textbf{Antisimmetria} (o Alternanza):
-		$[X, Y] = -[Y, X]$
-		(che implica $[X, X] = 0$ se $\text{char}(\K) \neq 2$)
-		\item \textbf{Identità di Jacobi}:
-		$[X, [Y, Z]] + [Y, [Z, X]] + [Z, [X, Y]] = 0$
-	\end{enumerate}
+	Un'algebra di Lie $\mathfrak{g}$ è uno spazio vettoriale dotato di una mappa bilineare antisimmetrica $[\cdot, \cdot]: \mathfrak{g} \times \mathfrak{g} \to \mathfrak{g}$ che soddisfa l'identità di Jacobi.
 \end{definizione}
 
-\begin{esempio}
-	Lo spazio vettoriale $\R^3$ dotato del prodotto vettoriale $(X, Y) \mapsto X \times Y$ forma un'algebra di Lie (isomorfa a $\mathfrak{so}(3)$). L'identità di Jacobi è una proprietà nota del doppio prodotto vettoriale.
-\end{esempio}
+Infine, formuliamo il risultato che risponde alla domanda iniziale sull'esistenza degli omomorfismi.
 
-\subsection{Generatori e Corrispondenza Gruppo-Algebra}
-
-\begin{definizione}[Algebra di Lie di un Gruppo di Lie]
-	L'algebra di Lie $\g$ associata a un gruppo di Lie $G$, denotata $\text{Lie}(G)$ o $\g$, è definita come lo \textbf{spazio tangente} al gruppo $G$ nell'elemento identità $e$:
-	$$
-	\g = T_e G
-	$$
-	Per i gruppi di matrici, se $G \subset GL(n, \K)$, l'algebra $\g$ è un sottospazio vettoriale di $M(n, \K)$ (le matrici $n \times n$) e la parentesi di Lie è data dal \textbf{commutatore di matrici}:
-	$$
-	[X, Y] = XY - YX \quad \forall X, Y \in \g
-	$$
-\end{definizione}
-
-\begin{definizione}[Generatori Infinitesimali]
-	Gli elementi $X \in \g = T_e G$ sono chiamati \textbf{generatori infinitesimali} (o semplicemente \textbf{generatori}) del gruppo di Lie $G$.
-	Essi rappresentano le "direzioni" in cui ci si può muovere dal punto di vista infinitesimale partendo dall'identità.
-	
-	Se $\dim(G) = n$, l'algebra $\g$ ha dimensione $n$. Una \textbf{base} $\{T_a\}_{a=1, \dots, n}$ per $\g$ è spesso chiamata "insieme di generatori". Le loro relazioni di commutazione:
-	$$
-	[T_a, T_b] = \sum_{c=1}^n f_{abc} T_c
-	$$
-	definiscono le \textbf{costanti di struttura} $f_{abc}$ dell'algebra.
-\end{definizione}
-
-La connessione tra l'algebra (i generatori) e il gruppo (gli elementi finiti) è data dalla mappa esponenziale.
-
-\begin{definizione}[Mappa Esponenziale]
-	La \textbf{mappa esponenziale} è un'applicazione $\exp: \g \to G$ che mappa lo spazio tangente $\g$ (l'algebra) su una regione del gruppo $G$ che contiene l'identità.
-	
-	Per ogni $X \in \g$, la mappa $t \mapsto \exp(tX)$ (con $t \in \R$) definisce un \textbf{sottogruppo a un parametro} in $G$. Questo è un omomorfismo di gruppi $(\R, +) \to G$.
-\end{definizione}
+\begin{teorema}[Secondo Principio]
+	Siano $G$ e $H$ gruppi di Lie, con $G$ connesso e \textit{semplicemente connesso}.
+	Esiste una corrispondenza biunivoca tra gli omomorfismi di gruppi di Lie $\rho: G \to H$ e gli omomorfismi di algebre di Lie $d\rho: \mathfrak{g} \to \mathfrak{h}$.
+	Specificamente, ogni mappa lineare $\phi: \mathfrak{g} \to \mathfrak{h}$ che preserva il bracket (cioè $\phi([X, Y]) = [\phi(X), \phi(Y)]$) è il differenziale di un unico omomorfismo di gruppi $\rho$.
+\end{teorema}
 
 \begin{osservazione}
-	Per i gruppi di matrici, la mappa esponenziale coincide con l'usuale \textbf{esponenziale di matrice}:
-	$$
-	\exp(X) = I + X + \frac{X^2}{2!} + \frac{X^3}{3!} + \dots = \sum_{k=0}^{\infty} \frac{X^k}{k!}
-	$$
-	In questo contesto, un generatore $X$ è infinitesimale nel senso che $g(t) = \exp(tX) \approx I + tX$ per $t$ piccolo.
+	È importante notare che non definiamo il bracket come $XY - YX$ in generale, perché il prodotto $XY$ non è definito in un'algebra di Lie astratta. Il prodotto è definito solo quando l'algebra è immersa in un'algebra di endomorfismi $\mathrm{End}(V)$ (o $\mathfrak{gl}(V)$). Tuttavia, il \textit{commutatore} $XY - YX$ è sempre un elemento dell'algebra di Lie indipendentemente dall'immersione scelta.
 \end{osservazione}
 
+\subsection{La Mappa Esponenziale}
 
+Lo strumento fondamentale per stabilire il collegamento tra la struttura globale di un gruppo di Lie $G$ e la struttura locale della sua algebra di Lie $\g$ è la mappa esponenziale.
+
+Sia $X \in \g \cong T_e G$ un vettore tangente all'identità. Dalla teoria delle equazioni differenziali ordinarie sulle varietà, sappiamo che esiste un unico campo vettoriale sinistro-invariante $v_X$ su $G$ tale che $(v_X)_e = X$.
+Le curve integrali di questo campo vettoriale che passano per l'identità hanno una struttura molto specifica.
+
+\begin{definizione}[Sottogruppo a un parametro]
+	Un \textbf{sottogruppo a un parametro} di $G$ è un omomorfismo di gruppi di Lie $\varphi: \R \to G$. Ovvero, una curva differenziabile tale che:
+	\begin{equation}
+		\varphi(s+t) = \varphi(s)\varphi(t) \quad \forall s,t \in \R
+	\end{equation}
+\end{definizione}
+
+Per ogni $X \in \g$, esiste un unico sottogruppo a un parametro $\varphi_X: \R \to G$ tale che il suo vettore tangente all'origine sia $X$, ossia $\varphi_X'(0) = X$.
+
+\begin{definizione}[Mappa Esponenziale]
+	La mappa esponenziale $\exp: \g \to G$ è definita ponendo:
+	\begin{equation}
+		\exp(X) := \varphi_X(1)
+	\end{equation}
+	Grazie alla proprietà di omomorfismo, si ha che $\varphi_X(t) = \exp(tX)$.
+\end{definizione}
+
+\subsubsection{Proprietà Fondamentali}
+
+La mappa esponenziale è un diffeomorfismo locale da un intorno dello zero in $\g$ a un intorno dell'identità in $G$. Inoltre, essa è \textit{naturale}, nel senso che commuta con gli omomorfismi di gruppi di Lie.
+
+\begin{proposizione}[Naturalità di $\exp$]
+	Sia $\psi: G \to H$ un omomorfismo di gruppi di Lie e sia $d\psi: \g \to \h$ il suo differenziale all'identità. Il seguente diagramma commuta:
+	\[
+	\begin{tikzcd}
+		\g \arrow[r, "d\psi"] \arrow[d, "\exp_G"'] & \h \arrow[d, "\exp_H"] \\
+		G \arrow[r, "\psi"] & H
+	\end{tikzcd}
+	\]
+	Ovvero, $\psi(\exp_G(X)) = \exp_H(d\psi(X))$ per ogni $X \in \g$.
+\end{proposizione}
+
+Nel caso specifico in cui $G = GL_n(\K)$ (e quindi $\g = \mathfrak{gl}_n(\K)$ è l'algebra delle matrici $n \times n$), la mappa esponenziale coincide con la classica esponenziale di matrice definita dalla serie di potenze:
+\begin{equation}
+	\exp(X) = \sum_{k=0}^\infty \frac{X^k}{k!} = I + X + \frac{X^2}{2} + \dots
+\end{equation}
+Questa serie converge per ogni matrice $X$.
+
+\subsubsection{La Formula di Campbell-Hausdorff}
+
+Poiché $\exp$ è un diffeomorfismo locale, possiamo definire localmente la sua inversa, il logaritmo ($\log: G \to \g$). Questo ci permette di trasportare l'operazione di moltiplicazione del gruppo $G$ nello spazio vettoriale $\g$.
+Siano $X, Y \in \g$ sufficientemente vicini all'origine. Definiamo l'operazione:
+\begin{equation}
+	X * Y := \log(\exp(X) \cdot \exp(Y))
+\end{equation}
+La domanda cruciale è: come si esprime $X * Y$ in termini di operazioni in $\g$?
+Se $G$ è commutativo, $e^X e^Y = e^{X+Y}$, quindi $X * Y = X + Y$.
+Nel caso non commutativo, la formula di Campbell-Hausdorff asserisce che $X * Y$ può essere espresso interamente in termini di $X$, $Y$ e del loro bracket $[X, Y]$ (e bracket annidati), senza mai usare il prodotto di matrici $XY$ isolatamente.
+
+Espandendo in serie (per $G \subset GL_n$):
+\begin{align*}
+	\exp(X)\exp(Y) &= \left(I + X + \frac{X^2}{2} + \dots\right)\left(I + Y + \frac{Y^2}{2} + \dots\right) \\
+	&= I + (X+Y) + \left(\frac{X^2}{2} + XY + \frac{Y^2}{2}\right) + \dots
+\end{align*}
+Utilizzando l'espansione di $\log(A) = (A-I) - (A-I)^2/2 + \dots$, si ottiene l'approssimazione ai primi ordini:
+\begin{equation}
+	X * Y = X + Y + \frac{1}{2}[X, Y] + \frac{1}{12}([X, [X, Y]] + [Y, [Y, X]]) + \dots
+\end{equation}
+Questo risultato è di enorme importanza teorica: dimostra che la struttura del gruppo (la moltiplicazione) in un intorno dell'identità è interamente determinata dalla struttura dell'algebra di Lie (il bracket).
+
+\subsubsection{Sottoalgebre e Sottogruppi}
+
+La corrispondenza tra $G$ e $\g$ si estende ai sottostrutture.
+
+\begin{proposizione}[Corrispondenza Sottogruppi-Sottoalgebre]
+	Sia $G$ un gruppo di Lie e $\g$ la sua algebra.
+	\begin{enumerate}
+		\item Se $H \subset G$ è un sottogruppo di Lie, allora la sua algebra tangente $\h = T_e H$ è una sottoalgebra di Lie di $\g$ (ovvero è chiusa rispetto al bracket).
+		\item Viceversa, sia $\h \subset \g$ una sottoalgebra di Lie. Allora esiste un unico sottogruppo di Lie connesso immerso $H \subset G$ tale che $T_e H = \h$. Il sottogruppo $H$ è generato dall'immagine $\exp(\h)$.
+	\end{enumerate}
+\end{proposizione}
+
+Questo risultato completa la giustificazione del \textbf{Secondo Principio} introdotto precedentemente: un omomorfismo di algebre di Lie $\phi: \g \to \h$ (che ha come grafico una sottoalgebra di $\g \oplus \h$) si integra a un omomorfismo di gruppi $G \to H$ (se $G$ è semplicemente connesso).
+
+\begin{proof}[Idea della dimostrazione]
+	La condizione necessaria (chiusura rispetto al bracket) deriva dalla naturalità del bracket.
+	Per la condizione sufficiente, nel caso $G=GL_n$, si usa la formula di Campbell-Hausdorff: se $X, Y \in \h$, allora $X, Y$ e tutti i loro bracket stanno in $\h$. La formula mostra che $\exp(X)\exp(Y) = \exp(Z)$ dove $Z$ è una serie di Lie in $X,Y$, quindi $Z \in \h$ (poiché $\h$ è chiusa). Pertanto, il prodotto di esponenziali rimane nell'immagine esponenziale di $\h$, definendo una struttura di sottogruppo.
+\end{proof}
+
+\subsection{Teoremi di Lie}
 
 Per la seguente trattazione, sia $G$ un gruppo di Lie con algebra di Lie $\g = \Lie(G) = T_e G$, e sia $H$ un gruppo di Lie con algebra $\h = \Lie(H) = T_e H$. Tutte le algebre di Lie sono assunte essere a dimensione finita sul campo $\mathbb{R}$.
 
@@ -1906,18 +2281,111 @@ Formalizziamo le regole presentate nell'immagine, utilizzando $T_1$ per il diagr
 	\end{enumerate}
 \end{teorema}
 
-\subsection{Spiegazione Formale (Perché Funziona)}
-L'algoritmo di Littlewood-Richardson non è solo un trucco mnemonico; è la manifestazione combinatoria di profonde simmetrie algebriche.
+\subsection{Fondamenti della Regola di Littlewood-Richardson e Dualità di Schur-Weyl}
 
-\begin{itemize}
-	\item \textbf{Dualità di Schur-Weyl:} Come sappiamo, esiste una dualità tra le azioni di $GL(N)$ e del gruppo simmetrico $S_k$ sullo spazio tensoriale $V^{\otimes k}$. Un'irrep $\lambda$ di $GL(N)$ è associata a una specifica irrep (simmetrizzatore) $\lambda$ di $S_k$.
-	
-	\item \textbf{Prodotto Tensoriale come Induzione:} Calcolare $D_\lambda \otimes D_\mu$ (per $GL(N)$) corrisponde a un problema nel gruppo simmetrico: calcolare la \textbf{rappresentazione indotta} $\text{Ind}_{S_k \times S_l}^{S_{k+l}}(\lambda \boxtimes \mu)$, dove $k=|\lambda|$ e $l=|\mu|$.
-	
-	\item \textbf Coefficienti di Littlewood-Richardson: I coefficienti $C_{\lambda\mu}^{\nu}$ sono definiti algebricamente come le molteplicità delle irreps $\nu$ in questa induzione.
+La potenza computazionale dei diagrammi di Young e la validità dell'algoritmo di Littlewood-Richardson non sono meri artifici combinatori, ma conseguenze dirette della struttura profonda che lega le rappresentazioni del gruppo lineare generale $GL(V)$ a quelle del gruppo simmetrico $S_k$. Questa connessione è codificata nel celebre teorema della dualità di Schur-Weyl.
 
-\item \textbf L'Algoritmo: L'algoritmo (a)-(d) è un metodo puramente combinatorio, scoperto molto più tardi, che calcola esattamente questi coefficienti. La Regola (b.3) (Parola di Lattice) è la condizione cruciale che garantisce che il conteggio corrisponda esattamente alla molteplicità algebrica, assicurando che il tableau sia "semi-standard". La Regola (d) è l'unica specifica per $S\!L(N)$ (e $SU(N)$), poiché impone $\det(U)=1$, rendendo il tensore $\epsilon^{i_1 \dots i_N}$ invariante.
-\end{itemize}
+In questa sezione dimostriamo che la decomposizione del prodotto tensoriale di due rappresentazioni irriducibili di $GL(V)$ è equivalentemente descritta dalla decomposizione di una rappresentazione indotta nel gruppo simmetrico. I diagrammi di Young, indicizzando le partizioni $\lambda$, fungono da ponte naturale tra questi due mondi.
+
+\begin{definizione}[Moduli di Weyl e Moduli di Specht]
+	Sia $V$ uno spazio vettoriale complesso di dimensione $d$. Per ogni partizione $\lambda$ di un intero $k$ (denotato $\lambda \vdash k$):
+	\begin{itemize}
+		\item Indichiamo con $V_\lambda$ la rappresentazione irriducibile di $GL(V)$ associata a $\lambda$ (detta modulo di Weyl o funtore di Schur), non nulla se l'altezza del diagramma di Young è $\ell(\lambda) \leq d$.
+		\item Indichiamo con $S_\lambda$ la rappresentazione irriducibile del gruppo simmetrico $S_k$ associata a $\lambda$ (detta modulo di Specht).
+	\end{itemize}
+\end{definizione}
+
+La regola di Littlewood-Richardson è l'algoritmo che calcola i coefficienti $c_{\lambda\mu}^\nu$ che appaiono nella decomposizione:
+\begin{equation} \label{eq:gl_tensor}
+	V_\lambda \otimes V_\mu \cong \bigoplus_{\nu} c_{\lambda\mu}^\nu V_\nu
+\end{equation}
+dove $\lambda \vdash n$, $\mu \vdash m$ e $\nu \vdash (n+m)$.
+
+\begin{definizione}[Rappresentazione Indotta e Ristretta]
+	Sia $G$ un gruppo finito e $H \subset G$ un suo sottogruppo.
+	\begin{itemize}
+		\item Data una rappresentazione $W$ di $G$, la \textbf{restrizione} $\mathrm{Res}_H^G(W)$ è lo spazio $W$ visto come rappresentazione di $H$.
+		\item Data una rappresentazione $U$ di $H$, la \textbf{rappresentazione indotta} $\mathrm{Ind}_H^G(U)$ è lo spazio vettoriale $\K[G] \otimes_{\K[H]} U$. Intuitivamente, essa costruisce una rappresentazione di $G$ "estendendo" $U$.
+	\end{itemize}
+\end{definizione}
+
+\begin{osservazione}[Sul prodotto tensoriale su $\K H$]
+	La notazione $\K[G] \otimes_{\K[H]} U$ indica il prodotto tensoriale di moduli sull'anello $\K[H]$. Esso è il quoziente dello spazio vettoriale $\K[G] \otimes_{\K} U$ rispetto alle relazioni $gh \otimes u - g \otimes hu = 0$ per ogni $g \in G, h \in H, u \in U$. Questa costruzione permette di estendere l'azione di $H$ su $U$ a un'azione di $G$, permutando le copie di $U$ indicizzate dalle classi laterali $G/H$.
+\end{osservazione}
+
+Il legame tra queste due operazioni è sancito dal seguente lemma fondamentale, che useremo per "spostare" il problema dal sottogruppo prodotto $S_n \times S_m$ al gruppo totale $S_{n+m}$.
+
+\begin{lemma}[Reciprocità di Frobenius]
+	Siano $U$ una rappresentazione di $H$ e $W$ una rappresentazione di $G$. Esiste un isomorfismo naturale tra gli spazi degli omomorfismi (intertwining operators):
+	\begin{equation}
+		\mathrm{Hom}_G(\mathrm{Ind}_H^G(U), W) \cong \mathrm{Hom}_H(U, \mathrm{Res}_H^G(W))
+	\end{equation}
+	In termini di caratteri e molteplicità, indicando con $\innerprod{\cdot}{\cdot}_G$ il prodotto scalare tra caratteri di $G$:
+	\begin{equation}
+		\innerprod{\chi_{\mathrm{Ind}(U)}}{\chi_W}_G = \innerprod{\chi_U}{\chi_{\mathrm{Res}(W)}}_H
+	\end{equation}
+	Questo significa che la molteplicità di $W$ nell'indotto di $U$ è uguale alla molteplicità di $U$ nella restrizione di $W$.
+\end{lemma}
+
+Ora enunciamo il teorema ponte tra $GL(V)$ e $S_k$.
+
+\begin{teorema}[Dualità di Schur-Weyl]
+	Sia $V$ uno spazio vettoriale di dimensione $d$. L'azione naturale di $GL(V)$ e l'azione di permutazione di $S_k$ sullo spazio tensoriale $V^{\otimes k}$ commutano e generano le rispettive algebre commutanti (Teorema del Doppio Commutante). Di conseguenza, lo spazio si decompone come modulo per $GL(V) \times S_k$ in:
+	\begin{equation} \label{eq:schur_weyl}
+		V^{\otimes k} \cong \bigoplus_{\substack{\lambda \vdash k \\ \ell(\lambda) \le d}} V_\lambda \otimes S_\lambda
+	\end{equation}
+	dove:
+	\begin{itemize}
+		\item $V_\lambda$ è la rappresentazione irriducibile di $GL(V)$ (Modulo di Weyl).
+		\item $S_\lambda$ è la rappresentazione irriducibile di $S_k$ (Modulo di Specht).
+	\end{itemize}
+	Una conseguenza cruciale è la corrispondenza delle molteplicità: qualsiasi sottospazio isotipico di $V^{\otimes k}$ rispetto a $GL(V)$ è della forma $V_\lambda \otimes M_\lambda$, dove $M_\lambda$ deve essere isomorfo a $S_\lambda$ come $S_k$-modulo.
+\end{teorema}
+
+La ragione per cui manipoliamo "scatole" e diagrammi per calcolare i coefficienti $c_{\lambda\mu}^\nu$ risiede nella seguente proposizione, che trasferisce il problema dal dominio continuo di $GL(V)$ a quello discreto di $S_k$.
+
+\begin{proposizione}
+	I coefficienti di Littlewood-Richardson $c_{\lambda\mu}^\nu$ che governano il prodotto tensoriale di rappresentazioni di $GL(V)$ sono identici ai coefficienti di molteplicità della rappresentazione indotta del gruppo simmetrico. Nello specifico:
+	\begin{equation}
+		\mathrm{Ind}_{S_n \times S_m}^{S_{n+m}} (S_\lambda \otimes S_\mu) \cong \bigoplus_{\nu} c_{\lambda\mu}^\nu S_\nu
+	\end{equation}
+\end{proposizione}
+
+\begin{proof}
+	Consideriamo lo spazio tensoriale $V^{\otimes (n+m)}$. Possiamo vederlo come il prodotto tensoriale di due spazi distinti $V^{\otimes n} \otimes V^{\otimes m}$.
+	Applichiamo la dualità di Schur-Weyl separatamente ai due fattori. Abbiamo l'isomorfismo come modulo per $(GL(V) \times S_n) \times (GL(V) \times S_m)$:
+	\begin{equation}
+		V^{\otimes n} \otimes V^{\otimes m} \cong \left( \bigoplus_{\lambda \vdash n} V_\lambda \otimes S_\lambda \right) \otimes \left( \bigoplus_{\mu \vdash m} V_\mu \otimes S_\mu \right)
+	\end{equation}
+	Riordinando i termini del prodotto tensoriale, possiamo raggruppare le parti relative a $GL(V)$ e quelle relative ai gruppi simmetrici. Notiamo che l'azione di $GL(V)$ è diagonale su $V^{\otimes n} \otimes V^{\otimes m}$.
+	\begin{equation} \label{eq:decomp1}
+		V^{\otimes (n+m)} \cong \bigoplus_{\lambda, \mu} (V_\lambda \otimes V_\mu) \otimes (S_\lambda \otimes S_\mu)
+	\end{equation}
+	In questa espressione, $S_\lambda \otimes S_\mu$ è una rappresentazione irriducibile del sottogruppo $S_n \times S_m \subset S_{n+m}$.
+	
+	D'altra parte, applicando la dualità di Schur-Weyl direttamente allo spazio totale $V^{\otimes (n+m)}$ rispetto al gruppo $GL(V) \times S_{n+m}$, otteniamo:
+	\begin{equation} \label{eq:decomp2}
+		V^{\otimes (n+m)} \cong \bigoplus_{\nu \vdash (n+m)} V_\nu \otimes S_\nu
+	\end{equation}
+	Per confrontare la (\ref{eq:decomp1}) con la (\ref{eq:decomp2}), dobbiamo restringere l'azione di $S_{n+m}$ al sottogruppo $S_n \times S_m$ nella (\ref{eq:decomp2}), oppure considerare la struttura di $GL(V)$-modulo.
+	Concentriamoci sulla decomposizione del prodotto tensoriale di $GL(V)$ definita in (\ref{eq:gl_tensor}). Sostituendo $V_\lambda \otimes V_\mu = \bigoplus_\nu c_{\lambda\mu}^\nu V_\nu$ nella (\ref{eq:decomp1}):
+	\begin{equation}
+		V^{\otimes (n+m)} \cong \bigoplus_{\lambda, \mu} \left( \bigoplus_{\nu} c_{\lambda\mu}^\nu V_\nu \right) \otimes (S_\lambda \otimes S_\mu)
+	\end{equation}
+	Raccogliendo i termini rispetto ai moduli $V_\nu$ irriducibili di $GL(V)$:
+	\begin{equation} \label{eq:final_compare}
+		V^{\otimes (n+m)} \cong \bigoplus_{\nu} V_\nu \otimes \left( \bigoplus_{\lambda, \mu} c_{\lambda\mu}^\nu (S_\lambda \otimes S_\mu) \right)
+	\end{equation}
+	Per il teorema del doppio commutante (una proprietà chiave della dualità di Schur-Weyl), la molteplicità dello spazio $V_\nu$ nella decomposizione deve corrispondere esattamente allo spazio $S_\nu$ nella (\ref{eq:decomp2}). Tuttavia, nella (\ref{eq:final_compare}), lo spazio accoppiato a $V_\nu$ è $\bigoplus_{\lambda, \mu} c_{\lambda\mu}^\nu (S_\lambda \otimes S_\mu)$ visto come rappresentazione di $S_n \times S_m$.
+	
+	Per la reciprocità di Frobenius, la molteplicità di una rappresentazione irriducibile $S_\nu$ (di $S_{n+m}$) contenuta in una rappresentazione indotta da $S_\lambda \otimes S_\mu$ è uguale alla molteplicità di $S_\lambda \otimes S_\mu$ nella restrizione di $S_\nu$ a $S_n \times S_m$.
+	Confrontando le strutture, si deduce che lo spazio $S_\nu$ in (\ref{eq:decomp2}) si decompone rispetto a $S_n \times S_m$ con le stesse molteplicità $c_{\lambda\mu}^\nu$.
+	Inversamente, l'indotto $\mathrm{Ind}_{S_n \times S_m}^{S_{n+m}} (S_\lambda \otimes S_\mu)$ si decompone in irreducibili $S_\nu$ con molteplicità $c_{\lambda\mu}^\nu$.
+	
+	Pertanto, i diagrammi di Young funzionano perché forniscono una combinatoria (tramite il riempimento di tableau e la condizione di parola di lattice) che enumera esattamente queste molteplicità nello spazio delle rappresentazioni del gruppo simmetrico, le quali, per dualità, corrispondono ai coefficienti del prodotto tensoriale in $GL(V)$.
+\end{proof}
+
+
 
 \subsection{Esempio: $SU(3) \implies \mathbf{3} \otimes \bar{\mathbf{3}}$}
 

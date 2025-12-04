@@ -1,0 +1,1064 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage{geometry}
+\usepackage{physics} 
+
+
+\geometry{a4paper, top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
+
+% Ambienti per teoremi e definizioni
+\theoremstyle{definition}
+\newtheorem{ex}{Esercizio}
+\newtheorem*{sol}{Soluzione}
+\newtheorem*{oss}{Osservazione}
+\newtheorem{lemma}{Lemma}
+
+% Macro utili
+\newcommand{\HH}{\mathcal{H}}
+\newcommand{\BB}{\mathcal{B}}
+\newcommand{\K}{\mathbb{K}} % Campo scalare (R o C)
+\newcommand{\inner}[2]{\left\langle #1, #2 \right\rangle}
+\DeclareMathOperator{\Ran}{Ran}
+\DeclareMathOperator{\Ker}{Ker}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\einx}{e^{inx}}
+\newcommand{\Hone}{H^1(I)}
+\newcommand{\Honez}{H^1_0(I)}
+\newcommand{\Ltwo}{L^2(I)}
+\newcommand{\Dom}{\mathcal{D}}
+\newcommand{\Op}[1]{\hat{#1}}
+\newcommand{\vecOp}[1]{\hat{\mathbf{#1}}}
+\newcommand{\normprime}[1]{\left\lVert#1\right\rVert'}
+
+\title{\textbf{Esercizi Operatori}}
+\author{Tommaso Pedroni}
+\date{}
+
+\begin{document}
+	
+	\maketitle
+	
+	\section*{Traccia dell'Esercizio}
+	Sia $\HH$ uno spazio di Hilbert e sia $T = T^* \in \BB_\infty(\HH)$ un operatore compatto autoaggiunto. Dato $\psi_0 \in \HH$, si considerino le equazioni:
+	\begin{enumerate}
+		\item $T\psi = \psi$
+		\item $T\psi = \psi + \psi_0$
+	\end{enumerate}
+	Si mostri che:
+	\begin{enumerate}
+		\item[(a)] Se l'unica soluzione di (1) è $\psi=0$, allora l'equazione (2) ammette un'unica soluzione.
+		\item[(b)] Se l'equazione (1) ammette soluzioni $\psi \neq 0$, allora l'equazione (2) è risolubile se e solo se $\psi_0$ è ortogonale ad ogni soluzione di (1).
+	\end{enumerate}
+	
+	\hrule
+	\vspace{0.5cm}
+	
+	\begin{sol}
+		Definiamo l'operatore $S: \HH \to \HH$ come:
+		\[
+		S \coloneqq T - I.
+		\]
+		Poiché $T$ è limitato (in quanto compatto) e $I$ è limitato, $S$ è un operatore limitato. Inoltre, poiché $T$ è autoaggiunto ($T=T^*$) e l'identità è autoaggiunta, $S$ è autoaggiunto:
+		\[
+		S^* = (T-I)^* = T^* - I^* = T - I = S.
+		\]
+		Le equazioni date possono essere riscritte come:
+		\begin{enumerate}
+			\item $S\psi = 0$ (Equazione omogenea)
+			\item $S\psi = \psi_0$ (Equazione non omogenea, a meno di un segno ininfluente su $\psi_0$)
+		\end{enumerate}
+		
+		\subsection*{Parte (a)}
+		\textbf{Ipotesi:} L'unica soluzione della (1) è $\psi=0$. Questo implica che $\Ker(S) = \{0\}$.
+		
+		\subsubsection*{1. Analisi del Nucleo $\Ker(S)$}
+		Dobbiamo formalizzare che $\Ker(S)$ è un sottospazio vettoriale (banale ma necessario per rigore).
+		Il nucleo è definito come $\Ker(S) = \{ \psi \in \HH \mid (T-I)\psi = 0 \}$.
+		
+		\begin{itemize}
+			\item \textbf{Contiene lo zero:} $S(0) = T(0) - 0 = 0$, quindi $0 \in \Ker(S)$.
+			\item \textbf{Chiusura rispetto alle operazioni lineari:} Siano $\phi_1, \phi_2 \in \Ker(S)$ e $\alpha, \beta \in \mathbb{C}$.
+			\[
+			S(\alpha \phi_1 + \beta \phi_2) = \alpha S(\phi_1) + \beta S(\phi_2) = \alpha \cdot 0 + \beta \cdot 0 = 0.
+			\]
+			Pertanto $\alpha \phi_1 + \beta \phi_2 \in \Ker(S)$.
+		\end{itemize}
+		Dunque $\Ker(S)$ è un sottospazio lineare. Per l'ipotesi di questa sezione, $\Ker(S) = \{0\}$, il che implica che l'operatore $S$ è \textbf{iniettivo}. L'unicità della soluzione, qualora esista, è garantita. Resta da dimostrare l'esistenza (suriettività).
+		
+		\subsubsection*{2. Dimostrazione della Chiusura del Rango e Suriettività}
+		Per dimostrare che l'equazione $S\psi = \psi_0$ ammette soluzione per ogni $\psi_0$, dobbiamo mostrare che $\Ran(S) = \HH$.
+		Essendo $S$ autoaggiunto, vale la decomposizione ortogonale:
+		\[
+		\HH = \overline{\Ran(S)} \oplus \Ker(S).
+		\]
+		Dato che $\Ker(S) = \{0\}$, segue che $\overline{\Ran(S)} = \HH$. Ovvero, l'immagine è densa.
+		Per concludere che $\Ran(S) = \HH$, è necessario e sufficiente dimostrare che $\Ran(S)$ è un insieme \textbf{chiuso}.
+		
+		\paragraph{Dimostrazione della chiusura di $\Ran(S)$.}
+		Sia $\{y_n\}_{n \in \mathbb{N}} \subset \Ran(S)$ una successione convergente ad un elemento $y \in \HH$, cioè $\lim_{n \to \infty} \norm{y_n - y} = 0$.
+		Dobbiamo dimostrare che esiste un $x \in \HH$ tale che $Sx = y$.
+		
+		Poiché $y_n \in \Ran(S)$, per ogni $n$ esiste un unico $x_n \in \HH$ (per l'iniettività dimostrata al punto 1) tale che:
+		\[
+		S x_n = y_n.
+		\]
+		
+		\textbf{Passo fondamentale: Limitazione della successione preimmagine.}
+		Dobbiamo dimostrare che la successione $\{x_n\}$ è limitata in norma.
+		Procediamo per \textbf{assurdo}.
+		Supponiamo che $\{x_n\}$ non sia limitata. Allora esiste una sottosuccessione (che per semplicità di notazione indichiamo ancora con $x_n$) tale che:
+		\[
+		\norm{x_n} \to \infty \quad \text{per } n \to \infty.
+		\]
+		Definiamo la successione normalizzata:
+		\[
+		z_n \coloneqq \frac{x_n}{\norm{x_n}}.
+		\]
+		Osserviamo che $\norm{z_n} = 1$ per ogni $n$. Applichiamo l'operatore $S$:
+		\[
+		S z_n = S \left( \frac{x_n}{\norm{x_n}} \right) = \frac{1}{\norm{x_n}} S x_n = \frac{y_n}{\norm{x_n}}.
+		\]
+		Poiché $y_n \to y$ (quindi è limitata in norma) e $\norm{x_n} \to \infty$, abbiamo:
+		\[
+		\lim_{n \to \infty} S z_n = 0.
+		\]
+		Ricordando che $S = T - I$, possiamo scrivere:
+		\[
+		(T - I)z_n \to 0 \implies z_n - T z_n \to 0 \implies z_n \approx T z_n.
+		\]
+		Poiché $\{z_n\}$ è una successione limitata (norma unitaria) e l'operatore $T$ è \textbf{compatto}, dalla definizione di compattezza segue che esiste una sottosuccessione $\{z_{n_k}\}$ tale che $\{T z_{n_k}\}$ converge fortemente ad un vettore $z^* \in \HH$.
+		
+		Dalla relazione $z_{n_k} - T z_{n_k} \to 0$, segue che anche la successione $\{z_{n_k}\}$ deve convergere a $z^*$:
+		\[
+		z_{n_k} \to z^*.
+		\]
+		Per la continuità di $S$, abbiamo:
+		\[
+		S z^* = S (\lim_{k \to \infty} z_{n_k}) = \lim_{k \to \infty} S z_{n_k} = 0.
+		\]
+		Quindi $z^* \in \Ker(S)$. Ma per ipotesi $\Ker(S) = \{0\}$, quindi $z^* = 0$.
+		Tuttavia, sappiamo che $\norm{z_{n_k}} = 1$ per ogni $k$, quindi per continuità della norma:
+		\[
+		\norm{z^*} = \lim_{k \to \infty} \norm{z_{n_k}} = 1.
+		\]
+		Siamo giunti a una contraddizione ($0 = \norm{z^*} = 1$).
+		L'ipotesi che $\{x_n\}$ fosse illimitata è falsa. Dunque $\{x_n\}$ è limitata.
+		
+		\textbf{Conclusione della chiusura:}
+		Poiché $\{x_n\}$ è limitata e $T$ è compatto, esiste una sottosuccessione $\{x_{n_j}\}$ tale che $T x_{n_j}$ converge a un qualche vettore $w$.
+		Dall'equazione $S x_{n_j} = y_{n_j}$, abbiamo:
+		\[
+		(T - I) x_{n_j} = y_{n_j} \implies x_{n_j} = T x_{n_j} - y_{n_j}.
+		\]
+		Il termine di destra converge (poiché $T x_{n_j} \to w$ e $y_{n_j} \to y$), quindi $x_{n_j}$ converge ad un elemento $x \coloneqq w - y$.
+		Per continuità di $S$:
+		\[
+		Sx = \lim_{j \to \infty} S x_{n_j} = \lim_{j \to \infty} y_{n_j} = y.
+		\]
+		Dunque $y \in \Ran(S)$.
+		Abbiamo dimostrato che $\Ran(S)$ è chiuso.
+		
+		\textbf{Conclusione Parte (a):}
+		Poiché $\Ran(S)$ è chiuso e $\Ker(S)=\{0\}$, abbiamo:
+		\[
+		\Ran(S) = (\Ker(S^*))^\perp = (\Ker(S))^\perp = \{0\}^\perp = \HH.
+		\]
+		L'operatore $S$ è quindi una biiezione su $\HH$. L'equazione (2) ammette una ed una sola soluzione.
+		
+		\subsection*{Parte (b)}
+		\textbf{Ipotesi:} L'equazione (1) ammette soluzioni $\psi \neq 0$.
+		Questo significa che $\Ker(S) \neq \{0\}$. $\Ker(S)$ è l'autospazio di $T$ relativo all'autovalore $1$. Poiché $T$ è compatto, questo autospazio ha dimensione finita, ma qui ci basta sapere che non è banale.
+		
+		Dalla teoria generale (e ricalcando la dimostrazione di chiusura fatta al punto (a), che rimane valida anche se il nucleo non è nullo), sappiamo che $\Ran(S)$ è un sottospazio chiuso di $\HH$ .
+		
+		Essendo $\Ran(S)$ chiuso, vale esattamente:
+		\[
+		\Ran(S) = (\Ker(S^*))^\perp.
+		\]
+		Poiché $S$ è autoaggiunto ($S=S^*$), abbiamo:
+		\[
+		\Ran(S) = (\Ker(S))^\perp.
+		\]
+		L'equazione (2), $S\psi = \psi_0$, ha soluzione se e solo se $\psi_0 \in \Ran(S)$.
+		In virtù dell'uguaglianza sopra, questo equivale a:
+		\[
+		\psi_0 \in (\Ker(S))^\perp.
+		\]
+		Ovvero, $\psi_0$ deve essere ortogonale a ogni vettore del nucleo di $S$.
+		Poiché i vettori di $\Ker(S)$ sono esattamente le soluzioni dell'equazione omogenea (1), l'equazione (2) è risolubile se e solo se $\psi_0$ è ortogonale ad ogni soluzione della (1).
+		
+		\qed
+		
+	\end{sol}
+	
+	\section*{Traccia dell'Esercizio}
+	Sia $g \in L^2([0, 2\pi])$. Definito l'operatore $T: L^2([0, 2\pi]) \to L^2([0, 2\pi])$ come:
+	\[
+	f \mapsto T(f) \doteq g * f = \int_0^{2\pi} g(x-y)f(y) \, dy
+	\]
+	si mostri che $T \in \BB_\infty(L^2([0, 2\pi]))$ (ovvero $T$ è compatto) e che le funzioni $e^{inx}$ sono autovettori di $T$.
+	
+	\hrule
+	\vspace{0.5cm}
+	
+	\begin{sol}
+		Per procedere con il dovuto rigore, assumiamo che la funzione $g$, data in $L^2([0, 2\pi])$, sia estesa per periodicità a tutto $\R$. Questo rende ben definita l'espressione $g(x-y)$ per ogni coppia $(x,y)$.
+		
+		\subsection*{1. Spettro Puntuale: Gli autovettori}
+		Siano $\phi_n(x) \doteq e^{inx}$ con $n \in \Z$. Verifichiamo direttamente che questi sono autovettori applicando l'operatore integrale.
+		\[
+		(T\phi_n)(x) = \int_0^{2\pi} g(x-y) e^{iny} \, dy.
+		\]
+		Operiamo il cambio di variabile $z = x - y$. Di conseguenza $y = x - z$ e $dy = -dz$.
+		Gli estremi di integrazione si trasformano come segue: $y=0 \to z=x$ e $y=2\pi \to z=x-2\pi$.
+		\[
+		(T\phi_n)(x) = \int_{x}^{x-2\pi} g(z) e^{in(x-z)} (-dz) = e^{inx} \int_{x-2\pi}^{x} g(z) e^{-inz} \, dz.
+		\]
+		L'integranda $h(z) = g(z)e^{-inz}$ è il prodotto di funzioni $2\pi$-periodiche, ed è quindi essa stessa $2\pi$-periodica. È fatto noto dell'analisi reale che l'integrale di una funzione periodica su un intervallo pari al periodo è invariante per traslazione degli estremi:
+		\[
+		\int_{x-2\pi}^{x} h(z)\, dz = \int_{0}^{2\pi} h(z)\, dz.
+		\]
+		Sostituendo, otteniamo:
+		\[
+		(T\phi_n)(x) = e^{inx} \left( \int_{0}^{2\pi} g(z) e^{-inz} \, dz \right).
+		\]
+		Definendo lo scalare $\lambda_n \doteq \int_{0}^{2\pi} g(z) e^{-inz} \, dz$, abbiamo dimostrato che:
+		\[
+		T\phi_n = \lambda_n \phi_n.
+		\]
+		Dunque, le funzioni $\phi_n$ sono autovettori di $T$ relativi agli autovalori $\lambda_n$.
+		
+		\subsection*{2. Completezza del sistema ortonormale}
+		Per poter analizzare le proprietà spettrali globali dell'operatore, dobbiamo assicurarci che gli autovettori trovati generino l'intero spazio.
+		Definiamo il sistema normalizzato:
+		\[
+		u_n(x) \doteq \frac{1}{\sqrt{2\pi}} e^{inx}, \quad n \in \Z.
+		\]
+		Il sistema $\{u_n\}_{n \in \Z}$ è chiaramente ortonormale rispetto al prodotto scalare standard di $L^2$: $\inner{u_n}{u_m} = \delta_{nm}$.
+		
+		Per dimostrarne la completezza, mostriamo che il complemento ortogonale del sottospazio generato da $\{u_n\}$ è il solo vettore nullo.
+		Sia $f \in L^2([0, 2\pi])$ tale che $\inner{f}{u_n} = 0$ per ogni $n \in \Z$.
+		\[
+		\inner{f}{u_n} = \int_0^{2\pi} f(x) \overline{u_n(x)} \, dx = \frac{1}{\sqrt{2\pi}} \int_0^{2\pi} f(x) e^{-inx} \, dx = 0.
+		\]
+		Gli integrali sopra corrispondono (a meno del fattore di normalizzazione) ai coefficienti di Fourier di $f$, denotati $\hat{f}_n$.
+		L'ipotesi $\inner{f}{u_n} = 0, \forall n$ implica $\hat{f}_n = 0, \forall n$.
+		Per il \textbf{Teorema di Unicità} della serie di Fourier (conseguenza della densità dei polinomi trigonometrici e della completezza di $L^2$), una funzione $L^2$ con tutti i coefficienti di Fourier nulli è nulla quasi ovunque.
+		\[
+		f = 0 \quad \text{q.o.}
+		\]
+		Pertanto, $\{u_n\}_{n \in \Z}$ è una base ortonormale completa (Base di Hilbert) per $\HH$.
+		
+		\subsection*{3. Compattezza e Classe di Hilbert-Schmidt}
+		Per dimostrare che $T$ è compatto ($T \in \BB_\infty(\HH)$), dimostreremo la condizione più forte che $T$ è un operatore di Hilbert-Schmidt.
+		Un operatore $T$ è di Hilbert-Schmidt se, data una base ortonormale $\{e_k\}$, la quantità $\|T\|_{HS}^2 \doteq \sum_k \norm{T e_k}^2$ è finita.
+		
+		Scegliamo come base proprio gli autovettori normalizzati $\{u_n\}_{n \in \Z}$.
+		Poiché $T u_n = \lambda_n u_n$, abbiamo:
+		\[
+		\norm{T u_n}^2 = \norm{\lambda_n u_n}^2 = |\lambda_n|^2 \norm{u_n}^2 = |\lambda_n|^2.
+		\]
+		La norma Hilbert-Schmidt è dunque data dalla serie degli autovalori al quadrato:
+		\[
+		\|T\|_{HS}^2 = \sum_{n \in \Z} |\lambda_n|^2.
+		\]
+		Analizziamo i termini $\lambda_n$. Dalla definizione data nel punto 1:
+		\[
+		\lambda_n = \int_0^{2\pi} g(z) e^{-inz} \, dz.
+		\]
+		Possiamo riscrivere $\lambda_n$ in funzione dei coefficienti di Fourier della funzione $g$ rispetto alla base ortonormale $\{u_n\}$. I coefficienti di Fourier sono $\hat{g}_n = \inner{g}{u_n} = \frac{1}{\sqrt{2\pi}} \int_0^{2\pi} g(z) e^{-inz} \, dz$.
+		Risulta evidente che:
+		\[
+		\lambda_n = \sqrt{2\pi} \, \hat{g}_n.
+		\]
+		Sostituendo nella somma:
+		\[
+		\sum_{n \in \Z} |\lambda_n|^2 = \sum_{n \in \Z} \left| \sqrt{2\pi} \, \hat{g}_n \right|^2 = 2\pi \sum_{n \in \Z} |\hat{g}_n|^2.
+		\]
+		Poiché per ipotesi $g \in L^2([0, 2\pi])$, l'\textbf{Identità di Parseval} garantisce che la somma dei quadrati dei suoi coefficienti di Fourier converga al quadrato della norma della funzione:
+		\[
+		\sum_{n \in \Z} |\hat{g}_n|^2 = \norm{g}_{L^2}^2 < \infty.
+		\]
+		Di conseguenza:
+		\[
+		\|T\|_{HS}^2 = 2\pi \norm{g}_{L^2}^2 < \infty.
+		\]
+		L'operatore $T$ è dunque di Hilbert-Schmidt. Poiché la classe degli operatori di Hilbert-Schmidt è contenuta in quella degli operatori compatti ($\mathcal{B}_{HS} \subset \mathcal{B}_\infty$), concludiamo che $T$ è un operatore compatto.
+		
+		\qed
+		
+	\end{sol}
+	
+	\section*{Traccia dell'Esercizio}
+	Sia data una matrice $\sigma \in \mathcal{M}(n; \mathbb{R})$ positiva e sia $\psi \in L^2(\mathbb{R}^n)$. Si mostri che l'operatore
+	\[
+	L \doteq \text{div}(\sigma \nabla) = \nabla \cdot (\sigma \nabla)
+	\]
+	è essenzialmente autoaggiunto sullo spazio di Hilbert $\HH$, dove $\nabla$ è l'operatore gradiente.
+	
+	\hrule
+	\vspace{0.5cm}
+	
+	\begin{sol}
+		Per affrontare il problema con il dovuto rigore, è necessario specificare il dominio iniziale dell'operatore. Poiché stiamo trattando operatori differenziali su $\R^n$ non limitati, assumiamo come dominio di definizione lo spazio delle funzioni test a supporto compatto:
+		\[
+		\Dom(L) = C_0^\infty(\R^n) \subset L^2(\R^n).
+		\]
+		L'operatore $L$ è simmetrico su questo dominio. Infatti, per ogni $\phi, \psi \in C_0^\infty(\R^n)$, integrando per parti due volte e assumendo che i termini di bordo svaniscano (garantito dal supporto compatto), e sfruttando la simmetria di $\sigma$ (implicita nella definizione di positività per matrici reali in questo contesto, $\sigma_{ij} = \sigma_{ji}$):
+		\[
+		\inner{L\phi}{\psi} = \int_{\R^n} \nabla \cdot (\sigma \nabla \phi) \bar{\psi} \, dx = - \int_{\R^n} (\sigma \nabla \phi) \cdot \nabla \bar{\psi} \, dx = \int_{\R^n} \phi \overline{\nabla \cdot (\sigma \nabla \psi)} \, dx = \inner{\phi}{L\psi}.
+		\]
+		Per dimostrare che $L$ è \textbf{essenzialmente autoaggiunto} (ovvero che la sua chiusura $\bar{L}$ è autoaggiunta, $\bar{L} = L^*$), utilizziamo il \textbf{Criterio di Von Neumann}. Dobbiamo mostrare che gli indici di difetto sono nulli, ovvero:
+		\[
+		\ker(L^* - iI) = \{0\} \quad \text{e} \quad \ker(L^* + iI) = \{0\}.
+		\]
+		Poiché $L$ è a coefficienti reali, è sufficiente studiare una delle due equazioni, in quanto la coniugazione complessa mappa le soluzioni di una in quelle dell'altra. Cerchiamo quindi le soluzioni distribuzionali $\psi \in L^2(\R^n)$ dell'equazione:
+		\[
+		L\psi = i\psi \implies \nabla \cdot (\sigma \nabla \psi) - i\psi = 0.
+		\]
+		
+		\subsection*{1. Diagonalizzazione e Cambio di Variabili}
+		La matrice $\sigma$ è definita positiva. Per il Teorema Spettrale reale, esiste una matrice ortogonale $O \in O(n)$ tale che:
+		\[
+		O^T \sigma O = D = \text{diag}(\lambda_1, \dots, \lambda_n), \quad \text{con } \lambda_k > 0.
+		\]
+		Operiamo un cambio di variabili nello spazio $\R^n$ definito dalla rotazione $y = O^T x$. Poiché $O$ è ortogonale, la trasformazione è un'isometria unitaria su $L^2(\R^n)$ (preserva il prodotto scalare e la norma), quindi non altera le proprietà spettrali (come l'appartenenza a $L^2$).
+		Esprimiamo l'operatore differenziale nelle nuove coordinate $y$. Notiamo che $\nabla_x = O \nabla_y$. L'operatore diventa:
+		\[
+		\nabla_x \cdot (\sigma \nabla_x) = (O \nabla_y)^T \sigma (O \nabla_y) = \nabla_y^T (O^T \sigma O) \nabla_y = \nabla_y^T D \nabla_y = \sum_{k=1}^n \lambda_k \frac{\partial^2}{\partial y_k^2}.
+		\]
+		L'equazione agli autovalori nelle coordinate ruotate diventa:
+		\[
+		\sum_{k=1}^n \lambda_k \frac{\partial^2 \psi}{\partial y_k^2} - i \psi(y) = 0.
+		\]
+		
+		\subsection*{2. Analisi delle Soluzioni in $L^2$}
+		Vogliamo dimostrare che l'unica soluzione $\psi \in L^2(\R^n)$ a questa equazione è $\psi \equiv 0$.
+		Possiamo procedere con la \textbf{separazione delle variabili} come suggerito. Cerchiamo soluzioni elementari della forma $\psi(y) = \prod_{k=1}^n f_k(y_k)$. Sostituendo nell'equazione e dividendo per $\psi$:
+		\[
+		\sum_{k=1}^n \lambda_k \frac{f_k''(y_k)}{f_k(y_k)} = i.
+		\]
+		Affinché questa uguaglianza valga per ogni $y$, ogni termine della somma deve essere costante:
+		\[
+		\lambda_k \frac{f_k''(y_k)}{f_k(y_k)} = c_k, \quad \text{con } \sum_{k=1}^n c_k = i.
+		\]
+		Questo porta a $n$ equazioni differenziali ordinarie:
+		\[
+		f_k''(y_k) = \frac{c_k}{\lambda_k} f_k(y_k).
+		\]
+		Poniamo $\mu_k^2 = \frac{c_k}{\lambda_k}$. Le soluzioni generali sono combinazioni lineari di esponenziali:
+		\[
+		f_k(y_k) = A_k e^{\mu_k y_k} + B_k e^{-\mu_k y_k}.
+		\]
+		Affinché la soluzione prodotto $\psi(y)$ appartenga a $L^2(\R^n)$, è necessario che ciascun fattore $f_k(y_k)$ appartenga a $L^2(\R)$ (o sia nullo).
+		Analizziamo l'appartenenza a $L^2(\R)$ della funzione $e^{\mu y}$.
+		\[
+		\int_{-\infty}^{+\infty} |e^{\mu y}|^2 dy = \int_{-\infty}^{+\infty} e^{2\text{Re}(\mu) y} dy.
+		\]
+		Questo integrale converge se e solo se $\text{Re}(\mu) \neq 0$ e l'intervallo è limitato opportunamente, ma su tutto $\R$ diverge sempre a meno che la funzione non sia identicamente nulla.
+		\begin{itemize}
+			\item Se $\text{Re}(\mu) > 0$, l'esponenziale esplode a $+\infty$.
+			\item Se $\text{Re}(\mu) < 0$, l'esponenziale esplode a $-\infty$.
+			\item Se $\text{Re}(\mu) = 0$ (cioè $\mu$ immaginario puro), la funzione è oscillante con modulo costante $1$, e quindi non integrabile su $\R$.
+		\end{itemize}
+		Dato che $\sum c_k = i$, almeno uno dei coefficienti $c_k$ (e quindi $\mu_k$) deve essere non nullo e complesso, impedendo l'esistenza di soluzioni decadenti su tutto l'asse reale simultaneamente.
+		Poiché le combinazioni lineari (e limiti $L^2$) di tali soluzioni generano lo spazio delle soluzioni, concludiamo che:
+		\[
+		\ker(L^* - iI) = \{0\}.
+		\]
+		Analogamente, si dimostra che $\ker(L^* + iI) = \{0\}$.
+		
+		\subsection*{Conclusione}
+		Avendo dimostrato che gli indici di difetto sono $(0,0)$, per il criterio di Von Neumann l'operatore $L$ definito su $C_0^\infty(\R^n)$ è essenzialmente autoaggiunto. La sua unica estensione autoaggiunta è la sua chiusura.
+		
+		\qed
+	\end{sol}
+	
+	\section*{Traccia dell'Esercizio}
+	Sia dato il dominio $I = [0,1]$ e si consideri il problema di Dirichlet per $\psi: I \to \mathbb{R}$:
+	\[
+	\begin{cases}
+		-\frac{d^2\psi}{dx^2} + \psi = f \\
+		\psi|_{\partial I} = 0
+	\end{cases}
+	\]
+	dove $f \in C^\infty(I)$. Si mostri che esiste ed è unica una soluzione \textit{debole} $\psi_0 \in H^1_0(I)$ tale che:
+	\[
+	\int_I \psi_0 h \, dx + \int_I \frac{d\psi_0}{dx} \frac{dh}{dx} \, dx = \int_I f h \, dx, \quad \forall h \in H^1_0(I).
+	\]
+	
+	\hrule
+	\vspace{0.5cm}
+	
+	\begin{sol}
+		Per dimostrare l'esistenza e l'unicità della soluzione debole, riformuliamo il problema nel linguaggio dell'analisi funzionale sugli spazi di Hilbert, identificando la struttura variazionale dell'equazione.
+		
+		\subsection*{1. Lo Spazio di Hilbert e il Prodotto Scalare}
+		Consideriamo lo spazio di Sobolev $H^1(I)$, definito come:
+		\[
+		H^1(I) = \left\{ v \in L^2(I) \mid \frac{dv}{dx} \in L^2(I) \right\}.
+		\]
+		Questo spazio è dotato del prodotto scalare naturale:
+		\[
+		\inner{u}{v}_{H^1} \doteq \int_I u(x)v(x)\, dx + \int_I \frac{du}{dx}(x)\frac{dv}{dx}(x)\, dx,
+		\]
+		che induce la norma $\norm{u}_{H^1}^2 = \norm{u}_{L^2}^2 + \norm{u'}_{L^2}^2$.
+		
+		Lo spazio funzionale di riferimento per il problema di Dirichlet omogeneo è il sottospazio $H^1_0(I)$, che è la chiusura in norma $H^1$ delle funzioni $C^\infty_0(I)$ a supporto compatto. Essendo un sottospazio chiuso di uno spazio di Hilbert, $H^1_0(I)$ è esso stesso uno spazio di Hilbert rispetto al prodotto scalare $\inner{\cdot}{\cdot}_{H^1}$ ereditato da $H^1(I)$.
+		
+		\subsection*{2. Analisi del Membro di Sinistra (Forma Bilineare)}
+		Osserviamo il membro sinistro dell'equazione integrale data:
+		\[
+		A(\psi_0, h) \doteq \int_I \psi_0 h \, dx + \int_I \frac{d\psi_0}{dx} \frac{dh}{dx} \, dx.
+		\]
+		Confrontando questa espressione con la definizione del prodotto scalare, notiamo immediatamente che:
+		\[
+		A(\psi_0, h) = \inner{\psi_0}{h}_{H^1}.
+		\]
+		Pertanto, il problema variazionale richiede di trovare $\psi_0 \in H^1_0(I)$ tale che il suo prodotto scalare con una generica funzione test $h$ sia uguale a un certo valore determinato da $f$.
+		
+		\subsection*{3. Analisi del Membro di Destra (Funzionale Lineare)}
+		Definiamo il funzionale lineare $F: H^1_0(I) \to \R$ associato al termine noto:
+		\[
+		F(h) \doteq \int_I f(x) h(x) \, dx.
+		\]
+		Dobbiamo verificare che questo funzionale sia continuo (limitato) su $H^1_0(I)$.
+		Essendo $f \in C^\infty(I)$ su un dominio limitato, certamente $f \in L^2(I)$. Applicando la disuguaglianza di Cauchy-Schwarz in $L^2(I)$:
+		\[
+		|F(h)| = \left| \int_I f h \, dx \right| \le \norm{f}_{L^2} \norm{h}_{L^2}.
+		\]
+		Dalla definizione della norma in $H^1$, è evidente che $\norm{h}_{L^2} \le \norm{h}_{H^1}$ (poiché si aggiunge il termine positivo della derivata). Quindi:
+		\[
+		|F(h)| \le \norm{f}_{L^2} \norm{h}_{H^1}.
+		\]
+		Poiché $\norm{f}_{L^2}$ è una costante finita, il funzionale $F$ è limitato:
+		\[
+		\norm{F}_{(H^1_0)^*} \le \norm{f}_{L^2} < \infty.
+		\]
+		Dunque $F$ appartiene allo spazio duale topologico $(H^1_0(I))^*$.
+		
+		\subsection*{4. Applicazione del Teorema di Riesz-Fréchet}
+		Il problema debole può essere riscritto in forma astratta come segue:
+		Cercare $\psi_0 \in H^1_0(I)$ tale che:
+		\[
+		\inner{\psi_0}{h}_{H^1} = F(h), \quad \forall h \in H^1_0(I).
+		\]
+		Siamo nelle ipotesi del \textbf{Teorema di Rappresentazione di Riesz-Fréchet}:
+		\begin{quote}
+			Per ogni funzionale lineare continuo $F$ su uno spazio di Hilbert $H$, esiste ed è unico un elemento $u \in H$ tale che $F(v) = \inner{u}{v}_H$ per ogni $v \in H$. Inoltre $\norm{u}_H = \norm{F}_{H^*}$.
+		\end{quote}
+		Applicando il teorema con $H = H^1_0(I)$, garantiamo che:
+		\begin{enumerate}
+			\item \textbf{Esistenza:} Esiste un vettore $\psi_0 \in H^1_0(I)$ che rappresenta il funzionale $F$.
+			\item \textbf{Unicità:} Tale vettore è unico.
+		\end{enumerate}
+		Tale $\psi_0$ è, per definizione, l'unica soluzione debole del problema di Dirichlet assegnato.
+		
+		\qed
+	\end{sol}
+	
+	\section*{Traccia dell'Esercizio}
+	Sia $I = [0,1]$. Si consideri l'equazione differenziale:
+	\[
+	-\frac{d\psi}{dx} + \psi = f, \quad \text{con } f \in L^2(I).
+	\]
+	Si definisca la mappa $K: L^2(I) \to L^2(I)$ tale che $\psi = K(f)$ è soluzione dell'equazione. Si discuta se $K$ è limitato, compatto e/o positivo.
+	
+	\hrule
+	\vspace{0.5cm}
+	
+	\begin{sol}
+		Per definire univocamente la mappa lineare $K$, dobbiamo fissare una condizione al contorno o iniziale, poiché la soluzione generale dell'equazione differenziale dipende da una costante arbitraria. Affinché $K$ sia un operatore lineare ben definito, la scelta canonica è fissare la condizione iniziale omogenea $\psi(0)=0$ (che corrisponde a porre la costante della soluzione omogenea pari a zero).
+		
+		\subsection*{1. Costruzione Esplicita dell'Operatore Integrale}
+		L'equazione si riscrive come:
+		\[
+		\psi'(x) - \psi(x) = -f(x).
+		\]
+		Utilizzando il metodo del fattore integrante $e^{-x}$, otteniamo:
+		\[
+		\frac{d}{dx} \left( e^{-x} \psi(x) \right) = -e^{-x} f(x).
+		\]
+		Integrando tra $0$ e $x$ e imponendo $\psi(0)=0$:
+		\[
+		e^{-x} \psi(x) = -\int_0^x e^{-y} f(y) \, dy \implies \psi(x) = -\int_0^x e^{x-y} f(y) \, dy.
+		\]
+		L'operatore $K$ è quindi un \textbf{operatore integrale di Volterra} della forma:
+		\[
+		(Kf)(x) = \int_0^1 A(x,y) f(y) \, dy,
+		\]
+		dove il nucleo integrale (kernel) è definito grazie alla funzione gradino di Heaviside $\theta(\cdot)$ come:
+		\[
+		A(x,y) = -e^{x-y} \theta(x-y) = \begin{cases} -e^{x-y} & \text{se } 0 \le y \le x \le 1 \\ 0 & \text{altrove}. \end{cases}
+		\]
+		
+		\subsection*{2. Limitatezza e Compattezza (Classe di Hilbert-Schmidt)}
+		Nel caso di $L^2(I)$, mostriamo che la definizione di operatore di HS coincide con la norma $L^2$ del nucleo $A(x,y)$.
+		Sia $\{e_n(y)\}$ una base ortonormale completa di $L^2(I)$.
+		Calcoliamo $\norm{K e_n}^2$:
+		\[
+		\norm{K e_n}^2 = \int_I dx \, |(K e_n)(x)|^2 = \int_I dx \left| \int_I A(x,y) e_n(y) \, dy \right|^2.
+		\]
+		Fissiamo $x$. La quantità interna $\int_I A(x,y) e_n(y) \, dy$ può essere vista come il prodotto scalare (o coefficiente di Fourier, a meno di coniugazione) della funzione $y \mapsto \overline{A(x,y)}$ rispetto al vettore di base $e_n(y)$.
+		Per l'\textbf{Identità di Parseval}, la somma dei quadrati dei coefficienti di Fourier di una funzione restituisce la norma quadra della funzione stessa:
+		\[
+		\sum_{n=1}^\infty \left| \int_I A(x,y) e_n(y) \, dy \right|^2 = \int_I |A(x,y)|^2 \, dy.
+		\]
+		Inserendo questo risultato nella definizione di norma HS:
+		\[
+		\norm{K}_{HS}^2 = \sum_{n=1}^\infty \int_I dx \left| \inner{\overline{A(x,\cdot)}}{e_n}_{L^2_y} \right|^2 = \int_I dx \left( \sum_{n=1}^\infty \left| \inner{\overline{A(x,\cdot)}}{e_n} \right|^2 \right).
+		\]
+		\[
+		\norm{K}_{HS}^2 = \int_I dx \left( \int_I |A(x,y)|^2 \, dy \right) = \int_{I \times I} |A(x,y)|^2 \, dx \, dy.
+		\]
+		Abbiamo così dimostrato rigorosamente che verificare che $A \in L^2(I \times I)$ equivale a verificare che l'operatore ha "traccia finita" nel senso HS.
+		\paragraph{Giustificazione rigorosa dello scambio somma-integrale.}
+		Partiamo dall'espressione della norma Hilbert-Schmidt:
+		\[
+		\sum_{n=1}^\infty \norm{K e_n}^2 = \sum_{n=1}^\infty \int_I \left| \inner{\overline{A(x,\cdot)}}{e_n}_{L^2_y} \right|^2 \, dx.
+		\]
+		Definiamo la successione delle somme parziali $S_N: I \to [0, +\infty]$ come:
+		\[
+		S_N(x) \doteq \sum_{n=1}^N \left| \inner{\overline{A(x,\cdot)}}{e_n}_{L^2_y} \right|^2.
+		\]
+		Osserviamo due proprietà fondamentali:
+		\begin{enumerate}
+			\item I termini della serie sono funzioni misurabili non negative: $x \mapsto \left| \inner{\dots}{\dots} \right|^2 \ge 0$.
+			\item Di conseguenza, la successione $\{S_N(x)\}_{N \in \mathbb{N}}$ è monotona crescente: $S_{N+1}(x) \ge S_N(x)$ per ogni $x \in I$.
+		\end{enumerate}
+		Sotto queste ipotesi, il \textbf{Teorema della Convergenza Monotona (Beppo Levi)} garantisce che l'integrale del limite coincida con il limite dell'integrale (che equivale allo scambio serie-integrale):
+		\[
+		\sum_{n=1}^\infty \int_I (\dots) \, dx = \lim_{N \to \infty} \int_I S_N(x) \, dx = \int_I \lim_{N \to \infty} S_N(x) \, dx = \int_I \sum_{n=1}^\infty \left| \inner{\overline{A(x,\cdot)}}{e_n} \right|^2 \, dx.
+		\]
+		\newline
+		Un operatore integrale $K$ agente su $L^2(I)$ è sicuramente limitato e compatto se è di classe \textbf{Hilbert-Schmidt}. Condizione necessaria e sufficiente affinché $K$ sia Hilbert-Schmidt è che il suo nucleo $A(x,y)$ appartenga a $L^2(I \times I)$, ovvero che:
+		\[
+		\norm{K}_{HS}^2 \doteq \int_0^1 dx \int_0^1 dy \, |A(x,y)|^2 < \infty.
+		\]
+		Calcoliamo tale norma:
+		\[
+		\int_0^1 dx \int_0^1 dy \, |-e^{x-y}\theta(x-y)|^2 = \int_0^1 dx \int_0^x dy \, e^{2(x-y)}.
+		\]
+		Calcoliamo l'integrale interno rispetto a $y$:
+		\[
+		\int_0^x e^{2x} e^{-2y} \, dy = e^{2x} \left[ -\frac{1}{2} e^{-2y} \right]_0^x = e^{2x} \left( -\frac{1}{2} e^{-2x} + \frac{1}{2} \right) = \frac{1}{2}e^{2x} - \frac{1}{2}.
+		\]
+		Ora integriamo rispetto a $x$:
+		\[
+		\int_0^1 \left( \frac{1}{2}e^{2x} - \frac{1}{2} \right) dx = \left[ \frac{1}{4}e^{2x} - \frac{1}{2}x \right]_0^1 = \left( \frac{e^2}{4} - \frac{1}{2} \right) - \left( \frac{1}{4} - 0 \right) = \frac{e^2 - 3}{4}.
+		\]
+		Poiché $e \approx 2.718$, il valore è finito.
+		Essendo $\norm{K}_{HS} < \infty$, concludiamo rigorosamente che:
+		\begin{enumerate}
+			\item $K$ è un operatore \textbf{limitato}.
+			\item $K$ è un operatore \textbf{compatto} (poiché ogni operatore Hilbert-Schmidt è compatto).
+		\end{enumerate}
+		
+		\subsection*{3. Positività}
+		Un operatore $K$ si dice positivo se $\inner{f}{Kf} \ge 0$ per ogni $f \in L^2(I)$.
+		Verifichiamo questa proprietà utilizzando una funzione test semplice (controesempio).
+		Sia $f(x) = 1$ (funzione costante unitaria).
+		Calcoliamo $Kf$:
+		\[
+		(Kf)(x) = -\int_0^x e^{x-y} \cdot 1 \, dy = -e^x \left[ -e^{-y} \right]_0^x = -e^x ( -e^{-x} + 1 ) = 1 - e^x.
+		\]
+		Calcoliamo ora il prodotto scalare:
+		\[
+		\inner{f}{Kf} = \int_0^1 1 \cdot (1 - e^x) \, dx = \left[ x - e^x \right]_0^1 = (1 - e) - (0 - 1) = 2 - e.
+		\]
+		Sapendo che $e > 2$, otteniamo:
+		\[
+		\inner{f}{Kf} = 2 - e < 0.
+		\]
+		Esiste almeno una funzione $f$ per cui la forma quadratica è negativa.
+		Pertanto, $K$ \textbf{non è un operatore positivo}.
+		
+		\qed
+	\end{sol}
+	
+	\section*{Traccia dell'Esercizio}
+	Su $L^2(\R)$ si consideri l'operatore differenziale:
+	\[
+	T = -\frac{d^2}{dx^2} + x^2 + i\frac{d}{dx}.
+	\]
+	Si discuta se $T$ ammette estensioni autoaggiunte calcolando eventualmente gli indici di difetto.
+	
+	\hrule
+	\vspace{0.5cm}
+	
+	\begin{sol}
+		Per analizzare le proprietà di autoaggiunzione di $T$, cerchiamo di ricondurlo a una forma canonica nota tramite una trasformazione unitaria. L'operatore ricorda molto l'Hamiltoniana dell'Oscillatore Armonico unidimensionale ($H_{HO} = -\frac{d^2}{dx^2} + x^2$), con l'aggiunta di un termine del primo ordine.
+		
+		\subsection*{1. Completamento del Quadrato}
+		Riscriviamo l'operatore utilizzando l'operatore momento $p = -i \frac{d}{dx}$ (in unità con $\hbar=1$). Notiamo che $i\frac{d}{dx} = -p$.
+		\[
+		T = p^2 + x^2 - p.
+		\]
+		L'idea è di "completare il quadrato" per la parte dipendente dal momento, trattando $p$ come una variabile algebrica (lecito poiché stiamo cercando una trasformazione unitaria che agisce come una traslazione nello spazio dei momenti).
+		Osserviamo che:
+		\[
+		\left(p - \frac{1}{2}\right)^2 = p^2 - p + \frac{1}{4}.
+		\]
+		Pertanto possiamo scrivere:
+		\[
+		T = \left(p - \frac{1}{2}\right)^2 + x^2 - \frac{1}{4}.
+		\]
+		
+		\subsection*{2. Equivalenza Unitaria}
+		Vogliamo eliminare lo shift $-1/2$ nell'operatore momento. Sappiamo dalla meccanica quantistica che l'operatore di posizione $x$ è il generatore delle traslazioni nello spazio dei momenti.
+		Consideriamo l'operatore unitario $U: L^2(\R) \to L^2(\R)$ definito dalla moltiplicazione per una fase (trasformazione di gauge):
+		\[
+		(U\psi)(x) = e^{i \frac{1}{2} x} \psi(x).
+		\]
+		L'aggiunto è $(U^\dagger \psi)(x) = e^{-i \frac{1}{2} x} \psi(x)$.
+		Calcoliamo come trasforma l'operatore momento $p$:
+		\begin{align*}
+			(U^\dagger p U \psi)(x) &= e^{-ix/2} \left( -i \frac{d}{dx} \right) \left( e^{ix/2} \psi(x) \right) \\
+			&= e^{-ix/2} \left[ -i \left( \frac{i}{2} e^{ix/2} \psi(x) + e^{ix/2} \psi'(x) \right) \right] \\
+			&= e^{-ix/2} e^{ix/2} \left( \frac{1}{2} \psi(x) - i \psi'(x) \right) \\
+			&= \left( \frac{1}{2} + p \right) \psi(x).
+		\end{align*}
+		Quindi $U^\dagger p U = p + \frac{1}{2}$, oppure equivalentemente $U \left(p + \frac{1}{2}\right) U^\dagger = p$.
+		Applichiamo questa trasformazione all'operatore $T$:
+		\begin{align*}
+			\tilde{T} \doteq U T U^\dagger &= U \left[ \left(p - \frac{1}{2}\right)^2 + x^2 - \frac{1}{4} \right] U^\dagger \\
+			&= \left[ U \left(p - \frac{1}{2}\right) U^\dagger \right]^2 + U x^2 U^\dagger - \frac{1}{4}.
+		\end{align*}
+		Poiché $U$ è funzione solo di $x$, commuta con $x^2$. Inoltre, dall'inverso della relazione trovata sopra ($p \to p-1/2$ sotto l'azione di $U^\dagger \cdot U$), il termine al quadrato diventa semplicemente $p^2$.
+		Formalmente:
+		\[
+		U \left( -i\frac{d}{dx} - \frac{1}{2} \right) U^\dagger = -i\frac{d}{dx}.
+		\]
+		Dunque l'operatore trasformato è:
+		\[
+		\tilde{T} = p^2 + x^2 - \frac{1}{4} = -\frac{d^2}{dx^2} + x^2 - \frac{1}{4}.
+		\]
+		
+		\subsection*{3. Analisi dell'Operatore Trasformato}
+		L'operatore $\tilde{T}$ è (a meno della costante additiva $-1/4$, che non influenza le proprietà di dominio o autoaggiunzione per la nota qui sotto) l'Hamiltoniana dell'Oscillatore Armonico Quantistico:
+		\[
+		H_{HO} = -\frac{d^2}{dx^2} + x^2.
+		\]
+		È un risultato classico e fondamentale (dimostrabile ad esempio notando che ha uno spettro discreto completo di autofunzioni in $L^2(\R)$, le funzioni di Hermite) che l'Oscillatore Armonico definito su $C_c^\infty(\R)$ (o sullo spazio di Schwartz $\mathcal{S}(\R)$) è essenzialmente autoaggiunto.
+		Ciò significa che la sua chiusura $\overline{H}_{HO}$ è autoaggiunta e unica.
+		
+		Gli indici di difetto di un operatore essenzialmente autoaggiunto sono $(0, 0)$.
+		
+		\paragraph{Nota: Autoaggiunzione di $S = T - I$.}
+		Verifichiamo esplicitamente che $S = T - I$ è autoaggiunto usando la definizione.
+		Per ogni $\phi, \psi \in \HH$:
+		\[
+		\inner{\phi}{S\psi} = \inner{\phi}{(T-I)\psi} = \inner{\phi}{T\psi} - \inner{\phi}{\psi}.
+		\]
+		Poiché $T=T^*$ per ipotesi, $\inner{\phi}{T\psi} = \inner{T\phi}{\psi}$. Inoltre, banalmente $\inner{\phi}{\psi} = \inner{I\phi}{\psi}$.
+		Quindi:
+		\[
+		\inner{\phi}{S\psi} = \inner{T\phi}{\psi} - \inner{I\phi}{\psi} = \inner{(T-I)\phi}{\psi} = \inner{S\phi}{\psi}.
+		\]
+		Ciò prova che $S^* = S$.
+		
+		\subsection*{Conclusione}
+		Poiché $T$ è unitariamente equivalente a un operatore essenzialmente autoaggiunto ($\tilde{T}$), anche $T$ è essenzialmente autoaggiunto sul dominio iniziale delle funzioni test.
+		\begin{itemize}
+			\item $T$ ammette un'unica estensione autoaggiunta (la sua chiusura $\bar{T}$).
+			\item Gli indici di difetto sono $n_+ = n_- = 0$.
+		\end{itemize}
+		
+		\begin{oss}[Nota sul Metodo della Coniugazione]
+			Si poteva anche osservare che, pur non essendo $T$ reale ($T \ne \bar{T}$), esso commuta con l'operatore anti-unitario $\mathcal{J} = \mathcal{P}\mathcal{C}$, dove $\mathcal{P}$ è la parità ($x \to -x$) e $\mathcal{C}$ la coniugazione complessa. Infatti:
+			\[
+			\mathcal{P}\mathcal{C} \left( -\partial_x^2 + x^2 + i\partial_x \right) (\mathcal{P}\mathcal{C})^{-1} = -\partial_x^2 + (-x)^2 - i(-\partial_x) = T.
+			\]
+			La commutazione con una coniugazione antiunitaria garantisce $n_+ = n_-$, assicurando l'esistenza di estensioni autoaggiunte, ma non la loro unicità (essenziale autoaggiunzione). Il metodo della trasformazione unitaria è quindi più forte in questo contesto.
+		\end{oss}
+		
+		\qed
+	\end{sol}
+	
+	\section*{Traccia dell'Esercizio}
+	Sia $\HH$ uno spazio di Hilbert separabile e si consideri l'equazione:
+	\[
+	T\psi = \lambda \psi + f,
+	\]
+	con $T = T^* \in \BB_\infty(\HH)$ (operatore compatto autoaggiunto), $\lambda \in \C \setminus \{0\}$ e $f \in \HH$.
+	Si provi che, se $\lambda$ è autovalore di $T$, allora l'equazione ha infinite soluzioni (sottointendendo: qualora sia risolubile).
+	
+	\hrule
+	\vspace{0.5cm}
+	
+	\begin{sol}
+		Riscriviamo l'equazione nella forma operatoriale omogenea:
+		\[
+		(T - \lambda I)\psi = f.
+		\]
+		Definiamo l'operatore $S_\lambda \doteq T - \lambda I$.
+		
+		\subsection*{1. Proprietà Spettrali Preliminari}
+		Poiché $T$ è autoaggiunto, i suoi autovalori sono reali. Essendo $\lambda$ un autovalore per ipotesi, segue che $\lambda \in \R$.
+		Inoltre, essendo $T$ e $I$ operatori limitati e autoaggiunti, anche $S_\lambda$ è limitato e autoaggiunto:
+		\[
+		S_\lambda^* = (T - \lambda I)^* = T^* - \bar{\lambda} I^* = T - \lambda I = S_\lambda.
+		\]
+		Dato che $T$ è compatto e $\lambda \neq 0$, l'operatore $S_\lambda$ è un \textbf{operatore di Fredholm} esattamente come nell'esercizio 1. Valgono le seguenti proprietà, dimostrate nell'esercizio 1:
+		\begin{enumerate}
+			\item Il nucleo $\Ker(S_\lambda)$ ha dimensione finita.
+			\item Il rango $\Ran(S_\lambda)$ è chiuso in $\HH$.
+		\end{enumerate}
+		
+		\subsection*{2. Analisi dell'Esistenza e Molteplicità}
+		L'ipotesi che $\lambda$ sia un autovalore di $T$ implica che il nucleo di $S_\lambda$ non è banale:
+		\[
+		\Ker(S_\lambda) \neq \{0\}.
+		\]
+		Sia $d = \dim(\Ker(S_\lambda)) \ge 1$.
+		
+		\paragraph{Condizione di Risolubilità.}
+		Affinché l'equazione $S_\lambda \psi = f$ ammetta soluzioni, il termine noto $f$ deve appartenere all'immagine dell'operatore. Poiché il rango è chiuso e l'operatore è autoaggiunto, vale la decomposizione ortogonale:
+		\[
+		\Ran(S_\lambda) = (\Ker(S_\lambda^*))^\perp = (\Ker(S_\lambda))^\perp.
+		\]
+		Quindi, l'equazione ammette soluzioni se e solo se $f \perp \Ker(S_\lambda)$.
+		\textit{Nota: Se $f$ non soddisfa questa condizione, l'insieme delle soluzioni è vuoto. Assumeremo nel seguito che $f$ sia compatibile o che l'esercizio richieda di discutere la cardinalità dell'insieme delle soluzioni nel caso in cui questo non sia vuoto.}
+		
+		\paragraph{Struttura dello Spazio delle Soluzioni.}
+		Supponiamo che esista almeno una soluzione particolare $\psi_p$ tale che $S_\lambda \psi_p = f$.
+		La soluzione generale dell'equazione lineare non omogenea è data dalla somma della soluzione particolare e della soluzione generale dell'equazione omogenea associata ($S_\lambda \phi = 0$).
+		L'insieme delle soluzioni $\Sigma$ è quindi lo spazio affine:
+		\[
+		\Sigma = \psi_p + \Ker(S_\lambda) = \{ \psi_p + \phi \mid \phi \in \Ker(S_\lambda) \}.
+		\]
+		Poiché $\lambda$ è un autovalore, esiste almeno un autovettore $u \neq 0$ tale che $u \in \Ker(S_\lambda)$.
+		Consideriamo la famiglia di vettori:
+		\[
+		\psi_\alpha = \psi_p + \alpha u, \quad \forall \alpha \in \C.
+		\]
+		Verifichiamo che sono soluzioni:
+		\[
+		S_\lambda(\psi_\alpha) = S_\lambda \psi_p + \alpha S_\lambda u = f + \alpha \cdot 0 = f.
+		\]
+		Essendo $\alpha$ un parametro continuo in $\C$, la famiglia $\{\psi_\alpha\}$ contiene infiniti elementi distinti.
+		Pertanto, se l'equazione è risolubile, essa ammette infinite soluzioni.
+		
+		\qed
+	\end{sol}
+	
+	\section*{Traccia dell'Esercizio}
+	Si consideri una particella di massa $m > 0$ in $\mathbb{R}^3$, soggetta a un potenziale centrale $V(r)$. Sia dato l'operatore:
+	\[
+	T = \vecOp{r} \cdot \vecOp{p} + \vecOp{p} \cdot \vecOp{r},
+	\]
+	dove $\vecOp{r}$ e $\vecOp{p}$ sono gli operatori posizione e impulso.
+	Si mostri che, per ogni $\psi \in L^2(\mathbb{R}^3)$ con $\norm{\psi}=1$ (e nel dominio dell'operatore), vale l'equazione di evoluzione:
+	\[
+	\frac{d}{dt}\expval{T} = \frac{2}{m}\expval{\vecOp{p}^2} - 2\expval{\vecOp{r} \cdot \nabla V}.
+	\]
+	
+	\hrule
+	\vspace{0.5cm}
+	
+	\begin{sol}
+		La risoluzione dell'esercizio si basa sull'applicazione del \textbf{Teorema di Ehrenfest}, che lega la derivata temporale del valore di aspettazione di un osservabile al commutatore dell'osservabile con l'Hamiltoniana.
+		
+		\subsection*{Preliminare: Dimostrazione del Teorema di Ehrenfest}
+		Sia $A$ un generico operatore lineare e sia $\ket{\psi(t)}$ lo stato del sistema che evolve secondo l'equazione di Schrödinger dipendente dal tempo:
+		\[
+		i\hbar \frac{\partial}{\partial t}\ket{\psi(t)} = H\ket{\psi(t)}.
+		\]
+		Il valore di aspettazione di $A$ è definito come $\expval{A}_{\psi} = \bra{\psi(t)} A \ket{\psi(t)}$. Derivando rispetto al tempo e applicando la regola di Leibniz:
+		\[
+		\frac{d}{dt}\expval{A} = \left( \frac{\partial}{\partial t}\bra{\psi} \right) A \ket{\psi} + \bra{\psi} \frac{\partial A}{\partial t} \ket{\psi} + \bra{\psi} A \left( \frac{\partial}{\partial t}\ket{\psi} \right).
+		\]
+		Dall'equazione di Schrödinger ricaviamo le derivate temporali degli stati:
+		\begin{align*}
+			\frac{\partial}{\partial t}\ket{\psi} &= \frac{1}{i\hbar} H \ket{\psi}, \\
+			\frac{\partial}{\partial t}\bra{\psi} &= \left( \frac{1}{i\hbar} H \ket{\psi} \right)^\dagger = -\frac{1}{i\hbar} \bra{\psi} H^\dagger = -\frac{1}{i\hbar} \bra{\psi} H \quad \text{(essendo } H \text{ hermitiano)}.
+		\end{align*}
+		Sostituendo queste espressioni nella derivata del valore di aspettazione:
+		\[
+		\frac{d}{dt}\expval{A} = -\frac{1}{i\hbar} \bra{\psi} H A \ket{\psi} + \expval{\frac{\partial A}{\partial t}} + \frac{1}{i\hbar} \bra{\psi} A H \ket{\psi}.
+		\]
+		Raccogliendo il fattore $\frac{1}{i\hbar}$:
+		\[
+		\frac{d}{dt}\expval{A} = \frac{1}{i\hbar} \bra{\psi} (AH - HA) \ket{\psi} + \expval{\frac{\partial A}{\partial t}} = \frac{1}{i\hbar} \expval{[A, H]} + \expval{\frac{\partial A}{\partial t}}.
+		\]
+		Nel nostro caso specifico, l'operatore $T$ non dipende esplicitamente dal tempo ($\partial_t T = 0$), quindi l'equazione si riduce a:
+		\[
+		\frac{d}{dt}\expval{T} = \frac{1}{i\hbar} \expval{[T, H]}.
+		\]
+		
+		\subsection*{Calcolo del Commutatore}
+		L'Hamiltoniana per una particella in un potenziale $V(r)$ è data da:
+		\[
+		H = \frac{\vecOp{p}^2}{2m} + V(\vecOp{r}).
+		\]
+		Dobbiamo calcolare $[T, H]$. Per linearità:
+		\[
+		[T, H] = \left[ T, \frac{\vecOp{p}^2}{2m} \right] + [T, V(\vecOp{r})].
+		\]
+		
+		\subsubsection*{1. Commutatore con l'Energia Cinetica}
+		Calcoliamo $\left[ T, \frac{\vecOp{p}^2}{2m} \right] = \frac{1}{2m} [ \vecOp{r} \cdot \vecOp{p} + \vecOp{p} \cdot \vecOp{r}, \vecOp{p}^2 ]$.
+		Poiché l'operatore impulso commuta con se stesso ($[\vecOp{p}, \vecOp{p}^2] = 0$), il termine $\vecOp{p} \cdot \vecOp{r}$ si semplifica notevolmente usando la regola $[AB, C] = A[B,C] + [A,C]B$:
+		\[
+		[\vecOp{p} \cdot \vecOp{r}, \vecOp{p}^2] = \vecOp{p} \cdot [\vecOp{r}, \vecOp{p}^2] + \underbrace{[\vecOp{p}, \vecOp{p}^2]}_{0} \cdot \vecOp{r} = \vecOp{p} \cdot [\vecOp{r}, \vecOp{p}^2].
+		\]
+		Analogamente per il primo termine:
+		\[
+		[\vecOp{r} \cdot \vecOp{p}, \vecOp{p}^2] = [\vecOp{r}, \vecOp{p}^2] \cdot \vecOp{p} + \vecOp{r} \cdot \underbrace{[\vecOp{p}, \vecOp{p}^2]}_{0} = [\vecOp{r}, \vecOp{p}^2] \cdot \vecOp{p}.
+		\]
+		Utilizziamo l'identità fondamentale $[x_j, \vecOp{p}^2] = 2i\hbar p_j$, che in notazione vettoriale si scrive $[\vecOp{r}, \vecOp{p}^2] = 2i\hbar \vecOp{p}$.
+		Sostituendo:
+		\begin{itemize}
+			\item Primo termine: $[\vecOp{r} \cdot \vecOp{p}, \vecOp{p}^2] = (2i\hbar \vecOp{p}) \cdot \vecOp{p} = 2i\hbar \vecOp{p}^2$.
+			\item Secondo termine: $[\vecOp{p} \cdot \vecOp{r}, \vecOp{p}^2] = \vecOp{p} \cdot (2i\hbar \vecOp{p}) = 2i\hbar \vecOp{p}^2$.
+		\end{itemize}
+		Sommando i contributi:
+		\[
+		\left[ T, \frac{\vecOp{p}^2}{2m} \right] = \frac{1}{2m} (2i\hbar \vecOp{p}^2 + 2i\hbar \vecOp{p}^2) = \frac{4i\hbar \vecOp{p}^2}{2m} = \frac{2i\hbar}{m} \vecOp{p}^2.
+		\]
+		
+		\subsubsection*{2. Commutatore con l'Energia Potenziale}
+		Calcoliamo $[T, V(\vecOp{r})]$.
+		Poiché $V(\vecOp{r})$ è funzione solo delle coordinate, commuta con $\vecOp{r}$. Quindi:
+		\[
+		[\vecOp{r} \cdot \vecOp{p}, V] = \vecOp{r} \cdot [\vecOp{p}, V] \quad \text{e} \quad [\vecOp{p} \cdot \vecOp{r}, V] = [\vecOp{p}, V] \cdot \vecOp{r}.
+		\]
+		Utilizziamo la relazione fondamentale $[\vecOp{p}, V] = -i\hbar \nabla V$.
+		\begin{itemize}
+			\item Primo termine: $\vecOp{r} \cdot [\vecOp{p}, V] = \vecOp{r} \cdot (-i\hbar \nabla V) = -i\hbar (\vecOp{r} \cdot \nabla V)$.
+			\item Secondo termine: $[\vecOp{p}, V] \cdot \vecOp{r} = (-i\hbar \nabla V) \cdot \vecOp{r} = -i\hbar (\vecOp{r} \cdot \nabla V)$ (dato che $V$ è scalare).
+		\end{itemize}
+		Sommando i contributi:
+		\[
+		[T, V] = -2i\hbar (\vecOp{r} \cdot \nabla V).
+		\]
+		
+		\subsection*{Conclusione}
+		Unendo i risultati parziali, il commutatore totale è:
+		\[
+		[T, H] = \frac{2i\hbar}{m} \vecOp{p}^2 - 2i\hbar (\vecOp{r} \cdot \nabla V).
+		\]
+		Inserendo questo risultato nell'equazione di Ehrenfest derivata all'inizio:
+		\[
+		\frac{d}{dt}\expval{T} = \frac{1}{i\hbar} \expval{ \frac{2i\hbar}{m} \vecOp{p}^2 - 2i\hbar (\vecOp{r} \cdot \nabla V) }.
+		\]
+		Semplificando il fattore $i\hbar$, otteniamo la tesi:
+		\[
+		\frac{d}{dt}\expval{T} = \frac{2}{m}\expval{\vecOp{p}^2} - 2\expval{\vecOp{r} \cdot \nabla V}.
+		\]
+		
+		\qed
+	\end{sol}
+	\section*{Traccia dell'Esercizio}
+	Siano $T: \Dom(T) \to \HH$ e $V: \Dom(V) \to \HH$ due operatori su uno spazio di Hilbert $\HH$ tali che:
+	\begin{enumerate}
+		\item[(a)] $T$ è autoaggiunto ($T = T^*$);
+		\item[(b)] $V$ è simmetrico;
+		\item[(c)] $V$ è $T$-limitato con limite relativo $a < 1$. Ovvero, $\Dom(T) \subset \Dom(V)$ ed esistono costanti $a \in [0, 1)$ e $b \ge 0$ tali che:
+		\[
+		\norm{V\psi} \le a\norm{T\psi} + b\norm{\psi}, \quad \forall \psi \in \Dom(T).
+		\]
+	\end{enumerate}
+	Si mostri che l'operatore somma $S \doteq T + V$, definito su $\Dom(S) = \Dom(T)$, è autoaggiunto.
+	
+	\hrule
+	\vspace{0.5cm}
+	\begin{sol}
+		La dimostrazione si basa sul criterio di suriettività dei ranghi per operatori simmetrici.
+		L'obiettivo è dimostrare che esiste un valore $\nu > 0$ sufficientemente grande tale che:
+		\[
+		\Ran(T + V \pm i\nu I) = \HH.
+		\]
+		Se ciò è vero, poiché $T+V$ è simmetrico, esso è necessariamente autoaggiunto.
+		
+		\subsection*{1. Stime sul Risolvente dell'Operatore Non Perturbato}
+		Consideriamo l'operatore non perturbato $T$. Poiché $T$ è autoaggiunto, per ogni $\mu > 0$ e per ogni $\phi \in \Dom(T)$ vale l'identità pitagorica:
+		\[
+		\norm{(T \pm i\mu I)\phi}^2 = \inner{(T \pm i\mu I)\phi}{(T \pm i\mu I)\phi} = \norm{T\phi}^2 + \mu^2\norm{\phi}^2.
+		\]
+		(I termini misti si cancellano per simmetria di $T$).
+		Da questa uguaglianza seguono immediatamente due disuguaglianze fondamentali. Ponendo $\psi = (T + i\mu I)\phi$ (e quindi $\phi = (T + i\mu I)^{-1}\psi$, dato che quell'operatore è invertibile essendo T autoaggiunto), abbiamo:
+		\begin{enumerate}
+			\item $\mu^2 \norm{\phi}^2 \le \norm{\psi}^2 \implies \norm{(T + i\mu I)^{-1}} \le \frac{1}{\mu}$.
+			\item $\norm{T\phi}^2 \le \norm{\psi}^2 \implies \norm{T(T + i\mu I)^{-1}} \le 1$.
+		\end{enumerate}
+		
+		\subsection*{2. Stima dell'Operatore Perturbativo}
+		Vogliamo stimare "quanto disturba" $V$ rispetto al risolvente di $T$. Consideriamo il vettore $$\phi = (T + i\mu I)^{-1}\psi$$ per un generico $\psi \in \HH$.
+		Applichiamo la condizione di limitatezza relativa di $V$ (ipotesi c):
+		\[
+		\norm{V\phi} \le a\norm{T\phi} + b\norm{\phi}.
+		\]
+		Sostituendo $\phi$ con l'espressione in termini di $\psi$ e utilizzando le stime del punto 1:
+		\begin{align*}
+			\norm{V(T + i\mu I)^{-1}\psi} &\le a \norm{T(T + i\mu I)^{-1}\psi} + b \norm{(T + i\mu I)^{-1}\psi} \\
+			&\le a \cdot 1 \cdot \norm{\psi} + b \cdot \frac{1}{\mu} \cdot \norm{\psi} \\
+			&= \left( a + \frac{b}{\mu} \right) \norm{\psi}.
+		\end{align*}
+		
+		\subsection*{3. Costruzione dell'Inversa tramite Serie di Neumann}
+		Definiamo l'operatore $U_\mu \doteq V(T + i\mu I)^{-1}$. Abbiamo appena dimostrato che la sua norma operatoriale è limitata da:
+		\[
+		\norm{U_\mu} \le a + \frac{b}{\mu}.
+		\]
+		Poiché per ipotesi $a < 1$, possiamo scegliere un valore $\mu = \nu$ sufficientemente grande tale che:
+		\[
+		a + \frac{b}{\nu} < 1 \implies \norm{U_\nu} < 1.
+		\]
+		Intanto otteniamo che, avendo la norma limitata è un operatore limitato definito su tutto $\HH$. Se la norma di un operatore $U_\nu$ è strettamente minore di 1, allora $-1$ non appartiene al suo spettro ($\sigma(U_\nu)$), e l'operatore $(I + U_\nu)$ è invertibile con inverso limitato). In particolare, il rango di $(I + U_\nu)$ è tutto lo spazio $\HH$:
+		\[
+		\Ran(I + U_\nu) = \HH.
+		\]
+		
+		\subsection*{4. Fattorizzazione e Conclusione}
+		Consideriamo ora l'operatore perturbato $(T + V + i\nu I)$. Possiamo fattorizzarlo come segue per ogni $\phi \in \Dom(T)$:
+		\begin{align*}
+			(T + V + i\nu I)\phi &= (T + i\nu I)\phi + V\phi \\
+			&= \left[ I + V(T + i\nu I)^{-1} \right] (T + i\nu I)\phi \\
+			&= (I + U_\nu)(T + i\nu I)\phi.
+		\end{align*}
+		Analizziamo i ranghi di questa composizione:
+		\begin{itemize}
+			\item L'operatore $(T + i\nu I)$ mappa suriettivamente $\Dom(T)$ su $\HH$ (poiché $T$ è autoaggiunto).
+			\item L'operatore $(I + U_\nu)$ mappa suriettivamente $\HH$ su $\HH$ (poiché $\norm{U_\nu} < 1$).
+		\end{itemize}
+		La composizione di due mappe suriettive è suriettiva. Dunque:
+		\[
+		\Ran(T + V + i\nu I) = \HH.
+		\]
+		Un ragionamento perfettamente analogo vale per il segno opposto $-i\nu$, dimostrando che $$\Ran(T + V - i\nu I) = \HH$$.
+		Avendo dimostrato che gli operatori di difetto sono suriettivi (o equivalentemente che gli indici di difetto sono $(0,0)$), concludiamo che $T+V$ è autoaggiunto sul dominio $\Dom(T)$.
+		
+		\qed
+	\end{sol}
+	
+	\section*{Traccia dell'Esercizio}
+	Sia $\HH$ uno spazio di Hilbert con norma $\norm{\cdot}$. Sia $\norm{\cdot}'$ una seconda norma su $\HH$ tale che $\exists C > 0$:
+	\[ \norm{\psi} \le C\normprime{\psi}, \quad \forall \psi \in \HH. \]
+	Sia $T: D(T) \to \HH$ un operatore simmetrico tale che $\exists \kappa > 0$:
+	\[ \normprime{T\psi} \le \kappa\normprime{\psi}, \quad \forall \psi \in \HH. \]
+	Mostrare che $T \in \mathcal{B}(\HH)$.
+	\begin{quote}
+		\textit{[Hint: Un operatore lineare chiuso tra spazi di Banach e con dominio denso (inteso come tutto lo spazio) è limitato]}
+	\end{quote}
+	
+	\hrule
+	\vspace{0.5cm}
+	
+	\begin{sol}
+		Per dimostrare che $T \in \mathcal{B}(\HH)$ (ovvero che $T$ è limitato rispetto alla norma standard $\norm{\cdot}$), utilizzeremo il suggerimento fornito, che è un richiamo al Teorema del Grafico Chiuso.
+		La strategia si divide in due passi logici:
+		\begin{enumerate}
+			\item Identificazione del dominio e dimostrazione che $T$ è un operatore chiuso su $(\HH, \norm{\cdot})$.
+			\item Applicazione del Teorema del Grafico Chiuso.
+		\end{enumerate}
+		
+		\subsection*{1. Analisi del Dominio e Chiusura}
+		La seconda disuguaglianza fornita nel testo afferma che:
+		\[ \normprime{T\psi} \le \kappa\normprime{\psi}, \quad \forall \psi \in \HH. \]
+		L'uso del quantificatore $\forall \psi \in \HH$ implica necessariamente che il dominio di $T$ coincide con l'intero spazio di Hilbert:
+		\[ D(T) = \HH. \]
+		Inoltre, per ipotesi, $T$ è un operatore \textbf{simmetrico}. Un operatore simmetrico $T$ definito su tutto lo spazio di Hilbert è sempre un operatore \textbf{chiuso}.
+		Dimostriamolo formalmente per completezza (senza dare per scontato il teorema di Hellinger-Toeplitz).
+		
+		Sia $\{ \psi_n \}_{n \in \mathbb{N}} \subset \HH$ una successione tale che:
+		\[ \psi_n \xrightarrow{\norm{\cdot}} \psi \quad \text{e} \quad T\psi_n \xrightarrow{\norm{\cdot}} \phi. \]
+		Dobbiamo mostrare che $\phi = T\psi$.
+		Poiché $T$ è simmetrico, per ogni $\eta \in \HH$ vale l'uguaglianza:
+		\[ \inner{T\psi_n}{\eta} = \inner{\psi_n}{T\eta}. \]
+		Passando al limite per $n \to \infty$ e sfruttando la continuità del prodotto scalare:
+		\[ \lim_{n \to \infty} \inner{T\psi_n}{\eta} = \inner{\phi}{\eta}, \]
+		\[ \lim_{n \to \infty} \inner{\psi_n}{T\eta} = \inner{\psi}{T\eta}. \]
+		Quindi:
+		\[ \inner{\phi}{\eta} = \inner{\psi}{T\eta}. \]
+		Sfruttando nuovamente la simmetria di $T$ sul membro di destra:
+		\[ \inner{\phi}{\eta} = \inner{T\psi}{\eta}, \quad \forall \eta \in \HH. \]
+		Poiché l'uguaglianza vale per ogni $\eta$, segue che $\phi = T\psi$.
+		Abbiamo così dimostrato che il grafico di $T$ è chiuso rispetto alla topologia indotta dalla norma $\norm{\cdot}$.
+		
+		\subsection*{2. Applicazione del Teorema del Grafico Chiuso}
+		Siamo ora nelle seguenti condizioni:
+		\begin{itemize}
+			\item $T: \HH \to \HH$ è un operatore lineare.
+			\item $\HH$ è uno spazio di Hilbert (e quindi di Banach) rispetto alla norma $\norm{\cdot}$.
+			\item $T$ è un operatore \textbf{chiuso} rispetto a $\norm{\cdot}$.
+			\item $D(T) = \HH$ (il dominio è l'intero spazio).
+		\end{itemize}
+		
+		Il \textbf{Teorema del Grafico Chiuso} afferma che un operatore chiuso definito su tutto uno spazio di Banach a valori in uno spazio di Banach è necessariamente continuo (limitato).
+		Pertanto:
+		\[ T \in \mathcal{B}(\HH). \]
+		
+		\begin{oss}[Sulle norme ausiliarie]
+			Le condizioni sulla norma ausiliaria $\norm{\cdot}'$ e la limitatezza di $T$ rispetto ad essa (ossia $T \in \mathcal{B}(\HH, \norm{\cdot}')$) sono condizioni sufficienti a garantire la buona definizione dell'operatore, ma la dimostrazione della limitatezza in norma standard $\norm{\cdot}$ segue direttamente dalla struttura simmetrica dell'operatore e dal fatto che sia definito ovunque (Teorema di Hellinger-Toeplitz). L'esercizio è quindi risolubile in modo rigoroso basandosi primariamente sulle proprietà spettrali (Simmetria + Dominio totale $\implies$ Chiusura $\implies$ Limitatezza).
+		\end{oss}
+		
+		\qed
+	\end{sol}
+	
+	\section*{Traccia dell'Esercizio}
+	Sia $\HH$ uno spazio di Hilbert con norma $\norm{\cdot}$. Sia $\norm{\cdot}'$ una seconda norma su $\HH$ tale che $\exists C > 0$:
+	\[ \norm{\psi} \le C\normprime{\psi}, \quad \forall \psi \in \HH. \]
+	Sia $T: D(T) \to \HH$ un operatore simmetrico (con $D(T)$ denso in $\HH$) tale che $\exists \kappa > 0$:
+	\[ \normprime{T\psi} \le \kappa\normprime{\psi}, \quad \forall \psi \in D(T). \]
+	Mostrare che $T$ è limitato rispetto alla norma $\norm{\cdot}$ (ovvero $T \in \mathcal{B}(\HH)$ nel senso dell'estensione).
+	\begin{quote}
+		\textit{[Hint: Un operatore lineare chiuso tra spazi di Banach e con dominio denso è limitato]}
+	\end{quote}
+	
+	\hrule
+	\vspace{0.5cm}
+	
+	\begin{sol}
+		L'obiettivo è dimostrare che l'operatore $T$ è limitato rispetto alla norma naturale dello spazio di Hilbert $\norm{\cdot}$, ossia che esiste $M > 0$ tale che $\norm{T\psi} \le M\norm{\psi}$ per ogni $\psi \in D(T)$.
+		
+		Per fare ciò, sfrutteremo l'Hint interpretando lo spazio $(\HH, \norm{\cdot}')$ come uno spazio di Banach e utilizzando il \textbf{Teorema dell'Isomorfismo di Banach} (o dell'Applicazione Inversa) per stabilire l'equivalenza tra le due norme.
+		
+		\subsection*{1. Equivalenza delle Norme}
+		Consideriamo lo spazio vettoriale $\HH$ equipaggiato con le due norme.
+		\begin{itemize}
+			\item $(\HH, \norm{\cdot})$ è uno spazio di Banach (essendo di Hilbert).
+			\item Assumiamo, coerentemente con l'Hint, che anche $(\HH, \norm{\cdot}')$ sia uno spazio di Banach.
+		\end{itemize}
+		
+		Consideriamo l'operatore identità $I: (\HH, \norm{\cdot}') \to (\HH, \norm{\cdot})$.
+		Per ipotesi, vale la disuguaglianza:
+		\[ \norm{I\psi} = \norm{\psi} \le C\normprime{\psi}. \]
+		Questo implica che l'operatore identità è continuo (limitato) da $(\HH, \norm{\cdot}')$ in $(\HH, \norm{\cdot})$.
+		
+		Poiché entrambi gli spazi sono di Banach e l'applicazione è biunivoca (è l'identità) e continua, per il \textbf{Teorema dell'Isomorfismo di Banach} (conseguenza del Teorema della Mappa Aperta), l'applicazione inversa $I^{-1}: (\HH, \norm{\cdot}) \to (\HH, \norm{\cdot}')$ è anch'essa continua.
+		
+		Esiste quindi una costante $c > 0$ tale che:
+		\begin{equation} \label{eq:equiv}
+			\normprime{\psi} \le c \norm{\psi}, \quad \forall \psi \in \HH.
+		\end{equation}
+		Le due norme sono pertanto equivalenti: $\norm{\cdot} \sim \norm{\cdot}'$.
+		
+		\subsection*{2. Dimostrazione della Limitatezza di $T$}
+		Vogliamo stimare la norma $\norm{T\psi}$. Utilizziamo in sequenza: la dominazione della norma $\norm{\cdot}$ da parte di $\norm{\cdot}'$, l'ipotesi di limitatezza di $T$ nella norma $\norm{\cdot}'$, e infine l'equivalenza dimostrata in \eqref{eq:equiv}.
+		
+		Per ogni $\psi \in D(T)$:
+		\begin{align*}
+			\norm{T\psi} &\le C \normprime{T\psi} & \text{(Ipotesi 1: dominazione)} \\
+			&\le C \cdot \kappa \normprime{\psi} & \text{(Ipotesi 2: limitatezza in } \norm{\cdot}') \\
+			&\le C \cdot \kappa \cdot c \norm{\psi} & \text{(Eq. \ref{eq:equiv}: equivalenza inversa)}
+		\end{align*}
+		
+		Ponendo $M = C \kappa c$, otteniamo:
+		\[ \norm{T\psi} \le M \norm{\psi}, \quad \forall \psi \in D(T). \]
+		Abbiamo così dimostrato che $T$ è un operatore limitato rispetto alla norma dello spazio di Hilbert.
+		
+		\subsection*{3. Estensione a tutto $\HH$}
+		Poiché $T$ è un operatore lineare limitato definito su un sottospazio denso $D(T) \subset \HH$, per il \textbf{Teorema di Estensione (BLT Theorem)}, $T$ ammette un'unica estensione continua $\overline{T}$ definita su tutto $\HH$:
+		\[ \overline{T}: \HH \to \HH, \quad \text{con } \norm{\overline{T}} = \norm{T}. \]
+		
+		Essendo $T$ simmetrico, la sua chiusura coincide con la sua estensione continua. Pertanto, possiamo concludere che l'operatore (inteso nella sua estensione) appartiene a $\mathcal{B}(\HH)$.
+		
+	\end{sol}
+	
+\end{document}

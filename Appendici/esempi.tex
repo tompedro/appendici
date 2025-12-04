@@ -959,3 +959,289 @@ A seconda della fisica del problema (condizioni al contorno, causalità, ecc.), 
 \begin{esempio}[Controesempio finale]
 	La funzione $e^{1/x}$ \textbf{non} è interpretabile come distribuzione. La singolarità essenziale in $x=0$ è troppo forte per essere regolarizzata nello spazio delle distribuzioni standard.
 \end{esempio}
+
+\subsection{Prodotto tensore}
+
+Voglio descrivere contemporaneamente due sistemi isolati con due spazi di Hilbert, $\Hspace_1$ e $\Hspace_2$.
+Prendiamo due operatori $\hat{A}$ su $\Hspace_1$ e $\hat{B}$ su $\Hspace_2$.
+Dato che $\psi \in \Hspace_1$ e $\phi \in \Hspace_2$, l'intuizione iniziale potrebbe suggerire che lo spazio totale sia la somma diretta:
+\[
+\Hspace = \Hspace_1 \oplus \Hspace_2
+\]
+Quindi considero le coppie $(\psi, \phi) \in \Hspace_1 \oplus \Hspace_2$. La somma diretta è molto naturale (analogamente a $\R^2 = \R + \R$). Come si sommano questi vettori? Componente per componente: $(x+x', y+y')$. Questa è la \textbf{somma diretta} tra due elementi di $\R \times \R$.
+
+Voglio costruire un osservabile che misuri sia $\hat{A}$ che $\hat{B}$. Definiamo:
+\[
+\hat{A} \oplus \hat{B} : \Hspace_1 \oplus \Hspace_2 \longrightarrow \Hspace_1 \oplus \Hspace_2
+\]
+Agisce come:
+\[
+(\psi, \phi) \longmapsto (\hat{A}\psi, \hat{B}\phi)
+\]
+Questa mappa è lineare? Sì, lo si vede velocemente.
+
+\begin{osservazione}[Il problema dell'interazione]
+	Ho fatto l'assunzione che i due sistemi siano \textbf{isolati} (cioè non si "parlano"). Stai anche assumendo che dati $S_1$ e $S_2$, esista un sistema più grande $S$ che li contiene.
+	Consideriamo sistemi con interazione, per esempio \textbf{spin-orbita}. L'operatore è $\hat{L} \cdot \hat{S}$, dove $\hat{L}$ è la parte spaziale e $\hat{S}$ è la parte di spin.
+	\[
+	\hat{L} \cdot \hat{S} : L^2(\R^3) \oplus \C^{2s+1} \longrightarrow L^2(\R^3) \oplus \C^{2s+1} \quad \text{(Ipotesi)}
+	\]
+	$\hat{L}$ e $\hat{S}$ sono buone osservabili, ma il loro prodotto deve agire congiuntamente. Se usassimo la somma diretta, sorgerebbe un problema di linearità nel combinare gli stati.
+\end{osservazione}
+
+\begin{esempio}[Controesempio sulla linearità]
+	Prendiamo lo spazio di Hilbert $\R$. Definiamo una mappa $k: \R \oplus \R \longrightarrow \R \oplus \R$ come:
+	\[
+	(a, b) \longmapsto (ab, 0)
+	\]
+	Questa mappa è lineare? \textbf{NO}.
+	Verifichiamo la linearità sulla somma:
+	\[
+	k((a,b) + (c,d)) = k(a+c, b+d) = ((a+c)(b+d), 0)
+	\]
+	Mentre la somma delle immagini sarebbe:
+	\[
+	k(a,b) + k(c,d) = (ab, 0) + (cd, 0) = (ab + cd, 0)
+	\]
+	Chiaramente:
+	\[
+	(a+c)(b+d) = ab + ad + cb + cd \neq ab + cd
+	\]
+	Quindi la mappa è multilineare ma \textbf{non è lineare}.
+\end{esempio}
+
+Però $k$ è lineare nei due sottosistemi! Cioè è \textbf{bilineare}:
+\[
+k(v_1 + v_2, w) = ((v_1+v_2)w, 0) = (v_1 w + v_2 w, 0) = k(v_1, w) + k(v_2, w)
+\]
+Questo è un grande problema! Io voglio un operatore \textbf{lineare}. Qui entra in gioco il prodotto tensore.
+
+Vogliamo linearizzare le mappe multilineari.
+\begin{teorema}[Proprietà Universale del Prodotto Tensore]
+	Esiste ed è unico (a meno di isomorfismi) uno spazio $\Hspace_1 \otimes \Hspace_2$ e una mappa bilineare $\otimes: \Hspace_1 \times \Hspace_2 \to \Hspace_1 \otimes \Hspace_2$ tale che per ogni spazio $W$ e per ogni mappa multilineare $F: \Hspace_1 \times \Hspace_2 \to W$, esiste un'unica mappa lineare $f: \Hspace_1 \otimes \Hspace_2 \to W$ che rende commutativo il seguente diagramma:
+	
+	\begin{center}
+		\begin{tikzcd}[row sep=large, column sep=large]
+			\Hspace_1 \times \Hspace_2 \arrow[r, "\otimes"] \arrow[d, "F \text{ (multilin.)}"'] & \Hspace_1 \otimes \Hspace_2 \arrow[dl, "\exists! f \text{ (lineare)}"] \\
+			W &
+		\end{tikzcd}
+	\end{center}
+	La relazione è data da:
+	\[
+	F(\psi, \phi) = f(\psi \otimes \phi)
+	\]
+\end{teorema}
+
+Quindi, se $f$ è lineare $\implies$ è una buona osservabile. Il postulato della Meccanica Quantistica (MQ) suggerisce che vogliamo trattare anche le interazioni $F$ come osservabili. Grazie al teorema di universalità, questo ci porta necessariamente ad usare $\otimes$.
+
+
+\subsubsection{Prodotto Tensore di Distribuzioni}
+Siano $\phi(x) \in C^\infty(\R^n)$ e $\psi(t) \in C^\infty(\R^m)$.
+Siano $u, v \in \mathcal{D}'(\R^n)$. Cos'è $u \otimes v$?
+
+Definiamo il prodotto tensore di funzioni test:
+\[
+(\phi \otimes \psi)(x, y) = \phi(x)\psi(y) \in C^\infty(\R^{n+m})
+\]
+Se consideriamo le distribuzioni associate $V_{\phi\psi} \in \mathcal{D}'(\R^{n+m})$, definite come:
+\[
+V_{\phi\psi}(f) = \int_{\R^{n+m}} dx \, dy \, \phi(x) \psi(y) f(x, y) \quad \forall f \in \mathcal{D}(\R^{n+m})
+\]
+Possiamo vedere che agisce come il prodotto delle distribuzioni singole. Se $f(x,y) = h(x)g(y)$, allora:
+\[
+V_{\phi\psi}(h \otimes g) = \int dx \, dy \, \phi(x)\psi(y)h(x)g(y) = U_\phi(h) Z_\psi(g)
+\]
+dove $U_\phi$ e $Z_\psi$ sono le distribuzioni associate rispettivamente a $\phi$ e $\psi$.
+
+\subsection{Convoluzione}
+
+In Meccanica Quantistica, per una particella a spin $1/2$, la funzione d'onda appartiene a $\psi \in L^2(\R^3) \otimes \C^{2s+1}$.
+Possiamo mostrare che:
+\[
+L^2(\R^3) \otimes \C^{2s+1} \simeq L^2(\R^3, \C^{2s+1})
+\]
+Questo ci dice fisicamente che possiamo associare ad ogni punto dello spazio i gradi di libertà interni del sistema (spin). Ho un \textbf{campo}.
+
+\begin{definizione}[Convoluzione tra funzioni]
+	Date $\phi, \psi$ funzioni (purché l'integrale sia ben definito):
+	\[
+	(\phi * \psi)(x) := \int_{\R^n} dy \, \phi(y) \psi(x-y)
+	\]
+\end{definizione}
+
+\begin{esempio}[Esempio: Ricostruzione di immagini]
+	Vogliamo generare un'immagine su uno schermo (griglia di pixel). L'interpolazione lineare tra punti discreti crea contorni frastagliati.
+	La convoluzione è lo strumento che ci dice come passare da una funzione "a tratti" (continua ma non liscia, o discreta) a una funzione liscia ($C^\infty$) con un errore controllato.
+\end{esempio}
+
+\begin{esempio}[Convoluzione di Distribuzioni]
+Poniamoci nel caso in cui $\phi * \psi \in C^\infty(\R^n)$. Per ogni $f \in \mathcal{D}(\R^n)$ (funzione test):
+\[
+U_{\phi * \psi}(f) = \int_{\R^n} dx \left( \int_{\R^n} dy \, \phi(y) \psi(x-y) \right) f(x)
+\]
+Ponendo $z = x-y \implies x = y+z$:
+\[
+= \int_{\R^{n} \times \R^n} dz \, dy \, \phi(y) \psi(z) f(y+z) = \langle \phi \otimes \psi, f(y+z) \rangle
+\]
+Vorremmo estendere questa definizione a $u, v \in \mathcal{D}'(\R^n)$.
+\[
+\langle u * v, f \rangle := \langle u \otimes v, f(x+y) \rangle \quad \forall f \in \mathcal{D}(\R^n)
+\]
+\end{esempio}
+\begin{osservazione}[Il problema del Supporto]
+	C'è un problema: se $f \in \mathcal{D}(\R^n)$ ha supporto compatto, la funzione $F(x,y) = f(x+y)$ definita su $\R^{2n}$ \textbf{non ha supporto compatto}!
+	
+		
+	\begin{center}
+		\begin{tikzpicture}[scale=0.8]
+			% Assi e griglia di sfondo (opzionale per chiarezza)
+			\draw[->] (-4,0) -- (4,0) node[right] {$x$};
+			\draw[->] (0,-4) -- (0,4) node[above] {$y$};
+			
+			% Definizione della striscia corretta (Pendenza -1)
+			% Le rette sono del tipo y = -x + c
+			% Esempio visuale: striscia tra x+y=-1 e x+y=1
+			
+			% Coordinate calcolate per stare nel box visibile:
+			% Linea superiore (x+y=c2): passa per (-2,3) e (3,-2)
+			% Linea inferiore (x+y=c1): passa per (-3,2) e (2,-3)
+			
+			% Riempimento della striscia
+			\fill[pattern=north east lines, pattern color=blue!30] 
+			(-3, 2) -- (-2, 3) -- (3, -2) -- (2, -3) -- cycle;
+			
+			% Disegno delle rette di bordo
+			\draw[thick, blue] (-3, 2) -- (2, -3) node[below right] {$x+y=c_1$};
+			\draw[thick, blue] (-2, 3) -- (3, -2) node[below right] {$x+y=c_2$};
+			
+			% Etichetta
+			\node[fill=white, inner sep=1pt] at (1.5, 1.5) {$\text{supp}(f(x+y))$};
+			
+			% Frecce per indicare la direzione costante (opzionale ma utile didatticamente)
+			\draw[->, dashed, red] (0,0) -- (-1.5, 1.5) node[midway, left] {\tiny Costante};
+		\end{tikzpicture}
+	\end{center}
+	
+	Se $f$ ha supporto in $[-1, 1]$, allora $f(x+y)$ è non nulla nella striscia infinita definita da $-1 \le x+y \le 1$. In un sistema di riferimento ruotato $(x+y, x-y)$, la funzione è a supporto compatto in una variabile ma costante (e quindi illimitata) nell'altra. Poiché $u \otimes v$ è definita su funzioni test a supporto compatto in $\R^{2n}$, la definizione sopra richiede cautela (una delle due distribuzioni deve essere a supporto compatto, $u \in \mathcal{E}'$).
+\end{osservazione}
+
+\begin{esempio}[Regolarizzazione]
+Possiamo usare la convoluzione per regolarizzare una distribuzione $u$. Sia $\rho \in C_0^\infty(\R^n)$ tale che $\int \rho = 1$ (mollificatore).
+Costruiamo una successione $\rho_j(x) = j^n \rho(jx)$ che tende alla $\delta$ di Dirac.
+\[
+\lim_{j \to \infty} u * \rho_j = u * \delta = u
+\]
+Ad ogni step, $u * \rho_j$ è una \textbf{funzione liscia} ($C^\infty$). Abbiamo libertà nella scelta di $\rho$ in base a quale informazione fisica vogliamo preservare o "perdere" (recuperandola solo al limite).
+\end{esempio}
+
+
+\subsection{L'operatore derivazione nel problema "Particle in a box"}
+Si consideri l'operatore differenziale del primo ordine (associato all'operatore momento quantistico $P = -i \frac{d}{dx}$) su un intervallo limitato $I = [0, 1]$:
+\[
+A = i \frac{d}{dx}.
+\]
+Vogliamo analizzare le sue proprietà di autoaggiunzione nello spazio di Hilbert $\Hspace = L^2([0,1])$. 
+È noto che l'operatore definito sul dominio minimale (funzioni lisce a supporto compatto, o che si annullano con le derivate ai bordi) è simmetrico ma non autoaggiunto.
+La questione centrale che affrontiamo è: \textbf{perché non esiste un'estensione autoaggiunta il cui dominio sia esattamente quello delle funzioni che si annullano agli estremi (condizione di Dirichlet)?}
+
+Ovvero, perché non possiamo scegliere come dominio:
+\[
+D_{Dirichlet} = \{ \psi \in AC([0,1]) \mid \psi' \in L^2, \psi(0)=0, \psi(1)=0 \}?
+\]
+
+\subsubsection{Analisi tramite la Teoria di Von Neumann}
+
+Per rispondere, utilizziamo la teoria delle estensioni di Von Neumann.
+Gli indici di difetto dell'operatore $A$ su $[0,1]$ sono $(1, 1)$. Ciò significa che esiste una famiglia a un parametro di estensioni autoaggiunte, parametrizzata da $\alpha \in [0, 2\pi)$.
+Le autofunzioni dei sottospazi di difetto $\mathcal{K}_+ = \ker(A^* - i\Identity)$ e $\mathcal{K}_- = \ker(A^* + i\Identity)$ sono le soluzioni delle equazioni differenziali:
+\[
+i \psi' = \pm i \psi \implies \psi' = \pm \psi.
+\]
+Normalizzando opportunamente (come da riferimento standard), le funzioni generatrici sono:
+\begin{align*}
+	\varphi_+(x) &= c_1 e^x \\
+	\varphi_-(x) &= c_2 e^{-x}
+\end{align*}
+dove $c_1, c_2$ sono costanti di normalizzazione non nulle.
+Si osservi un fatto cruciale: \textbf{queste funzioni esponenziali non si annullano mai nell'intervallo $[0,1]$.} In particolare:
+\[
+\varphi_\pm(0) \neq 0, \quad \varphi_\pm(1) \neq 0.
+\]
+
+\subsubsection{Struttura del Dominio Autoaggiunto $D_\alpha$}
+Secondo il Teorema di Von Neumann, il dominio di una generica estensione autoaggiunta $A_\alpha$ è dato dalla somma diretta del dominio minimale e di un sottospazio generato da una specifica combinazione lineare delle funzioni di difetto.
+Esplicitamente:
+\[
+D_\alpha = \left\{ \psi(x) = f(x) + z \left( \varphi_+(x) + e^{i\alpha} \varphi_-(x) \right) \;\middle|\; f \in D(A_{min}), z \in \C \right\}.
+\]
+Qui:
+\begin{itemize}
+	\item $f(x)$ appartiene alla chiusura del dominio minimale. Per definizione, $f$ soddisfa le condizioni nulle ai bordi: $f(0) = f(1) = 0$.
+	\item $z$ è un coefficiente complesso arbitrario che controlla la ``quantità'' di funzione di difetto aggiunta.
+	\item $\alpha \in [0, 2\pi)$ è il parametro che distingue le diverse estensioni autoaggiunte.
+\end{itemize}
+
+\subsubsection{Dimostrazione dell'Impossibilità di Dirichlet}
+
+Supponiamo per assurdo di voler imporre le condizioni di Dirichlet ($\psi(0)=0$ e $\psi(1)=0$) su tutto il dominio $D_\alpha$. Questo significherebbe trovare un valore fisso di $\alpha$ tale che, per ogni $z \in \C$, la funzione $\psi \in D_\alpha$ si annulli ai bordi.
+
+Valutiamo la generica funzione $\psi \in D_\alpha$ agli estremi $x=0$ e $x=1$. Ricordando che $f(0)=f(1)=0$, otteniamo:
+\[
+\psi(x) = z \left( \varphi_+(x) + e^{i\alpha} \varphi_-(x) \right).
+\]
+Affinché $\psi$ appartenga al dominio di Dirichlet per $z \neq 0$ (cioè per non ricadere nel dominio minimale non autoaggiunto), dobbiamo avere:
+\begin{equation}
+	\label{eq:sys}
+	\begin{cases}
+		\varphi_+(0) + e^{i\alpha} \varphi_-(0) = 0 \\
+		\varphi_+(1) + e^{i\alpha} \varphi_-(1) = 0
+	\end{cases}
+\end{equation}
+
+Sostituendo le espressioni degli esponenziali (assorbendo le costanti di normalizzazione per chiarezza, tanto non sono nulle):
+\begin{enumerate}
+	\item In $x=0$: $c_1 e^0 + e^{i\alpha} c_2 e^0 = 0 \implies c_1 + c_2 e^{i\alpha} = 0$.
+	\item In $x=1$: $c_1 e^1 + e^{i\alpha} c_2 e^{-1} = 0 \implies c_1 e + c_2 e^{-1} e^{i\alpha} = 0$.
+\end{enumerate}
+
+Dalla prima equazione ricaviamo il vincolo su $\alpha$:
+\[
+e^{i\alpha} = -\frac{c_1}{c_2}.
+\]
+Sostituendo questo nella seconda equazione:
+\[
+c_1 e + c_2 e^{-1} \left( -\frac{c_1}{c_2} \right) = 0 \implies c_1 e - c_1 e^{-1} = 0.
+\]
+Dividendo per $c_1$ (che è diverso da zero):
+\[
+e - \frac{1}{e} = 0 \implies e^2 = 1.
+\]
+Questa uguaglianza è palesemente \textbf{falsa} in $\R$.
+Abbiamo ottenuto una contraddizione.
+
+\begin{osservazione}[Significato della Contraddizione]
+	Il sistema \eqref{eq:sys} è sovradeterminato. Abbiamo una sola ``manopola'' ($\alpha$) per cercare di azzerare la funzione in due punti distinti ($0$ e $1$).
+	\begin{itemize}
+		\item Possiamo scegliere $\alpha$ per azzerare la funzione in $x=0$.
+		\item Oppure possiamo scegliere $\alpha$ per azzerare la funzione in $x=1$.
+		\item \textbf{Non possiamo fare entrambe le cose contemporaneamente.}
+	\end{itemize}
+	L'unica soluzione matematica al sistema è $z=0$. Ma se $z=0$, il dominio collassa a $D(A_{min})$, che è un operatore simmetrico ma \textbf{non autoaggiunto}.
+\end{osservazione}
+
+Il motivo profondo per cui non possiamo prendere il dominio ``piccolo'' di Dirichlet è legato alla definizione di operatore aggiunto.
+Ricordiamo che $D(A^*)$ è l'insieme delle $\phi$ tali che il termine di bordo nell'integrazione per parti svanisce contro ogni $\psi \in D(A)$.
+
+\[
+\langle \phi, A\psi \rangle - \langle A\phi, \psi \rangle = i \left[ \overline{\phi}(1)\psi(1) - \overline{\phi}(0)\psi(0) \right].
+\]
+
+\begin{enumerate}
+	\item Se scegliamo $D(A) = D_{Dirichlet}$ (cioè $\psi(0)=\psi(1)=0$), il termine di bordo a destra è identicamente nullo per \textbf{qualsiasi} valore di $\phi(0)$ e $\phi(1)$.
+	\item Di conseguenza, il dominio dell'aggiunto $D(A^*)$ diventa massimale: non ha alcuna restrizione ai bordi.
+	\item Pertanto $D(A) \subsetneq D(A^*)$, rompendo l'autoaggiunzione.
+\end{enumerate}
+
+Le estensioni autoaggiunte (date dai vari $\alpha$) sono dei compromessi: allargano $D(A)$ imponendo condizioni del tipo $\psi(1) = e^{i\theta}\psi(0)$ (condizioni quasi-periodiche). In questo modo, si impone un vincolo anche su $\phi$ nell'aggiunto, tale da rendere $D(A) = D(A^*)$.
+
+In sintesi, per l'operatore momento (indici 1,1) \textbf{non ci sono abbastanza gradi di libertà} per forzare la funzione a zero su entrambi i bordi mantenendo la struttura unitaria. Questo è possibile solo per operatori del secondo ordine (come $P^2$, indici 2,2), dove i parametri liberi sono quattro.

@@ -1,0 +1,114 @@
+\section{Teorie Bayesiane Generali (GBT)}
+
+In questa sezione presentiamo il framework delle Teorie Bayesiane Generali (General Bayesian Theories - GBT), un approccio ricostruttivo della teoria quantistica dal punto di vista di un agente che effettua scommesse sugli esiti di esperimenti possibili. Questo framework organizza le credenze dell'agente e le aggiorna quando diventano disponibili nuove informazioni, includendo come casi speciali la teoria della probabilità classica e quella quantistica.
+
+\subsection{Credenze e Probabilità}
+Consideriamo un agente che scommette sugli esiti di esperimenti effettuati su un dato sistema fisico. Il punto di partenza è una classe basilare di esperimenti, denominati \textbf{esperimenti principali}.
+
+\begin{definizione}[Esperimenti Principali]
+	Gli esiti degli esperimenti principali formano un unico spazio campionario $X$, dotato di una $\sigma$-algebra di eventi $\Sigma$. $\Sigma$ è una collezione di sottoinsiemi di $X$ che soddisfa le seguenti proprietà:
+	\begin{enumerate}
+		\item $X \in \Sigma$;
+		\item Se $E \in \Sigma$, allora il complemento $(X \setminus E) \in \Sigma$;
+		\item Se una collezione $(E_i)_i \subset \Sigma$, allora la loro unione $\bigcup_i E_i \in \Sigma$.
+	\end{enumerate}
+	Un esperimento principale corrisponde a una partizione $\mathbb{E} = (E_i)_i$ dello spazio campionario $X$ in eventi disgiunti. Per brevità, identifichiamo l'esperimento con la partizione corrispondente.
+\end{definizione}
+
+L'agente si affida alle proprie credenze (beliefs) per effettuare scommesse. Queste possono includere convinzioni sulle leggi della fisica o sulla storia precedente del sistema.
+
+\begin{definizione}[Belief]
+	Denotiamo con $B$ l'insieme di tutte le possibili credenze. Per una data Belief $\beta \in B$, l'agente assegna una distribuzione di probabilità $p: \Sigma \to [0,1]$, indicata come $p(E|\beta)$, che soddisfa le condizioni standard:
+	\begin{enumerate}
+		\item $p(E|\beta) \ge 0$ per tutti gli eventi $E$;
+		\item $p(\bigcup_i E_i | \beta) = \sum_i p(E_i | \beta)$ se gli eventi $E_i$ sono mutuamente disgiunti;
+		\item $p(X|\beta) = 1$.
+	\end{enumerate}
+	Si assume che la probabilità di un evento $E$ sia indipendente dallo specifico esperimento $\mathbb{E}$ nel quale $E$ si manifesta.
+\end{definizione}
+
+È fondamentale notare che la Belief $\beta$ determina l'assegnazione di probabilità $p(E|\beta)$, ma non viceversa: in generale, una Belief contiene più informazioni delle sole probabilità degli esiti degli esperimenti principali.
+
+\subsection{Aggiornamenti Bayesiani e Assiomi di Coerenza}
+Quando l'agente riceve la garanzia che un evento $E$ si è verificato, aggiorna la sua vecchia Belief $\beta$ in una nuova Belief, denotata come $\beta' = E\beta$. L'obiettivo dell'aggiornamento è calcolare le probabilità condizionate. La mappa di aggiornamento $\beta \mapsto E\beta$ non rappresenta un processo fisico sul sistema, ma un'operazione interna all'agente.
+
+Il framework si fonda su tre assiomi di coerenza che vincolano il modo in cui l'agente aggiorna le proprie credenze.
+
+\begin{criterio}[Assioma 1: Regola delle probabilità condizionate]
+	Per ogni Belief iniziale $\beta \in B$ e per ogni coppia di eventi $E$ e $F$ con $p(E|\beta) \neq 0$, la Belief aggiornata $E\beta$ soddisfa:
+	\begin{equation}
+		p(F|E\beta) = \frac{p(E \cap F|\beta)}{p(E|\beta)}.
+	\end{equation}
+	Questo implica che, una volta aggiornata la Belief basandosi su $E$, l'agente diventa certo dell'evento $E$, ovvero $p(E|E\beta) = 1$.
+\end{criterio}
+
+Il secondo assioma riguarda la coerenza dell'agente rispetto a informazioni che già possiede.
+
+\begin{criterio}[Assioma 2: Coerenza in avanti - Forward Consistency]
+	Se l'agente è certo dell'evento $E$, allora la Belief dell'agente non cambia sotto l'aggiornamento per l'evento $E$. Matematicamente:
+	\begin{equation}
+		\forall \beta \in B, \forall E \in \Sigma, \quad p(E|\beta) = 1 \implies E\beta = \beta.
+	\end{equation}
+	Una conseguenza immediata è che l'evento totale $X$ non porta ad alcun aggiornamento: $X\beta = \beta$.
+\end{criterio}
+
+\subsection{Azioni e Coerenza all'Indietro}
+Le condizioni di una scommessa possono essere alterate da un'azione. L'insieme delle azioni, denotato con $\text{Act}$, è assunto essere un monoide: le azioni possono essere composte (associatività) ed esiste un'azione identità $\mathcal{I}$.
+Quando viene eseguita un'azione $\mathcal{A}$, l'agente cambia la sua Belief in $\beta' = \mathcal{A}\beta$. Questo cambio soddisfa:
+\begin{itemize}
+	\item $(\mathcal{AB})\beta = \mathcal{A}(\mathcal{B}\beta)$;
+	\item $\mathcal{I}\beta = \beta$.
+\end{itemize}
+
+L'introduzione delle azioni permette di definire \textbf{esperimenti sequenziali}, costituiti da una sequenza di azioni intervallate da esperimenti principali (es. $\mathcal{A}, \mathbb{E}, \mathcal{B}, \mathbb{F}$). La Belief fornisce una distribuzione di probabilità congiunta per la sequenza.
+Si dice che l'evento $F$ implica l'evento $E$ in un esperimento sequenziale se la probabilità condizionata di aver ottenuto $E$ dato $F$ è 1 ($P(E|F)=1$) e se $F$ è "inalterato" dall'esperimento $\mathbb{E}$ (la probabilità marginale di $F$ è la stessa sia che $\mathbb{E}$ venga eseguito o meno).
+
+\begin{criterio}[Assioma 3: Coerenza all'indietro - Backward Consistency]
+	Se l'evento $F \in \mathbb{F}$ implica l'evento $E \in \mathbb{E}$ in un esperimento sequenziale $(\mathcal{A}, \mathbb{E}, \mathcal{B}, \mathbb{F})$, allora l'aggiornamento per l'evento $E$ può essere omesso nella Belief finale aggiornata per l'evento $F$. Matematicamente, se valgono le condizioni di implicazione e non-disturbo:
+	\begin{equation}
+		F\mathcal{B}E\mathcal{A}\beta = F\mathcal{B}\mathcal{A}\beta.
+	\end{equation}
+\end{criterio}
+
+Le teorie che soddisfano gli Assiomi 1, 2 e 3 sono definite \textbf{Teorie Bayesiane Generali}.
+
+\subsection{Esperimenti Ideali ed Emergenza del Principio di Esclusività}
+Ogni GBT contiene una classe speciale di esperimenti, detti \textbf{esperimenti ideali}.
+
+
+\begin{definizione}[Esperimento sequenzialmente raffinabile]
+	Un esperimento $(\mathcal{A}, \mathbb{E})$ è detto \textbf{sequenzialmente raffinabile} se esiste un'azione $\mathcal{A}'$ tale che, per ogni raffinamento $(\mathcal{B}, \mathbb{F})$ (un esperimento più fine le cui probabilità marginali coincidono con quelle di $\mathbb{E}$), l'esperimento grossolano non altera la distribuzione di probabilità dell'esperimento fine, a patto che l'agente esegua l'azione $\mathcal{A}'$ tra i due.
+\end{definizione}
+
+\begin{definizione}[Esperimento Ideale]
+	Un esperimento $(\mathcal{A}, \mathbb{E})$ è ideale se esiste un'azione $\mathcal{A}'$ che garantisce la proprietà di non disturbo per \textit{tutti} i possibili raffinamenti.
+\end{definizione}
+
+\begin{teorema}[Esistenza]
+	Gli esperimenti ideali esistono in ogni GBT. In particolare, ogni esperimento principale $\mathbb{E}$ è un esperimento ideale.
+\end{teorema}
+
+Una conseguenza centrale del framework GBT è la derivazione del \textbf{Principio di Esclusività}.
+Consideriamo un insieme di esiti $\mathcal{O}$ appartenenti a esperimenti (generalmente) diversi. Due esiti $(\mathcal{A}, E)$ e $(\mathcal{A}', E')$ sono detti \textit{mutuamente esclusivi} se sono equivalenti a due esiti distinti di un singolo esperimento $\mathcal{F}$. Un insieme di esiti è \textit{esclusivo a coppie} se ogni coppia nell'insieme è mutuamente esclusiva.
+
+Il Principio di Esclusività afferma che per ogni insieme di esiti esclusivi a coppie $\{(\mathcal{A}_n, E_n)\}$, la somma delle loro probabilità non può superare 1:
+\begin{equation}
+	\sum_n p(E_n | \mathcal{A}_n \beta) \le 1, \quad \forall \beta \in B.
+\end{equation}
+
+\begin{teorema}[Validità del Principio di Esclusività]
+	In ogni GBT, gli esiti degli esperimenti ideali soddisfano il principio di esclusività.
+\end{teorema}
+
+Questo risultato implica che l'insieme delle correlazioni quantistiche per ogni scenario di contestualità di Bell o Kochen-Specker può essere caratterizzato completamente in termini di condizioni di coerenza bayesiana, assumendo che due esperimenti statisticamente indipendenti possano essere eseguiti in parallelo.
+
+\subsection{Esempio: La Teoria Quantistica come GBT}
+La teoria quantistica rientra nel framework GBT con le seguenti identificazioni:
+\begin{itemize}
+	\item \textbf{Spazio Campionario:} Per uno spazio di Hilbert $\Hspace = \C^d$, $X = \{1, \dots, d\}$.
+	\item \textbf{Esperimenti Principali:} Misure proiettive diagonali in una base ortonormale fissata $\{\ket{j}\}$. I proiettori sono $P_{E_i} = \sum_{j \in E_i} \ket{j}\bra{j}$.
+	\item \textbf{Credenze:} Operatori densità $\rho \in L(\Hspace)$, $\rho \ge 0$, $\text{tr}(\rho)=1$. La probabilità è data dalla regola di Born: $p(E_i|\rho) = \text{tr}(P_{E_i}\rho)$.
+	\item \textbf{Aggiornamento:} Regola di Lüders. $E_i \rho = \frac{P_{E_i}\rho P_{E_i}}{\text{tr}(P_{E_i}\rho)}$.
+	\item \textbf{Azioni:} Canali quantistici (mappe completamente positive che preservano la traccia).
+\end{itemize}
+In questo contesto, l'insieme degli esperimenti ideali coincide esattamente con l'insieme delle misure proiettive.

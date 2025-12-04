@@ -658,7 +658,7 @@ Infine, analizziamo il caso in cui una mappa lineare preservi prodotti e involuz
 Un concetto centrale nello studio delle algebre di operatori è quello di commutante, che descrive l'insieme degli operatori che commutano con una data classe.
 
 \begin{definizione}[Commutante]
-	Sia $\mathfrak{M} \subset \mathscr{B}(\Hspace)$ un sottoinsieme di operatori limitati su uno spazio di Hilbert complesso. Il \textbf{commutante} di $\mathfrak{M}$ è definito come:
+	Sia $\mathfrak{M} \subset \mathscr{B}(\Hspace)$ un sottoinsieme di operatori limitati su uno spazio di Hilbert complesso (non necessariamente chiuso o un'algebra). Il \textbf{commutante} di $\mathfrak{M}$ è definito come:
 	$$
 	\mathfrak{M}' := \{ T \in \mathscr{B}(\Hspace) \mid TA - AT = 0 \quad \text{per ogni } A \in \mathfrak{M} \} \,.
 	$$
@@ -667,14 +667,14 @@ Un concetto centrale nello studio delle algebre di operatori è quello di commut
 
 \begin{osservazione}[Proprietà algebriche e topologiche]
 	\begin{enumerate}
-		\item Se $\mathfrak{M}$ è chiuso rispetto all'involuzione (cioè è un *-insieme), allora $\mathfrak{M}'$ è una *-algebra con unità.
+		\item Se $\mathfrak{M}$ è chiuso rispetto all'involuzione (un *-insieme), allora $\mathfrak{M}'$ è una *-algebra con unità.
 		\item Vale sempre l'inclusione $\mathfrak{M} \subset \mathfrak{M}''$.
 		\item Non si ottengono nuovi insiemi oltre il secondo commutante, poiché $\mathfrak{M}' = \mathfrak{M}'''$.
 		\item Una proprietà cruciale è la chiusura topologica: $\mathfrak{M}'$ è sempre chiuso non solo nella topologia uniforme, ma anche nelle topologie \textbf{debole} e \textbf{forte} degli operatori.
 	\end{enumerate}
 \end{osservazione}
 
-Il legame tra proprietà algebriche (il commutante) e topologiche (la chiusura) è sancito da uno dei teoremi più importanti dell'analisi funzionale, dovuto a von Neumann.
+Il legame tra proprietà algebriche (il commutante) e topologiche (la chiusura) è sancito da uno dei teoremi più importanti dell'analisi funzionale.
 
 \begin{teorema}[Teorema del Bicommutante di von Neumann]
 	Sia $\Hspace$ uno spazio di Hilbert complesso e $\mathfrak{A}$ una *-sottoalgebra con unità di $\mathscr{B}(\Hspace)$. I seguenti fatti sono equivalenti:
@@ -687,40 +687,77 @@ Il legame tra proprietà algebriche (il commutante) e topologiche (la chiusura) 
 	$$ \mathfrak{B}'' = \overline{\mathfrak{B}}^w = \overline{\mathfrak{B}}^s \,. $$
 \end{teorema}
 
-Grazie al teorema precedente, siamo pronti a definire una classe speciale di algebre di operatori.
-
 \begin{definizione}[Algebra di von Neumann]
-	Sia $\Hspace \neq \{0\}$ uno spazio di Hilbert complesso. Un'\textbf{Algebra di von Neumann} (o \textbf{$W^*$-algebra}) su $\Hspace$ è una *-sottoalgebra con unità $\mathfrak{R} \subset \mathscr{B}(\Hspace)$ che soddisfa una delle tre proprietà equivalenti del Teorema del Bicommutante (solitamente si usa la definizione $\mathfrak{R} = \mathfrak{R}''$).
+	Sia $\Hspace \neq \{0\}$ uno spazio di Hilbert complesso. Un'\textbf{Algebra di von Neumann} su $\Hspace$ è una *-sottoalgebra con unità $\mathfrak{R} \subset \mathscr{B}(\Hspace)$ che soddisfa la condizione $\mathfrak{R} = \mathfrak{R}''$.
 \end{definizione}
 
-\begin{osservazione}[Relazione con le $C^*$-algebre]
-	Poiché la chiusura nella topologia forte implica la chiusura nella topologia uniforme (della norma), ogni algebra di von Neumann è, in particolare, una $C^*$-algebra.
-	Il termine $W^*$-algebra è spesso usato come sinonimo, anche se originariamente indicava una definizione astratta (come duale topologico di uno spazio di Banach, risultato provato da Sakai nel 1970). In questo contesto concreto, i termini sono interscambiabili.
-\end{osservazione}
+\subsubsection{Generazione e Struttura di Reticolo}
 
-\begin{definizione}[Centro e Fattori]
-	Data un'algebra di von Neumann $\mathfrak{R}$:
+Dato un insieme *-chiuso $\mathfrak{M} \subset \mathscr{B}(\Hspace)$, l'algebra di von Neumann \textbf{generata} da $\mathfrak{M}$ è la più piccola algebra di von Neumann che contiene $\mathfrak{M}$. Per le proprietà del bicommutante, questa coincide esattamente con $\mathfrak{M}''$.
+
+L'insieme di tutte le algebre di von Neumann su uno spazio di Hilbert $\Hspace$, ordinato per inclusione, possiede una ricca struttura matematica. Siano $\mathfrak{A}, \mathfrak{B} \subset \mathscr{B}(\Hspace)$ due algebre di von Neumann. Definiamo le operazioni reticolari:
+\begin{align*}
+	\mathfrak{A} \wedge \mathfrak{B} &:= \mathfrak{A} \cap \mathfrak{B} \\
+	\mathfrak{A} \vee \mathfrak{B} &:= (\mathfrak{A} \cup \mathfrak{B})''
+\end{align*}
+Si noti che l'unione insiemistica $\mathfrak{A} \cup \mathfrak{B}$ non è generalmente un'algebra, motivo per cui è necessario prendere il bicommutante (o la chiusura forte) per definire il join ($\vee$).
+
+\begin{proposizione}[Dualità e Reticolo]
+	Valgono le seguenti leggi di tipo De Morgan per i commutanti:
 	\begin{itemize}
-		\item Il \textbf{centro} di $\mathfrak{R}$ è l'insieme degli elementi che commutano con tutti gli elementi dell'algebra:
-		$$ \mathfrak{Z}(\mathfrak{R}) := \mathfrak{R} \cap \mathfrak{R}' \,. $$
-		\item Un \textbf{fattore} è un'algebra di von Neumann con centro banale, ovvero contenente solo i multipli scalari dell'identità:
-		$$ \mathfrak{R} \cap \mathfrak{R}' = \{ c \Identity \}_{c \in \mathbb{C}} \,. $$
+		\item[(a)] $(\mathfrak{A} \vee \mathfrak{B})' = \mathfrak{A}' \wedge \mathfrak{B}'$
+		\item[(b)] $(\mathfrak{A} \wedge \mathfrak{B})' \supset \mathfrak{A}' \vee \mathfrak{B}'$ (l'uguaglianza vale se $\mathfrak{A}, \mathfrak{B}$ sono fattori o in casi specifici).
 	\end{itemize}
-	La classificazione dei fattori è un capitolo centrale nella teoria delle algebre di operatori, con profonde conseguenze nella teoria quantistica dei campi.
+	La famiglia delle algebre di von Neumann su $\Hspace$ forma un \textbf{reticolo completo ortocomplementato}, dove:
+	\begin{itemize}
+		\item L'elemento minimo è $\mathbf{0} = \{cI\}_{c \in \mathbb{C}}$ (i multipli dell'identità).
+		\item L'elemento massimo è $\mathbf{1} = \mathscr{B}(\Hspace)$.
+		\item L'operazione di ortocomplemento è data dal commutante $\neg \mathfrak{R} = \mathfrak{R}'$.
+	\end{itemize}
+\end{proposizione}
+
+\subsubsection{Prodotti Tensoriali e Isomorfismi}
+
+Per descrivere sistemi quantistici composti, è necessario definire il prodotto tensoriale di algebre. Siano $\mathfrak{A}_1 \subset \mathscr{B}(\Hspace_1)$ e $\mathfrak{A}_2 \subset \mathscr{B}(\Hspace_2)$ due algebre di von Neumann.
+Il semplice prodotto tensoriale algebrico $\mathfrak{A}_1 \otimes \mathfrak{A}_2$ non è chiuso nelle topologie debole/forte.
+
+\begin{definizione}[Prodotto Tensoriale di von Neumann]
+	Si definisce il prodotto tensoriale di von Neumann $\mathfrak{A}_1 \bar{\otimes} \mathfrak{A}_2$ come l'algebra di von Neumann su $\Hspace_1 \otimes \Hspace_2$ generata dal prodotto algebrico:
+	$$ \mathfrak{A}_1 \bar{\otimes} \mathfrak{A}_2 := (\mathfrak{A}_1 \otimes \mathfrak{A}_2)'' \,. $$
+	Vale la notevole proprietà del commutante:
+	$$ (\mathfrak{A}_1 \bar{\otimes} \mathfrak{A}_2)' = \mathfrak{A}_1' \bar{\otimes} \mathfrak{A}_2' \,. $$
 \end{definizione}
 
-\subsubsection{Generazione e Operazioni Reticolari}
+Quando si confrontano due algebre di von Neumann $\mathfrak{R}_1$ su $\Hspace_1$ e $\mathfrak{R}_2$ su $\Hspace_2$, distinguiamo due livelli di equivalenza:
+\begin{enumerate}
+	\item \textbf{Isomorfismo (algebrico):} Esiste un *-isomorfismo unitario $\phi: \mathfrak{R}_1 \to \mathfrak{R}_2$. Per le algebre di von Neumann, un tale isomorfismo è automaticamente isometrico e continuo rispetto alle topologie pre-duali.
+	\item \textbf{Isomorfismo Spaziale:} Esiste un'isometria lineare suriettiva (operatore unitario) $V: \Hspace_1 \to \Hspace_2$ tale che l'azione dell'algebra venga preservata:
+	$$ \mathfrak{R}_2 = \{ V A V^{-1} \mid A \in \mathfrak{R}_1 \} \,. $$
+	Questo è un concetto più forte dell'isomorfismo algebrico.
+\end{enumerate}
 
-Se $\mathfrak{M} \subset \mathscr{B}(\Hspace)$ è un insieme chiuso rispetto all'involuzione, l'algebra di von Neumann \textbf{generata} da $\mathfrak{M}$ è la più piccola algebra di von Neumann che contiene $\mathfrak{M}$. Grazie al teorema del bicommutante, essa è esattamente $\mathfrak{M}''$.
+\subsubsection{Operatori Illimitati e Affiliazione}
 
-Possiamo definire operazioni reticolari sulla famiglia delle algebre di von Neumann su $\Hspace$:
-\begin{itemize}
-	\item \textbf{Intersezione (Meet):} L'intersezione arbitraria di algebre di von Neumann $\{\mathfrak{R}_\alpha\}$ è ancora un'algebra di von Neumann:
-	$$ \bigwedge_{\alpha} \mathfrak{R}_\alpha := \bigcap_{\alpha} \mathfrak{R}_\alpha \,. $$
-	\item \textbf{Unione generata (Join):} L'unione insiemistica non è in genere un'algebra. Si definisce il join come l'algebra generata dall'unione:
-	$$ \bigvee_{\alpha} \mathfrak{R}_\alpha := \left( \bigcup_{\alpha} \mathfrak{R}_\alpha \right)'' \,. $$
-\end{itemize}
+In meccanica quantistica, molte osservabili fisiche (posizione, momento, energia) sono rappresentate da operatori autoaggiunti \textit{illimitati}, che non appartengono a $\mathscr{B}(\Hspace)$ e quindi non sono elementi dell'algebra di von Neumann in senso stretto. Tuttavia, essi possono essere "affiliati" ad essa.
 
+Sia $\mathfrak{N}$ un insieme di operatori autoaggiunti (tipicamente illimitati) su $\Hspace$.
+\begin{definizione}[Commutante esteso e Algebra generata]
+	\begin{itemize}
+		\item Il commutante $\mathfrak{N}'$ è definito come l'insieme di tutti gli operatori limitati $T \in \mathscr{B}(\Hspace)$ che commutano con le misure spettrali $P^{(A)}$ di ogni $A \in \mathfrak{N}$.
+		\item L'algebra di von Neumann generata da $\mathfrak{N}$ è $\mathfrak{N}'' := (\mathfrak{N}')'$.
+	\end{itemize}
+\end{definizione}
+
+\begin{definizione}[Operatore Affiliato]
+	Un operatore autoaggiunto $A: D(A) \to \Hspace$ si dice \textbf{affiliato} all'algebra di von Neumann $\mathfrak{R}$ (si scrive $A \eta \mathfrak{R}$) se le sue proiezioni spettrali appartengono all'algebra:
+	$$ P^{(A)}_E \in \mathfrak{R} \quad \text{per ogni boreliano } E \subset \mathbb{R}. $$
+	Equivalentemente, $A \eta \mathfrak{R}$ se e solo se $A$ commuta con ogni operatore nel commutante $\mathfrak{R}'$, ovvero:
+	$$ U A U^{-1} = A \quad (\text{o meglio } U A \subset A U) \quad \forall U \in \mathfrak{R}' \text{ unitario}. $$
+\end{definizione}
+
+\begin{proposizione}[Approssimazione]
+	Se $A \eta \mathfrak{R}$, allora $A$ è il limite forte sul suo dominio $D(A)$ di una successione di operatori limitati $A_n \in \mathfrak{R}$. Questo giustifica l'idea che gli operatori affiliati siano "limiti" ideali dell'algebra.
+\end{proposizione}
 Concludiamo con il caso più semplice e fondamentale.
 
 \begin{proposizione}[Il caso $\mathscr{B}(\Hspace)$]

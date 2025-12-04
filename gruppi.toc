@@ -1,43 +1,57 @@
 \babel@toc {italian}{}\relax 
 \babel@toc {italian}{}\relax 
-\contentsline {section}{\numberline {1}Introduzione alla teoria dei gruppi}{2}{}%
-\contentsline {section}{\numberline {2}Sottogruppi normali}{4}{}%
-\contentsline {section}{\numberline {3}Primo teorema di isomorfismo}{6}{}%
-\contentsline {section}{\numberline {4}Rappresentazioni dei gruppi}{8}{}%
-\contentsline {section}{\numberline {5}Irriducibili}{9}{}%
-\contentsline {subsection}{\numberline {5.1}Rappresentazione regolare}{13}{}%
-\contentsline {section}{\numberline {6}Costruzione della tavola dei caratteri}{13}{}%
-\contentsline {subsection}{\numberline {6.1}Tavola dei caratteri di $C_3$}{13}{}%
-\contentsline {subsection}{\numberline {6.2}Prodotto tensore}{14}{}%
-\contentsline {section}{\numberline {7}Gruppi continui}{15}{}%
-\contentsline {subsection}{\numberline {7.1}Gruppi di Lie e Gruppi Compatti}{15}{}%
-\contentsline {subsection}{\numberline {7.2}Algebre di Lie}{16}{}%
-\contentsline {subsection}{\numberline {7.3}Generatori e Corrispondenza Gruppo-Algebra}{16}{}%
-\contentsline {subsection}{\numberline {7.4}SO(2)}{18}{}%
-\contentsline {subsubsection}{\numberline {7.4.1}Decomposizione della Rappresentazione Fondamentale}{19}{}%
-\contentsline {subsubsection}{\numberline {7.4.2}Serie di Clebsch-Gordan}{19}{}%
-\contentsline {subsection}{\numberline {7.5}L'Algebra di Lie $\mathfrak {so}(2)$}{19}{}%
-\contentsline {subsection}{\numberline {7.6}Il Gruppo $SO(3)$ e l'Algebra di Lie $\mathfrak {so}(3)$}{21}{}%
-\contentsline {subsubsection}{\numberline {7.6.1}Generatori Infinitesimi di $\mathfrak {so}(3)$}{22}{}%
-\contentsline {subsubsection}{\numberline {7.6.2}I Generatori Fisici (Momento Angolare)}{23}{}%
-\contentsline {section}{\numberline {8}Teorema di addizione dei momenti angolari}{24}{}%
-\contentsline {subsection}{\numberline {8.1}Il Teorema di Weyl}{26}{}%
-\contentsline {subsection}{\numberline {8.2}Dimostrazione per Gruppi Compatti (come $SO(3)$)}{26}{}%
-\contentsline {section}{\numberline {9}Operatore Tensoriale}{27}{}%
-\contentsline {subsection}{\numberline {9.1}Il Teorema di Wigner-Eckart}{28}{}%
-\contentsline {section}{\numberline {10}Struttura di $SU(N)$ e Costruzione delle Irreps}{29}{}%
-\contentsline {subsection}{\numberline {10.1}Generatori Hermitiani e Prodotto Scalare}{29}{}%
-\contentsline {subsection}{\numberline {10.2}Costruzione Formale dei Diagrammi di Young}{30}{}%
-\contentsline {subsubsection}{\numberline {10.2.1}Notazione e Semantica dei Diagrammi}{30}{}%
-\contentsline {subsubsection}{\numberline {10.2.2}Proprietà e Utilizzo (da $S_k$ a $SU(N)$)}{31}{}%
-\contentsline {section}{\numberline {11}Regole di Decomposizione (Littlewood-Richardson)}{32}{}%
-\contentsline {subsection}{\numberline {11.1}Algoritmo di Littlewood-Richardson}{32}{}%
-\contentsline {subsection}{\numberline {11.2}Spiegazione Formale (Perché Funziona)}{33}{}%
-\contentsline {subsection}{\numberline {11.3}Esempio: $SU(3) \DOTSB \tmspace +\thickmuskip {.2777em}\DOTSB \Relbar \joinrel \Rightarrow \tmspace +\thickmuskip {.2777em}\mathbf {3} \otimes \bar {\mathbf {3}}$}{33}{}%
-\contentsline {section}{\numberline {12}Young Tableaux e Momento Angolare ($SU(2)$)}{34}{}%
-\contentsline {subsection}{\numberline {12.1}Definizione Formale degli Spazi $j$}{34}{}%
-\contentsline {subsection}{\numberline {12.2}Decomposizione ($j_1 \otimes j_2$) via Regole di Littlewood-Richardson}{35}{}%
-\contentsline {subsection}{\numberline {12.3}Calcolo dei Coefficienti di CG tramite Proiettori di Young}{36}{}%
-\contentsline {subsubsection}{\numberline {12.3.1}Procedura Formale di Calcolo}{36}{}%
-\contentsline {subsubsection}{\numberline {12.3.2}Esempi (Analisi Concettuale)}{37}{}%
-\contentsline {subsection}{\numberline {12.4}Commento sull'Equivalenza dei Metodi}{37}{}%
+\contentsline {section}{\numberline {1}Introduzione alla teoria dei gruppi}{3}{}%
+\contentsline {section}{\numberline {2}Sottogruppi normali}{5}{}%
+\contentsline {section}{\numberline {3}Primo teorema di isomorfismo}{7}{}%
+\contentsline {section}{\numberline {4}Rappresentazioni dei gruppi}{9}{}%
+\contentsline {section}{\numberline {5}Irriducibili}{11}{}%
+\contentsline {subsection}{\numberline {5.1}Rappresentazione regolare}{14}{}%
+\contentsline {section}{\numberline {6}Costruzione della tavola dei caratteri}{14}{}%
+\contentsline {subsection}{\numberline {6.1}Tavola dei caratteri di $C_3$}{15}{}%
+\contentsline {subsection}{\numberline {6.2}Prodotto tensore}{16}{}%
+\contentsline {section}{\numberline {7}Rappresentazioni Indotte}{16}{}%
+\contentsline {subsection}{\numberline {7.1}Costruzione ed Esistenza}{17}{}%
+\contentsline {subsection}{\numberline {7.2}Proprietà Universale e Reciprocità di Frobenius}{17}{}%
+\contentsline {subsection}{\numberline {7.3}Carattere della Rappresentazione Indotta}{18}{}%
+\contentsline {section}{\numberline {8}L'Algebra del Gruppo $\mathbb {C}G$}{18}{}%
+\contentsline {subsection}{\numberline {8.1}Decomposizione di Wedderburn}{18}{}%
+\contentsline {subsection}{\numberline {8.2}Analisi di Fourier su Gruppi Finiti}{19}{}%
+\contentsline {section}{\numberline {9}Gruppi continui}{20}{}%
+\contentsline {subsection}{\numberline {9.1}Gruppi di Lie e Gruppi Compatti}{20}{}%
+\contentsline {subsection}{\numberline {9.2}Algebre di Lie}{21}{}%
+\contentsline {subsubsection}{\numberline {9.2.1}Motivazione e il Primo Principio}{21}{}%
+\contentsline {subsubsection}{\numberline {9.2.2}La Rappresentazione Aggiunta}{21}{}%
+\contentsline {subsubsection}{\numberline {9.2.3}Definizione Formale e Secondo Principio}{23}{}%
+\contentsline {subsection}{\numberline {9.3}La Mappa Esponenziale}{23}{}%
+\contentsline {subsubsection}{\numberline {9.3.1}Proprietà Fondamentali}{23}{}%
+\contentsline {subsubsection}{\numberline {9.3.2}La Formula di Campbell-Hausdorff}{24}{}%
+\contentsline {subsubsection}{\numberline {9.3.3}Sottoalgebre e Sottogruppi}{24}{}%
+\contentsline {subsection}{\numberline {9.4}Teoremi di Lie}{25}{}%
+\contentsline {subsection}{\numberline {9.5}SO(2)}{26}{}%
+\contentsline {subsubsection}{\numberline {9.5.1}Decomposizione della Rappresentazione Fondamentale}{27}{}%
+\contentsline {subsubsection}{\numberline {9.5.2}Serie di Clebsch-Gordan}{27}{}%
+\contentsline {subsection}{\numberline {9.6}L'Algebra di Lie $\mathfrak {so}(2)$}{27}{}%
+\contentsline {subsection}{\numberline {9.7}Il Gruppo $SO(3)$ e l'Algebra di Lie $\mathfrak {so}(3)$}{29}{}%
+\contentsline {subsubsection}{\numberline {9.7.1}Generatori Infinitesimi di $\mathfrak {so}(3)$}{30}{}%
+\contentsline {subsubsection}{\numberline {9.7.2}I Generatori Fisici (Momento Angolare)}{31}{}%
+\contentsline {section}{\numberline {10}Teorema di addizione dei momenti angolari}{32}{}%
+\contentsline {subsection}{\numberline {10.1}Il Teorema di Weyl}{34}{}%
+\contentsline {subsection}{\numberline {10.2}Dimostrazione per Gruppi Compatti (come $SO(3)$)}{34}{}%
+\contentsline {section}{\numberline {11}Operatore Tensoriale}{35}{}%
+\contentsline {subsection}{\numberline {11.1}Il Teorema di Wigner-Eckart}{36}{}%
+\contentsline {section}{\numberline {12}Struttura di $SU(N)$ e Costruzione delle Irreps}{37}{}%
+\contentsline {subsection}{\numberline {12.1}Generatori Hermitiani e Prodotto Scalare}{37}{}%
+\contentsline {subsection}{\numberline {12.2}Costruzione Formale dei Diagrammi di Young}{38}{}%
+\contentsline {subsubsection}{\numberline {12.2.1}Notazione e Semantica dei Diagrammi}{38}{}%
+\contentsline {subsubsection}{\numberline {12.2.2}Proprietà e Utilizzo (da $S_k$ a $SU(N)$)}{39}{}%
+\contentsline {section}{\numberline {13}Regole di Decomposizione (Littlewood-Richardson)}{40}{}%
+\contentsline {subsection}{\numberline {13.1}Algoritmo di Littlewood-Richardson}{40}{}%
+\contentsline {subsection}{\numberline {13.2}Fondamenti della Regola di Littlewood-Richardson e Dualità di Schur-Weyl}{41}{}%
+\contentsline {subsection}{\numberline {13.3}Esempio: $SU(3) \DOTSB \tmspace +\thickmuskip {.2777em}\DOTSB \Relbar \joinrel \Rightarrow \tmspace +\thickmuskip {.2777em}\mathbf {3} \otimes \bar {\mathbf {3}}$}{43}{}%
+\contentsline {section}{\numberline {14}Young Tableaux e Momento Angolare ($SU(2)$)}{44}{}%
+\contentsline {subsection}{\numberline {14.1}Definizione Formale degli Spazi $j$}{44}{}%
+\contentsline {subsection}{\numberline {14.2}Decomposizione ($j_1 \otimes j_2$) via Regole di Littlewood-Richardson}{45}{}%
+\contentsline {subsection}{\numberline {14.3}Calcolo dei Coefficienti di CG tramite Proiettori di Young}{45}{}%
+\contentsline {subsubsection}{\numberline {14.3.1}Procedura Formale di Calcolo}{46}{}%
+\contentsline {subsubsection}{\numberline {14.3.2}Esempi (Analisi Concettuale)}{46}{}%
+\contentsline {subsection}{\numberline {14.4}Commento sull'Equivalenza dei Metodi}{47}{}%

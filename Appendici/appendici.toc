@@ -1,73 +1,34 @@
 \babel@toc {italian}{}\relax 
 \babel@toc {italian}{}\relax 
-\contentsline {section}{\numberline {1}Appendici matematiche}{3}{}%
-\contentsline {subsection}{\numberline {1.1}Definizione di prodotto tensore}{3}{}%
-\contentsline {subsection}{\numberline {1.2}Dualità e Riflessività negli Spazi Normati}{4}{}%
-\contentsline {paragraph}{Spazi Riflessivi (Sì):}{4}{}%
-\contentsline {paragraph}{Spazi Non Riflessivi (No):}{4}{}%
-\contentsline {paragraph}{Conseguenze per la Riflessività:}{5}{}%
-\contentsline {subsection}{\numberline {1.3}La Notazione di Dirac in uno Spazio di Hilbert}{5}{}%
-\contentsline {subsubsection}{\numberline {1.3.1}Duali Algebrici vs. Topologici}{5}{}%
-\contentsline {subsection}{\numberline {1.4}Gli Spazi di Hilbert Attrezzati (Rigged Hilbert Spaces)}{6}{}%
-\contentsline {paragraph}{Conseguenze per la Notazione di Dirac}{6}{}%
-\contentsline {subsubsection}{\numberline {1.4.1}La Decomposizione di un Vettore di $\mathcal {H}$}{7}{}%
-\contentsline {subsubsection}{\numberline {1.4.2}Perché l'Integrale "Torna" in $\mathcal {H}$?}{7}{}%
-\contentsline {subsection}{\numberline {1.5}PVMs}{8}{}%
-\contentsline {subsection}{\numberline {1.6}Decomposizione spettrale per operatori autoaggiunti}{11}{}%
-\contentsline {subsection}{\numberline {1.7}Divergenza della serie di Dyson}{12}{}%
-\contentsline {subsection}{\numberline {1.8}$C^\star $ algebre}{13}{}%
-\contentsline {subsubsection}{\numberline {1.8.1}Rappresentazioni di *-algebre}{15}{}%
-\contentsline {subsection}{\numberline {1.9}Algebre di von Neumann (o $W^*$-algebre)}{16}{}%
-\contentsline {subsubsection}{\numberline {1.9.1}Generazione e Operazioni Reticolari}{17}{}%
-\contentsline {subsubsection}{\numberline {1.9.2}Somma Hilbertiana di Algebre di von Neumann}{17}{}%
-\contentsline {section}{\numberline {2}Fondamenti logico-matematici della Meccanica Quantistica}{19}{}%
-\contentsline {subsection}{\numberline {2.1}Grandezze Classiche e Misurabilità}{19}{}%
-\contentsline {subsection}{\numberline {2.2}La nozione di Reticolo}{19}{}%
-\contentsline {subsection}{\numberline {2.3}La logica non-Booleana della Meccanica Quantistica}{21}{}%
-\contentsline {subsection}{\numberline {2.4}Perché le osservabili sono operatori autoaggiunti}{22}{}%
-\contentsline {subsection}{\numberline {2.5}Il Teorema di Soler}{23}{}%
-\contentsline {subsection}{\numberline {2.6}Argomenti avanzati su Teoremi di Soler e Piron}{25}{}%
-\contentsline {subsubsection}{\numberline {2.6.1}Dagli assiomi allo Spazio Vettoriale Generalizzato}{25}{}%
-\contentsline {subsubsection}{\numberline {2.6.2}Il Teorema di Solèr e la natura del campo}{26}{}%
-\contentsline {subsection}{\numberline {2.7}Il Teorema di Gleason}{26}{}%
-\contentsline {subsection}{\numberline {2.8}Teorema di Bell debole}{28}{}%
-\contentsline {subsubsection}{\numberline {2.8.1}Stati Puri e Misti: Struttura convessa}{29}{}%
-\contentsline {subsection}{\numberline {2.9}Tipologie di Sovrapposizione e Stati Misti}{29}{}%
-\contentsline {subsubsection}{\numberline {2.9.1}L'origine dell'Interferenza Quantistica}{30}{}%
-\contentsline {subsection}{\numberline {2.10}Stati post-misurazione: una critica al postulata del collasso}{30}{}%
-\contentsline {subsubsection}{\numberline {2.10.1}Confronto tra i postulati di von Neumann e Lüders}{31}{}%
-\contentsline {subsubsection}{\numberline {2.10.2}Dipendenza dello stato dalla procedura di misura}{32}{}%
-\contentsline {subsubsection}{\numberline {2.10.3}Misurazioni Non Selettive (Ideali)}{33}{}%
-\contentsline {subsection}{\numberline {2.11}Logica delle Algebre di von Neumann e Classificazione dei Fattori}{33}{}%
-\contentsline {subsubsection}{\numberline {2.11.1}Funzione Dimensione e Classificazione dei Tipi}{34}{}%
-\contentsline {subsection}{\numberline {2.12}Proprietà Reticolari e Classificazione Generale}{35}{}%
-\contentsline {subsubsection}{\numberline {2.12.1}Estensione alle Algebre di von Neumann Generali}{35}{}%
-\contentsline {subsection}{\numberline {2.13}Il Teorema di Gleason Generalizzato}{36}{}%
-\contentsline {subsection}{\numberline {2.14}Caratterizzazione Algebrica degli Stati: Il Teorema di Riesz Non Commutativo}{36}{}%
-\contentsline {subsubsection}{\numberline {2.14.1}Stati come Funzionali Lineari}{37}{}%
-\contentsline {subsubsection}{\numberline {2.14.2}Analisi del Ragionamento: L'analogia con Riesz}{37}{}%
-\contentsline {section}{\numberline {3}Esempi ed osservazioni utili}{39}{}%
-\contentsline {subsection}{\numberline {3.1}Spazi di Hilbert}{39}{}%
-\contentsline {subsection}{\numberline {3.2}Spazio di Successioni}{39}{}%
-\contentsline {paragraph}{Norme}{39}{}%
-\contentsline {subsection}{\numberline {3.3}Spazi di Funzioni $L^p(\mathbb {R}^n)$ ($p \in [1, +\infty ]$)}{41}{}%
-\contentsline {subsection}{\numberline {3.4}Spazi $L_{loc}^p(\mathbb {R}^n)$}{42}{}%
-\contentsline {subsection}{\numberline {3.5}Richiami di Complementi di Analisi III}{42}{}%
-\contentsline {subsection}{\numberline {3.6}Spazi di Sobolev $W^{k,p}(\mathbb {R}^n)$}{43}{}%
-\contentsline {paragraph}{Norma $W^{1,p}$}{43}{}%
-\contentsline {paragraph}{Proprietà}{43}{}%
-\contentsline {subsection}{\numberline {3.7}Operatori}{44}{}%
-\contentsline {subsection}{\numberline {3.8}Varie su operatori}{47}{}%
-\contentsline {subsection}{\numberline {3.9}Distribuzioni}{49}{}%
-\contentsline {subsection}{\numberline {3.10}Osservazioni sulla MQ}{50}{}%
-\contentsline {subsubsection}{\numberline {3.10.1}Il caso dell'Idrogeno}{50}{}%
-\contentsline {subsection}{\numberline {3.11}Indici di difetto e Criteri}{51}{}%
-\contentsline {subsection}{\numberline {3.12}Varie su distribuzioni}{54}{}%
-\contentsline {subsection}{\numberline {3.13}Esempi di equazioni distribuzionali}{54}{}%
-\contentsline {subsection}{\numberline {3.14}La distribuzione $\frac {1}{x}$}{54}{}%
-\contentsline {subsubsection}{\numberline {3.14.1}Soluzione Omogenea}{54}{}%
-\contentsline {subsubsection}{\numberline {3.14.2}Soluzione Particolare}{55}{}%
-\contentsline {subsubsection}{\numberline {3.14.3}Verifica Formale}{55}{}%
-\contentsline {subsubsection}{\numberline {3.14.4}Soluzione Generale}{55}{}%
-\contentsline {subsubsection}{\numberline {3.14.5}Analisi Complessa e Regolarizzazione}{56}{}%
-\contentsline {subsubsection}{\numberline {3.14.6}Calcolo dei residui sui semicerchi}{56}{}%
+\contentsline {section}{\numberline {1}Esempi ed osservazioni utili}{2}{}%
+\contentsline {subsection}{\numberline {1.1}Spazi di Hilbert}{2}{}%
+\contentsline {subsection}{\numberline {1.2}Spazio di Successioni}{2}{}%
+\contentsline {paragraph}{Norme}{2}{}%
+\contentsline {subsection}{\numberline {1.3}Spazi di Funzioni $L^p(\mathbb {R}^n)$ ($p \in [1, +\infty ]$)}{4}{}%
+\contentsline {subsection}{\numberline {1.4}Spazi $L_{loc}^p(\mathbb {R}^n)$}{5}{}%
+\contentsline {subsection}{\numberline {1.5}Richiami di Complementi di Analisi III}{5}{}%
+\contentsline {subsection}{\numberline {1.6}Spazi di Sobolev $W^{k,p}(\mathbb {R}^n)$}{6}{}%
+\contentsline {paragraph}{Norma $W^{1,p}$}{6}{}%
+\contentsline {paragraph}{Proprietà}{6}{}%
+\contentsline {subsection}{\numberline {1.7}Operatori}{7}{}%
+\contentsline {subsection}{\numberline {1.8}Varie su operatori}{10}{}%
+\contentsline {subsection}{\numberline {1.9}Distribuzioni}{12}{}%
+\contentsline {subsection}{\numberline {1.10}Osservazioni sulla MQ}{13}{}%
+\contentsline {subsubsection}{\numberline {1.10.1}Il caso dell'Idrogeno}{13}{}%
+\contentsline {subsection}{\numberline {1.11}Indici di difetto e Criteri}{14}{}%
+\contentsline {subsection}{\numberline {1.12}Varie su distribuzioni}{17}{}%
+\contentsline {subsection}{\numberline {1.13}Esempi di equazioni distribuzionali}{17}{}%
+\contentsline {subsection}{\numberline {1.14}La distribuzione $\frac {1}{x}$}{17}{}%
+\contentsline {subsubsection}{\numberline {1.14.1}Soluzione Omogenea}{17}{}%
+\contentsline {subsubsection}{\numberline {1.14.2}Soluzione Particolare}{18}{}%
+\contentsline {subsubsection}{\numberline {1.14.3}Verifica Formale}{18}{}%
+\contentsline {subsubsection}{\numberline {1.14.4}Soluzione Generale}{18}{}%
+\contentsline {subsubsection}{\numberline {1.14.5}Analisi Complessa e Regolarizzazione}{19}{}%
+\contentsline {subsubsection}{\numberline {1.14.6}Calcolo dei residui sui semicerchi}{19}{}%
+\contentsline {subsection}{\numberline {1.15}Prodotto tensore}{19}{}%
+\contentsline {subsubsection}{\numberline {1.15.1}Prodotto Tensore di Distribuzioni}{20}{}%
+\contentsline {subsection}{\numberline {1.16}Convoluzione}{21}{}%
+\contentsline {subsection}{\numberline {1.17}L'operatore derivazione nel problema "Particle in a box"}{22}{}%
+\contentsline {section}{\numberline {2}Analisi tramite la Teoria di Von Neumann}{22}{}%
+\contentsline {subsection}{\numberline {2.1}Struttura del Dominio Autoaggiunto $D_\alpha $}{22}{}%
+\contentsline {subsection}{\numberline {2.2}Dimostrazione dell'Impossibilità di Dirichlet}{23}{}%

@@ -494,6 +494,47 @@ Il risultato più profondo, che stabilisce una corrispondenza biunivoca tra le m
 	\end{itemize}
 \end{osservazione}
 
+\subsection{Il Teorema di Gleason Generalizzato}
+
+Il celebre risultato di Gleason, che associa le misure di probabilità quantistica agli operatori di classe traccia (matrici densità), può essere esteso dal caso standard $\mathscr{B}(\Hspace)$ al caso di una generica algebra di von Neumann $\mathfrak{R}$. Tuttavia, è necessario escludere casi patologici (il fattore $I_2$) e considerare forme di additività più forti.
+
+\begin{teorema}[Gleason Generalizzato]
+	Sia $\mathfrak{R}$ un'algebra di von Neumann su uno spazio di Hilbert complesso $\Hspace \neq \{\mathbf{0}\}$, la cui decomposizione in tipi non includa alcuna componente di Tipo $I_2$.
+	Sia $\mu: \mathscr{L}_{\mathfrak{R}}(\Hspace) \to [0, +\infty]$ una misura sul reticolo dei proiettori tale che $0 < \mu(\Identity) < +\infty$ e che sia \textbf{$\sigma$-additiva} (additiva su successioni numerabili di proiettori ortogonali).
+	
+	Le seguenti tre condizioni sono equivalenti all'esistenza di un operatore positivo di classe traccia $T \in \mathfrak{B}_1(\Hspace)$ tale che $\mu(P) = \text{tr}(TP)$ per ogni $P \in \mathscr{L}_{\mathfrak{R}}(\Hspace)$:
+	
+	\begin{itemize}
+		\item[(i)] $\mu$ è \textbf{completamente additiva}:
+		Per ogni famiglia arbitraria (non necessariamente numerabile) $\{P_j\}_{j \in J} \subset \mathscr{L}_{\mathfrak{R}}(\Hspace)$ di elementi a due a due ortogonali:
+		\begin{equation}
+			\mu \left( \bigvee_{j \in J} P_j \right) = \sum_{j \in J} \mu(P_j) \,.
+		\end{equation}
+		
+		\item[(ii)] $\mu$ ammette un \textbf{supporto}:
+		Esiste un elemento $P \in \mathscr{L}_{\mathfrak{R}}(\Hspace)$ tale che $\mu(Q) = 0$ se e solo se $Q \perp P$ (per ogni $Q \in \mathscr{L}_{\mathfrak{R}}(\Hspace)$).
+		
+		\item[(iii)] $\mu$ è normale:
+		La funzione normalizzata $\frac{1}{\mu(\Identity)}\mu$ è la restrizione al reticolo dei proiettori di uno \textit{stato algebrico normale} sulla $C^*$-algebra $\mathfrak{R}$.
+	\end{itemize}
+\end{teorema}
+
+\begin{osservazione}[Implicazioni Fisiche e Matematiche]
+	Analizziamo le conseguenze di questo teorema:
+	
+	\begin{enumerate}
+		\item \textbf{Il caso Separabile:} Se lo spazio di Hilbert $\Hspace$ è \textbf{separabile}, ogni famiglia di proiettori a due a due ortogonali è al più numerabile. Di conseguenza, la $\sigma$-additività implica automaticamente la completa additività.
+		Pertanto, in uno spazio separabile (e senza componenti $I_2$), ogni misura $\sigma$-additiva è automaticamente generata da un operatore di classe traccia.
+		\textbf{Attenzione:} A differenza del caso $\mathfrak{R} = \mathscr{B}(\Hspace)$, se l'algebra è un sottoinsieme proprio, l'operatore $T$ che rappresenta $\mu$ non è in generale unico.
+		
+		\item \textbf{Stati Normali:} Una misura di probabilità $\mu_T$ su un'algebra di von Neumann $\mathfrak{R}$ indotta da un operatore $T$ di traccia unitaria ($\text{tr}(T)=1$) è chiamata \textbf{stato normale} di $\mathfrak{R}$.
+		Tale misura è la restrizione al reticolo dei proiettori del funzionale lineare $\omega_T: \mathfrak{R} \to \mathbb{C}$ definito da:
+		$$ \omega_T(A) := \text{tr}(TA) \,. $$
+		Il concetto di stato normale (che corrisponde alla continuità nella topologia ultra-debole) è centrale nella trattazione algebrica della Meccanica Quantistica e sarà approfondito nel Capitolo 14.
+	\end{enumerate}
+\end{osservazione}
+
+
 \subsection{Teorema di Bell debole}
 
 In Meccanica Classica esistono misure di probabilità che assegnano valore 1 a certe proprietà elementari e 0 alle rimanenti (stati deterministici). In Meccanica Quantistica, invece, la natura è intrinsecamente probabilistica: non esistono misure ``sharp'' (senza dispersione). Questo fatto è sancito matematicamente dal seguente teorema, spesso citato come versione matematica del Teorema di Bell (o legato al Teorema di Kochen-Specker).
@@ -723,190 +764,207 @@ Se $\sigma(A) = \bigcup_{j \in \mathbb{N}} E_j$ è una decomposizione in insiemi
 	\end{itemize}
 \end{osservazione}
 
-\subsection{Logica delle Algebre di von Neumann e Classificazione dei Fattori}
+\subsubsection{Struttura dei proiettori in un algebra di Von Neumann}
 
-Un punto storicamente cruciale nello sviluppo della teoria di von Neumann fu il tentativo di recuperare la proprietà di \textit{modularità} per il reticolo delle proposizioni quantistiche, proprietà che fallisce nel reticolo standard $\mathscr{L}(\Hspace)$ in dimensione infinita.
-L'idea è di restringere l'insieme delle osservabili e delle proposizioni a quelle appartenenti a una specifica algebra di von Neumann $\mathfrak{R}$.
+Per concludere la disamina delle proprietà elementari, è fondamentale analizzare la struttura formata dai proiettori ortogonali appartenenti a un'algebra di von Neumann. In meccanica quantistica, questi proiettori corrispondono alle "proposizioni" (domande sì/no) sul sistema fisico.
 
-Data un'algebra di von Neumann $\mathfrak{R}$ su uno spazio di Hilbert $\Hspace$, definiamo la \textbf{logica dell'algebra} come l'insieme dei suoi proiettori ortogonali:
-\begin{equation}
-	\mathscr{L}_{\mathfrak{R}}(\Hspace) := \mathfrak{R} \cap \mathscr{L}(\Hspace) \,.
-\end{equation}
-Fisicamente, questo rappresenta l'insieme delle proposizioni elementari associate al sistema fisico descritto dall'algebra $\mathfrak{R}$.
+Sia $\mathfrak{R}$ un'algebra di von Neumann su uno spazio di Hilbert $\Hspace$. L'intersezione tra l'algebra e l'insieme di tutti i proiettori ortogonali $\mathscr{L}(\Hspace)$ eredita una struttura di reticolo:
+$$ \mathscr{L}_{\mathfrak{R}}(\Hspace) := \mathfrak{R} \cap \mathscr{L}(\Hspace) \,. $$
 
-\begin{proposizione}[Proprietà di $\mathscr{L}_{\mathfrak{R}}(\Hspace)$]
-	Sia $\mathfrak{R}$ un'algebra di von Neumann su $\Hspace \neq \{0\}$. Valgono i seguenti fatti:
-	\begin{itemize}
-		\item[(a)] $\mathscr{L}_{\mathfrak{R}}(\Hspace)$ è un reticolo completo e ortomodulare (eredita la struttura da $\mathscr{L}(\Hspace)$).
-		\item[(b)] Il reticolo genera l'algebra: $\mathfrak{R} = (\mathscr{L}_{\mathfrak{R}}(\Hspace))''$.
-		\item[(c)] Il centro del reticolo genera il centro dell'algebra: $(\mathscr{L}_{\mathfrak{R}}(\Hspace) \cap \mathscr{L}_{\mathfrak{R}}(\Hspace)')'' = \mathfrak{R} \cap \mathfrak{R}'$.
-		\item[(d)] $\mathfrak{R}$ è un \textbf{fattore} (centro banale) se e solo se il reticolo $\mathscr{L}_{\mathfrak{R}}(\Hspace)$ è irriducibile.
-		\item[(e)] $\mathfrak{R} = \mathscr{B}(\Hspace)$ se e solo se il reticolo coincide con tutto $\mathscr{L}(\Hspace)$.
-	\end{itemize}
+Questo insieme eredita le operazioni di \textit{meet} ($\wedge$) e \textit{join} ($\vee$) e l'ortocomplemento ($\neg$) da $\mathscr{L}(\Hspace)$, ma è necessario garantire che il risultato di queste operazioni rimanga dentro l'algebra $\mathfrak{R}$.
+
+\begin{proposizione}[Operazioni nel Reticolo]
+	Siano $P, Q \in \mathscr{L}_{\mathfrak{R}}(\Hspace)$. Poiché $\mathfrak{R}$ è chiusa nella topologia forte e chiusa rispetto al prodotto, valgono le seguenti proprietà costruttive:
+	\begin{enumerate}
+		\item \textbf{Intersezione (Meet):} L'operatore $P \wedge Q$ (proiezione sul sottospazio $P\Hspace \cap Q\Hspace$) appartiene a $\mathfrak{R}$ ed è dato dal limite forte:
+		$$ P \wedge Q = \operatorname{s-lim}_{n \to +\infty} (PQ)^n \,. $$
+		\item \textbf{Unione (Join):} L'operatore $P \vee Q$ (proiezione sulla chiusura di $P\Hspace + Q\Hspace$) appartiene a $\mathfrak{R}$ e si ottiene tramite le leggi di De Morgan:
+		$$ P \vee Q = \neg((\neg P) \wedge (\neg Q)) = I - \left( \operatorname{s-lim}_{n \to +\infty} [(I-P)(I-Q)]^n \right) \,. $$
+		\item \textbf{Struttura:} La tripla $(\mathscr{L}_{\mathfrak{R}}(\Hspace), \ge, 0, I, \neg)$ è un reticolo limitato, ortocomplementato e \textbf{$\sigma$-completo} (poiché la $\sigma$-completezza coinvolge solo la topologia forte e l'algebra è fortemente chiusa).
+		\item \textbf{Ortomodularità:} Il reticolo è ortomodulare, una proprietà cruciale per l'interpretazione fisica, sebbene proprietà più sottili come l'irriducibilità o l'atomicità non siano garantite a priori.
+	\end{enumerate}
 \end{proposizione}
 
-La classificazione dei fattori, opera monumentale di Murray e von Neumann, si basa sulla capacità di confrontare la "grandezza" dei proiettori all'interno dell'algebra, generalizzando il concetto di dimensione del sottospazio.
+Una delle caratteristiche più sorprendenti delle algebre di von Neumann è che la struttura "statica" delle proposizioni (il reticolo) contiene tutta l'informazione dinamica dell'algebra.
 
-\begin{definizione}[Equivalenza di Murray-von Neumann]
-	Due proiettori $P, Q \in \mathscr{L}_{\mathfrak{R}}(\Hspace)$ si dicono \textbf{equivalenti} (scritto $P \sim Q$) se esiste un'isometria parziale $U \in \mathfrak{R}$ tale che:
-	$$ P = U^* U \quad \text{e} \quad Q = U U^* \,.$$
-	Intuitivamente, questo significa che i sottospazi $P(\Hspace)$ e $Q(\Hspace)$ sono isometrici attraverso una mappa che "vive" nell'algebra $\mathfrak{R}$.
-	Si introduce un ordinamento parziale: $P \preceq Q$ se esiste $P' \in \mathscr{L}_{\mathfrak{R}}(\Hspace)$ tale che $P \sim P' \le Q$.
+\begin{proposizione}[Generazione dell'Algebra, Prop 6.14]
+	Sia $\mathfrak{R}$ un'algebra di von Neumann. L'algebra generata dal suo reticolo dei proiettori coincide con l'algebra stessa:
+	$$ (\mathscr{L}_{\mathfrak{R}}(\Hspace))'' = \mathfrak{R} \,. $$
+	In altre parole, ogni operatore in $\mathfrak{R}$ può essere ricostruito (tramite combinazioni lineari e limiti forti) dai suoi proiettori. Inoltre, il centro del reticolo genera il centro dell'algebra.
+\end{proposizione}
+
+\subsubsection{Fattori e Classificazione di Murray-von Neumann}
+
+La nozione di \textbf{Fattore} gioca un ruolo distinto nella teoria. Come introdotto nella Definizione 6.15, un fattore è un'algebra di von Neumann con centro banale ($\mathfrak{R} \cap \mathfrak{R}' = \mathbb{C}I$).
+
+Esiste un legame diretto tra la banalità del centro e la struttura del reticolo delle proposizioni:
+
+\begin{proposizione}[Caratterizzazione dei Fattori, Prop 6.16]
+	Un'algebra di von Neumann $\mathfrak{R}$ è un fattore se e solo se il reticolo associato $\mathscr{L}_{\mathfrak{R}}(\Hspace)$ è \textbf{irriducibile}.
+\end{proposizione}
+
+Sugli spazi di Hilbert separabili, ogni algebra di von Neumann può essere decomposta in una somma diretta (o integrale diretto) di fattori. Pertanto, la classificazione delle algebre si riduce alla classificazione dei fattori. Murray e von Neumann hanno sviluppato una classificazione basata sul confronto delle "dimensioni" relative dei proiettori.
+
+\begin{definizione}[Equivalenza di Proiettori]
+	Siano $P, Q \in \mathfrak{R}$ due proiettori. Si dicono \textbf{equivalenti} ($P \sim Q$) se esiste un'isometria parziale $U \in \mathfrak{R}$ tale che:
+	$$ U^* U = P \quad \text{e} \quad U U^* = Q \,. $$
+	Geometricamente, questo significa che i sottospazi corrispondenti sono isometrici tramite un'operazione interna all'algebra.
 \end{definizione}
-
-Questa relazione permette di definire quando un proiettore è "finito" o "infinito", analogamente agli insiemi nella teoria degli insiemi.
 
 \begin{definizione}[Finitezza]
-	Un elemento $P \in \mathscr{L}_{\mathfrak{R}}(\Hspace)$ si dice:
+	Un proiettore $P \in \mathscr{L}_{\mathfrak{R}}(\Hspace)$ si dice \textbf{finito} se non è equivalente a nessun suo sottoproiettore proprio (ovvero, se $Q \le P$, $Q \ne P$ implica $P \not\sim Q$).
+	L'algebra (o il fattore) si dice finita se l'operatore identità $I$ è un proiettore finito; altrimenti si dice \textbf{infinita}.
+\end{definizione}
+
+Basandosi sulla presenza di proiettori minimali (atomi) e sulla proprietà di finitezza, i fattori si classificano in tre Tipi:
+
+\begin{enumerate}
+	\item \textbf{Tipo I (Meccanica Quantistica Standard):}
+	Il fattore contiene proiettori minimali (atomi).
 	\begin{itemize}
-		\item[(a)] \textbf{Finito:} se $P \sim Q \le P$ implica $P=Q$ (ovvero, non è equivalente a nessun suo sottoproiettore proprio).
-		\item[(b)] \textbf{Infinito:} se non è finito.
-		\item[(c)] \textbf{Propriamente infinito:} se è infinito e "centrally infinite".
+		\item Un fattore è di Tipo I se e solo se è isomorfo a $\mathscr{B}(\Hspace_1)$ per qualche spazio di Hilbert $\Hspace_1$.
+		\item Il reticolo è atomico e soddisfa la proprietà di ricoprimento.
+	\end{itemize}
+	
+	\item \textbf{Tipo II (Geometria Continua):}
+	Il fattore \textbf{non} contiene proiettori minimali (non ci sono atomi), ma esistono proiettori finiti non nulli.
+	\begin{itemize}
+		\item \textbf{Tipo II$_1$:} L'operatore identità $I$ è finito. Questo definisce una "geometria continua" dove le dimensioni sono numeri reali nell'intervallo $[0,1]$.
+		\item \textbf{Tipo II$_\infty$:} L'identità è infinita (simile al prodotto tensoriale di un Tipo II$_1$ con $\mathscr{B}(\Hspace)$ infinito-dimensionale).
+	\end{itemize}
+	
+	\item \textbf{Tipo III (Teoria Quantistica dei Campi):}
+	Il fattore non contiene proiettori minimali e \textbf{non} contiene nessun proiettore finito non nullo (eccetto lo 0).
+	\begin{itemize}
+		\item Tutti i proiettori non nulli sono infiniti.
+		\item Questa classe, inizialmente considerata patologica, è fondamentale nella descrizione di sistemi termodinamici estesi e nella \textbf{Teoria Quantistica dei Campi Algebrica (AQFT)}.
+		\item Un risultato celebre stabilisce che, sotto ipotesi standard, l'algebra delle osservabili localizzate in una regione limitata dello spaziotempo di Minkowski è isomorfa all'unico \textit{fattore iperfinito di Tipo III$_1$}.
+	\end{itemize}
+\end{enumerate}
+
+\subsection{Irriducibilità e Lemma di Schur nelle Algebre di von Neumann}
+
+Un potente strumento tecnico, essenziale sia per la teoria matematica che per le applicazioni fisiche (come le regole di superselezione), riguarda il concetto di irriducibilità di un insieme di operatori.
+
+\begin{definizione}[Invarianza e Irriducibilità Topologica]
+	Sia $\Hspace \neq \{0\}$ uno spazio di Hilbert e $\mathfrak{M} \subset \mathscr{B}(\Hspace)$ una collezione di operatori.
+	\begin{itemize}
+		\item[(a)] Un sottospazio chiuso $\Hspace_0 \subset \Hspace$ si dice \textbf{invariante} per $\mathfrak{M}$ (o $\mathfrak{M}$-invariante) se $A(\Hspace_0) \subset \Hspace_0$ per ogni $A \in \mathfrak{M}$.
+		\item[(b)] L'insieme $\mathfrak{M}$ si dice \textbf{topologicamente irriducibile} (o semplicemente irriducibile) se gli unici sottospazi chiusi $\mathfrak{M}$-invarianti sono quelli banali: $\{0\}$ e $\Hspace$.
 	\end{itemize}
 \end{definizione}
 
-\subsubsection{Funzione Dimensione e Classificazione dei Tipi}
+Il legame tra irriducibilità e la struttura del commutante è sancito dalla versione per spazi di Hilbert del celebre Lemma di Schur.
 
-Se $\mathfrak{R}$ è un fattore (i.e., non può essere decomposto ulteriormente), è possibile definire una "misura" della grandezza dei proiettori.
-
-\begin{proposizione}[Funzione Dimensione]
-	Se $\mathfrak{R}$ è un fattore, esiste una mappa $d: \mathscr{L}_{\mathfrak{R}}(\Hspace) \to [0, +\infty]$, detta \textbf{funzione dimensione}, unica a meno di costanti moltiplicative, tale che:
+\begin{teorema}[Lemma di Schur]
+	Sia $\Hspace \neq \{0\}$ uno spazio di Hilbert e $\mathfrak{M} \subset \mathscr{B}(\Hspace)$ un insieme *-chiuso. I seguenti fatti sono equivalenti:
 	\begin{itemize}
-		\item $d(P) = 0 \iff P = 0$;
-		\item $d(P) = d(Q) \iff P \sim Q$;
-		\item $d(P+Q) = d(P) + d(Q)$ se $P \perp Q$.
-	\end{itemize}
-\end{proposizione}
-
-In base al codominio (range) della funzione dimensione $d(\mathscr{L}_{\mathfrak{R}}(\Hspace))$, i fattori sono classificati in tre Tipi principali. Questa classificazione è esaustiva.
-
-\begin{description}
-	\item[Tipo I (Discretezza):] Il range è discreto: $\{0, 1, \dots, n\}$ (dove $n$ può essere $\infty$).
-	\begin{itemize}
-		\item Corrisponde alla Meccanica Quantistica standard.
-		\item I fattori di Tipo I sono isomorfi a $\mathscr{B}(\Hspace)$ per qualche spazio di Hilbert.
-		\item Il reticolo contiene atomi (proiettori minimali).
-	\end{itemize}
-	
-	\item[Tipo II (Geometria Continua):] Il range è continuo.
-	\begin{itemize}
-		\item \textbf{Tipo II$_1$:} Il range è l'intervallo unitario $[0, 1]$. Qui l'elemento identità $\Identity$ è finito. Questo è il caso in cui il reticolo diventa \textbf{modulare}.
-		\item \textbf{Tipo II$_\infty$:} Il range è $[0, \infty)$.
-	\end{itemize}
-	
-	\item[Tipo III (Patologico/QFT):] Il range è $\{0, \infty\}$.
-	\begin{itemize}
-		\item Tutti i proiettori non nulli sono infiniti. Non esiste una traccia normale finita.
-		\item Sebbene sembrino patologici, questi fattori sono fondamentali nelle \textit{Teorie Quantistiche dei Campi Algebriche} (AQFT) e nella meccanica statistica di sistemi infiniti.
-	\end{itemize}
-\end{description}
-
-\begin{osservazione}
-	La distinzione tra i tipi ha profonde implicazioni fisiche.
-	Mentre la QM ordinaria (sistemi finiti di particelle) vive nei fattori di Tipo I, la descrizione di sistemi con infiniti gradi di libertà (campi relativistici, limite termodinamico) richiede inevitabilmente l'uso di fattori di Tipo III, dove concetti come "stati puri" o "autovettori" diventano problematici o inesistenti.
-\end{osservazione}
-
-\subsection{Proprietà Reticolari e Classificazione Generale}
-
-Le proprietà strutturali del reticolo dei proiettori $\mathscr{L}_{\mathfrak{R}}(\Hspace)$ variano drasticamente a seconda del tipo di fattore $\mathfrak{R}$. Di seguito riassumiamo le caratteristiche fondamentali (distributività, modularità, atomicità):
-
-\begin{table}[h]
-	\centering
-	\renewcommand{\arraystretch}{1.3}
-	\begin{tabular}{|l|c|c|c|}
-		\hline
-		\textbf{Tipo di Fattore} & \textbf{Modulare?} & \textbf{Atomico?} & \textbf{Note} \\
-		\hline
-		\textbf{Tipo $I_n$} ($n < \infty$) & Sì & Sì & Non distributivo per $n \ge 2$. $d(P)=\dim(P)$. \\
-		\hline
-		\textbf{Tipo $I_\infty$} & No & Sì & Isomorfo a $\mathscr{B}(\Hspace)$ con $\dim \Hspace = \infty$. \\
-		\hline
-		\textbf{Tipo $II_1$} & \textbf{Sì} & \textbf{No} & \textit{Geometria Continua}: modulare ma senza atomi. \\
-		\hline
-		\textbf{Tipo $II_\infty$ e $III$} & No & No & Né modulari, né atomici. \\
-		\hline
-	\end{tabular}
-	\caption{Proprietà del reticolo dei proiettori per i diversi tipi di fattori.}
-\end{table}
-
-\subsubsection{Estensione alle Algebre di von Neumann Generali}
-
-Se $\mathfrak{R}$ non è un fattore (cioè il suo centro $\mathfrak{R} \cap \mathfrak{R}'$ non è banale), non ricade necessariamente in un unico tipo. Tuttavia, ogni algebra di von Neumann può essere decomposta nella \textbf{somma diretta} di algebre appartenenti ai tipi disgiunti definiti sopra.
-
-Per classificare un'algebra generale, è necessario introdurre due definizioni tecniche riguardanti la struttura interna dei proiettori.
-
-\begin{definizione}[Proiettore Abeliano e Supporto Centrale]
-	Sia $\mathfrak{R}$ un'algebra di von Neumann su $\Hspace$.
-	\begin{itemize}
-		\item[(a)] Un proiettore finito $P \in \mathscr{L}_{\mathfrak{R}}(\Hspace)$ si dice \textbf{Abeliano} se l'algebra ridotta $P\mathfrak{R}P := \{ PAP \mid A \in \mathfrak{R} \}$ è un'algebra commutativa (abeliana).
-		\item[(b)] Dato un operatore $A \in \mathfrak{R}$, il suo \textbf{supporto centrale} (o \textit{central carrier}) $C_A$ è il più piccolo proiettore del centro che "copre" $A$. Formalmente:
-		$$ C_A := \Identity - \bigvee \{ P \in \mathscr{L}_{\mathfrak{R}}(\Hspace) \cap \mathfrak{R}' \mid PA = 0 \} \,.$$
-		In termini intuitivi, $C_A$ proietta sul sottospazio generato dall'azione del commutante $\mathfrak{R}'$ sul range di $A$.
-	\end{itemize}
-\end{definizione}
-
-Utilizzando queste nozioni, possiamo definire i Tipi per una generica algebra di von Neumann $\mathfrak{R}$.
-
-\begin{definizione}[Classificazione di $\mathfrak{R}$]
-	Un'algebra di von Neumann $\mathfrak{R}$ si dice di:
-	\begin{itemize}
-		\item \textbf{Tipo I:} se contiene un proiettore abeliano avente supporto centrale $\Identity$.
-		(È di tipo $I_n$ se l'identità è somma ortogonale di $n$ proiettori abeliani equivalenti).
-		
-		\item \textbf{Tipo II:} se \textbf{non} contiene proiettori abeliani non nulli, ma contiene un proiettore \textit{finito} avente supporto centrale $\Identity$.
-		(È di tipo $II_1$ se $\Identity$ è finito, $II_\infty$ se $\Identity$ è propriamente infinito).
-		
-		\item \textbf{Tipo III:} se non contiene alcun proiettore finito non nullo (è puramente infinita).
-	\end{itemize}
-\end{definizione}
-
-\begin{osservazione}[Legame tra Fattori e Algebre Generali]
-	Esiste un legame profondo tra la classificazione dei fattori e quella delle algebre generali:
-	\begin{enumerate}
-		\item Un \textbf{fattore} è di tipo $X$ (dove $X \in \{I_n, II_1, II_\infty, III\}$) secondo la Definizione 7.66 se e solo se lo è secondo la classificazione basata sulla funzione dimensione (Prop. 7.63).
-		\item In uno spazio di Hilbert separabile, vale il teorema di decomposizione in \textbf{Integrale Diretto}: un'algebra di von Neumann di tipo $X$ è isomorfa a un integrale diretto di fattori, tutti dello stesso tipo $X$. Questo generalizza il concetto di somma diretta al caso continuo.
-	\end{enumerate}
-\end{osservazione}
-
-\subsection{Il Teorema di Gleason Generalizzato}
-
-Il celebre risultato di Gleason, che associa le misure di probabilità quantistica agli operatori di classe traccia (matrici densità), può essere esteso dal caso standard $\mathscr{B}(\Hspace)$ al caso di una generica algebra di von Neumann $\mathfrak{R}$. Tuttavia, è necessario escludere casi patologici (il fattore $I_2$) e considerare forme di additività più forti.
-
-\begin{teorema}[Gleason Generalizzato]
-	Sia $\mathfrak{R}$ un'algebra di von Neumann su uno spazio di Hilbert complesso $\Hspace \neq \{\mathbf{0}\}$, la cui decomposizione in tipi non includa alcuna componente di Tipo $I_2$.
-	Sia $\mu: \mathscr{L}_{\mathfrak{R}}(\Hspace) \to [0, +\infty]$ una misura sul reticolo dei proiettori tale che $0 < \mu(\Identity) < +\infty$ e che sia \textbf{$\sigma$-additiva} (additiva su successioni numerabili di proiettori ortogonali).
-	
-	Le seguenti tre condizioni sono equivalenti all'esistenza di un operatore positivo di classe traccia $T \in \mathfrak{B}_1(\Hspace)$ tale che $\mu(P) = \text{tr}(TP)$ per ogni $P \in \mathscr{L}_{\mathfrak{R}}(\Hspace)$:
-	
-	\begin{itemize}
-		\item[(i)] $\mu$ è \textbf{completamente additiva}:
-		Per ogni famiglia arbitraria (non necessariamente numerabile) $\{P_j\}_{j \in J} \subset \mathscr{L}_{\mathfrak{R}}(\Hspace)$ di elementi a due a due ortogonali:
-		\begin{equation}
-			\mu \left( \bigvee_{j \in J} P_j \right) = \sum_{j \in J} \mu(P_j) \,.
-		\end{equation}
-		
-		\item[(ii)] $\mu$ ammette un \textbf{supporto}:
-		Esiste un elemento $P \in \mathscr{L}_{\mathfrak{R}}(\Hspace)$ tale che $\mu(Q) = 0$ se e solo se $Q \perp P$ (per ogni $Q \in \mathscr{L}_{\mathfrak{R}}(\Hspace)$).
-		
-		\item[(iii)] $\mu$ è normale:
-		La funzione normalizzata $\frac{1}{\mu(\Identity)}\mu$ è la restrizione al reticolo dei proiettori di uno \textit{stato algebrico normale} sulla $C^*$-algebra $\mathfrak{R}$.
+		\item[(a)] $\mathfrak{M}$ è irriducibile.
+		\item[(b)] Il commutante di $\mathfrak{M}$ è banale (multipli dell'identità): $\mathfrak{M}' = \mathbb{C}I$.
+		\item[(c)] L'algebra di von Neumann generata coincide con l'intero insieme degli operatori limitati: $\mathfrak{M}'' = \mathscr{B}(\Hspace)$.
 	\end{itemize}
 \end{teorema}
 
-\begin{osservazione}[Implicazioni Fisiche e Matematiche]
-	Analizziamo le conseguenze di questo teorema:
-	
-	\begin{enumerate}
-		\item \textbf{Il caso Separabile:} Se lo spazio di Hilbert $\Hspace$ è \textbf{separabile}, ogni famiglia di proiettori a due a due ortogonali è al più numerabile. Di conseguenza, la $\sigma$-additività implica automaticamente la completa additività.
-		Pertanto, in uno spazio separabile (e senza componenti $I_2$), ogni misura $\sigma$-additiva è automaticamente generata da un operatore di classe traccia.
-		\textbf{Attenzione:} A differenza del caso $\mathfrak{R} = \mathscr{B}(\Hspace)$, se l'algebra è un sottoinsieme proprio, l'operatore $T$ che rappresenta $\mu$ non è in generale unico.
-		
-		\item \textbf{Stati Normali:} Una misura di probabilità $\mu_T$ su un'algebra di von Neumann $\mathfrak{R}$ indotta da un operatore $T$ di traccia unitaria ($\text{tr}(T)=1$) è chiamata \textbf{stato normale} di $\mathfrak{R}$.
-		Tale misura è la restrizione al reticolo dei proiettori del funzionale lineare $\omega_T: \mathfrak{R} \to \mathbb{C}$ definito da:
-		$$ \omega_T(A) := \text{tr}(TA) \,. $$
-		Il concetto di stato normale (che corrisponde alla continuità nella topologia ultra-debole) è centrale nella trattazione algebrica della Meccanica Quantistica e sarà approfondito nel Capitolo 14.
-	\end{enumerate}
+Questo risultato ha un'applicazione immediata nella teoria delle rappresentazioni dei gruppi, fondamentale in fisica quantistica.
+
+\begin{corollario}[Rappresentazioni Unitarie]
+	Sia $\pi: G \to \mathscr{B}(\Hspace)$ una rappresentazione unitaria di un gruppo $G$ (oppure di una *-algebra $\mathfrak{A}$) su $\Hspace \neq \{0\}$. Se $G$ (o $\mathfrak{A}$) è abeliano, l'immagine della rappresentazione è irriducibile se e solo se $\dim(\Hspace) = 1$.
+\end{corollario}
+
+\subsubsection{Sottospazi Riducenti per Operatori Illimitati}
+
+Quando si trattano osservabili fisiche non limitate, la nozione di invarianza va maneggiata con cura a causa dei domini. Si introduce quindi il concetto più forte di \textit{riduzione}.
+
+\begin{definizione}[Sottospazio Riducente]
+	Sia $T: D(T) \to \Hspace$ un operatore (anche illimitato) e $\Hspace_0 \subset \Hspace$ un sottospazio chiuso. Siano $P_0$ il proiettore ortogonale su $\Hspace_0$ e $\Hspace_0^\perp$ il complemento ortogonale.
+	Si dice che $\Hspace_0$ \textbf{riduce} $T$ se valgono entrambe le condizioni:
+	\begin{itemize}
+		\item[(i)] $T(D(T) \cap \Hspace_0) \subset \Hspace_0$ e $T(D(T) \cap \Hspace_0^\perp) \subset \Hspace_0^\perp$;
+		\item[(ii)] $P_0(D(T)) \subset D(T)$.
+	\end{itemize}
+	In questo caso, l'operatore si decompone nella somma diretta delle sue parti su $\Hspace_0$ e $\Hspace_0^\perp$.
+\end{definizione}
+
+\begin{proposizione}[Caratterizzazione tramite Proiettori]
+	Un sottospazio chiuso $\Hspace_0$ riduce un operatore $T$ se e solo se il relativo proiettore $P_0$ commuta con $T$ nel senso forte: $P_0 T \subset T P_0$.
+	Inoltre, $T$ è irriducibile se e solo se gli unici proiettori ortogonali che commutano con esso sono $0$ e $I$.
+\end{proposizione}
+
+Un risultato tecnico ma fondamentale lega le misure spettrali (PVM) alle algebre di von Neumann:
+\begin{proposizione}
+	Sia $P$ una misura a valori di proiettore (PVM). L'algebra di von Neumann generata dall'immagine del PVM coincide con l'insieme degli operatori definiti da integrali di funzioni misurabili limitate rispetto a $P$:
+	$$ \{ P_E \mid E \in \Sigma(X) \}'' = \left\{ \int_X f dP \mid f \in \mathcal{M}_b(X) \right\} \,. $$
+\end{proposizione}
+
+\subsection{L'Algebra di von Neumann delle Osservabili}
+
+In fisica quantistica, si assume che le osservabili siano rappresentate dagli elementi autoaggiunti di un'algebra di von Neumann $\mathfrak{R}$. Questa costruzione è motivata dal fatto che $\mathfrak{R}$ è l'insieme massimale di operatori costruibile a partire dal reticolo delle proposizioni elementari $\mathscr{L}_{\mathfrak{R}}(\Hspace)$.
+
+\subsubsection{Osservabili Illimitate e Struttura di Jordan}
+
+Sebbene un'algebra di von Neumann contenga per definizione solo operatori limitati, la fisica richiede l'uso di osservabili illimitate (come posizione e momento).
+
+\begin{osservazione}[Gestione dell'illimitatezza]
+	Limitarsi agli operatori limitati non è una restrizione fisica reale. Se $A$ è un'osservabile illimitata autoaggiunta, essa è univocamente determinata dalla famiglia dei suoi troncamenti spettrali limitati $\{A_n\}_{n \in \mathbb{N}}$, dove:
+	$$ A_n := \int_{[-n, n]} \lambda dP^{(A)}(\lambda) \,. $$
+	Ogni $A_n$ appartiene all'algebra $\mathfrak{R}$ (se $A$ è affiliato ad essa) e $A$ viene recuperato come limite forte di questa successione.
 \end{osservazione}
+
+Un aspetto delicato riguarda la struttura algebrica delle osservabili. Lo spazio vettoriale reale degli operatori autoaggiunti non è chiuso rispetto al prodotto di operatori (poiché $AB$ non è necessariamente autoaggiunto se $A$ e $B$ non commutano).
+Si può dotare tale spazio di una struttura di \textbf{Algebra di Jordan} tramite il prodotto simmetrizzato:
+$$ A \circ B := \frac{1}{2}(AB + BA) \,. $$
+Sebbene fisicamente attraente, il prodotto di Jordan non è associativo, rendendo la teoria matematica complicata. Tuttavia, formule integrali complesse (come la 6.7) permettono di definire funzioni di combinazioni lineari $aA + bB$ anche nel caso non commutativo, stabilendo un ponte tra la struttura lineare e quella spettrale.
+
+\subsection{Insiemi Completi di Osservabili Compatibili (CSCO)}
+
+Un concetto cardine per la definizione degli stati quantistici è quello di compatibilità e completezza delle misure.
+
+\begin{definizione}[CSCO]
+	Sia $\mathfrak{R}$ un'algebra di von Neumann su $\Hspace$ e $\mathfrak{A} = \{A_1, \dots, A_n\}$ un insieme finito di osservabili (limitati o illimitati affiliati a $\mathfrak{R}$) le cui misure spettrali commutano a due a due.
+	$\mathfrak{A}$ si dice un \textbf{Insieme Completo di Osservabili Compatibili (CSCO)} se ogni operatore autoaggiunto limitato $B \in \mathscr{B}(\Hspace)$ che commuta con tutti i PVM di $\mathfrak{A}$ è una funzione di essi:
+	$$ B = f(A_1, \dots, A_n) := \int_{\mathbb{R}^n} f(x_1, \dots, x_n) dP^{(\mathfrak{A})} $$
+	per una qualche funzione misurabile $f$.
+\end{definizione}
+
+\begin{proposizione}[Algebra Generata]
+	Se $\mathfrak{A} = \{A_1, \dots, A_n\}$ è un insieme di operatori con misure spettrali commutanti, l'algebra di von Neumann generata da $\mathfrak{A}$ coincide con l'insieme delle funzioni misurabili limitate degli operatori stessi:
+	$$ \mathfrak{A}'' = \{ f(A_1, \dots, A_n) \mid f \in \mathcal{M}_b(\mathbb{R}^n) \} \,. $$
+\end{proposizione}
+
+\subsubsection{Conseguenze Fisiche: Stati Puri e Commutante Abeliano}
+
+La nozione di CSCO ha due implicazioni fisiche fondamentali.
+
+\textbf{1. Preparazione degli Stati Puri:}
+Se gli osservabili $A_1, \dots, A_n$ hanno spettro puramente puntuale, la misurazione simultanea di questi osservabili "prepara" il sistema in uno stato univocamente determinato.
+Se $\Hspace_{\alpha_1, \dots, \alpha_n}$ è l'autospazio comune associato agli autovalori misurati, la condizione di completezza implica che:
+$$ \dim(\Hspace_{\alpha_1, \dots, \alpha_n}) = 1 \,. $$
+Pertanto, dopo la misura, il sistema collassa su un unico vettore (a meno di fase), identificando uno stato puro senza ambiguità (degenerazione rimossa).
+
+\textbf{2. Struttura del Commutante:}
+Esiste un legame profondo tra l'esistenza di un CSCO e la commutatività dell'algebra "duale".
+
+\begin{proposizione}
+	Se un sistema fisico ammette un insieme completo di osservabili compatibili $\mathfrak{A}$, allora il commutante dell'algebra delle osservabili $\mathfrak{R}'$ è \textbf{Abeliano}.
+	In questo caso, il commutante coincide con il centro dell'algebra: $\mathfrak{R}' = \mathfrak{Z}(\mathfrak{R})$.
+\end{proposizione}
+
+\begin{osservazione}[Implicazioni]
+	\begin{itemize}
+		\item Se $\mathfrak{R}'$ è Abeliano, allora $\mathfrak{R}' \subset \mathfrak{R}'' = \mathfrak{R}$, confermando che $\mathfrak{R}' = \mathfrak{R} \cap \mathfrak{R}'$.
+		\item Se $\mathfrak{R}'$ \textbf{non} è Abeliano (come accade in alcune teorie di gauge non abeliane), non possono esistere CSCO. In tali teorie, è impossibile preparare stati vettoriali puri misurando osservabili compatibili, poiché tali stati semplicemente non esistono.
+	\end{itemize}
+\end{osservazione}
+
+\begin{esempio}[Esempi Fisici Notevoli]
+	\begin{enumerate}
+		\item \textbf{Oscillatore Armonico:} In $L^2(\mathbb{R})$, l'operatore Hamiltoniano $H$ da solo costituisce un CSCO, poiché il suo spettro è non degenere.
+		\item \textbf{Particella Libera:} In $L^2(\mathbb{R}^3)$, gli operatori di posizione $\mathfrak{A}_1 = \{X_1, X_2, X_3\}$ formano un CSCO. Analogamente, gli operatori di momento $\mathfrak{A}_2 = \{P_1, P_2, P_3\}$ formano un altro CSCO. L'algebra generata è massimale, ovvero $\mathfrak{R} = \mathscr{B}(L^2(\mathbb{R}^3))$.
+		\item \textbf{Elettrone con Spin:} Per una particella con spin $1/2$, lo spazio è $L^2(\mathbb{R}^3) \otimes \mathbb{C}^2$. Un CSCO è dato da $\{X_1, X_2, X_3, S_z\}$ oppure da $\{P_1, P_2, P_3, S_z\}$. Anche in questo caso il commutante è banale e $\mathfrak{R} = \mathscr{B}(\Hspace)$.
+		\item \textbf{Atomo di Idrogeno:} Un tipico CSCO con spettro puntuale è la quadrupla $\{H, L^2, L_z, S_z\}$ (Energia, Momento angolare totale, Componente Z, Spin Z), limitatamente al sottospazio delle energie negative (stati legati).
+	\end{enumerate}
+\end{esempio}
+
 
 \subsection{Caratterizzazione Algebrica degli Stati: Il Teorema di Riesz Non Commutativo}
 
