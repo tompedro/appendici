@@ -721,7 +721,7 @@
 		\qed
 	\end{sol}
 	
-	\section*{Traccia dell'Esercizio 5}
+	\section*{Traccia dell'Esercizio 5 $\psi(0)=0$}
 	Sia $I = [0,1]$. Si consideri l'equazione differenziale:
 	\[
 	-\frac{d\psi}{dx} + \psi = f, \quad \text{con } f \in L^2(I).
@@ -838,6 +838,130 @@
 		Pertanto, $K$ \textbf{non è un operatore positivo}.
 		
 		\qed
+	\end{sol}
+	
+	\section*{Traccia dell'Esercizio 5 Hard}
+	Sia $I = [0,1]$. Si consideri l'equazione differenziale:
+	\[
+	-\frac{d\psi}{dx} + \psi = f, \quad \text{con } f \in L^2(I).
+	\]
+	Si definisca la mappa $K: L^2(I) \to L^2(I)$ tale che $\psi = K(f)$ è soluzione dell'equazione. Si discuta se $K$ è limitato, compatto e/o positivo.
+	
+	\hrule
+	\vspace{0.5cm}
+	
+	\begin{sol}
+	L'operatore K descritto nel testo del problema non è ben definito, in quanto l'operatore 
+	$$D : H^1(I) \to L^2(I) \quad \quad \quad \psi \mapsto -\frac{d\psi}{dx} + \psi$$
+	ha kernel non banale, composto da tutte le funzioni del tipo $A e^x$. Per questo motivo, se l'operatore K dovesse definire la soluzione dell'equazione, $K(0) = Ae^x$ ma questo non lo renderebbe lineare se non per $A=0$. Per rendere tutto il più generale possibile, quindi dobbiamo scegliere un qualsiasi \textbf{funzionale lineare ovunque definito} $C: L^2(I) \to \C$ e, data una $f \in L^2(I)$ con cui risolvere il problema, definire un insieme e degli operatori derivata con condizione iniziale
+	\[
+		S_C = \{ \psi \in  H^1(I)  | \psi(0) = C(f)\} \quad \quad D_C: S_C \to L^2(I)
+	\]
+	a questo punto possiamo finalmente scrivere la forma degli opreatori $K_C$ dipendenti dalla condizione iniziale e la cui forma analitica è data dall'integrale di Volterra
+	\[
+		K_C: L^2(I) \to L^2(I) \quad \quad \quad K_C(f) := e^x\left(C(f) - \int_0^x f(y) e^{-y} dy\right)
+	\]
+	$K_C$ ora è un buon operatore perchè è lineare, ovunque definito e vale che $K_C(D_C(\psi)) = \psi$ con $\psi \in S_C$
+	
+	\begin{align*}
+		K_C(-\psi' + \psi) &= e^x\left( C(f) + \int_0^x \frac{d \psi}{dy} e^{-y} dy -  \int_0^x \psi e^{-y} dy \right) \\&= e^x C(f) + e^x (\psi(y)e^{-y} |_0^x)+ e^x\int_0^x \psi e^{-y} dy -  e^x\int_0^x \psi e^{-y} dy \\ &= e^x C(f) + \psi(x)e^{-x}e^x - \psi(0)e^x \\&= e^x(C(f)-\psi(0)) + \psi(x) \\&= \psi(x)
+	\end{align*}
+	dove nell'ultimo passaggio abbiamo usato che $\psi \in S_C$. Perfetto, ora possiamo procdere.
+	L'operatore descritto è somma di due componenti 
+	\[
+		K_C(f) = e^x C(f) + \int_0^x f(y) e^{x-y} dy = e^x C(f) + \int_0^1 f(y) \Theta(x-y) e^{x-y} dy = e^x C(f) + f \star (\Theta(x)e^x)
+	\]
+	possiamo chiamare
+	\[
+		K_C(f)  = R_C(f) + T(f)
+	\]
+	\subsection*{Analisi della convoluzione in $L^2([0,1])$ come in 2}
+	
+	Definiamo il sistema ortonormale in $L^2([0,1])$:
+	\[
+	u_n(x) \doteq e^{2\pi i n x}, \quad n \in \mathbb{Z}.
+	\]
+	Il sistema $\{u_n\}_{n \in \mathbb{Z}}$ è chiaramente ortonormale rispetto al prodotto scalare standard: $\langle u_n, u_m \rangle = \delta_{nm}$.
+	
+	Per dimostrarne la completezza, mostriamo che il complemento ortogonale del sottospazio generato da $\{u_n\}$ contiene solo il vettore nullo.
+	Sia $f \in L^2([0,1])$ tale che $\langle f, u_n \rangle = 0$ per ogni $n \in \mathbb{Z}$.
+	\[
+	\langle f, u_n \rangle = \int_0^{1} f(x) \overline{u_n(x)} \, dx = \int_0^{1} f(x) e^{-2\pi i n x} \, dx = 0.
+	\]
+	Gli integrali sopra corrispondono esattamente ai coefficienti di Fourier di $f$, denotati con $\hat{f}_n$.
+	L'ipotesi $\langle f, u_n \rangle = 0, \forall n$ implica $\hat{f}_n = 0, \forall n$.
+	Per il \textbf{Teorema di Unicità} della serie di Fourier (conseguenza della densità dei polinomi trigonometrici e della completezza di $L^2$), una funzione $L^2$ con tutti i coefficienti di Fourier nulli è nulla quasi ovunque.
+	\[
+	f = 0 \quad \text{q.o.}
+	\]
+	Pertanto, $\{u_n\}_{n \in \mathbb{Z}}$ è una base ortonormale completa (Base di Hilbert) per $\mathcal{H}$.
+	\newline
+	Per dimostrare che l'operatore $T$ è \textbf{compatto} ($T \in \mathcal{B}_\infty(\mathcal{H})$), verifichiamo la condizione più forte che $T$ sia un operatore di Hilbert-Schmidt.
+	Un operatore $T$ è di Hilbert-Schmidt se, data una base ortonormale $\{e_k\}$, la quantità $\|T\|_{HS}^2 \doteq \sum_k \|T e_k\|^2$ è finita.
+	
+	Scegliamo come base proprio gli autovettori $\{u_n\}_{n \in \mathbb{Z}}$.
+	Poiché $T u_n = \lambda_n u_n$, abbiamo:
+	\[
+	\|T u_n\|^2 = \|\lambda_n u_n\|^2 = |\lambda_n|^2 \|u_n\|^2 = |\lambda_n|^2.
+	\]
+	La norma Hilbert-Schmidt è dunque data dalla serie degli autovalori al quadrato:
+	\[
+	\|T\|_{HS}^2 = \sum_{n \in \mathbb{Z}} |\lambda_n|^2.
+	\]
+	Analizziamo i termini $\lambda_n$. Dalla definizione dell'operatore di convoluzione su $[0,1]$, gli autovalori sono dati dai coefficienti di Fourier del nucleo $g$:
+	\[
+	\lambda_n = \int_0^{1} g(z) e^{-2\pi i n z} \, dz = \hat{g}_n.
+	\]
+	l'autovalore coincide esattamente con il coefficiente di Fourier $\hat{g}_n$.
+	
+	Sostituendo nella somma:
+	\[
+	\sum_{n \in \mathbb{Z}} |\lambda_n|^2 = \sum_{n \in \mathbb{Z}} |\hat{g}_n|^2.
+	\]
+	Poiché per ipotesi $g \in L^2([0, 1])$, l'\textbf{Identità di Parseval} garantisce che la somma dei quadrati dei suoi coefficienti di Fourier converga al quadrato della norma della funzione:
+	\[
+	\sum_{n \in \mathbb{Z}} |\hat{g}_n|^2 = \|g\|_{L^2}^2 < \infty.
+	\]
+	Di conseguenza:
+	\[
+	\|T\|_{HS}^2 = \|g\|_{L^2}^2 < \infty.
+	\]
+	L'operatore $T$ è dunque di Hilbert-Schmidt. Poiché la classe degli operatori di Hilbert-Schmidt è contenuta in quella degli operatori compatti ($\mathcal{B}_{HS} \subset \mathcal{B}_\infty$), concludiamo che $T$ è un operatore compatto.
+	
+	\subsection*{Analisi dell'operatore risolvente $K$}
+	
+	\subsubsection*{1. Limitatezza}
+	L'operatore $K_C$ è limitato se e solo se il funzionale $C$ è limitato.
+	\begin{itemize}
+		\item[$\Rightarrow$] Se $C$ è limitato, allora per la disuguaglianza triangolare:
+		\[
+		\|K_Cf\|_{L^2} \le \|T f\|_{L^2} + |C(f)| \|e^x\|_{L^2}.
+		\]
+		Essendo $T$ limitato e $C$ limitato per ipotesi, $K$ è limitato.
+		\item[$\Leftarrow$] Se $K$ è limitato, allora $R_C = K - T$ è differenza di operatori limitati, dunque è limitato. Poiché $R_C(f) = C(f)e^x$, la limitatezza di $R$ implica necessariamente la limitatezza del funzionale $C$.
+	\end{itemize}
+	
+	\subsubsection*{2. Compattezza}
+	Assumendo $C$ limitato (condizione necessaria per la limitatezza di $K$), l'operatore $K$ risulta sempre compatto.
+	\begin{itemize}
+		\item L'operatore $T$ è di Hilbert-Schmidt, pertanto, $T$ è compatto.
+		\item L'operatore $R_C(f) = C(f)e^x$ ha immagine unidimensionale, generata dal vettore $e^x$. Essendo un operatore di rango finito limitato, $R_C$ è compatto. (Da esercitazione di prof. Costeri)
+	\end{itemize}
+	Poiché lo spazio degli operatori compatti è un sottospazio vettoriale, $K_C = T + R_C$ è compatto.
+	Per il Teorema di Rappresentazione di Riesz, possiamo esplicitare la struttura di $R_C$: esiste un'unica $g \in L^2(I)$ tale che $C(f) = \langle g, f \rangle$, da cui $R_C(f) = R_g(f) = e^x\langle g, f \rangle$.
+	
+	\subsubsection*{3. Positività}
+	L'operatore $K_C$ non è, in generale, positivo. Consideriamo il caso $\psi(0)=0$ (che implica $C \equiv 0$). La forma quadratica associata è:
+	\begin{equation}
+		\langle K_0f, f \rangle = \int_0^1 \psi(x)(-\psi'(x)+\psi(x)) dx = \|\psi\|^2 - \frac{1}{2}\psi(1)^2.
+	\end{equation}
+	Scegliendo la funzione test $\psi(x) = x$ quindi $f(x)=x-1$, si ottiene:
+	\[
+	\langle K_0f, f \rangle = \int_0^1 x^2 dx - \frac{1}{2}(1)^2 = \frac{1}{3} - \frac{1}{2} = -\frac{1}{6} < 0.
+	\]
+	Esistono quindi vettori $f$ (nello specifico $f(x)=x-1$) per cui $\langle K_0f, f \rangle < 0$, violando la condizione di positività.
+	
+	\qed
 	\end{sol}
 	
 	\section*{Traccia dell'Esercizio 6}
@@ -1023,33 +1147,52 @@
 	\begin{sol}
 		La risoluzione dell'esercizio si basa sull'applicazione del \textbf{Teorema di Ehrenfest}, che lega la derivata temporale del valore di aspettazione di un osservabile al commutatore dell'osservabile con l'Hamiltoniana.
 		
-		\subsection*{Preliminare: Dimostrazione del Teorema di Ehrenfest}
-		Sia $A$ un generico operatore lineare e sia $\ket{\psi(t)}$ lo stato del sistema che evolve secondo l'equazione di Schrödinger dipendente dal tempo:
+		\subsection*{Ipotesi minimali per il Teorema di Ehrenfest}
+		
+		Sia $H$ l'operatore Hamiltoniano autoaggiunto su un dominio denso $D(H) \subset \mathcal{H}$ e sia $A$ un'osservabile autoaggiunta (con $\partial_t A = 0$) definita su $D(A)$.
+		L'evoluzione temporale è data dal gruppo unitario fortemente continuo $U(t) = e^{-itH/\hbar}$.
+		
+		\subsubsection*{1. Ruolo del Teorema di Stone e Domini}
+		Per poter derivare rispetto al tempo il valore di aspettazione $\langle A \rangle_{\psi_t}$, dobbiamo garantire che lo stato $\psi_t$ sia derivabile.
+		Il \textbf{Teorema di Stone} stabilisce una corrispondenza biunivoca tra generatori autoaggiunti e gruppi unitari, affermando che la relazione:
 		\[
-		i\hbar \frac{\partial}{\partial t}\ket{\psi(t)} = H\ket{\psi(t)}.
+		\frac{d}{dt} U(t)\psi = -\frac{i}{\hbar} H U(t)\psi
 		\]
-		Il valore di aspettazione di $A$ è definito come $\expval{A}_{\psi} = \bra{\psi(t)} A \ket{\psi(t)}$. Derivando rispetto al tempo e applicando la regola di Leibniz:
-		\[
-		\frac{d}{dt}\expval{A} = \left( \frac{\partial}{\partial t}\bra{\psi} \right) A \ket{\psi} + \bra{\psi} \frac{\partial A}{\partial t} \ket{\psi} + \bra{\psi} A \left( \frac{\partial}{\partial t}\ket{\psi} \right).
-		\]
-		Dall'equazione di Schrödinger ricaviamo le derivate temporali degli stati:
+		è valida (nella topologia forte) \textbf{se e solo se} $\psi \in D(H)$.
+		Pertanto, l'ipotesi $\psi \in L^2(\mathbb{R})$ \textbf{non è sufficiente}. Se $\psi \in L^2 \setminus D(H)$, la funzione $t \mapsto \psi_t$ è continua ma non derivabile, rendendo privo di senso il membro sinistro dell'equazione di Ehrenfest.
+		
+		\textbf{Ipotesi minimali:}
+		Affinché la relazione di Ehrenfest valga come uguaglianza tra forme quadratiche all'istante $t$, richiediamo:
+		\begin{enumerate}
+			\item $\psi_t \in D(H)$ (per l'esistenza della derivata temporale);
+			\item $\psi_t \in D(A)$ (per l'esistenza del valore di aspettazione).
+		\end{enumerate}
+		
+		\subsubsection*{2. Derivazione come Forma Quadratica}
+		Sotto le ipotesi sopra citate, non è necessario che $\psi_t \in D(HA)$ o $D(AH)$ (cioè che il commutatore esista come operatore). Interpretiamo il commutatore come una forma quadratica derivando il prodotto scalare:
 		\begin{align*}
-			\frac{\partial}{\partial t}\ket{\psi} &= \frac{1}{i\hbar} H \ket{\psi}, \\
-			\frac{\partial}{\partial t}\bra{\psi} &= \left( \frac{1}{i\hbar} H \ket{\psi} \right)^\dagger = -\frac{1}{i\hbar} \bra{\psi} H^\dagger = -\frac{1}{i\hbar} \bra{\psi} H \quad \text{(essendo } H \text{ hermitiano)}.
+			\frac{d}{dt} \langle \psi_t, A \psi_t \rangle &= \langle \dot{\psi}_t, A \psi_t \rangle + \langle \psi_t, A \dot{\psi}_t \rangle \\
+			&= \left\langle -\frac{i}{\hbar} H \psi_t, A \psi_t \right\rangle + \left\langle \psi_t, A \left( -\frac{i}{\hbar} H \psi_t \right) \right\rangle \\
+			&= \frac{1}{i\hbar} \left( \langle A \psi_t, H \psi_t \rangle - \langle H \psi_t, A \psi_t \rangle \right).
 		\end{align*}
-		Sostituendo queste espressioni nella derivata del valore di aspettazione:
+		Definendo la media del commutatore in senso debole:
 		\[
-		\frac{d}{dt}\expval{A} = -\frac{1}{i\hbar} \bra{\psi} H A \ket{\psi} + \expval{\frac{\partial A}{\partial t}} + \frac{1}{i\hbar} \bra{\psi} A H \ket{\psi}.
+		\langle [H, A] \rangle_{\psi}^{weak} := \langle H\psi, A\psi \rangle - \langle A\psi, H\psi \rangle,
 		\]
-		Raccogliendo il fattore $\frac{1}{i\hbar}$:
+		otteniamo la relazione $\frac{d}{dt} \langle A \rangle = \frac{i}{\hbar} \langle [H, A] \rangle^{weak}$.
+		
+		\subsubsection*{3. Controesempio per $\psi \in L^2$}
+		Mostriamo che $\psi \in L^2$ non basta. Consideriamo $A = X$ (operatore posizione) su $L^2(\mathbb{R})$.
+		La funzione Lorentziana:
 		\[
-		\frac{d}{dt}\expval{A} = \frac{1}{i\hbar} \bra{\psi} (AH - HA) \ket{\psi} + \expval{\frac{\partial A}{\partial t}} = \frac{1}{i\hbar} \expval{[A, H]} + \expval{\frac{\partial A}{\partial t}}.
+		\psi(x) = \frac{C}{1+x^2}
 		\]
-		Nel nostro caso specifico, l'operatore $T$ non dipende esplicitamente dal tempo ($\partial_t T = 0$), quindi l'equazione si riduce a:
+		appartiene chiaramente a $L^2(\mathbb{R})$ (poiché integrabile al quadrato), ma non appartiene a $D(X)$ poiché:
 		\[
-		\frac{d}{dt}\expval{T} = \frac{1}{i\hbar} \expval{[T, H]}.
+		\| X\psi \|^2 = \int_{-\infty}^{+\infty} \left| \frac{x}{1+x^2} \right|^2 dx < \infty \quad \text{(converge)},
 		\]
-		Inoltre si vede dalle esercitazioni che T ammette un'unica estensione autoaggiunta e il suo dominio è denso in H, l'argomento quindi non può essere esteso a $\forall \psi \in \HH$ di norma unitaria perchè il valore di aspettazione potrebbe divergere, si prenda per esempio $e^{inx}$.
+		Tuttavia, se prendiamo $\phi(x) = \frac{C}{1+|x|}$ in $L^2$, allora $\|X\phi\|^2$ diverge logaritmicamente. In tal caso $\langle X \rangle_\phi$ non è definito, e l'equazione di Ehrenfest perde significato. Ancora più drasticamente, se $\psi \notin D(H)$ (energia infinita), la derivata temporale non esiste proprio. L'unico modo per dargli senso sarebbe in senso distribuzionale.
+		
 		
 		\subsection*{Calcolo del Commutatore}
 		L'Hamiltoniana per una particella in un potenziale $V(r)$ è data da:
