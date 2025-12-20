@@ -960,7 +960,21 @@
 	\langle K_0f, f \rangle = \int_0^1 x^2 dx - \frac{1}{2}(1)^2 = \frac{1}{3} - \frac{1}{2} = -\frac{1}{6} < 0.
 	\]
 	Esistono quindi vettori $f$ (nello specifico $f(x)=x-1$) per cui $\langle K_0f, f \rangle < 0$, violando la condizione di positività.
+	\newline
+	Per mostrare invece un esempio di operatore $K_C$ positivo dobbiamo notare che
+	\begin{equation}
+		\langle K_Cf, f \rangle  = \langle \psi, -\psi' + \psi \rangle = \|\psi\|^2 + \frac{1}{2}\psi(0)^2 - \frac{1}{2}\psi(1)^2
+	\end{equation}
+	a questo punto basta imporre che $\psi(1) = 0$ per avere un operatore positivo. Restringiamoci quindi alla classe dei funzionali lineari che impongono $\psi(x_0) = 0$ ossia
+	\[
+		C(f) = \int_0^{x_0} e^{-y}f(y) dy
+	\]
+	ottenendo quindi
+	\[
+		C(f) = \int_0^1 e^{-y}f(y) dy
+	\]
 	
+	L'analisi dettagliata completa è estremamente complessa e non ci sono risultati evidenti tranne delle condizioni necessarie e suff. molto implicite provenienti diretttamente da imporre la forma quadratica positiva.
 	\qed
 	\end{sol}
 	

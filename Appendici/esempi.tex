@@ -1,6 +1,6 @@
 %!TeX root = main.tex
 
-\section{Esempi ed osservazioni utili}
+\section{Esempi su operatori}
 
 \begin{esempio}[A cosa serve uno spazio normato e il prodotto scalare?]
 	Prendo un SR e fisso una $(O, e_1, e_2..., e_n)$ a questo punto un vettore diventa  $$v = (x,y) = x e_1 + y e_2$$ con 
@@ -523,58 +523,6 @@ Una formula sintetica è: $u \in W^{k,p}(\mathbb{R}^n) \implies u \in C^m(\mathb
 	\end{itemize}
 \end{esempio}
 
-\subsection{Distribuzioni}
-\begin{esempio}[Distribuzioni tramite funzioni $L^1_{\text{Loc}}$]
-	Sia $\psi \in L^1(\R)$ allora il funzionale $u_\psi : \D \in \C$ tale che
-	\[
-	f \mapsto u_{\psi}(f) := \int_\R dx f(x) \psi(x)
-	\]
-	(che esiste sicuramente) è una distribuzione?  Cioè è continuo?\newline Si verifica facilmente che è sequenzialmente continua. 
-	\[
-	\bigg|\int_\R dx f_j(x) \psi(x)\bigg| \leq \int_\R dx |f_j(x)| |\psi| \leq M\int_\R dx |\psi| = M'
-	\]
-	dove l'ultima disuguaglianza è data perchè è a supporto compatto con M massimo. Per convergenza dominata posso passare il limite sotto al segno d'integrale e ottengo che tutto tende a 0. Quindi è sequenzialmente continua quindi possiamo scrivere impropriamente che 
-	\[
-	L^1_{\text{Loc}} \subset \Dp 
-	\]
-	che sono le funzioni integrabili su tutti i compatti di $\R$. Inoltre si ha che
-	\[
-	L^p(\R) \subset L^1_{\text{Loc}} \quad \quad \quad \forall p \in \N
-	\]
-	quindi la MQ sta denrto $\Dp$ se consideriamo $p=2$.
-\end{esempio}
-
-\begin{esempio}[Derivata di funzioni non derivabili]
-	La theta di Heaviside è $L^1_{\text{Loc}}(\R)$ ed è il prototipo di situazioni fisiche nelle quali ho un campo tangente a una superfice che dentro di essa deve essere nullo (conduttore, lago, tubo...). La componente tangente salta da un certo numero a 0. Come deriviamo una funzione del genere?
-	\[
-	\frac{\Theta(x)}{dx}(f) = -\Theta \left(\frac{df}{dx}\right) = -\int_\R dx \Theta(x)\frac{df}{dx} =  -\int_0^\infty dx \frac{df}{dx} = -f(x)|_0^\infty = f(0) = \delta(f)
-	\]
-	Ora posso derivare qualunque cosa. Per esempio $f(x) = |x|$, derivata otteniamo 
-	\[
-	\text{sign}(x) = \Theta(x) - \Theta(-x)
-	\]
-	e quindi
-	\[
-	\frac{d}{dx} \text{sign}(x)= \frac{d}{dx}\Theta(x) -\frac{d}{dx}\Theta(-x) = 2 \delta
-	\]
-	Fondamentalemente quando derivo qualcosa non derivabile (con derivabilità di salto), in ogni punto di salto ottengo una delta.
-\end{esempio}
-
-\begin{esempio}[Posso integrare su $\Dp$?]
-	Se voglio mantenere la linearità (e quindi l'invarianza per traslazioni) no. Se no si fa e si chiama path integral.
-\end{esempio}
-
-\begin{esempio}[Serie di Taylor]
-	Prendiamo la serie di Taylor centrata in 0 di una f
-	\[
-	f(x) = \sum_{n=0}^\infty \frac{f^{(n)}(x)}{n!}x^n = \left[\sum_{n=0}^\infty \frac{(-1)^n}{n!}x^n \delta^{(n)} \right](f)
-	\]
-	si nota che
-	\[
-	x \delta^{(1)}(f) = \delta^{(1)}(xf) = -\delta(f + xf')  = -\delta(f) - 0 \delta(f')= -\delta(f)
-	\]
-\end{esempio}
-
 \subsection{Osservazioni sulla MQ}
 \begin{esempio}[Misure in MQ]
 	In MQ ho una corrispondenza biunivoca tra osservabili e operatori su $L^2(\mathbb{R})$
@@ -804,162 +752,6 @@ Poiché $H$ ha spettro continuo, le soluzioni $\psi$ appartengono allo spazio de
 	Anche in questo caso, le estensioni non garantiscono necessariamente la positività.
 \end{esempio}
 
-\subsection{Varie su distribuzioni}
-
-\begin{esempio}[Supporto di $\delta$]
-	
-	Consideriamo la delta di Dirac $\delta$.
-	Se prendiamo una funzione test $\varphi$ supportata su $(x-a, x+b)$ tale che $0 \notin (x-a, x+b)$, allora:
-	$$
-	\delta(\varphi) = 0
-	$$
-	Quindi su tutti questi insiemi che non contengono l'origine, la $\delta$ è nulla.
-	
-	Tuttavia, per ogni $\varepsilon > 0$, definendo un intorno $I_\varepsilon = (-\varepsilon, \varepsilon)$, per ogni $\varphi \in \mathcal{D}(\R)$ con $\text{supp}(\varphi) \subset I_\varepsilon$, abbiamo:
-	$$
-	\delta(\varphi) = \varphi(0)
-	$$
-	che può essere diverso da zero. Quindi il supporto è topologicamente l'insieme $\{0\}$.
-	Per la funzione gradino di Heaviside $\Theta(x)$ (indicata come $\mathbb{H}$ o $\Theta$ negli appunti), si può dimostrare che:
-	$$
-	\text{supp}(\Theta) = [0, \infty)
-	$$
-\end{esempio}
-
-\subsection{Esempi di equazioni distribuzionali}
-
-\begin{esempio}[Pettine di Dirac]
-	Risolvere $\sin(x) \cdot u = 0$ con $u \in \Dp(\R)$.
-	La soluzione è il cosiddetto \textbf{Pettine di Dirac}:
-	$$
-	u = \sum_{k \in \mathbb{Z}} c_k \delta_{x_k} \quad \text{con } x_k = k\pi
-	$$
-\end{esempio}
-
-\begin{esempio}[Cristallo unidimensionale]
-	Consideriamo un modello di cristallo descritto dall'Hamiltoniana:
-	$$
-	H = -\frac{\hbar^2}{2m}\frac{d^2}{dx^2} + \sum_{k \in \mathbb{Z}} \lambda \delta_k
-	$$
-	Qui vediamo ogni atomo come una delta di Dirac.
-	\textbf{Nota:} Questo operatore $H$ \textit{non} può agire rigorosamente su $L^2(\R)$ perché la $\delta$ non è definita su funzioni di $L^2$ (necessita continuità, mentre funzioni $L^2$ sono classi di equivalenza).
-\end{esempio}
-
-\subsection{La distribuzione $\frac{1}{x}$}
-
-Vogliamo risolvere l'equazione distribuzionale:
-$$
-x u = 1 \quad \text{con } u \in \Dp(\R)
-$$
-Questa è un'equazione non omogenea. La soluzione generale è data dalla somma di una soluzione particolare $u_p$ e della soluzione dell'omogenea $u_0$:
-$$
-u = u_p + u_0
-$$
-
-\subsubsection{Soluzione Omogenea}
-L'equazione omogenea è $x u_0 = 0$.
-La soluzione è proporzionale alla delta di Dirac (che è supportata in 0, dove $x=0$):
-$$
-u_0 = c \delta
-$$
-(Definizione di soluzione particolare e omogenea).
-
-\subsubsection{Soluzione Particolare}
-Intuitivamente verrebbe da dire $u_p = \frac{1}{x}$. Tuttavia, la funzione $1/x$ classica non appartiene a $\Dp(\R)$ perché non è localmente integrabile nell'intorno dello zero (la singolarità è troppo forte).
-$$
-\frac{1}{x} \in \Dp(\R \setminus \{0\}) \implies \text{necessitiamo una regolarizzazione.}
-$$
-Possiamo usare la derivata del logaritmo:
-$$
-\frac{1}{x} = \frac{d \ln|x|}{dx}
-$$
-Sappiamo che $\ln|x| \in L^1_{\text{loc}}$, quindi è integrabile e definisce una distribuzione regolare. Possiamo quindi definire la distribuzione "valore principale di $1/x$" come:
-$$
-\text{P.V.}\left(\frac{1}{x}\right) := \frac{d}{dx} \ln|x| \in \Dp(\R)
-$$
-
-\subsubsection{Verifica Formale}
-Per ogni funzione test $f \in \mathcal{D}(\R)$:
-$$
-\left\langle \frac{d \ln|x|}{dx}, f \right\rangle = - \left\langle \ln|x|, \frac{df}{dx} \right\rangle = - \int_{-\infty}^{+\infty} dx \ln|x| \frac{df}{dx}
-$$
-Calcoliamo questo integrale separando la singolarità con un limite $\varepsilon \to 0^+$:
-$$
-W(f) = \lim_{\varepsilon \to 0^+} \left[ \int_{-\infty}^{-\varepsilon} dx \frac{f(x)}{x} + \int_{\varepsilon}^{+\infty} dx \frac{f(x)}{x} \right]
-$$
-Analizziamo il termine con il logaritmo (usando l'integrazione per parti sul termine distribuzionale):
-$$
-= \lim_{\varepsilon \to 0^+} \left( \left[ \ln|x|f(x) \right]_{-\infty}^{-\varepsilon} + \left[ \ln|x|f(x) \right]_{\varepsilon}^{+\infty} - \int_{|x|>\varepsilon} dx \ln|x| \frac{df}{dx} \right)
-$$
-Consideriamo i termini di bordo a $\varepsilon$:
-$$
-\left[ \ln|x|f(x) \right]_{-\infty}^{-\varepsilon} + \left[ \ln|x|f(x) \right]_{\varepsilon}^{+\infty} = \ln|-\varepsilon|f(-\varepsilon) - \ln|\varepsilon|f(\varepsilon)
-$$
-Espandiamo $f$ in serie di Taylor attorno a 0: $f(\pm \varepsilon) = f(0) \pm f'(0)\varepsilon + O(\varepsilon^2)$.
-$$
-= \ln \varepsilon [ f(0) - f'(0)\varepsilon ] - \ln \varepsilon [ f(0) + f'(0)\varepsilon ] + \dots
-$$
-$$
-= \ln \varepsilon [ f(-\varepsilon) - f(\varepsilon) ] = \ln \varepsilon [ (f(0) - f'(0)\varepsilon) - (f(0) + f'(0)\varepsilon) ]
-$$
-$$
-= \ln \varepsilon [ -2\varepsilon f'(0) ] \to 0 \quad \text{per } \varepsilon \to 0
-$$
-Il primo termine si annulla (o meglio, i termini divergenti si cancellano grazie alla simmetria del Valor Principale).
-Quindi:
-$$
-W(f) = \lim_{\varepsilon \to 0^+} \left( \int_{\varepsilon}^{\infty} dx \frac{f(x) - f(-x)}{x} \right) = \text{P.V.} \int_\R \frac{f(x)}{x} dx
-$$
-Dunque la distribuzione è ben definita:
-$$
-\left\langle \frac{d \ln|x|}{dx}, f \right\rangle = \text{P.V.} \left\langle \frac{1}{x}, f \right\rangle
-$$
-
-\subsubsection{Soluzione Generale}
-La soluzione dell'equazione $x u = 1$ in $\Dp(\R)$ è quindi:
-$$
-u = \text{P.V.}\left(\frac{1}{x}\right) + c \delta
-$$
-
-\subsubsection{Analisi Complessa e Regolarizzazione}
-
-Possiamo vedere la regolarizzazione attraverso l'integrazione nel piano complesso:
-$$
-\int \frac{f(x)}{x} dx \longrightarrow \oint \frac{f(z)}{z} dz
-$$
-Consideriamo un percorso che evita la singolarità in $z=0$ deformando il cammino nel piano complesso.
-\subsubsection{Calcolo dei residui sui semicerchi}
-
-\begin{enumerate}
-	\item \textbf{Percorso $C_\varepsilon$ (sopra il polo):}
-	$$
-	\lim_{\varepsilon \to 0^+} \int_{C_\varepsilon} \frac{f(z)}{z} dz = i \pi f(0)
-	$$
-	(Nota: Il segno dipende dall'orientazione. Per il Lemma di Jordan sul piccolo cerchio in senso orario sarebbe $-i\pi \text{Res}$, qui stiamo integrando solo sul semicerchio). Negli appunti è indicato $\pi i f(0)$.
-	
-	\item \textbf{Percorso $D_\varepsilon$ (sotto il polo):}
-	$$
-	\lim_{\varepsilon \to 0^+} \int_{D_\varepsilon} \frac{f(z)}{z} dz = - i \pi f(0)
-	$$
-\end{enumerate}
-
-Questo concetto si lega alle formule di Plemelj-Sokhotski. Spostare il polo $z \to z \pm i\varepsilon$ equivale a deformare il contorno:
-$$
-\lim_{\varepsilon \to 0^+} \frac{1}{x \mp i\varepsilon} = \text{P.V.}\frac{1}{x} \pm i\pi \delta(x)
-$$
-Negli appunti troviamo la relazione:
-$$
-\lim_{\varepsilon \to 0^+} \oint_{C} \frac{f(z)}{z - i\varepsilon} = 2\pi i f(i\varepsilon) \to 2\pi i f(0)
-$$
-
-\textbf{Domanda:} Quale di questi risultati è quello giusto per $u$?
-\textbf{Risposta:} Tutti. La soluzione generale è $u = \text{P.V.}\frac{1}{x} + c\delta$.
-A seconda della fisica del problema (condizioni al contorno, causalità, ecc.), il valore della costante $c$ cambia.
-
-\begin{esempio}[Controesempio finale]
-	La funzione $e^{1/x}$ \textbf{non} è interpretabile come distribuzione. La singolarità essenziale in $x=0$ è troppo forte per essere regolarizzata nello spazio delle distribuzioni standard.
-\end{esempio}
-
 \subsection{Prodotto tensore}
 
 Voglio descrivere contemporaneamente due sistemi isolati con due spazi di Hilbert, $\Hspace_1$ e $\Hspace_2$.
@@ -1149,7 +941,7 @@ Ovvero, perché non possiamo scegliere come dominio:
 D_{Dirichlet} = \{ \psi \in AC([0,1]) \mid \psi' \in L^2, \psi(0)=0, \psi(1)=0 \}?
 \]
 
-\subsubsection{Analisi tramite la Teoria di Von Neumann}
+\subsubsection*{Analisi tramite la Teoria di Von Neumann}
 
 Per rispondere, utilizziamo la teoria delle estensioni di Von Neumann.
 Gli indici di difetto dell'operatore $A$ su $[0,1]$ sono $(1, 1)$. Ciò significa che esiste una famiglia a un parametro di estensioni autoaggiunte, parametrizzata da $\alpha \in [0, 2\pi)$.
@@ -1168,7 +960,7 @@ Si osservi un fatto cruciale: \textbf{queste funzioni esponenziali non si annull
 \varphi_\pm(0) \neq 0, \quad \varphi_\pm(1) \neq 0.
 \]
 
-\subsubsection{Struttura del Dominio Autoaggiunto $D_\alpha$}
+\subsubsection*{Struttura del Dominio Autoaggiunto $D_\alpha$}
 Secondo il Teorema di Von Neumann, il dominio di una generica estensione autoaggiunta $A_\alpha$ è dato dalla somma diretta del dominio minimale e di un sottospazio generato da una specifica combinazione lineare delle funzioni di difetto.
 Esplicitamente:
 \[
@@ -1181,7 +973,7 @@ Qui:
 	\item $\alpha \in [0, 2\pi)$ è il parametro che distingue le diverse estensioni autoaggiunte.
 \end{itemize}
 
-\subsubsection{Dimostrazione dell'Impossibilità di Dirichlet}
+\subsubsection*{Dimostrazione dell'Impossibilità di Dirichlet}
 
 Supponiamo per assurdo di voler imporre le condizioni di Dirichlet ($\psi(0)=0$ e $\psi(1)=0$) su tutto il dominio $D_\alpha$. Questo significherebbe trovare un valore fisso di $\alpha$ tale che, per ogni $z \in \C$, la funzione $\psi \in D_\alpha$ si annulli ai bordi.
 
@@ -1245,3 +1037,976 @@ Ricordiamo che $D(A^*)$ è l'insieme delle $\phi$ tali che il termine di bordo n
 Le estensioni autoaggiunte (date dai vari $\alpha$) sono dei compromessi: allargano $D(A)$ imponendo condizioni del tipo $\psi(1) = e^{i\theta}\psi(0)$ (condizioni quasi-periodiche). In questo modo, si impone un vincolo anche su $\phi$ nell'aggiunto, tale da rendere $D(A) = D(A^*)$.
 
 In sintesi, per l'operatore momento (indici 1,1) \textbf{non ci sono abbastanza gradi di libertà} per forzare la funzione a zero su entrambi i bordi mantenendo la struttura unitaria. Questo è possibile solo per operatori del secondo ordine (come $P^2$, indici 2,2), dove i parametri liberi sono quattro.
+
+
+\subsection{Particella libera sulla semiretta}
+
+\begin{esempio}{Problema}
+	Sia $T: C_0^\infty(0, \infty) \to L^2(0, \infty)$ tale che
+	$$ T(f) := -\frac{d^2f}{dx^2} $$
+	Si calcolino i suoi indici di difetto $d_{\pm}(T) := \dim[\ker(T^* \pm i\Identity)]$.
+\end{esempio}
+
+\subsection*{Soluzione}
+
+Il dominio $D(T) = C_0^\infty(0, \infty)$ è denso in $L^2(0, \infty)$. Un'altra scelta ammissibile per il dominio denso sarebbe $\{\psi \in H^1(0, \infty) \mid \psi(0)=0\}$.
+
+\subsubsection*{1. Verifica della Simmetria}
+Verifichiamo che $T$ sia simmetrico su un dominio denso, cioè che $\forall \psi \in C_0^\infty(0, \infty), \varphi \in D(T^*)$, valga $(\varphi, T\psi) = (T^*\varphi, \psi)$.
+Consideriamo il prodotto scalare:
+$$
+(\varphi, T\psi) = \int_0^\infty dx \, \overline{\varphi}(x) \left( -\frac{d^2\psi}{dx^2} \right)
+$$
+Integrando per parti una prima volta:
+$$
+= \left[ -\overline{\varphi}(x) \frac{d\psi}{dx} \right]_0^\infty + \int_0^\infty dx \, \frac{d\overline{\varphi}}{dx} \frac{d\psi}{dx}
+$$
+Il termine di bordo è nullo poiché $\psi \in C_0^\infty(0, \infty)$. Integrando nuovamente per parti:
+$$
+= \left[ \frac{d\overline{\varphi}}{dx} \psi(x) \right]_0^\infty - \int_0^\infty dx \, \frac{d^2\overline{\varphi}}{dx^2} \psi(x) := (T^*\varphi, \psi)
+$$
+Anche il secondo termine di bordo è nullo per le proprietà di $\psi$. Affinché questi passaggi abbiano senso e definiscano $D(T^*)$, devono valere le seguenti condizioni:
+\begin{itemize}
+	\item $(\varphi, T\psi)$ deve essere ben definito, quindi $\varphi \in L^2(0, \infty)$.
+	\item Per dare senso alla prima integrazione, $\frac{d\varphi}{dx} \in L^2(0, \infty)$.
+	\item Per dare senso al pairing finale in $L^2$, $\frac{d^2\varphi}{dx^2} \in L^2(0, \infty)$.
+\end{itemize}
+Quindi il dominio dell'aggiunto è lo spazio di Sobolev $H^2(0, \infty)$:
+$$ D(T^*) = \left\{ \varphi \in L^2(0, \infty) \mid \frac{d\varphi}{dx} \in L^2, \frac{d^2\varphi}{dx^2} \in L^2 \right\} \equiv W^{2,2}(0, \infty) $$
+
+\subsubsection*{2. Calcolo degli indici di difetto}
+Dobbiamo calcolare $\dim[\ker(T^* \pm i\Identity)]$. Sia $f \in \ker(T^* \pm i\Identity)$. Allora:
+$$ T^*f = \mp if \implies \frac{d^2f}{dx^2} = \pm i f $$
+
+\textbf{Caso A:} $d_+(T)$. Risolviamo $\frac{d^2f}{dx^2} = i f$.
+Le radici caratteristiche sono $\omega^2 = i$, quindi $\omega = \pm e^{i\pi/4}$.
+$$ \omega_+ = \frac{1+i}{\sqrt{2}}, \quad \omega_- = -\frac{1+i}{\sqrt{2}} $$
+La soluzione generale è $f(x) = A e^{\omega_- x} + B e^{\omega_+ x}$.
+Poiché $\text{Re}(\omega_+) > 0$, il termine $e^{\omega_+ x}$ diverge all'infinito e non appartiene a $L^2$. Dobbiamo porre $B=0$. Il termine $e^{\omega_- x}$ decade esponenzialmente, quindi appartiene a $L^2$.
+$$ \implies d_+(T) = 1 $$
+
+\textbf{Caso B:} $d_-(T)$. Risolviamo $\frac{d^2f}{dx^2} = -i f$.
+Le radici caratteristiche sono $\omega^2 = -i$, quindi $\omega = \pm e^{i3\pi/4}$.
+$$ \omega_+ = \frac{-1+i}{\sqrt{2}}, \quad \omega_- = \frac{1-i}{\sqrt{2}} $$
+La soluzione generale è $f(x) = A e^{\omega_+ x} + B e^{\omega_- x}$.
+Osservando le parti reali, $\text{Re}(\omega_-) > 0$, quindi il termine $B$ diverge. Il termine $A$ è accettabile in $L^2$.
+$$ \implies d_-(T) = 1 $$
+
+Concludiamo che $d_+(T) = d_-(T) = 1$. Esistono infinite estensioni autoaggiunte parametrizzate da un gruppo a un parametro $U(\alpha)$ con $\alpha \in \R$.
+
+\subsubsection*{3. Costruzione delle Estensioni Autoaggiunte}
+Poiché gli indici sono $(1,1)$, introduciamo i generatori normalizzati dei sottospazi di difetto:
+\begin{itemize}
+	\item $\varphi_+ \in \ker(T^*-i\Identity)$: $\varphi_+(x) := \sqrt[4]{2} e^{-\frac{1+i}{\sqrt{2}}x}$ (a meno di normalizzazione).
+	\item $\varphi_- \in \ker(T^*+i\Identity)$: $\varphi_-(x) := \sqrt[4]{2} e^{\frac{-1+i}{\sqrt{2}}x}$.
+\end{itemize}
+Le isometrie suriettive ammissibili $U(\alpha): \ker(T^*-i) \to \ker(T^*+i)$ sono rotazioni sulla sfera unitaria complessa, cioè fasi pure:
+$$ U(\alpha)\varphi_+ = e^{i\alpha}\varphi_-, \quad \alpha \in [0, 2\pi) $$
+Il dominio dell'estensione autoaggiunta $T_\alpha$ è dato dalla formula di Von Neumann:
+$$ D(T_\alpha) = \{ f = \psi + z\varphi_+ + z e^{i\alpha}\varphi_- \mid \psi \in D(T), z \in \mathbb{C} \} $$
+
+\textbf{Condizioni al contorno:}
+Possiamo esprimere $D(T_\alpha)$ in termini di condizioni al bordo. Valutiamo $f(0)$ e $f'(0)$ ricordando che $\psi(0)=\psi'(0)=0$:
+$$ f(0) = z\varphi_+(0) + z e^{i\alpha}\varphi_-(0) = z \varphi(0) (1 + e^{i\alpha}) $$
+$$ f'(0) = z\varphi_+'(0) + z e^{i\alpha}\varphi_-'(0) = z \left( -\frac{1+i}{\sqrt{2}} \right)\varphi(0) + z e^{i\alpha} \left( \frac{-1+i}{\sqrt{2}} \right)\varphi(0) $$
+Esiste $\beta \in \R \cup \{\infty\}$ tale che $\beta f(0) = -f'(0)$?
+Svolgendo i calcoli:
+$$ \beta = -\frac{f'(0)}{f(0)} = \frac{1}{\sqrt{2}} \frac{(1+i) - e^{i\alpha}(-1+i)}{1+e^{i\alpha}} $$
+Utilizzando le identità trigonometriche per $e^{i\alpha/2}$:
+$$ \beta = \frac{1}{\sqrt{2}} \left( 1 + \tan\left(\frac{\alpha}{2}\right) \right) \in i\R \cup \{\infty\} $$
+(Nota: Il testo originale indica $\beta \in i\R$, ma per un operatore autoaggiunto su $L^2$, la condizione standard reale è spesso parametrizzata diversamente. Qui seguiamo il testo che deriva un $\beta$ immaginario puro o infinito).
+
+Viceversa, fissato $\beta$, si ha la relazione inversa $\alpha = 2 \text{arccotan}(\sqrt{2}\beta - 1)$.
+Nota: L'estensione con $\beta = \infty$ corrisponde a $\alpha = \pi$ (condizione di Dirichlet $f(0)=0$).
+
+\subsection*{Corollario: Interpretazione fisica e relazione con l'operatore Impulso}
+
+L'analisi delle estensioni autoaggiunte dell'operatore cinetico $T$ sulla semiretta positiva offre spunti fisici rilevanti, in particolare riguardo la positività dell'energia e la relazione con l'operatore impulso $P$.
+
+\subsubsection*{Stati legati e perdita della positività}
+Sebbene l'operatore $T = -\frac{d^2}{dx^2}$ definito sul dominio $C_0^\infty(0, \infty)$ sia positivo (ovvero $(\varphi, T\varphi) \ge 0$), le sue estensioni autoaggiunte $T_\alpha$ non preservano necessariamente tale proprietà.
+Ricordiamo che il dominio dell'estensione $T_\alpha$ è caratterizzato dalle condizioni al contorno di Robin:
+$$ D(T_\alpha) = \{ f \in L^2(0, \infty) \mid f'(0) + \beta f(0) = 0 \} $$
+dove il parametro $\beta$ è legato all'indice dell'estensione $\alpha$ dalla relazione $\beta = \frac{1}{\sqrt{2}}(1+\tan\frac{\alpha}{2})$.
+
+Consideriamo la funzione dipendente da un parametro $\theta \in (0, \pi/2)$:
+$$ f_\theta(x) := e^{-\cot(\theta)x} $$
+Tale funzione appartiene a $L^2(0, \infty)$ (poiché $\cot(\theta) > 0$) e soddisfa la condizione al contorno se fissiamo $\beta = \cot(\theta)$. L'azione dell'operatore su tale stato è:
+$$ T_\alpha f_\theta = -\frac{d^2}{dx^2} e^{-\beta x} = -\beta^2 e^{-\beta x} = -\cot^2(\theta) f_\theta $$
+Ciò dimostra che $f_\theta$ è un'autofunzione di $T_\alpha$ con autovalore negativo $\lambda = -\cot^2(\theta)$. Questi stati appartengono allo spettro discreto e sono fisicamente interpretati come **stati legati** o modi quasi normali. Di conseguenza, l'operatore $T_\alpha$, pur essendo estensione di un operatore positivo, possiede spettro negativo per certi valori del parametro di estensione.
+
+\subsubsection*{Relazione con l'operatore Impulso $P$}
+Questa analisi ha conseguenze dirette sulla definizione dell'operatore impulso sulla semiretta. Se consideriamo $T$ come l'Hamiltoniana libera (proporzionale a $P^2$), sorge il problema della definizione di $P$.
+Sulla semiretta $(0, \infty)$, l'operatore impulso $P = -i\frac{d}{dx}$ ha indici di difetto diversi (nello specifico $d_+(P) \neq d_-(P)$), e pertanto \textbf{non ammette estensioni autoaggiunte}.
+
+Questo implica che non è possibile definire univocamente la radice quadrata delle estensioni $T_\alpha$. Fisicamente, ciò è confermato dall'esistenza degli stati legati con energia negativa $E < 0$: l'impulso corrispondente sarebbe $p = \sqrt{E} \in i\mathbb{R}$, un valore immaginario privo di senso per un'osservabile fisica. Non è quindi possibile ricostruire lo spettro di $P$ partendo dalla decomposizione spettrale di $T_\alpha$ sulla semiretta.
+
+\subsubsection*{Estensioni sull'intervallo limitato $(a, b)$}
+La situazione cambia radicalmente se consideriamo l'operatore cinetico su un intervallo limitato $I = (a, b)$.
+In questo caso, gli indici di difetto sono $d_\pm(T) = 2$. Le estensioni autoaggiunte $T_U$ sono quindi parametrizzate da una matrice unitaria $U \in U(2)$, che richiede 4 parametri reali (spesso parametrizzati tramite $U = e^{i\theta}M$ con $M \in SU(2)$).
+
+A differenza della semiretta, sull'intervallo limitato anche l'operatore impulso $P$ possiede indici di difetto $(1, 1)$ e ammette quindi estensioni autoaggiunte, che indichiamo con $P_\gamma$. Tuttavia, la relazione $T = P^2$ non è banale nemmeno in questo contesto.
+Se consideriamo le estensioni autoaggiunte generate dal quadrato delle estensioni dell'impulso (ad esempio operatori della forma $P_\gamma^2$ o composizioni $P_\alpha P_\beta$), queste costituiscono solo un sottoinsieme delle possibili estensioni autoaggiunte di $T$. La famiglia a 4 parametri di $T_U$ è molto più vasta di quella generabile dai soli operatori impulso autoaggiunti.
+
+
+\subsection{Oscillatore Armonico}
+
+\begin{esempio}{Problema}
+	Si dimostri che $T = -\frac{d^2}{dx^2} + x^2$ definito su $D(T) = \mathcal{S}(\R)$ (spazio di Schwartz) è simmetrico. È anche essenzialmente autoaggiunto?
+\end{esempio}
+
+\subsection*{Soluzione}
+
+\subsubsection*{1. Simmetria}
+Verifichiamo $(\varphi, T\psi) = (T\varphi, \psi)$ per $\varphi, \psi \in \mathcal{S}(\R)$.
+$$ (\varphi, T\psi) = \int_\R dx \, \overline{\varphi}(x) \left( -\frac{d^2}{dx^2} + x^2 \right) \psi(x) $$
+$$ = \int_\R dx \, \overline{\varphi}(x) \left( -\frac{d^2\psi}{dx^2} \right) + \int_\R dx \, \overline{\varphi}(x) x^2 \psi(x) $$
+Integrando per parti il termine cinetico due volte:
+$$ \int_\R \overline{\varphi} (-\psi'') dx = \left[ -\overline{\varphi}\psi' \right]_{-\infty}^{+\infty} + \int_\R \overline{\varphi}' \psi' dx = \left[ -\overline{\varphi}\psi' + \overline{\varphi}'\psi \right]_{-\infty}^{+\infty} + \int_\R (-\overline{\varphi}'')\psi dx $$
+Poiché $\varphi, \psi \in \mathcal{S}(\R)$, esse e le loro derivate decrescono più rapidamente di ogni potenza all'infinito, quindi i termini di bordo si annullano.
+$$ = \int_\R dx \left( -\frac{d^2\overline{\varphi}}{dx^2} + x^2\overline{\varphi} \right) \psi = (T\varphi, \psi) $$
+$T$ è simmetrico. Il dominio dell'aggiunto è:
+$$ D(T^*) = \{ \varphi \in L^2(\R) \mid \varphi', \varphi'', x^2\varphi \in L^2(\R) \} $$
+
+\subsubsection*{2. Essenziale Autoaggiuntezza}
+Per verificare se è essenzialmente autoaggiunto, dovremmo calcolare $d_\pm(T)$. L'equazione di difetto $-\frac{d^2f}{dx^2} + x^2f = \pm i f$ è complessa da risolvere direttamente.
+
+\textbf{Metodo Alternativo (Base di Autostati):}
+Se riusciamo a esibire una base ortonormale di autostati di $T$ con autovalori reali, allora $T$ è essenzialmente autoaggiunto.
+Sappiamo dalla meccanica quantistica che gli autostati dell'oscillatore armonico sono:
+$$ \psi_n(x) = \frac{1}{\sqrt{2^n n!}} \left(\frac{1}{\pi}\right)^{1/4} e^{-x^2/2} H_n(x) $$
+dove $H_n(x) = (-1)^n e^{x^2} \frac{d^n}{dx^n}(e^{-x^2})$ sono i polinomi di Hermite.
+
+\textbf{Verifiche:}
+\begin{enumerate}
+	\item \textbf{Appartenenza al dominio:} La gaussiana $e^{-x^2/2}$ è a decrescenza rapida. $\mathcal{S}(\R)$ è stabile per derivazione e moltiplicazione per polinomi, quindi $\psi_n \in \mathcal{S}(\R) = D(T)$.
+	\item \textbf{Ortogonalità:} Per $n \neq m$, assumiamo $n > m$.
+	$$ \int_\R H_m(x) H_n(x) e^{-x^2} dx = \int_\R H_m(x) (-1)^n \frac{d^n}{dx^n}(e^{-x^2}) dx $$
+	Integrando per parti $n$ volte, le derivate si scaricano su $H_m(x)$. Poiché $H_m$ è un polinomio di grado $m < n$, la derivata $n$-esima è nulla. L'integrale è 0.
+	\item \textbf{Normalizzazione:} Calcolando l'integrale per $n=m$ (usando lo stesso metodo di parti), si ottiene il fattore di normalizzazione corretto affinché $||\psi_n||=1$.
+	\item \textbf{Completezza:} Dobbiamo mostrare che lo span di $\{\psi_n\}$ è denso in $L^2(\R)$. Poiché i polinomi di Hermite generano lo spazio di tutti i polinomi, è sufficiente mostrare che se $f \in L^2$ è ortogonale a $\{ e^{-x^2/2} p(x) \}$ per ogni polinomio $p(x)$, allora $f \equiv 0$.
+	Sia $\int_\R f(x) e^{-x^2/2} x^n dx = 0$ per ogni $n$.
+	Consideriamo la trasformata di Fourier di $g(x) = f(x)e^{-x^2/2}$:
+	$$ F(\xi) = \int_\R g(x) e^{i\xi x} dx = \sum_{n=0}^\infty \frac{(i\xi)^n}{n!} \int_\R f(x) e^{-x^2/2} x^n dx = 0 $$
+	Poiché $F(\xi) \equiv 0$, per il teorema di Plancherel (l'unitarietà della trasformata di Fourier), $g(x) \equiv 0 \implies f(x) \equiv 0$.
+	\item \textbf{Autovalori:} Si verifica che $T\psi_n = (2n+1)\psi_n$. Gli autovalori sono reali.
+\end{enumerate}
+
+\textbf{Conclusione:} Poiché esiste una base ortonormale completa di autovettori, $d_+(T) = d_-(T) = 0$. $T$ è essenzialmente autoaggiunto.
+
+\begin{osservazione}
+	Un altro criterio (Teorema di Nelson o criterio della coniugazione) afferma che se un operatore simmetrico $T$ commuta con una coniugazione $C$ (operatore antilineare tale che $C^2=\Identity$ e $(C\psi, C\phi) = \overline{(\psi, \phi)}$), allora gli indici di difetto sono uguali. Qui $T$ è reale, quindi commuta con la coniugazione complessa, implicando $d_+ = d_-$.
+\end{osservazione}
+
+\subsection{Operatore $xp + px$}
+
+\begin{esempio}{Problema}
+	Sia $T = xp + px$. Analizzare se $T$ è hermitiano e se ammette estensioni autoaggiunte su:
+	\begin{enumerate}
+		\item[(a)] $L^2(\R)$
+		\item[(b)] $L^2(1, 2)$
+		\item[(c)] $L^2(0, 1)$
+	\end{enumerate}
+\end{esempio}
+
+\subsection*{Soluzione}
+
+Ricordiamo che $p = -i\frac{d}{dx}$. L'operatore agisce come:
+$$ T\psi = -i \left( x\frac{d\psi}{dx} + \frac{d}{dx}(x\psi) \right) = -i \left( x\psi' + \psi + x\psi' \right) = -i(2x\psi' + \psi) $$
+
+\subsubsection*{Analisi Preliminare (Simmetria)}
+Consideriamo $D(T) = C_0^\infty(I)$ dove $I$ è l'intervallo considerato.
+$$ (\varphi, T\psi) = \int_I dx \, \overline{\varphi} \left[ -i \left( x\frac{d}{dx} + \frac{d}{dx}x \right) \psi \right] $$
+$$ = -i \int \overline{\varphi} x \psi' - i \int \overline{\varphi} (x\psi)' $$
+Integrando per parti (i termini di bordo si annullano per il supporto compatto):
+$$ = i \int (x\overline{\varphi})' \psi + i \int \overline{\varphi}' x \psi = \int \overline{ \left( -i \frac{d}{dx}(x\varphi) - ix\varphi' \right) } \psi = (T\varphi, \psi) $$
+L'operatore è simmetrico.
+Il dominio dell'aggiunto è $D(T^*) = \{ \varphi \in L^2 \mid T^*\varphi \in L^2 \}$.
+
+\subsubsection*{Calcolo degli indici di difetto}
+Risolviamo $T^*\psi = \pm i \psi$:
+$$ -i(2x\psi' + \psi) = \pm i \psi \implies 2x\psi' + \psi = \mp \psi $$
+
+\textbf{Caso 1:} $2x\psi' + \psi = \psi$ (segno $+$ nell'equazione differenziale, corrisponde a autovalore $-i$)
+$$ 2x\psi' = 0 \implies \psi(x) = C_1 \text{ (costante)} $$
+
+\textbf{Caso 2:} $2x\psi' + \psi = -\psi$ (segno $-$ nell'equazione differenziale, corrisponde a autovalore $+i$)
+$$ 2x\psi' = -2\psi \implies \frac{\psi'}{\psi} = -\frac{1}{x} \implies \ln \psi = -\ln x + c \implies \psi(x) = \frac{C_2}{x} $$
+
+Ora analizziamo l'appartenenza a $L^2$ per i vari intervalli.
+
+\paragraph{(a) Intervallo $\R$}
+\begin{itemize}
+	\item Soluzione costante $\psi = C_1$: Non è in $L^2(\R)$.
+	\item Soluzione $\psi = C_2/x$: Non è in $L^2(\R)$ (divergenza in 0 e comportamento all'infinito).
+\end{itemize}
+Quindi $\ker(T^* \mp i\Identity) = \{0\}$.
+$$ d_+(T) = d_-(T) = 0 $$
+$T$ è essenzialmente autoaggiunto su $\R$ (ammette un'unica estensione autoaggiunta, la chiusura).
+
+\paragraph{(b) Intervallo $(1, 2)$}
+\begin{itemize}
+	\item Soluzione costante $\psi = C_1$: È in $L^2(1, 2)$ (intervallo limitato).
+	\item Soluzione $\psi = C_2/x$: È in $L^2(1, 2)$ (nessuna singolarità nell'intervallo).
+\end{itemize}
+Quindi entrambe le soluzioni sono accettabili.
+$$ d_+(T) = d_-(T) = 1 $$
+Esistono infinite estensioni autoaggiunte.
+
+\paragraph{(c) Intervallo $(0, 1)$}
+\begin{itemize}
+	\item Soluzione costante $\psi = C_1$: È in $L^2(0, 1)$.
+	\item Soluzione $\psi = C_2/x$: \textbf{Non} è in $L^2(0, 1)$ a causa della singolarità in $x=0$ ($\int_0^1 \frac{1}{x^2} dx$ diverge).
+\end{itemize}
+Abbiamo un indice uguale a 1 e l'altro uguale a 0.
+$$ d_+(T) \neq d_-(T) $$
+L'operatore non ammette estensioni autoaggiunte su $L^2(0, 1)$.
+
+\section{Esempi sulle distribuzioni}
+
+\subsection{Varie su distribuzioni}
+\begin{esempio}[Distribuzioni tramite funzioni $L^1_{\text{Loc}}$]
+	Sia $\psi \in L^1(\R)$ allora il funzionale $u_\psi : \D \in \C$ tale che
+	\[
+	f \mapsto u_{\psi}(f) := \int_\R dx f(x) \psi(x)
+	\]
+	(che esiste sicuramente) è una distribuzione?  Cioè è continuo?\newline Si verifica facilmente che è sequenzialmente continua. 
+	\[
+	\bigg|\int_\R dx f_j(x) \psi(x)\bigg| \leq \int_\R dx |f_j(x)| |\psi| \leq M\int_\R dx |\psi| = M'
+	\]
+	dove l'ultima disuguaglianza è data perchè è a supporto compatto con M massimo. Per convergenza dominata posso passare il limite sotto al segno d'integrale e ottengo che tutto tende a 0. Quindi è sequenzialmente continua quindi possiamo scrivere impropriamente che 
+	\[
+	L^1_{\text{Loc}} \subset \Dp 
+	\]
+	che sono le funzioni integrabili su tutti i compatti di $\R$. Inoltre si ha che
+	\[
+	L^p(\R) \subset L^1_{\text{Loc}} \quad \quad \quad \forall p \in \N
+	\]
+	quindi la MQ sta denrto $\Dp$ se consideriamo $p=2$.
+\end{esempio}
+
+\begin{esempio}[Derivata di funzioni non derivabili]
+	La theta di Heaviside è $L^1_{\text{Loc}}(\R)$ ed è il prototipo di situazioni fisiche nelle quali ho un campo tangente a una superfice che dentro di essa deve essere nullo (conduttore, lago, tubo...). La componente tangente salta da un certo numero a 0. Come deriviamo una funzione del genere?
+	\[
+	\frac{\Theta(x)}{dx}(f) = -\Theta \left(\frac{df}{dx}\right) = -\int_\R dx \Theta(x)\frac{df}{dx} =  -\int_0^\infty dx \frac{df}{dx} = -f(x)|_0^\infty = f(0) = \delta(f)
+	\]
+	Ora posso derivare qualunque cosa. Per esempio $f(x) = |x|$, derivata otteniamo 
+	\[
+	\text{sign}(x) = \Theta(x) - \Theta(-x)
+	\]
+	e quindi
+	\[
+	\frac{d}{dx} \text{sign}(x)= \frac{d}{dx}\Theta(x) -\frac{d}{dx}\Theta(-x) = 2 \delta
+	\]
+	Fondamentalemente quando derivo qualcosa non derivabile (con derivabilità di salto), in ogni punto di salto ottengo una delta.
+\end{esempio}
+
+\begin{esempio}[Posso integrare su $\Dp$?]
+	Se voglio mantenere la linearità (e quindi l'invarianza per traslazioni) no. Se no si fa e si chiama path integral.
+\end{esempio}
+
+\begin{esempio}[Serie di Taylor]
+	Prendiamo la serie di Taylor centrata in 0 di una f
+	\[
+	f(x) = \sum_{n=0}^\infty \frac{f^{(n)}(x)}{n!}x^n = \left[\sum_{n=0}^\infty \frac{(-1)^n}{n!}x^n \delta^{(n)} \right](f)
+	\]
+	si nota che
+	\[
+	x \delta^{(1)}(f) = \delta^{(1)}(xf) = -\delta(f + xf')  = -\delta(f) - 0 \delta(f')= -\delta(f)
+	\]
+\end{esempio}
+\begin{esempio}[Supporto di $\delta$]
+	
+	Consideriamo la delta di Dirac $\delta$.
+	Se prendiamo una funzione test $\varphi$ supportata su $(x-a, x+b)$ tale che $0 \notin (x-a, x+b)$, allora:
+	$$
+	\delta(\varphi) = 0
+	$$
+	Quindi su tutti questi insiemi che non contengono l'origine, la $\delta$ è nulla.
+	
+	Tuttavia, per ogni $\varepsilon > 0$, definendo un intorno $I_\varepsilon = (-\varepsilon, \varepsilon)$, per ogni $\varphi \in \mathcal{D}(\R)$ con $\text{supp}(\varphi) \subset I_\varepsilon$, abbiamo:
+	$$
+	\delta(\varphi) = \varphi(0)
+	$$
+	che può essere diverso da zero. Quindi il supporto è topologicamente l'insieme $\{0\}$.
+	Per la funzione gradino di Heaviside $\Theta(x)$ (indicata come $\mathbb{H}$ o $\Theta$ negli appunti), si può dimostrare che:
+	$$
+	\text{supp}(\Theta) = [0, \infty)
+	$$
+\end{esempio}
+
+\subsection{Esempi di equazioni distribuzionali}
+
+Analizziamo la risoluzione di equazioni lineari nel contesto delle distribuzioni $\mathcal{D}'(\R^n)$, cercando soluzioni generalizzate che potrebbero non apparire se ci limitassimo agli spazi funzionali standard o alle sole distribuzioni temperate $\mathcal{S}'(\R^n)$. Sebbene l'uso della trasformata di Fourier sia spesso efficace, esso limita a priori la ricerca alle distribuzioni temperate; l'approccio diretto qui presentato permette di esplorare l'intero spazio $\mathcal{D}'$.
+
+\subsection{Equazione $x u = 0$}
+
+Consideriamo l'equazione omogenea:
+$$ x u = 0, \quad u \in \mathcal{D}'(\R) $$
+La soluzione banale in senso funzionale è $u(x) = 0$. Cerchiamo soluzioni distribuzionali non banali.
+L'equazione in senso debole è definita da:
+$$ \langle x u, f \rangle = \langle u, x f \rangle = 0, \quad \forall f \in \mathcal{D}(\R) $$
+Si noti che l'operazione è ben definita poiché $x \in C^\infty(\R)$, quindi $xf$ rimane una funzione test a supporto compatto.
+
+\subsubsection{Analisi del supporto}
+Se una funzione test $f$ ha supporto che non contiene l'origine ($0 \notin \text{supp}(f)$), possiamo scrivere $xf = h$ con $\text{supp}(h) \subseteq \R \setminus \{0\}$. In tal caso l'equazione implica $\langle u, h \rangle = 0$.
+Dalla definizione di supporto di una distribuzione, ciò implica che il supporto di $u$ deve essere disgiunto da $\R \setminus \{0\}$, ovvero:
+$$ \text{supp}(u) \subseteq \{0\} $$
+Per il teorema di struttura delle distribuzioni a supporto puntiforme, $u$ deve essere una combinazione lineare della delta di Dirac e delle sue derivate:
+$$ u = \sum_{k=0}^N c_k \delta^{(k)} $$
+
+\subsubsection{Determinazione dell'ordine}
+Sostituendo l'espressione generale nell'equazione:
+\begin{itemize}
+	\item Per $N=0$ ($u = c_0 \delta$):
+	$$ \langle u, xf \rangle = c_0 \langle \delta, xf \rangle = c_0 (x f(x))|_{x=0} = 0 $$
+	Questa è una soluzione valida per ogni $c_0$.
+	
+	\item Per $N=1$ ($u = c_0 \delta + c_1 \delta'$):
+	$$ \langle u, xf \rangle = 0 + c_1 \langle \delta', xf \rangle = -c_1 \langle \delta, (xf)' \rangle = -c_1 \langle \delta, f + xf' \rangle = -c_1 f(0) $$
+	Affinché sia nullo per ogni $f$, deve essere $c_1 = 0$.
+\end{itemize}
+Concludiamo che l'unica soluzione non banale è di ordine 0:
+$$ u = c_0 \delta_0, \quad c_0 \in \mathbb{C} $$
+
+\begin{esempio}[Equazione $x u' = 0$]
+
+Consideriamo l'equazione differenziale distribuzionale:
+$$ x u' = 0 $$
+In senso debole:
+$$ \langle x u', f \rangle = \langle u', x f \rangle = 0, \quad \forall f \in \mathcal{D}(\R) $$
+Questo implica che la distribuzione $u'$ ha supporto concentrato nell'origine.
+$$ u' = \sum_{k=0}^N c_k \delta^{(k)} $$
+Analogamente al caso precedente, testando l'equazione $x(\sum c_k \delta^{(k)}) = 0$, si trova che l'unica soluzione ammissibile per $u'$ è quella di ordine 0 (poiché termini di ordine superiore genererebbero contributi non nulli come $f(0)$):
+$$ u' = c_0 \delta_0 $$
+Per trovare $u$, dobbiamo integrare questa relazione. La primitiva distribuzionale della $\delta_0$ è la funzione a gradino di Heaviside $\Theta(x)$, più una costante arbitraria (che è la primitiva di 0):
+$$ u(x) = c_0 \Theta(x) + d, \quad c_0, d \in \mathbb{C} $$
+\end{esempio}
+
+\textit{Verifica della derivata di Heaviside:}
+$$ \langle \Theta', f \rangle = - \langle \Theta, f' \rangle = - \int_0^\infty f'(x) dx = -[f(\infty) - f(0)] = f(0) = \langle \delta, f \rangle $$
+
+\begin{esempio}[Equazione con sorgente $x u = \delta_0$]
+
+Risolviamo l'equazione non omogenea:
+$$ x u = \delta_0 $$
+La soluzione generale è somma della soluzione particolare $u_p$ e della soluzione dell'omogenea $u_0$:
+$$ u = u_0 + u_p $$
+Sappiamo già che $u_0 = c_0 \delta_0$.
+
+Per la soluzione particolare, proviamo con una derivata della delta.
+Tentativo con $u_p = -\delta'$:
+$$ \langle x(-\delta'), f \rangle = \langle -\delta', xf \rangle = \langle \delta, (xf)' \rangle = \langle \delta, f + xf' \rangle = f(0) + 0 = \langle \delta, f \rangle $$
+Il tentativo ha successo. La soluzione generale è:
+$$ u = c_0 \delta_0 - \delta'_0 $$
+\end{esempio}
+
+\begin{esempio}[Generalizzazione: $x^n u = \delta^{(k)}$]
+Analizzando l'equazione più generale $x^n u = 0$ o con sorgenti derivate, si osserva che:
+Se $u = \sum c_j \delta^{(j)}$, il termine $x^n \delta^{(j)}$ è non nullo solo se l'ordine di derivazione $j$ è sufficientemente alto da "consumare" lo zero di ordine $n$ di $x^n$ e lasciare ancora termini valutati in 0.
+Nello specifico, l'equazione omogenea $x^n u = 0$ ammette come soluzione:
+$$ u = \sum_{k=0}^{n-1} c_k \delta^{(k)} $$
+Infatti, per $k < n$, l'azione su una funzione test comporta derivate di $(x^n f)$ valutate in 0. La derivata $k$-esima di $x^n f$ in 0 è nulla per $k < n$, rendendo l'espressione identicamente zero.
+\end{esempio}
+
+\begin{esempio}[Equazione $(x-a_1)(x-a_2)u = 0$]
+
+Siano $a_1, a_2 \in \R$ distinti. Poniamo $v = (x-a_2)u$. L'equazione diventa:
+$$ (x-a_1)v = 0 $$
+Questa è analoga a $y v = 0$ con traslazione $y = x-a_1$. La soluzione ha supporto in $a_1$:
+$$ v = c_0 \delta(x-a_1) $$
+Tornando alla variabile $u$, dobbiamo risolvere:
+$$ (x-a_2)u = c_0 \delta(x-a_1) $$
+Questa è un'equazione non omogenea per il fattore $(x-a_2)$. Tuttavia, poiché il supporto della sorgente ($\{a_1\}$) è disgiunto dallo zero del moltiplicatore ($\{a_2\}$), possiamo dividere per $(x-a_2)$ in senso distribuzionale usando l'identità:
+$$ \delta(x-a_1) = \frac{1}{a_1 - a_2} (x-a_2) \delta(x-a_1) $$
+Verifica:
+$$ \left\langle \frac{x-a_2}{a_1-a_2} \delta(x-a_1), f \right\rangle = \frac{1}{a_1-a_2} (a_1-a_2) f(a_1) = f(a_1) $$
+Sostituendo nell'equazione:
+$$ (x-a_2)u = c_0 \frac{x-a_2}{a_1-a_2} \delta(x-a_1) $$
+Portando tutto a sinistra:
+$$ (x-a_2) \left[ u - \frac{c_0}{a_1-a_2} \delta(x-a_1) \right] = 0 $$
+Il termine in parentesi quadra deve essere soluzione dell'omogenea $(x-a_2)w = 0$, che è $c_1 \delta(x-a_2)$.
+Dunque la soluzione generale è:
+$$ u = \frac{c_0}{a_1-a_2} \delta(x-a_1) + c_1 \delta(x-a_2) $$
+Ridefinendo le costanti, otteniamo una combinazione lineare di delta centrate negli zeri del polinomio moltiplicativo:
+$$ u = c'_0 \delta(x-a_1) + c_1 \delta(x-a_2) $$
+\end{esempio}
+
+\begin{esempio}[Nota fisica: Propagatori]
+Un'applicazione rilevante di questo risultato è l'equazione per il propagatore scalare in spazio dei momenti (massa $a$):
+$$ (p^2 - a^2) f(p) = 0 \implies (p-a)(p+a)f(p) = 0 $$
+La soluzione è la sovrapposizione di delta sulla shell di massa:
+$$ f(p) = c \delta(p-a) + d \delta(p+a) $$
+\end{esempio}
+
+\begin{esempio}[Pettine di Dirac]
+	Risolvere $\sin(x) \cdot u = 0$ con $u \in \Dp(\R)$.
+	La soluzione è il cosiddetto \textbf{Pettine di Dirac}:
+	$$
+	u = \sum_{k \in \mathbb{Z}} c_k \delta_{x_k} \quad \text{con } x_k = k\pi
+	$$
+\end{esempio}
+
+\begin{esempio}[Cristallo unidimensionale]
+	Consideriamo un modello di cristallo descritto dall'Hamiltoniana:
+	$$
+	H = -\frac{\hbar^2}{2m}\frac{d^2}{dx^2} + \sum_{k \in \mathbb{Z}} \lambda \delta_k
+	$$
+	Qui vediamo ogni atomo come una delta di Dirac.
+	\textbf{Nota:} Questo operatore $H$ \textit{non} può agire rigorosamente su $L^2(\R)$ perché la $\delta$ non è definita su funzioni di $L^2$ (necessita continuità, mentre funzioni $L^2$ sono classi di equivalenza).
+\end{esempio}
+
+\subsection{La distribuzione $\frac{1}{x}$}
+
+Vogliamo risolvere l'equazione distribuzionale:
+$$
+x u = 1 \quad \text{con } u \in \Dp(\R)
+$$
+Questa è un'equazione non omogenea. La soluzione generale è data dalla somma di una soluzione particolare $u_p$ e della soluzione dell'omogenea $u_0$:
+$$
+u = u_p + u_0
+$$
+
+\subsubsection{Soluzione Omogenea}
+L'equazione omogenea è $x u_0 = 0$.
+Analizzando il supporto, se $x u_0 = 0$, il supporto di $u_0$ deve essere contenuto in $\{0\}$. Per il teorema di struttura delle distribuzioni puntiformi, $u_0$ deve essere una combinazione lineare della delta di Dirac e delle sue derivate. Verificando gli ordini:
+\begin{itemize}
+	\item Se $u = c_0 \delta_0$, allora $(u, xf) = c_0 \delta_0(xf) = c_0 [x f(x)]_{x=0} = 0$. Funziona.
+	\item Se $u = c_1 \delta'_0$, allora $(u, xf) = -c_1 \delta_0((xf)') = -c_1 [f(x) + xf'(x)]_{x=0} = -c_1 f(0) \neq 0$. Non funziona.
+\end{itemize}
+Dunque la soluzione omogenea è proporzionale alla sola delta di Dirac:
+$$
+u_0 = c \delta
+$$
+
+\subsubsection{Soluzione Particolare: Approccio logaritmico}
+Intuitivamente verrebbe da dire $u_p = \frac{1}{x}$. Tuttavia, la funzione $1/x$ classica non appartiene a $\Dp(\R)$ perché non è localmente integrabile nell'intorno dello zero (la singolarità è troppo forte).
+$$
+\frac{1}{x} \in \Dp(\R \setminus \{0\}) \implies \text{necessitiamo una regolarizzazione.}
+$$
+Un primo metodo consiste nell'usare la derivata del logaritmo:
+$$
+\text{P.V.}\left(\frac{1}{x}\right) := \frac{d}{dx} \ln|x| \in \Dp(\R)
+$$
+Sappiamo che $\ln|x| \in L^1_{\text{loc}}$, quindi è integrabile e definisce una distribuzione regolare.
+
+\textbf{Verifica Formale:}
+Per ogni funzione test $f \in \mathcal{D}(\R)$:
+$$
+\left\langle \frac{d \ln|x|}{dx}, f \right\rangle = - \left\langle \ln|x|, \frac{df}{dx} \right\rangle = - \int_{-\infty}^{+\infty} dx \ln|x| \frac{df}{dx}
+$$
+Calcoliamo questo integrale separando la singolarità con un limite $\varepsilon \to 0^+$:
+$$
+W(f) = \lim_{\varepsilon \to 0^+} \left[ \int_{-\infty}^{-\varepsilon} dx \frac{f(x)}{x} + \int_{\varepsilon}^{+\infty} dx \frac{f(x)}{x} \right]
+$$
+Analizziamo il termine con il logaritmo (usando l'integrazione per parti sul termine distribuzionale):
+$$
+= \lim_{\varepsilon \to 0^+} \left( \left[ \ln|x|f(x) \right]_{-\infty}^{-\varepsilon} + \left[ \ln|x|f(x) \right]_{\varepsilon}^{+\infty} - \int_{|x|>\varepsilon} dx \ln|x| \frac{df}{dx} \right)
+$$
+Espandendo $f$ in serie di Taylor attorno a 0 ($f(\pm \varepsilon) = f(0) \pm f'(0)\varepsilon + O(\varepsilon^2)$), i termini divergenti si cancellano grazie alla simmetria del Valor Principale:
+$$
+\ln \varepsilon [ f(-\varepsilon) - f(\varepsilon) ] \approx \ln \varepsilon [ -2\varepsilon f'(0) ] \to 0 \quad \text{per } \varepsilon \to 0
+$$
+Si conferma quindi che:
+$$
+\left\langle \frac{d \ln|x|}{dx}, f \right\rangle = \text{P.V.} \left\langle \frac{1}{x}, f \right\rangle = \lim_{\varepsilon \to 0^+} \int_{|x|>\varepsilon} \frac{f(x)}{x} dx
+$$
+Inoltre, distribuzionalmente vale che $x \cdot \text{P.V.}\left(\frac{1}{x}\right) = 1$, dato che $\langle x \text{P.V.}(1/x), f \rangle = \langle \text{P.V.}(1/x), xf \rangle = \int \frac{xf(x)}{x} dx = \int f(x) dx = \langle 1, f \rangle$.
+
+\subsubsection{Soluzione Particolare: Approccio tramite limite complesso}
+Un metodo alternativo, molto comune in fisica per definire integrali singolari, consiste nello spostare la singolarità fuori dall'asse reale. Consideriamo la successione di funzioni in $L^1_{\text{loc}}(\R)$:
+$$
+u_\varepsilon(x) = \frac{1}{x - i\varepsilon}, \quad \varepsilon > 0
+$$
+Vogliamo dimostrare che il limite per $\varepsilon \to 0^+$ è una soluzione distribuzionale dell'equazione $xu=1$.
+Verifichiamo il prodotto $x \cdot u_\varepsilon$ nel limite debole:
+$$
+\lim_{\varepsilon \to 0^+} \left( x \frac{1}{x - i\varepsilon}, f \right) = \lim_{\varepsilon \to 0^+} \int_\R \frac{x}{x-i\varepsilon} f(x) dx
+$$
+Manipoliamo l'integranda:
+$$
+\frac{x}{x-i\varepsilon} = \frac{x(x+i\varepsilon)}{x^2+\varepsilon^2} = \frac{x^2}{x^2+\varepsilon^2} + i \frac{x\varepsilon}{x^2+\varepsilon^2} = 1 - \frac{\varepsilon^2}{x^2+\varepsilon^2} + i \frac{x\varepsilon}{x^2+\varepsilon^2}
+$$
+Inserendo nell'integrale:
+$$
+\int_\R f(x) dx - \int_\R \frac{\varepsilon^2}{x^2+\varepsilon^2} f(x) dx + i \int_\R \frac{x\varepsilon}{x^2+\varepsilon^2} f(x) dx
+$$
+Per $\varepsilon \to 0^+$, il primo termine è $(1, f)$. Gli altri termini tendono a zero (si può dimostrare rigorosamente usando la convergenza dominata di Lebesgue separando l'integrale in $|x|>\delta$ e $|x|\le \delta$).
+Pertanto abbiamo dimostrato che, in senso distribuzionale:
+$$
+x \cdot \lim_{\varepsilon \to 0^+} \frac{1}{x - i\varepsilon} = 1
+$$
+
+\subsubsection{Relazione tra le soluzioni e formule di Plemelj-Sokhotski}
+Poiché sia $\text{P.V.}\left(\frac{1}{x}\right)$ sia $\lim_{\varepsilon \to 0^+} \frac{1}{x - i\varepsilon}$ sono soluzioni particolari dell'equazione $xu=1$, la loro differenza deve essere soluzione dell'omogenea, ovvero proporzionale alla $\delta(x)$:
+$$
+\frac{1}{x - i0^+} = \text{P.V.}\left(\frac{1}{x}\right) + c \delta(x)
+$$
+Per determinare la costante $c$, utilizziamo argomenti di parità.
+\begin{enumerate}
+	\item $\text{P.V.}(1/x)$ è una distribuzione \textbf{dispari} (l'integrale a valor principale di una funzione pari è nullo).
+	\item $\delta(x)$ è una distribuzione \textbf{pari}.
+	\item Dall'equazione sopra, cambiando $x \to -x$, otteniamo:
+	$$ \frac{1}{-x - i0^+} = -\text{P.V.}\left(\frac{1}{x}\right) + c \delta(x) $$
+\end{enumerate}
+Sommando le due espressioni per eliminare il Valor Principale:
+$$
+\frac{1}{x - i0^+} + \frac{1}{-x - i0^+} = 2c \delta(x)
+$$
+Analizziamo il membro di sinistra come limite di somma di funzioni:
+$$
+\lim_{\varepsilon \to 0^+} \left( \frac{1}{x-i\varepsilon} - \frac{1}{x+i\varepsilon} \right) = \lim_{\varepsilon \to 0^+} \frac{x+i\varepsilon - (x-i\varepsilon)}{x^2+\varepsilon^2} = \lim_{\varepsilon \to 0^+} \frac{2i\varepsilon}{x^2+\varepsilon^2}
+$$
+Riconosciamo nel termine $\frac{\varepsilon}{x^2+\varepsilon^2}$ una successione che approssima la delta (Lorentziana). Dal teorema di regolarizzazione della $\delta$:
+$$
+\frac{\varepsilon}{x^2+\varepsilon^2} \xrightarrow{\mathcal{D}'} \pi \delta(x)
+$$
+(Il fattore $\pi$ deriva dal calcolo dell'integrale $\int_\R \frac{\varepsilon}{x^2+\varepsilon^2} dx = [\arctan(x/\varepsilon)]_{-\infty}^{+\infty} = \pi$).
+Dunque:
+$$
+2i (\pi \delta(x)) = 2c \delta(x) \implies c = i\pi
+$$
+Abbiamo così ottenuto la celebre formula di Plemelj-Sokhotski:
+$$
+\frac{1}{x \mp i0^+} = \text{P.V.}\frac{1}{x} \pm i\pi \delta(x)
+$$
+
+\subsubsection{Giustificazione rigorosa del limite}
+Nel calcolo del limite $\lim_{\varepsilon \to 0^+} \frac{1}{x-i\varepsilon}$, non possiamo applicare semplicemente l'analisi complessa su $f(x)$ perché una generica funzione test $f \in C_0^\infty(\R)$ non è necessariamente analitica. È necessario procedere in campo reale.
+Si definisce la distribuzione $u$ come:
+$$ (u, f) = \lim_{\varepsilon \to 0^+} \int_\R \frac{f(x)}{x-i\varepsilon} dx = \lim_{\varepsilon \to 0^+} \int_\R \frac{x f(x)}{x^2+\varepsilon^2} dx + i \lim_{\varepsilon \to 0^+} \int_\R \frac{\varepsilon f(x)}{x^2+\varepsilon^2} dx $$
+Per il primo integrale (parte reale), si fissa un $\delta > 0$ e si spezza il dominio in $|x|>\delta$ e $|x|\le \delta$.
+\begin{itemize}
+	\item Su $|x|>\delta$, il denominatore non si annulla e per convergenza dominata tende a $\int_{|x|>\delta} \frac{f(x)}{x} dx$.
+	\item Su $|x|\le \delta$, si espande $f(x) = f(0) + xg(x)$. Il termine con $f(0)$ è dispari su dominio simmetrico e si annulla. Il termine $xg(x)$ rende l'integranda regolare, permettendo il limite.
+\end{itemize}
+Questo rigorizza il passaggio al Valor Principale. Il secondo integrale (parte immaginaria) si concentra tutto nell'origine, fornendo il termine $i\pi f(0)$.
+
+\subsubsection{Soluzione Generale}
+La soluzione generale dell'equazione $x u = 1$ in $\Dp(\R)$ è quindi:
+$$
+u = \text{P.V.}\left(\frac{1}{x}\right) + k \delta(x), \quad k \in \mathbb{C}
+$$
+oppure, equivalentemente:
+$$
+u = \frac{1}{x - i0^+} + k' \delta(x)
+$$
+A seconda della fisica del problema (condizioni al contorno, causalità, propagatori ritardati o avanzati), si sceglierà la costante appropriata.
+\begin{esempio}[Controesempio finale]
+	La funzione $e^{1/x}$ \textbf{non} è interpretabile come distribuzione. La singolarità essenziale in $x=0$ è troppo forte per essere regolarizzata nello spazio delle distribuzioni standard.
+\end{esempio}
+
+\subsection{Definizione e Costruzione delle Funzioni di Green}
+
+Sia $u \in \mathcal{D}'(\mathbb{R}^n)$. Consideriamo l'equazione:
+$$ P u = J $$
+dove $P$ è un operatore differenziale lineare della forma $P = \sum_{|\alpha| \le N} C_\alpha(x) \partial^\alpha$, con $C_\alpha(x) \in C^\infty(\mathbb{R}^n)$.
+
+Esempi notevoli di operatori $P$:
+\begin{itemize}
+	\item $P = (-)\Delta = - \sum_i \frac{\partial^2}{\partial x_i^2}$ (Laplaciano)
+	\item $P = \square = \partial_t^2 - \sum_i \partial_i^2$ (D'Alembertiano)
+	\item $P = (i)\partial_t - \sum_i \partial_i^2$ (Operatore di Schrödinger / Equazione del calore)
+\end{itemize}
+
+\begin{osservazione}
+	Le soluzioni di $\square$ o dell'equazione di Schrödinger non si trovano "bene" in $L^2(\mathbb{R}^3)$ o $L^2(\mathbb{R}^4)$. Tuttavia, in $\mathcal{D}'(\mathbb{R}^n)$, tutte queste equazioni assumono un senso particolare.
+\end{osservazione}
+
+Il metodo costruttivo per trovare le soluzioni è il \textbf{Metodo delle Funzioni di Green}. Essendo equazioni a coefficienti costanti, vi è invarianza per traslazione spaziale e/o temporale.
+Scegliamo $J \in \mathcal{E}'(\mathbb{R}^n)$ (distribuzioni a supporto compatto). 
+\emph{Nota fisica:} Ha senso in condizioni stazionarie, ma non nel tempo (es. una distribuzione di massa/carica deve scomparire se il supporto è compatto nel tempo).
+
+La soluzione generale si scrive come:
+$$ u = u_p + u_0 \quad \text{con} \quad P u_0 = 0 $$
+
+\begin{definizione}[Soluzione Fondamentale]
+	Si dice soluzione fondamentale una distribuzione $G \in \mathcal{D}'(\mathbb{R}^n)$ tale che:
+	$$ P G = \delta $$
+\end{definizione}
+
+Se $G$ è nota, la soluzione particolare $u_p$ è data dalla convoluzione $u_p = G * J$. Se $J$ non è a supporto compatto, la si divide "a pezzi" tramite cut-off.
+
+\subsubsection*{Costruzione di $G$ in dimensione 1}
+
+\begin{esempio}[Operatore del primo ordine in 1D]
+	Sia $u \in \mathcal{D}'(\mathbb{R})$. Consideriamo l'equazione:
+	$$ A(x) \frac{du}{dx} + B(x) u = \delta(x) $$
+	Siano $A, B \in C^\infty(\mathbb{R})$ con $A(x) \neq 0, \forall x \in \mathbb{R}$, e $\frac{B}{A}(x) \in L^1_{\text{loc}}(\mathbb{R})$.
+	
+	Cerchiamo $G \in \mathcal{D}'(\mathbb{R})$ nella forma $G = \Theta(x) F(x)$ con $F \in C^\infty(\mathbb{R})$.
+	Applicando la derivata nel senso delle distribuzioni:
+	$$ A (F' \Theta + F \delta) + B \Theta F = \delta $$
+	Ricordando che $F(x)\delta(x) = F(0)\delta(x)$, raccogliamo i termini:
+	$$ \underbrace{(A F' + B F)}_{=0} \Theta + \underbrace{A(0)F(0)}_{=1} \delta = \delta $$
+	
+	Il sistema risultante porta alla \textbf{Formula di Abel} per $F(x)$:
+	$$ F(x) = \frac{1}{A(0)} \exp \left\{ - \int_0^x dy \frac{B(y)}{A(y)} \right\} $$
+	
+	Quindi la funzione di Green è:
+	$$ G(x) = \frac{\Theta(x)}{A(0)} \exp \left\{ - \int_0^x dy \frac{B(y)}{A(y)} \right\} $$
+\end{esempio}
+
+La soluzione particolare risulta:
+$$ u_p = G * J = \int_0^\infty dy \frac{1}{A(0)} J(x+y) \exp \left\{ -\int_0^y ds \frac{B}{A} \right\} $$
+Questo metodo è valido per una qualsiasi equazione differenziale lineare del primo ordine.
+
+\subsection{Applicazione all'Equazione di Schrödinger}
+
+In meccanica razionale l'Hamiltoniana è utile perché riduce il problema a equazioni del primo ordine nel tempo.
+Consideriamo l'equazione di Schrödinger libera:
+$$
+\begin{cases}
+	i \frac{\partial \psi}{\partial t} = \Delta \psi \\
+	\psi = \psi_0 \in L^2(\mathbb{R}^3)
+\end{cases}
+\iff
+\begin{cases}
+	i \partial_t \psi - \Delta \psi = \psi_0 \delta(t) \\
+	\psi|_{t<0} = 0
+\end{cases}
+$$
+(Dove il dato iniziale è interpretato come sorgente impulsiva $J = \psi_0 \delta(t)$).
+Vale la conservazione della probabilità: $|\psi(x,t)|^2 = |\psi_0|^2$.
+
+Cerchiamo $G \in \mathcal{D}'(\mathbb{R}^4)$ tale che:
+$$ i \frac{\partial G}{\partial t} - \sum_{i=1}^3 \frac{\partial^2 G}{\partial x_i^2} = \delta(t)\delta(x) $$
+
+\begin{teorema}[Hörmander]
+	L'operatore ammette sempre soluzione fondamentale temperata in $\mathcal{S}'(\mathbb{R}^4)$.
+\end{teorema}
+
+Eseguiamo la trasformata di Fourier $\mathcal{F}$ solo sulle coordinate spaziali ($x \to k$), ottenendo $\hat{G}(k, t)$. L'equazione diventa un'ODE nel tempo:
+$$ i \frac{d\hat{G}}{dt} - \sum_{i=1}^3 k_i^2 \hat{G} = \delta(t) \implies i \frac{d\hat{G}}{dt} + |k|^2 \hat{G} = \delta(t) $$
+Usando il risultato dell'esempio 1D precedente (con $A=i, B=-|k|^2$):
+$$ \hat{G}(k, t) = \frac{\Theta(t)}{i} \exp \left\{ + i \int_0^t |k|^2 ds \right\} = -i \Theta(t) \exp \left\{ -i |k|^2 t \right\} $$
+
+La soluzione è $\psi = G * (\psi_0 \delta(t))$. È ben definita? Sì, vedendola come:
+$$ \psi(x,t) = \mathcal{F}^{-1} \left[ -i \Theta(t) e^{-i|k|^2 t} \hat{\psi}_0(k) \right] $$
+Per $t>0$, calcolando l'antitrasformata (integrale gaussiano), otteniamo il propagatore libero:
+$$ G(t, x) = \Theta(t) \frac{e^{i \frac{|x|^2}{4t}}}{(2 \pi i t)^{n/2}} $$
+
+\subsection{Applicazione all'Equazione delle Onde}
+
+Consideriamo:
+$$ \square u = J \in \mathcal{E}'(\mathbb{R}^4) \quad \text{con} \quad \square = - \partial_t^2 + \sum_i \partial_i^2 \quad (c=1) $$
+La soluzione generale è $u = u_0 + u_p$ con $\square u_0 = 0$.
+
+\subsubsection*{Soluzione Omogenea e Interpretazione}
+Passando in trasformata di Fourier per $u_0 \in \mathcal{S}'(\mathbb{R}^4)$:
+$$ (\omega^2 - |k|^2) \hat{u}_0 = 0 $$
+Le soluzioni sono gli zeri del polinomio caratteristico:
+$$ \hat{u}_0 = C(|k|) \delta(\omega - |k|) + D(|k|) \delta(\omega + |k|) $$
+Il primo termine rappresenta l'energia positiva, il secondo l'energia negativa.
+\begin{osservazione}
+	I due pacchetti sono indipendenti, corrispondendo fisicamente a \textbf{particelle} e \textbf{anti-particelle}.
+	L'indipendenza si perde se si aggiungono condizioni. Ad esempio, per un campo scalare reale, vale $C(|k|) = \overline{D(|k|)}$, e quindi non c'è distinzione tra particella e antiparticella.
+\end{osservazione}
+
+\subsubsection*{Soluzione Particolare (Propagatore)}
+La funzione di Green causale per l'equazione delle onde è:
+$$ G(t, x) = \frac{\Theta(t)}{2\pi} \delta(t^2 - |x|^2) $$
+Il supporto è limitato esclusivamente al \textbf{cono luce}.
+
+\noindent \textbf{Principio di Huygens:}
+\begin{itemize}
+	\item In dimensione $n=3$ (spazio dispari $\ge 3$): Il supporto è sul bordo del cono ($\delta$). La luce viaggia esattamente a velocità $c$.
+	\item In dimensione $n=2$ ($\mathbb{R}^2$, piano): La delta diventa una Theta:
+	$$ \delta \mapsto \Theta(t^2 - x^2) $$
+	Il segnale "riempie" il cono (fenomeno della scia).
+\end{itemize}
+
+\subsection{Calcolo della Trasformata di Fourier per Distribuzioni Temperate}
+
+Come si procede per calcolare $\mathcal{F}u = \hat{u}$, con $u \in \Schwartz'(\R)$? Ricordiamo che la definizione è data da $(\hat{u}, \varphi) = (u, \hat{\varphi})$.
+
+L'algoritmo generale è il seguente:
+\begin{enumerate}
+	\item \textbf{Verifica} che $u \in \Schwartz'(\R)$ (o spazi funzionali tipo $L^1, L^2, \Schwartz$). 
+	Ricordiamo che $u \in \Schwartz'(\R)$ è un funzionale lineare continuo $u: \Schwartz(\R) \to \C$. La continuità implica:
+	$$ \exists C > 0, \exists N \in \N_0 \text{ t.c. } |(u, \varphi)| \le C \sum_{|\alpha|, |\beta| \le N} \sup_{x \in \R^n} |x^\alpha \partial^\beta \varphi| \quad \forall \varphi \in \Schwartz(\R) $$
+	(dove la somma è sulle seminorme $\|\varphi\|_{\alpha, \beta}$ di $\Schwartz(\R)$).
+	Oppure si verifica la sequenziale continuità.
+	
+	\item \textbf{Riscrivere} il prodotto duale $(\hat{u}, \varphi) = (u, \hat{\varphi})$ cercando di manipolare l'espressione per portarla nella forma $(v, \varphi)$.
+	
+	\item \textbf{Concludere} che $\hat{u} = v$ in senso distribuzionale.
+\end{enumerate}
+
+\begin{osservazione}
+	Se $u \in \Schwartz'(\R)$, allora anche $x^k u$ e $u^{(k)}$ appartengono a $\Schwartz'(\R)$. Inoltre valgono le proprietà:
+	\begin{itemize}
+		\item $\widehat{x^k u} = i^k \hat{u}^{(k)}$
+		\item $\widehat{u^{(k)}} = (i\xi)^k \hat{u}$
+	\end{itemize}
+	Con la convenzione:
+	$$ \hat{\varphi}(\xi) = \int_\R dx \, e^{-i\xi x} \varphi(x), \quad \check{\varphi}(x) = \int_\R \frac{d\xi}{2\pi} \, e^{i\xi x} \varphi(\xi) $$
+\end{osservazione}
+
+\begin{esempio}[Esercizio 1: Delta di Dirac traslata]
+	Calcolare $\hat{\delta}_a$ e $\widehat{\delta_a^{(1)}}$ con $a \in \R$.
+	
+	1. $\delta_a \in \Schwartz'(\R)$? Sì.
+	\begin{itemize}
+		\item $\delta_a \in \mathcal{E}'(\R) \hookrightarrow \Schwartz'(\R)$.
+		\item Usando la definizione: $|(\delta_a, \varphi)| = |\varphi(a)| \le \sup_{x \in \R} |\varphi(x)|$. Scegliendo $C=1, N=0$, la stima è verificata.
+	\end{itemize}
+	
+	2. Calcoliamo la trasformata:
+	$$ (\hat{\delta}_a, \varphi) = (\delta_a, \hat{\varphi}) \quad \forall \varphi \in \Schwartz(\R) $$
+	$$ (\delta_a, \hat{\varphi}) = \hat{\varphi}(a) = \int_\R dx \, e^{-iax} \varphi(x) = (e^{-iax}, \varphi)_{L^1_{loc}(\R)} $$
+	Da cui segue che:
+	$$ \hat{\delta}_a = e^{-iax} \quad \text{in senso distribuzionale.} $$
+	
+	\begin{osservazione}
+		Se $a=0 \implies \hat{\delta} = 1$.
+	\end{osservazione}
+	\noindent
+	\textbf{Antitrasformata:}
+	$$ (\check{\delta}_a, \varphi) = (\delta_a, \check{\varphi}) = \check{\varphi}(a) = \frac{1}{2\pi} \int_\R d\xi \, \varphi(\xi) e^{ia\xi} \implies \check{\delta}_a = \frac{1}{2\pi} e^{ia\xi} $$
+	
+	3. Calcolo della derivata:
+	$$ (\widehat{\delta_a^{(1)}}, \varphi) = (\delta_a^{(1)}, \hat{\varphi}) $$
+	Sfruttando le proprietà delle trasformate:
+	$$ \widehat{\delta_a^{(1)}} = (i\xi) \hat{\delta}_a = i\xi e^{-iax} $$
+\end{esempio}
+
+\begin{esempio}[Esercizio 2: Polinomi]
+	Calcolare $\hat{1}, \hat{x}, \widehat{x^n}$.
+	\begin{itemize}
+		\item Sia $\varphi \in \Schwartz(\R)$. 
+		$$ (\hat{1}, \varphi) = (1, \hat{\varphi}) = \int_\R d\xi \, \hat{\varphi}(\xi) e^{i\xi 0} = 2\pi (\delta_0, \varphi) \implies \hat{1} = 2\pi \delta_0 $$
+		
+		\item Per la proprietà della derivata rispetto alla frequenza:
+		$$ \hat{x} = \widehat{x \cdot 1} = i \frac{d}{d\xi} \hat{1} = 2\pi i \delta_0^{(1)} $$
+		
+		\item Iterando per $n$:
+		$$ \widehat{x^n \cdot 1} = i^n \frac{d^n}{d\xi^n} \hat{1} = 2\pi i^n \delta_0^{(n)} $$
+	\end{itemize}
+\end{esempio}
+
+\subsection{La Funzione di Heaviside}
+
+\begin{esempio}[Esercizio 3: Calcolare $\hat{\Theta}$]
+	Sia $\Theta(x)$ la funzione di Heaviside (o gradino).
+	
+	1. $\Theta \in \Schwartz'(\R)$.
+	Usiamo la sequenziale continuità: sia $\{\varphi_j\}_{j \in \N} \subset \Schwartz(\R)$ tale che $\lim_{j \to \infty} \varphi_j = 0$ (in $\Schwartz(\R)$).
+	$$ |(\Theta, \varphi_j)| = \left| \int_\R dx \, \Theta(x) \varphi_j(x) \right| = \left| \int_0^\infty dx \, \varphi_j(x) \right| \le \int_0^\infty dx \, |\varphi_j(x)| \le \|\varphi_j\|_{L^1(\R)} $$
+	Per il teorema di immersione $\Schwartz(\R) \hookrightarrow L^1(\R)$, dato che $\varphi_j \to 0$ in $\Schwartz(\R) \implies \|\varphi_j\|_1 \to 0$.
+	Quindi $\Theta \in \Schwartz'(\R)$.
+	
+	2. Calcoliamo $(\hat{\Theta}, \varphi) = (\Theta, \hat{\varphi})$ per ogni $\varphi \in \Schwartz(\R)$.
+	$$ (\Theta, \hat{\varphi}) = \int_\R d\xi \, \Theta(\xi) \hat{\varphi}(\xi) = \int_0^\infty d\xi \int_\R dx \, e^{-i\xi x} \varphi(x) $$
+	
+	\textbf{Teorema di Fubini-Tonelli:}
+	Sia $f \in L^1(\R \times \R)$, $f=f(x, y)$.
+	\begin{itemize}
+		\item $f_x(\cdot) = f(x, \cdot)$ a $x$ fissato t.c. $f_x \in L^1(\R)$ per q.o. $x \in \R$.
+		\item $f_y(\cdot) = f(\cdot, y)$ a $y$ fissato t.c. $f_y \in L^1(\R)$ per q.o. $y \in \R$.
+	\end{itemize}
+	$$ \implies \int_{\R^2} dx dy f(x,y) = \int_\R dx \left(\int_\R dy f_x(y)\right) = \int_\R dy \left(\int_\R dx f_y(x)\right) $$
+	Ora, vorremmo scambiare gli integrali, MA consideriamo $g(x, \xi) = e^{-i\xi x} \varphi(x)$:
+	\begin{itemize}
+		\item $e^{-i\xi x} \varphi(x) \in L^1(\R)$ in $x$ per la presenza della test function.
+		\item $e^{-i\xi x} \notin L^1(0, \infty)$ in $\xi$.
+	\end{itemize}
+	Quindi non sono verificate le ipotesi di Fubini-Tonelli.
+	
+	Per risolvere il problema, introduciamo il fattore di convergenza $e^{-\xi \eps}$ con $\eps > 0$:
+	$$ \int_0^\infty \hat{\varphi}(\xi) d\xi = \lim_{\eps \to 0^+} \int_0^\infty d\xi \, \hat{\varphi}(\xi) e^{-\xi \eps} $$
+	Si può portare il limite dentro per Lebesgue, infatti $\forall \eps > 0$ e per q.o. $\xi \in (0, \infty)$:
+	\begin{itemize}
+		\item $e^{-\xi \eps} \hat{\varphi}(\xi) \in L^1(\R)$
+		\item $|\hat{\varphi}(\xi) e^{-\xi \eps}| \le |\hat{\varphi}(\xi)|$ (dominante integrabile indipendente da $\eps$).
+	\end{itemize}
+	
+	$$ \implies (\Theta, \hat{\varphi}) = \lim_{\eps \to 0^+} \int_0^\infty d\xi \int_\R dx \, \varphi(x) e^{-i\xi x} e^{-\xi \eps} $$
+	Ora siamo in $L^1(\R \times (0, \infty))$, quindi OK Fubini:
+	$$ \to \lim_{\eps \to 0^+} \int_\R dx \, \varphi(x) \int_0^\infty d\xi \, e^{-\xi(\eps + ix)} = \lim_{\eps \to 0^+} \int_\R dx \, \varphi(x) \left[ -\frac{1}{\eps + ix} e^{-\xi(\eps + ix)} \right]_0^\infty $$
+	$$ = \lim_{\eps \to 0^+} \int_\R dx \left( \frac{1}{\eps + ix} \right) \varphi(x) = -i \left( \Schwartz'-\lim_{\eps \to 0^+} \frac{1}{x - i\eps}, \varphi \right) $$
+	
+	In virtù di questa scrittura:
+	$$ \implies \hat{\Theta} = -i \left( \Schwartz'-\lim_{\eps \to 0^+} \frac{1}{x - i\eps} \right) = -i \frac{1}{x - i0^+} \quad \text{in senso debole.} $$
+\end{esempio}
+
+\begin{osservazione}[Relazioni di Sokhotsky-Plemelj]
+	Poiché $\hat{\Theta} \in \Schwartz'(\R)$, sappiamo che:
+	$$ \Schwartz'-\lim_{\eps \to 0^+} \frac{1}{x - i\eps} = \text{P.V.}\left(\frac{1}{x}\right) + i\pi \delta_0 $$
+	$$ \implies \text{P.V.}\left(\frac{1}{x}\right) \in \Schwartz'(\R) $$
+	Questa cosa si può vedere anche così:
+	Osserviamo che $\Schwartz'-\lim_{\eps \to 0^+} \frac{1}{x - i\eps} \in \Schwartz'(\R)$ poiché:
+	$$ \frac{d}{dx} \log(x - i\eps) = \frac{1}{x - i\eps} $$
+	Il logaritmo è in $\Schwartz'(\R)$ (crescita polinomiale) e $\Schwartz'(\R)$ è chiuso rispetto alla derivazione.
+	$\log(x - i\eps)$ è polinomialmente limitata e quindi per integrazione genera una distribuzione in $\Schwartz'(\R)$.
+\end{osservazione}
+
+\subsection{Funzione Caratteristica e Sinc}
+
+\begin{esempio}[Esercizio 4]
+	Calcolare $\hat{\chi}_a$, cioè la trasformata di Fourier della distribuzione generata da $\chi_a$.
+	$$ \chi_a(x) = \begin{cases} 1 & x \in [-a, a] \\ 0 & \text{altrimenti} \end{cases}, \quad a \in \R \setminus \{0\} $$
+	
+	1. Poiché $\Supp(\chi_a) = [-a, a]$ è compatto in $\R$, si intende la distribuzione generata da $\chi_a$.
+	$\implies \chi_a \in \mathcal{E}'(\R) \implies \chi_a \in \Schwartz'(\R)$.
+	
+	2. La $\hat{\chi}_a$ coincide con $\hat{\chi}_a$ calcolata classicamente (questo è vero sempre quando si calcola la trasformata di una distribuzione generata per integrazione).
+	$$ \hat{\chi}_a(\xi) = \int_\R dx \, \chi_a(x) e^{-i\xi x} = \int_{-a}^a dx \, e^{-i\xi x} = \left[ -\frac{1}{i\xi} e^{-i\xi x} \right]_{-a}^a = \frac{e^{i\xi a} - e^{-i\xi a}}{i\xi} = \frac{2\sin(\xi a)}{\xi} $$
+	$$ \hat{\chi}_a(\xi) = \frac{2\sin(\xi a)}{\xi} $$
+	
+	Chiamando $\rho_a = \frac{\sin(ax)}{\pi x} \in \Schwartz'(\R)$, notiamo che $\rho_a$ è continua e limitata.
+	$$ \implies \hat{\chi}_a = 2\pi \rho_a $$
+\end{esempio}
+
+\begin{osservazione}
+	La trasformata di Fourier non preserva il supporto compatto.
+	La famiglia $\{\rho_n\}_{n \in \N} \subset \Schwartz'(\R)$ generata da $\rho_n(x) = \frac{\sin(nx)}{\pi x}$ è un'approssimazione dell'identità (regolarizzazione della $\delta$).
+	$$ \implies \rho_n \xrightarrow{n \to \infty} \delta \quad \text{in } \Schwartz'(\R) $$
+	\textit{Dimostrazione:}
+	$$ \hat{\chi}_n = 2\pi \rho_n \iff \check{\rho}_n = \frac{1}{2\pi} \chi_n $$
+	Inoltre si può verificare che $\chi_n \xrightarrow{n \to \infty} 1$ in $\Schwartz'(\R)$.
+	$$ \forall \varphi \in \Schwartz(\R), \quad (\chi_n, \varphi) = \int_{-n}^n dx \, \varphi(x) \xrightarrow{n \to \infty} \int_\R dx \, \varphi(x) = (1, \varphi) $$
+	Segue che:
+	$$ \rho_n = \frac{\hat{\chi}_n}{2\pi} \xrightarrow[\Schwartz'(\R)]{n \to \infty} \frac{1}{2\pi} \hat{1} = \frac{1}{2\pi} \cdot 2\pi \delta = \delta $$
+\end{osservazione}
+
+\subsection{La Gaussiana}
+
+\begin{esempio}[Esercizio 5]
+	Calcolare la trasformata di:
+	$$ g_{a, \sigma^2}(x) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp\left\{ - \frac{(x-a)^2}{2\sigma^2} \right\}, \quad \sigma > 0 $$
+	$g_{a, \sigma^2} \in \Schwartz(\R)$, per integrazione genera $g_{a, \sigma^2} \in \Schwartz'(\R)$.
+	
+	Consideriamo la Gaussiana standard: $X \mapsto x' = \frac{x-a}{\sigma}$, $g(x) = \frac{1}{\sqrt{2\pi}} e^{-x^2/2}$.
+	$$ \hat{g}(\xi) = \int_\R dx \, g(x) e^{-i\xi x} = \frac{1}{\sqrt{2\pi}} \int_\R dx \, e^{-x^2/2} e^{-i\xi x} $$
+	
+	\noindent	\textbf{Metodo 1: Completamento del quadrato}
+	$$ x^2 + 2i\xi x + \xi^2 - \xi^2 = (x+i\xi)^2 + \xi^2 $$
+	$$ \implies \hat{g}(\xi) = \frac{1}{\sqrt{2\pi}} \int_\R dx \, e^{-\frac{\xi^2}{2}} e^{-\frac{1}{2}(x+i\xi)^2} = e^{-\frac{\xi^2}{2}} \underbrace{\frac{1}{\sqrt{2\pi}} \int_\R dx' \, e^{-x'^2/2}}_{=1} = e^{-\xi^2/2} $$
+	(dove si è traslata la variabile complessa $x' = x+i\xi$, l'integrale non cambia per il teorema di Cauchy).
+	
+	\noindent	\textbf{Metodo 2: Equazione Differenziale}
+	$$ \hat{g}(\xi) = \frac{1}{\sqrt{2\pi}} \int_\R dx \, e^{-i\xi x} e^{-x^2/2} $$
+	Poiché l'integrando è pari in $x$ (solo la parte coseno sopravvive, il seno è dispari):
+	$$ = \frac{1}{\sqrt{2\pi}} \int_\R dx \cos(\xi x) e^{-x^2/2} $$
+	Calcoliamo la derivata:
+	$$ \frac{d}{d\xi} \hat{g}(\xi) = \frac{1}{\sqrt{2\pi}} \int_\R dx \left( \frac{d}{d\xi} e^{-i\xi x} \right) e^{-x^2/2} = \frac{-i}{\sqrt{2\pi}} \int_\R dx \, x e^{-i\xi x} e^{-x^2/2} $$
+	Usiamo l'integrazione per parti notando che $x e^{-x^2/2} = -\frac{d}{dx} e^{-x^2/2}$:
+	$$ = \frac{i}{\sqrt{2\pi}} \int_\R dx \, e^{-i\xi x} \left( \frac{d}{dx} e^{-x^2/2} \right) $$
+	(i termini di bordo sono zero perché $g(x) \in \Schwartz(\R)$).
+	$$ = \frac{-i}{\sqrt{2\pi}} \int_\R dx \left( \frac{d}{dx} e^{-i\xi x} \right) e^{-x^2/2} = \frac{-i}{\sqrt{2\pi}} \int_\R dx \, (-i\xi) e^{-i\xi x} e^{-x^2/2} $$
+	$$ = -\xi \left( \frac{1}{\sqrt{2\pi}} \int_\R dx \, e^{-i\xi x} e^{-x^2/2} \right) = -\xi \hat{g}(\xi) $$
+	Otteniamo il problema di Cauchy:
+	$$ \begin{cases} \frac{d}{d\xi}\hat{g}(\xi) = -\xi \hat{g}(\xi) \\ \hat{g}(0) = 1 \quad (\text{normalizzazione}) \end{cases} $$
+	La soluzione è $\hat{g}(\xi) = e^{-\xi^2/2}$, che è ancora una gaussiana.
+	
+	\noindent	\textbf{Caso generico $g_{a, \sigma^2}$:}
+	Come ci si riconduce al caso generico?
+	$$ \hat{g}_{a, \sigma^2}(\xi) = \frac{1}{\sqrt{2\pi}} \int_\R dx \, e^{-i\xi x} e^{-\frac{(x-a)^2}{2\sigma^2}} $$
+	Usiamo il cambio di variabile $g_{a, \sigma^2}(x) = \frac{1}{\sigma} g\left(\frac{x-a}{\sigma}\right)$.
+	$$ = \frac{1}{\sigma} \int_\R dx \, e^{-i\xi x} g\left(\frac{x-a}{\sigma}\right) $$
+	Ponendo $z = \frac{x-a}{\sigma} \implies x = \sigma z + a, \, dx = \sigma dz$:
+	$$ = \int_\R dz \, e^{-i\xi(\sigma z + a)} g(z) = e^{-i\xi a} \int_\R dz \, e^{-i(\xi \sigma) z} g(z) $$
+	$$ = e^{-i\xi a} \hat{g}(\sigma \xi) = e^{-i\xi a} e^{-\frac{\sigma^2 \xi^2}{2}} $$
+\end{esempio}
+
+\subsection{Esercizio Riepilogativo}
+
+\begin{esempio}[Esercizio 6]
+	Calcolare la trasformata di Fourier di $f(x) = \text{sgn}(x) e^{-|x|}$.
+	\begin{itemize}
+		\item $f \in L^2(\R)$. Infatti $\int_\R |f(x)|^2 = \int_\R e^{-2|x|} = 1$.
+		\item Calcolo diretto:
+		$$ \hat{f}(\xi) = \int_\R dx \, e^{-i\xi x} \text{sgn}(x) e^{-|x|} = \int_0^\infty dx \, e^{-i\xi x} e^{-x} + \int_{-\infty}^0 dx \, e^{-i\xi x} (-e^{x}) $$
+		$$ = \int_0^\infty dx \, e^{-x(1+i\xi)} - \int_{-\infty}^0 dx \, e^{x(1-i\xi)} $$
+		$$ = \left[ \frac{-1}{1+i\xi} e^{-x(1+i\xi)} \right]_0^\infty - \left[ \frac{1}{1-i\xi} e^{x(1-i\xi)} \right]_{-\infty}^0 $$
+		$$ = \frac{1}{1+i\xi} - \frac{1}{1-i\xi} = \frac{(1-i\xi) - (1+i\xi)}{1+\xi^2} = \frac{-2i\xi}{1+\xi^2} $$
+		$$ \hat{f}(\xi) = -\frac{2i\xi}{1+\xi^2} \in L^2(\R) $$
+	\end{itemize}
+\end{esempio}
+
+\subsection{Distribuzioni a Supporto su una Ipersuperficie (Teorema di Divisione)}
+
+Consideriamo il caso generale in $\mathbb{R}^n$. Sia $\Omega \subseteq \mathbb{R}^n$ un aperto e sia $g \in C^\infty(\Omega)$ una funzione a valori reali.
+Definiamo l'insieme degli zeri $M = \{x \in \Omega : g(x) = 0\}$ e supponiamo che $\nabla g(x) \neq 0$ per ogni $x \in M$. In tal caso, $M$ è una ipersuperficie liscia (una varietà di dimensione $n-1$).
+
+Il seguente teorema descrive la struttura delle distribuzioni annullate dalla moltiplicazione per $g(x)$.
+
+\begin{teorema}[Struttura delle soluzioni di $g \cdot u = 0$]
+	Sia $u \in \mathcal{D}'(\Omega)$.
+	Se vale l'equazione:
+	$$ g(x) u(x) = 0 $$
+	allora $u$ è una distribuzione con supporto contenuto in $M$ della forma:
+	$$ u = v \, \delta(g) $$
+	dove $v \in \mathcal{D}'(M)$ è una distribuzione definita sulla varietà $M$.
+	Esplicitamente, l'azione di $u$ su una funzione test $\varphi \in \mathcal{D}(\Omega)$ è data da:
+	$$ \langle u, \varphi \rangle = \langle v, \varphi|_M \rangle $$
+\end{teorema}
+
+\begin{osservazione}
+	L'espressione $v \, \delta(g)$ evidenzia che "davanti alla delta" c'è un oggetto $v$ che dipende dalle variabili dello spazio (più precisamente, dalle coordinate sulla varietà $M$). Non è una semplice costante come nel caso 1D puntuale, ma una funzione o distribuzione "viva" sulla superficie.
+\end{osservazione}
+
+\begin{corollario}[Ordine superiore]
+	Più in generale, se $u$ soddisfa:
+	$$ (g(x))^k u(x) = 0 \quad \text{con } k \in \mathbb{N} $$
+	allora $u$ è una combinazione lineare di delta e derivate trasversali della delta, con coefficienti distribuzionali su $M$:
+	$$ u(x) = \sum_{j=0}^{k-1} v_j(x) \, \delta^{(j)}(g(x)) $$
+	dove $v_j \in \mathcal{D}'(M)$ per ogni $j$.
+\end{corollario}
+
+\begin{esempio}
+	Nello spazio $\mathbb{R}^n$ con coordinate $x = (x_1, \dots, x_n)$, se scegliamo $g(x) = x_1$, la varietà $M$ è il piano $x_1=0$.
+	L'equazione $x_1 u = 0$ implica:
+	$$ u(x) = v(x_2, \dots, x_n) \otimes \delta(x_1) $$
+	Qui $v$ è chiaramente una funzione (distribuzione) delle restanti $n-1$ variabili.
+\end{esempio}
+
+\subsection{Soluzione Fondamentale dell'Operatore di Cauchy-Riemann}
+
+Analizziamo ora l'operatore di Cauchy-Riemann in $\R^2 \cong \C$.
+Definiamo le coordinate complesse $z = x+iy$ e $\bar{z} = x-iy$.
+L'operatore derivata rispetto a $\bar{z}$ è definito come:
+$$ \partial_{\bar{z}} := \frac{\partial}{\partial \bar{z}} = \frac{1}{2} \left( \frac{\partial}{\partial x} + i \frac{\partial}{\partial y} \right) $$
+
+Il problema consiste nel trovare la soluzione fondamentale $E \in \mathcal{D}'(\R^2)$ tale che:
+$$ \partial_{\bar{z}} E = \delta $$
+In altre parole, cerchiamo l'inverso distribuzionale dell'operatore $\partial_{\bar{z}}$.
+
+\begin{teorema}
+	La soluzione fondamentale dell'operatore di Cauchy-Riemann è:
+	$$ E(z) = \frac{1}{\pi z} $$
+	Ovvero, vale l'identità distribuzionale:
+	$$ \frac{\partial}{\partial \bar{z}} \left( \frac{1}{\pi z} \right) = \delta(z) $$
+\end{teorema}
+
+\begin{proof}
+	Procediamo con rigore analitico usando il metodo di esclusione della singolarità.
+	Innanzitutto, la funzione $f(z) = \frac{1}{z}$ è localmente integrabile in $\R^2$ ($L^1_{loc}(\R^2)$). Infatti, in coordinate polari vicino all'origine, la singolarità è del tipo $1/r$, e l'elemento di volume è $r dr d\theta$, che cancella la singolarità rendendo l'integrale finito.
+	Dunque $\frac{1}{z}$ definisce una distribuzione regolare.
+	
+	Calcoliamo la derivata distribuzionale. Per ogni $\varphi \in \mathcal{D}(\R^2)$:
+	$$ \left\langle \partial_{\bar{z}} \frac{1}{\pi z}, \varphi \right\rangle = - \left\langle \frac{1}{\pi z}, \partial_{\bar{z}} \varphi \right\rangle = - \frac{1}{\pi} \int_{\R^2} \frac{1}{z} \frac{\partial \varphi}{\partial \bar{z}} \, dx dy $$
+	Poiché la funzione $\frac{1}{z}$ ha una singolarità in $0$, consideriamo il dominio $\Omega_\epsilon = \R^2 \setminus B_\epsilon(0)$, dove $B_\epsilon(0)$ è il disco di raggio $\epsilon$.
+	$$ \int_{\R^2} \frac{1}{z} \partial_{\bar{z}} \varphi \, dx dy = \lim_{\epsilon \to 0^+} \int_{\Omega_\epsilon} \frac{1}{z} \partial_{\bar{z}} \varphi \, dx dy $$
+	In $\Omega_\epsilon$, la funzione $\frac{1}{z}$ è olomorfa, perciò $\partial_{\bar{z}} (1/z) = 0$ in senso classico.
+	Possiamo usare la regola di Leibniz:
+	$$ \frac{1}{z} \partial_{\bar{z}} \varphi = \partial_{\bar{z}} \left( \frac{\varphi}{z} \right) - \varphi \underbrace{\partial_{\bar{z}} \left( \frac{1}{z} \right)}_{=0} = \partial_{\bar{z}} \left( \frac{\varphi}{z} \right) $$
+	L'integrale diventa:
+	$$ I_\epsilon = \int_{\Omega_\epsilon} \partial_{\bar{z}} \left( \frac{\varphi}{z} \right) dx dy $$
+	Utilizziamo una variante del Teorema di Stokes nel piano complesso (Formula di Cauchy-Pompeiu generale):
+	$$ \int_{\Omega_\epsilon} \frac{\partial F}{\partial \bar{z}} dx dy = \frac{1}{2i} \oint_{\partial \Omega_\epsilon} F(z) dz $$
+	Il bordo di $\Omega_\epsilon$ è $-\partial B_\epsilon(0)$ (il cerchio percorso in senso orario).
+	Quindi:
+	$$ \int_{\Omega_\epsilon} \partial_{\bar{z}} \left( \frac{\varphi}{z} \right) dx dy = -\frac{1}{2i} \oint_{|z|=\epsilon} \frac{\varphi(z)}{z} dz $$
+	Parametrizziamo il bordo $|z|=\epsilon$:
+	$$ z = \epsilon e^{i\theta}, \quad dz = i \epsilon e^{i\theta} d\theta, \quad \theta \in [0, 2\pi) $$
+	Sostituendo nell'integrale di bordo:
+	$$ \oint_{|z|=\epsilon} \frac{\varphi(z)}{z} dz = \int_0^{2\pi} \frac{\varphi(\epsilon e^{i\theta})}{\epsilon e^{i\theta}} (i \epsilon e^{i\theta}) d\theta = i \int_0^{2\pi} \varphi(\epsilon e^{i\theta}) d\theta $$
+	Tornando all'espressione della distribuzione:
+	$$ \left\langle \partial_{\bar{z}} \frac{1}{\pi z}, \varphi \right\rangle = - \frac{1}{\pi} \lim_{\epsilon \to 0^+} \left( -\frac{1}{2i} \cdot i \int_0^{2\pi} \varphi(\epsilon e^{i\theta}) d\theta \right) $$
+	$$ = \frac{1}{2\pi} \lim_{\epsilon \to 0^+} \int_0^{2\pi} \varphi(\epsilon e^{i\theta}) d\theta $$
+	Per la continuità della funzione test $\varphi$, il limite puntuale $\varphi(\epsilon e^{i\theta}) \to \varphi(0)$.
+	$$ = \frac{1}{2\pi} \int_0^{2\pi} \varphi(0) d\theta = \frac{1}{2\pi} \cdot 2\pi \varphi(0) = \varphi(0) = \langle \delta, \varphi \rangle $$
+	Q.E.D.
+\end{proof}

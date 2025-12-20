@@ -800,3 +800,168 @@ Esiste una naturale corrispondenza tra la somma diretta di spazi di Hilbert e la
 	Poiché la costruzione definisce un isomorfismo isometrico canonico tra l'algebra astratta delle famiglie limitate e l'algebra concreta degli operatori sullo spazio somma, nel seguito si semplificherà la notazione rimuovendo il simbolo ``cappello''.
 	Indicheremo con lo stesso simbolo $\bigoplus_{j \in J} A_j$ sia l'elemento astratto che l'operatore concreto, e con $\bigoplus_{j \in J} \mathfrak{R}_j$ l'algebra somma.
 \end{osservazione}
+
+
+\subsection{Visualizzazione geometrica della convoluzione}
+Siano $X$ e $Y$ due variabili aleatorie \textit{indipendenti} con densità di probabilità $f_X$ e $f_Y$. Siamo interessati alla variabile somma $Z = X + Y$. È noto che la densità di $Z$, denotata con $f_Z$, è data dalla convoluzione delle densità:
+$$ f_Z(z) = (f_X * f_Y)(z) = \int_{\R} f_X(y) f_Y(z-y) \, dy $$
+
+Nell'analisi delle PDE, cerchiamo la soluzione $u$ dell'equazione $P(D)u = f$. La soluzione è data dalla convoluzione tra la sorgente $f$ e la soluzione fondamentale $E$:
+$$ u(x) = (f * E)(x) = \int_{\R^n} f(y) E(x-y) \, dy $$
+
+Possiamo stabilire il seguente dizionario concettuale:
+
+\begin{center}
+	\begin{tabular}{|c|c|}
+		\hline
+		\textbf{Teoria della Probabilità} ($Z=X+Y$) & \textbf{Teoria delle PDE} ($x = y + h$) \\
+		\hline
+		Valore della V.A. $X$ & Posizione della Sorgente $y$ (Causa) \\
+		Densità $f_X$ & Intensità della Sorgente $f$ \\
+		\hline
+		Valore della V.A. $Y$ & Vettore Spostamento/Propagazione $h$ \\
+		Densità $f_Y$ & Soluzione Fondamentale $E$ (Legge Fisica) \\
+		\hline
+		Valore della Somma $Z$ & Punto di Osservazione $x$ (Effetto) \\
+		Densità della Somma $f_Z$ & Campo Risultante $u$ \\
+		\hline
+		Indipendenza di $X$ e $Y$ & Invarianza per Traslazione (Coeff. Costanti) \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\begin{osservazione}
+	In questa visione, risolvere una PDE significa rispondere alla domanda: \textit{"Dato che la sorgente è distribuita come $f(y)$ e che la fisica impone uno spostamento distribuito come $E(h)$, qual è la distribuzione risultante delle posizioni finali $x = y+h$?"}
+\end{osservazione}
+
+\subsubsection{Il Framework Geometrico: Fiber Integration}
+
+Per rendere rigorosa questa intuizione, lavoriamo nello \textbf{Spazio Prodotto} (l'analogo dello spazio campionario congiunto).
+Consideriamo lo spazio $\mathcal{M} = \R^n_y \times \R^n_h \cong \R^{2n}$.
+In questo spazio, l'indipendenza delle variabili (o il disaccoppiamento tra sorgente e legge fisica) si traduce nella costruzione di una distribuzione prodotto tensore $T \in \Dp$:
+$$ T(y, h) = f(y) \otimes E(h) $$
+Il supporto di $T$ è il prodotto cartesiano dei supporti: $\Supp(T) = \Supp(f) \times \Supp(E)$. Questo oggetto rappresenta la \textbf{densità congiunta} del sistema.
+
+L'operazione di somma $Z=X+Y$ corrisponde all'applicazione della mappa sommersiva $\sigma: \R^n \times \R^n \to \R^n$:
+$$ \sigma(y, h) = y + h $$
+La soluzione $u$ è formalmente il \textbf{push-forward} (o immagine diretta) della distribuzione $T$ tramite $\sigma$:
+$$ u = \sigma_*(f \otimes E) $$
+
+\begin{definizione}[Integrazione sulle Fibre]
+	Geometricamente, valutare $u$ in un punto target $x$ significa integrare la distribuzione congiunta $f(y)E(h)$ lungo la \textbf{fibra} $\sigma^{-1}(x)$, definita come:
+	$$ \mathcal{F}_x = \{(y, h) \in \R^{2n} : y + h = x \} $$
+	Questa fibra è l'iperpiano (o retta affine) definita dall'equazione $h = x - y$.
+\end{definizione}
+
+Questa è l'esatta controparte geometrica della \textbf{marginalizzazione} in probabilità: per trovare la probabilità che $Z=z$, sommiamo tutte le probabilità delle coppie $(X,Y)$ tali che la loro somma sia $z$.
+\subsubsection{Intuizione sull'equazione fondamentale}
+Per comprendere profondamente la struttura della soluzione $u(x)$, dobbiamo abbandonare l'idea di calcolarla punto per punto e visualizzare invece l'intero processo come un'operazione geometrica nello spazio delle fasi esteso. Questo processo si articola in tre momenti logici che giustificano l'uso della convoluzione.
+
+\begin{enumerate}
+	\item \textbf{Il ``Sollevamento'' (Lifting) nello Spazio Prodotto:} 
+	Risolvere la PDE $P(D)u=f$ significa determinare come le cause (distribuite secondo $f$) generino effetti (propagati secondo $E$). Nello spazio fisico $\R^n$, queste due informazioni sono sovrapposte.
+	
+	``Sollevare'' il problema significa passare dallo spazio fisico $\R^n$ allo spazio prodotto $\R^n_y \times \R^n_h \cong \R^{2n}$. Qui disaccoppiamo le variabili:
+	\begin{itemize}
+		\item La variabile $y$ rappresenta la \textbf{posizione della sorgente} (dove nasce l'impulso).
+		\item La variabile $h$ rappresenta lo \textbf{spostamento} (il vettore propagazione permesso dall'operatore differenziale).
+	\end{itemize}
+	In questo spazio a $2n$ dimensioni, costruiamo l'oggetto $T(y,h) = f(y) \cdot E(h)$. Questo prodotto tensore rappresenta la totalità delle possibili interazioni \textit{prima} che venga imposto il vincolo di osservazione. Geometricamente, stiamo ``spalmando'' la legge fisica $E$ su ogni punto del supporto della sorgente $f$.
+	
+	\item \textbf{Il Vincolo di Osservazione (Slicing):}
+	Il legame con la soluzione $u(x)$ avviene quando fissiamo un punto di osservazione $x$. La fisica impone che un segnale partito da $y$ e viaggiato per $h$ contribuisca al campo in $x$ se e solo se vettorialmente:
+	$$ y + h = x \quad \implies \quad h = x - y $$
+	Questa equazione definisce una varietà lineare (una ``fetta'' o fibra) nello spazio $\R^{2n}$. Mentre lo spazio prodotto contiene \textit{tutte} le storie possibili, questa fetta seleziona solo quelle storie che sono geometricamente compatibili con l'osservatore posto in $x$.
+	
+	\item \textbf{La Marginalizzazione (Perché la Convoluzione?):}
+	Poiché l'equazione è lineare, il campo totale $u(x)$ è la sovrapposizione (somma) di tutti i contributi compatibili.
+	L'operazione di \textbf{convoluzione} non è altro che l'integrazione della densità congiunta $f(y)E(h)$ lungo la fetta selezionata al punto precedente. 
+	
+	Matematicamente, stiamo eseguendo un \textit{push-forward} (o marginalizzazione): stiamo proiettando la massa distribuita nella fetta dello spazio a $2n$ dimensioni sul singolo punto $x$.
+	$$ u(x) = \int_{\text{Fibra } y+h=x} \underbrace{f(y)}_{\text{Causa}} \cdot \underbrace{E(h)}_{\text{Legge}} \, d\lambda $$
+	Senza questo passaggio, avremmo una descrizione ridondante di infinite coppie $(y, h)$; con la convoluzione, comprimiamo questa informazione nell'unico valore fisico misurabile $u(x)$.
+\end{enumerate}
+
+\subsection{Esempio 1D: Equazione di Trasporto con Decadimento}
+
+Analizziamo il caso $\R^1$ per un'equazione causale, analoga alla somma di una variabile uniforme e una esponenziale.
+$$ u' + u = f $$
+\begin{itemize}
+	\item \textbf{Sorgente (V.A. Uniforme):} $f(y) = \chi_{[-1, 1]}(y)$. La sorgente è attiva solo in $[-1, 1]$.
+	\item \textbf{Legge Fisica (V.A. Esponenziale):} $E(h) = H(h)e^{-h}$. L'informazione viaggia solo in avanti ($h \ge 0$) e decade.
+\end{itemize}
+
+\subsubsection{Geometria nello Spazio $(y, h)$}
+Il supporto congiunto $\Supp(f \otimes E)$ è la semistriscia verticale:
+$$ S = [-1, 1] \times [0, +\infty) $$
+Le fibre di integrazione sono rette $h = x-y$ con pendenza $-1$.
+
+\begin{center}
+	\begin{tikzpicture}[scale=1.5]
+		% Assi
+		\draw[->] (-2.5, 0) -- (3, 0) node[right] {$y$ (Sorgente $X$)};
+		\draw[->] (0, -1) -- (0, 3.5) node[above] {$h$ (Spostamento $Y$)};
+		
+		% Supporto della sorgente f (asse y)
+		\draw[ultra thick, blue] (-1, 0) -- (1, 0);
+		\node[blue, below] at (0,-0.1) {$\Supp(f)$};
+		
+		% Semistriscia (Supporto Congiunto)
+		\fill[pattern=north east lines, pattern color=blue!20] (-1, 0) -- (1, 0) -- (1, 3.2) -- (-1, 3.2) -- cycle;
+		\draw[blue] (-1, 0) -- (-1, 3.2);
+		\draw[blue] (1, 0) -- (1, 3.2);
+		\node[blue, fill=white, inner sep=1pt] at (0, 2.8) {Densità Congiunta $f \otimes E$};
+		
+		% --- Caso A: x < -1 ---
+		% Retta che non interseca
+		\draw[red, thick, dashed] (-2.2, 0.2) -- (-1.2, -0.8);
+		\node[red, left, font=\small] at (-2.2, 0.2) {$x < -1$};
+		\node[red, font=\small] at (-2, -0.5) {Nessuna Intersezione};
+		
+		% --- Caso B: -1 < x < 1 ---
+		% Retta che entra nella striscia
+		\def\xb{0.5} % Valore di x per il caso B
+		\draw[green!60!black, thick] (-1.2, {\xb - (-1.2)}) -- (\xb+0.2, -0.2);
+		\node[green!60!black, above right, font=\small] at (-1.2, {\xb - (-1.2)}) {$-1 \le x \le 1$};
+		
+		% Evidenziare il segmento di integrazione B
+		\draw[ultra thick, green!60!black] (-1, {\xb - (-1)}) -- (\xb, 0);
+		\fill[green!60!black] (-1, {\xb - (-1)}) circle (1.5pt);
+		\fill[green!60!black] (\xb, 0) circle (1.5pt);
+		
+		% --- Caso C: x > 1 ---
+		% Retta che attraversa tutto
+		\def\xc{2.2} % Valore di x per il caso C
+		\draw[purple, thick] (-1.2, {\xc - (-1.2)}) -- (2.5, -0.3);
+		\node[purple, right, font=\small] at (2.5, -0.3) {$x > 1$};
+		
+		% Evidenziare il segmento di integrazione C
+		\draw[ultra thick, purple] (-1, {\xc - (-1)}) -- (1, {\xc - 1});
+		\fill[purple] (-1, {\xc - (-1)}) circle (1.5pt);
+		\fill[purple] (1, {\xc - 1}) circle (1.5pt);
+		
+		% Etichette assi specifici
+		\draw (1, 0.1) -- (1, -0.1) node[below] {$1$};
+		\draw (-1, 0.1) -- (-1, -0.1) node[below] {$-1$};
+		
+	\end{tikzpicture}
+\end{center}
+
+Guardando il diagramma, calcoliamo l'integrale della densità congiunta $e^{-h}$ lungo i segmenti evidenziati.
+
+\begin{itemize}
+	\item \textbf{Fase A ($x < -1$):} La retta rossa (somma $Z=x$) non tocca il supporto congiunto. Probabilità zero.
+	$$ u(x) = 0 $$
+	
+	\item \textbf{Fase B ($-1 \le x \le 1$):} La retta verde interseca la striscia. L'integrazione avviene da $y=-1$ fino a $y=x$ (dove $h$ tocca lo zero).
+	$$ u(x) = \int_{-1}^{x} e^{-(x-y)} \, dy = e^{-x} \left[ e^y \right]_{-1}^x = 1 - e^{-(x+1)} $$
+	\textit{Interpretazione:} La risposta cresce mentre accumuliamo "probabilità".
+	
+	\item \textbf{Fase C ($x > 1$):} La retta viola attraversa l'intera larghezza della sorgente, da $y=-1$ a $y=1$. Non c'è più nuova sorgente.
+	$$ u(x) = \int_{-1}^{1} e^{-(x-y)} \, dy = e^{-x} (e^1 - e^{-1}) = 2\sinh(1) e^{-x} $$
+	\textit{Interpretazione:} La risposta decade esponenzialmente ("coda" della distribuzione).
+\end{itemize}
+
+\begin{osservazione}[Regolarità]
+	Si noti come, analogamente alla somma di V.A., la convoluzione "liscia" il risultato. La sorgente $f$ era discontinua (funzione rettangolo), ma la soluzione $u$ è continua ($C^0$) ovunque, incollata dolcemente nei punti $x=-1$ e $x=1$. Questo è l'effetto regolarizzante del nucleo $E$.
+\end{osservazione}
