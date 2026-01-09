@@ -132,6 +132,7 @@
 	\vspace{0.5cm}
 	
 	\begin{sol}
+		Dividiamo l'esercizio in due parti.
 		\subsection*{Punto (a)}
 		L'ipotesi $T \subset T'$ significa che:
 		\[
@@ -211,7 +212,7 @@
 	
 	\section*{Traccia dell'Esercizio 4-F}
 	Sia $\HH$ uno spazio di Hilbert e sia dato $T : \Dom(T) \subset \HH \to \HH$. Si mostri che $T$ è essenzialmente autoaggiunto se e solo se $T$ è denso e chiudibile in $\HH$ e $T^* = \closure{T}$.
-	
+	\vspace{0.5cm}
 	\hrule
 	\vspace{0.5cm}
 	
@@ -272,19 +273,13 @@
 			\item $T^* = (T^*)^*$.
 		\end{itemize}
 		Dobbiamo verificare le stesse condizioni per $T'$.
-		
-		\paragraph{1. Densità dei domini.}
-		L'operatore $U$ è unitario, dunque è un isomorfismo isometrico suriettivo. Un tale operatore mappa insiemi densi in insiemi densi.
-		\begin{itemize}
-			\item Poiché $\Dom(T)$ è denso in $\HH$, allora $\Dom(T') = U^{-1}\Dom(T)$ è denso in $\KK$.
-			\item Calcoliamo l'aggiunto $(T')^*$. Essendo $U$ limitato con inverso limitato ($U^*=U^{-1}$), vale la regola dell'aggiunto del prodotto:
-			\[
-			(T')^* = (U^{-1}TU)^* = U^* T^* (U^{-1})^* = U^{-1} T^* U.
-			\]
-			Il dominio di $(T')^*$ è $\Dom((T')^*) = U^{-1}\Dom(T^*)$. Poiché $\Dom(T^*)$ è denso per ipotesi, anche $\Dom((T')^*)$ è denso in $\KK$.
-		\end{itemize}
-		
-		\paragraph{2. Condizione autoaggiuntezza dell'aggiunto.}
+		\newline PS: Credo ci sia un'esercitazione di Beatrice dove dimostra letteralmente le stesse cose. In particolare dimostra che T simmetrico $\Rightarrow$ T' simmetrico, quindi sappiamo già la densità dei domini. 
+		Essendo $U$ limitato con inverso limitato ($U^*=U^{-1}$), vale la regola dell'aggiunto del prodotto (esercizio 3-F punto (b)):
+		\[
+		(T')^* = (U^{-1}TU)^* = U^* T^* (U^{-1})^* = U^{-1} T^* U.
+		\]
+		Il dominio di $(T')^*$ è $\Dom((T')^*) = U^{-1}\Dom(T^*)$.
+		\newline
 		Dobbiamo verificare che $(T')^* = ((T')^*)^*$.
 		Calcoliamo l'aggiunto dell'aggiunto di $T'$:
 		\[
@@ -358,69 +353,26 @@
 		Dato che $\Ker(S) = \{0\}$, segue che $\overline{\Ran(S)} = \HH$. Ovvero, l'immagine è densa.
 		Per concludere che $\Ran(S) = \HH$, è necessario e sufficiente dimostrare che $\Ran(S)$ è un insieme \textbf{chiuso}.
 		
-		\paragraph{Dimostrazione della chiusura di $\Ran(S)$.}
-		Sia $\{y_n\}_{n \in \mathbb{N}} \subset \Ran(S)$ una successione convergente ad un elemento $y \in \HH$, cioè $\lim_{n \to \infty} \norm{y_n - y} = 0$.
-		Dobbiamo dimostrare che esiste un $x \in \HH$ tale che $Sx = y$.
+		\paragraph{Dimostrazione della chiusura di $\Ran(S)$ (Caso Generale).}
+		Sia $y_n \in \text{Ran}(T)$, $n \in \mathbb{N}$, e supponiamo che $y_n \to y$ per $n \to +\infty$. Dobbiamo dimostrare che $y \in \text{Ran}(T)$. Per ipotesi:
+		\begin{equation}
+			y_n = Tx_n = Ax_n - x_n \tag{*}
+		\end{equation}
+		per una certa successione $\{x_n\}_{n \in \mathbb{N}} \in \HH$. Senza perdita di generalità possiamo assumere $x_n \in \text{Ker}(T)^\perp$, eventualmente eliminando dalla successione la componente che si proietta su $\text{Ker}(T)$.
+		L'affermazione è dimostrata se riusciamo a mostrare che la successione $\{x_n\}$ è limitata: infatti, essendo $A$ compatto, esisterà una sottosuccessione $x_{n_k}$ tale che $Ax_{n_k} \to y' \in \HH$ per $k \to \infty$. Sostituendo in (*) concludiamo che $x_{n_k} \to x$ per un certo $x \in \HH$ per $k \to +\infty$. Per la continuità di $A$, $Tx = Ax - x = y$, dunque $y \in \text{Ran}(T)$.
 		
-		Poiché $y_n \in \Ran(S)$, per ogni $n$ esiste un unico $x_n \in \HH$ (per l'iniettività dimostrata al punto 1) tale che:
-		\[
-		S x_n = y_n.
-		\]
-		
-		\textbf{Passo fondamentale: Limitazione della successione preimmagine.}
-		Dobbiamo dimostrare che la successione $\{x_n\}$ è limitata in norma.
-		Procediamo per \textbf{assurdo}.
-		Supponiamo che $\{x_n\}$ non sia limitata. Allora esiste una sottosuccessione (che per semplicità di notazione indichiamo ancora con $x_n$) tale che:
-		\[
-		\norm{x_n} \to \infty \quad \text{per } n \to \infty.
-		\]
-		Definiamo la successione normalizzata:
-		\[
-		z_n \coloneqq \frac{x_n}{\norm{x_n}}.
-		\]
-		Osserviamo che $\norm{z_n} = 1$ per ogni $n$. Applichiamo l'operatore $S$:
-		\[
-		S z_n = S \left( \frac{x_n}{\norm{x_n}} \right) = \frac{1}{\norm{x_n}} S x_n = \frac{y_n}{\norm{x_n}}.
-		\]
-		Poiché $y_n \to y$ (quindi è limitata in norma) e $\norm{x_n} \to \infty$, abbiamo:
-		\[
-		\lim_{n \to \infty} S z_n = 0.
-		\]
-		Ricordando che $S = T - I$, possiamo scrivere:
-		\[
-		(T - I)z_n \to 0 \implies z_n - T z_n \to 0 \implies z_n \approx T z_n.
-		\]
-		Poiché $\{z_n\}$ è una successione limitata (norma unitaria) e l'operatore $T$ è \textbf{compatto}, dalla definizione di compattezza segue che esiste una sottosuccessione $\{z_{n_k}\}$ tale che $\{T z_{n_k}\}$ converge fortemente ad un vettore $z^* \in \HH$.
-		
-		Dalla relazione $z_{n_k} - T z_{n_k} \to 0$, segue che anche la successione $\{z_{n_k}\}$ deve convergere a $z^*$:
-		\[
-		z_{n_k} \to z^*.
-		\]
-		Per la continuità di $S$, abbiamo:
-		\[
-		S z^* = S (\lim_{k \to \infty} z_{n_k}) = \lim_{k \to \infty} S z_{n_k} = 0.
-		\]
-		Quindi $z^* \in \Ker(S)$. Ma per ipotesi $\Ker(S) = \{0\}$, quindi $z^* = 0$.
-		Tuttavia, sappiamo che $\norm{z_{n_k}} = 1$ per ogni $k$, quindi per continuità della norma:
-		\[
-		\norm{z^*} = \lim_{k \to \infty} \norm{z_{n_k}} = 1.
-		\]
-		Siamo giunti a una contraddizione ($0 = \norm{z^*} = 1$).
-		L'ipotesi che $\{x_n\}$ fosse illimitata è falsa. Dunque $\{x_n\}$ è limitata.
-		
-		\textbf{Conclusione della chiusura:}
-		Poiché $\{x_n\}$ è limitata e $T$ è compatto, esiste una sottosuccessione $\{x_{n_j}\}$ tale che $T x_{n_j}$ converge a un qualche vettore $w$.
-		Dall'equazione $S x_{n_j} = y_{n_j}$, abbiamo:
-		\[
-		(T - I) x_{n_j} = y_{n_j} \implies x_{n_j} = T x_{n_j} - y_{n_j}.
-		\]
-		Il termine di destra converge (poiché $T x_{n_j} \to w$ e $y_{n_j} \to y$), quindi $x_{n_j}$ converge ad un elemento $x \coloneqq w - y$.
-		Per continuità di $S$:
-		\[
-		Sx = \lim_{j \to \infty} S x_{n_j} = \lim_{j \to \infty} y_{n_j} = y.
-		\]
-		Dunque $y \in \Ran(S)$.
-		Abbiamo dimostrato che $\Ran(S)$ è chiuso.
+		Procederemo per assurdo, assumendo che $\{x_n\}_{n \in \mathbb{N}} \subset \text{Ker}(T)^\perp$ sia illimitata. Se così non fosse, esisterebbe una sottosuccessione $x_{n_m}$ con $0 < \|x_{n_m}\| \to +\infty$ per $m \to +\infty$. Poiché i $y_n$ formano una successione convergente, e quindi limitata, dividendo per $\|x_{n_m}\|$ in (4.63) si ottiene:
+		\begin{equation}
+			T \frac{x_{n_m}}{\|x_{n_m}\|} = A \frac{x_{n_m}}{\|x_{n_m}\|} - \frac{x_{n_m}}{\|x_{n_m}\|} = \frac{y_{n_m}}{\|x_{n_m}\|} \to \mathbf{0}. \tag{**}
+		\end{equation}
+		Ma $A$ è compatto e i vettori $\frac{x_{n_m}}{\|x_{n_m}\|}$ sono limitati, quindi possiamo estrarre un'ulteriore sottosuccessione $x_{n_{m_k}}/\|x_{n_{m_k}}\|$ tale che:
+		$$
+		\frac{x_{n_{m_k}}}{\|x_{n_{m_k}}\|} \to x' \in \HH \quad \text{e} \quad T \frac{x_{n_{m_k}}}{\|x_{n_{m_k}}\|} \to Tx' \quad \text{per } k \to +\infty.
+		$$
+		Da (**) deduciamo che $x' \in \text{Ker}(T)$. Per ipotesi $\frac{x_{n_{m_k}}}{\|x_{n_{m_k}}\|} \in \text{Ker}(T)^\perp$, e poiché $\text{Ker}(T)^\perp$ è chiuso, allora $x' \in \text{Ker}(T)^\perp$. Di conseguenza $x' \in \text{Ker}(T) \cap \text{Ker}(T)^\perp = \{\mathbf{0}\}$, in contraddizione con
+		$$
+		\|x'\| = \lim_{k \to +\infty} \frac{\|x_{n_{m_k}}\|}{\|x_{n_{m_k}}\|} = 1.
+		$$
 		
 		\textbf{Conclusione Parte (a):}
 		Poiché $\Ran(S)$ è chiuso e $\Ker(S)=\{0\}$, abbiamo:
@@ -507,7 +459,8 @@
 		\]
 		Gli integrali sopra corrispondono (a meno del fattore di normalizzazione) ai coefficienti di Fourier di $f$, denotati $\hat{f}_n$.
 		L'ipotesi $\inner{f}{u_n} = 0, \forall n$ implica $\hat{f}_n = 0, \forall n$.
-		Per il \textbf{Teorema di Unicità} della serie di Fourier (conseguenza della densità dei polinomi trigonometrici e della completezza di $L^2$), una funzione $L^2$ con tutti i coefficienti di Fourier nulli è nulla quasi ovunque.
+		Questo può essere detto per l'iniettività di Fourier su $L^2$ enunciata in classe oppure 
+		per il \textbf{Teorema di Unicità} della serie di Fourier (conseguenza della densità dei polinomi trigonometrici e della completezza di $L^2$), una funzione $L^2$ con tutti i coefficienti di Fourier nulli è nulla quasi ovunque.
 		\[
 		f = 0 \quad \text{q.o.}
 		\]
@@ -515,7 +468,7 @@
 		
 		\subsection*{3. Compattezza e Classe di Hilbert-Schmidt}
 		Per dimostrare che $T$ è compatto ($T \in \BB_\infty(\HH)$), dimostreremo la condizione più forte che $T$ è un operatore di Hilbert-Schmidt.
-		Un operatore $T$ è di Hilbert-Schmidt se, data una base ortonormale $\{e_k\}$, la quantità $\|T\|_{HS}^2 \doteq \sum_k \norm{T e_k}^2$ è finita.
+		Un operatore $T$ è di Hilbert-Schmidt se, data una base ortonormale $\{e_k\}$, la quantità $\|T\|_{2}^2 \doteq \sum_k \norm{T e_k}^2$ è finita.
 		
 		Scegliamo come base proprio gli autovettori normalizzati $\{u_n\}_{n \in \Z}$.
 		Poiché $T u_n = \lambda_n u_n$, abbiamo:
@@ -524,7 +477,7 @@
 		\]
 		La norma Hilbert-Schmidt è dunque data dalla serie degli autovalori al quadrato:
 		\[
-		\|T\|_{HS}^2 = \sum_{n \in \Z} |\lambda_n|^2.
+		\|T\|_{2}^2 = \sum_{n \in \Z} |\lambda_n|^2.
 		\]
 		Analizziamo i termini $\lambda_n$. Dalla definizione data nel punto 1:
 		\[
@@ -545,13 +498,75 @@
 		\]
 		Di conseguenza:
 		\[
-		\|T\|_{HS}^2 = 2\pi \norm{g}_{L^2}^2 < \infty.
+		\|T\|_{2}^2 = 2\pi \norm{g}_{L^2}^2 < \infty.
 		\]
-		L'operatore $T$ è dunque di Hilbert-Schmidt. Poiché la classe degli operatori di Hilbert-Schmidt è contenuta in quella degli operatori compatti ($\mathcal{B}_{HS} \subset \mathcal{B}_\infty$), concludiamo che $T$ è un operatore compatto.
+		L'operatore $T$ è dunque di Hilbert-Schmidt. Poiché la classe degli operatori di Hilbert-Schmidt è contenuta in quella degli operatori compatti ($\mathcal{B}_{2} \subset \mathcal{B}_\infty$), concludiamo che $T$ è un operatore compatto.
 		
 		\qed
 		
 	\end{sol}
+	
+	\section*{Soluzione Esercizio 2  - Metodo Spettrale}
+	
+	Sia $g \in L^2([0, 2\pi])$ estesa per periodicità. Analizziamo l'operatore integrale $T: L^2 \to L^2$ definito da $Tf = g * f$.
+	
+	\subsection*{1. Spettro Puntuale e Diagonalizzazione}
+	Consideriamo il sistema ortonormale completo in $L^2([0, 2\pi])$ dato da:
+	\[
+	u_n(x) = \frac{1}{\sqrt{2\pi}} e^{inx}, \quad n \in \Z.
+	\]
+	Verifichiamo che questi siano autovettori di $T$. Applicando la definizione:
+	\[
+	(T u_n)(x) = \int_0^{2\pi} g(x-y) \frac{e^{iny}}{\sqrt{2\pi}} \, dy.
+	\]
+	Ponendo $z = x-y$ e sfruttando la periodicità delle funzioni in gioco:
+	\[
+	(T u_n)(x) = \frac{1}{\sqrt{2\pi}} \int_0^{2\pi} g(z) e^{in(x-z)} \, dz = \left( \int_0^{2\pi} g(z) e^{-inz} \, dz \right) \frac{e^{inx}}{\sqrt{2\pi}}.
+	\]
+	Definiamo la successione degli scalari $\lambda_n$ come:
+	\[
+	\lambda_n \doteq \int_0^{2\pi} g(z) e^{-inz} \, dz.
+	\]
+	Abbiamo quindi ottenuto la relazione agli autovalori:
+	\[
+	T u_n = \lambda_n u_n, \quad \forall n \in \Z.
+	\]
+	Notiamo che $\lambda_n$ è strettamente legato ai coefficienti di Fourier di $g$. Infatti, denotando $\hat{g}_n = \langle g, u_n \rangle$:
+	\[
+	\lambda_n = \sqrt{2\pi} \left( \frac{1}{\sqrt{2\pi}} \int_0^{2\pi} g(z) e^{-inz} \, dz \right) = \sqrt{2\pi} \, \hat{g}_n.
+	\]
+	
+	\subsection*{2. Compattezza via Fourier-Plancherel}
+	Per analizzare la compattezza di $T$, passiamo allo spazio delle frequenze.
+	Sia $\mathcal{F}: L^2([0, 2\pi]) \to \ell^2(\Z)$ l'isomorfismo isometrico di Fourier-Plancherel, che associa a ogni funzione $f$ la successione dei suoi coefficienti di Fourier $\{\hat{f}_n\}_{n \in \Z}$.
+	
+	Grazie alla diagonalizzazione effettuata al punto precedente, l'operatore $T$ è unitariamente equivalente a un **operatore di moltiplicazione diagonale** $\hat{T}$ su $\ell^2(\Z)$:
+	\[
+	\hat{T}(\{\hat{f}_n\}_n) = \{ \lambda_n \hat{f}_n \}_n.
+	\]
+	In altre parole, l'azione dell'operatore sulle componenti di Fourier è una semplice moltiplicazione scalare elemento per elemento.
+	
+	\textbf{Analisi della successione dei moltiplicatori $\{\lambda_n\}$:}
+	Dall'ipotesi $g \in L^2([0, 2\pi])$, per il teorema di Plancherel (o Identità di Parseval), sappiamo che la successione dei coefficienti di Fourier di $g$ è a quadrato sommabile:
+	\[
+	\sum_{n \in \Z} |\hat{g}_n|^2 = \|g\|_{L^2}^2 < \infty.
+	\]
+	Poiché $\lambda_n = \sqrt{2\pi} \, \hat{g}_n$, ne consegue immediatamente che anche la successione degli autovalori appartiene a $\ell^2(\Z)$:
+	\[
+	\sum_{n \in \Z} |\lambda_n|^2 = 2\pi \sum_{n \in \Z} |\hat{g}_n|^2 = 2\pi \|g\|_{L^2}^2 < \infty.
+	\]
+	
+	\subsection*{3. Conclusione}
+	Un operatore diagonale su $\ell^2$ definito da una successione $\{\lambda_n\}$ è un operatore di Hilbert-Schmidt se e solo se la successione è in $\ell^2(\Z)$.
+	Avendo dimostrato che $\{\lambda_n\} \in \ell^2(\Z)$, concludiamo che:
+	\begin{enumerate}
+		\item $T$ è un operatore di Hilbert-Schmidt, e quindi
+		\item $T$ è un operatore compatto (poiché $\mathcal{B}_2 \subset \mathcal{B}_\infty$).
+	\end{enumerate}
+	
+	\textit{Nota a margine:} Anche senza invocare la classe Hilbert-Schmidt, la condizione necessaria e sufficiente affinché un operatore diagonale sia compatto è che $\lim_{|n|\to\infty} \lambda_n = 0$. Questo è garantito dal fatto che $\lambda_n$ sono coefficienti di Fourier di una funzione $L^2$ (Lemma di Riemann-Lebesgue, o semplice conseguenza della convergenza della serie dei quadrati).
+	
+	\qed
 	
 	\section*{Traccia dell'Esercizio 3}
 	Sia data una matrice $\sigma \in \mathcal{M}(n; \mathbb{R})$ positiva e sia $\psi \in L^2(\mathbb{R}^n)$. Si mostri che l'operatore
@@ -596,47 +611,37 @@
 		\sum_{k=1}^n \lambda_k \frac{\partial^2 \psi}{\partial y_k^2} - i \psi(y) = 0.
 		\]
 		
-		\subsection*{2. Analisi delle Soluzioni in $L^2$}
-		Vogliamo dimostrare che l'unica soluzione $\psi \in L^2(\R^n)$ a questa equazione è $\psi \equiv 0$.
-		Possiamo procedere con la \textbf{separazione delle variabili} come suggerito. Cerchiamo soluzioni elementari della forma $\psi(y) = \prod_{k=1}^n f_k(y_k)$. Sostituendo nell'equazione e dividendo per $\psi$:
+		\subsection*{2. Analisi delle Soluzioni in $L^2$ tramite Trasformata di Fourier}
+		Vogliamo dimostrare che l'unica soluzione $\psi \in L^2(\mathbb{R}^n)$ all'equazione $L\psi = i\psi$ è la soluzione nulla $\psi \equiv 0$.
+		Utilizziamo la trasformata di Fourier $\mathcal{F}$, che è un automorfismo unitario su $L^2(\mathbb{R}^n)$ (Teorema di Plancherel).
+		
+		Riprendiamo l'equazione nelle coordinate diagonali $y$ ottenuta al punto precedente:
 		\[
-		\sum_{k=1}^n \lambda_k \frac{f_k''(y_k)}{f_k(y_k)} = i.
+		\sum_{k=1}^n \lambda_k \frac{\partial^2 \psi}{\partial y_k^2} - i \psi(y) = 0.
 		\]
-		Affinché questa uguaglianza valga per ogni $y$, ogni termine della somma deve essere costante:
+		Passando allo spazio delle frequenze $k \in \mathbb{R}^n$, denotiamo $\hat{\psi}(k) = \mathcal{F}[\psi](k)$. Ricordando che l'azione della derivata in Fourier diventa una moltiplicazione (i.e., $\mathcal{F}[\partial_{y_j}^2 \psi] = -k_j^2 \hat{\psi}$), l'equazione differenziale si trasforma nella seguente equazione algebrica:
 		\[
-		\lambda_k \frac{f_k''(y_k)}{f_k(y_k)} = c_k, \quad \text{con } \sum_{k=1}^n c_k = i.
+		\sum_{k=1}^n \lambda_k (-k_k^2) \hat{\psi}(k) - i \hat{\psi}(k) = 0.
 		\]
-		Questo porta a $n$ equazioni differenziali ordinarie:
+		Raccogliendo $\hat{\psi}(k)$:
 		\[
-		f_k''(y_k) = \frac{c_k}{\lambda_k} f_k(y_k).
+		-\left( \sum_{k=1}^n \lambda_k k_k^2 + i \right) \hat{\psi}(k) = 0.
 		\]
-		Poniamo $\mu_k^2 = \frac{c_k}{\lambda_k}$. Le soluzioni generali sono combinazioni lineari di esponenziali:
+		Il coefficiente moltiplicativo $P(k) = -(\sum \lambda_k k_k^2 + i)$ non si annulla mai per nessun $k \in \mathbb{R}^n$. Infatti, la sua parte immaginaria è costantemente $-i \neq 0$ (inoltre, essendo $\lambda_k > 0$, la parte reale è sempre non positiva).
+		Affinché il prodotto sia nullo, deve necessariamente valere:
 		\[
-		f_k(y_k) = A_k e^{\mu_k y_k} + B_k e^{-\mu_k y_k}.
+		\hat{\psi}(k) = 0 \quad \text{quasi ovunque.}
 		\]
-		Affinché la soluzione prodotto $\psi(y)$ appartenga a $L^2(\R^n)$, è necessario che ciascun fattore $f_k(y_k)$ appartenga a $L^2(\R)$ (o sia nullo).
-		Analizziamo l'appartenenza a $L^2(\R)$ della funzione $e^{\mu y}$.
-		\[
-		\int_{-\infty}^{+\infty} |e^{\mu y}|^2 dy = \int_{-\infty}^{+\infty} e^{2\text{Re}(\mu) y} dy.
-		\]
-		Questo integrale converge se e solo se $\text{Re}(\mu) \neq 0$ e l'intervallo è limitato opportunamente, ma su tutto $\R$ diverge sempre a meno che la funzione non sia identicamente nulla.
-		\begin{itemize}
-			\item Se $\text{Re}(\mu) > 0$, l'esponenziale esplode a $+\infty$.
-			\item Se $\text{Re}(\mu) < 0$, l'esponenziale esplode a $-\infty$.
-			\item Se $\text{Re}(\mu) = 0$ (cioè $\mu$ immaginario puro), la funzione è oscillante con modulo costante $1$, e quindi non integrabile su $\R$.
-		\end{itemize}
-		Dato che $\sum c_k = i$, almeno uno dei coefficienti $c_k$ (e quindi $\mu_k$) deve essere non nullo e complesso, impedendo l'esistenza di soluzioni decadenti su tutto l'asse reale simultaneamente.
-		Poiché le combinazioni lineari (e limiti $L^2$) di tali soluzioni generano lo spazio delle soluzioni, concludiamo che:
-		\[
-		\ker(L^* - iI) = \{0\}.
-		\]
-		Analogamente, si dimostra che $\ker(L^* + iI) = \{0\}$.
+		Poiché la trasformata di Fourier è iniettiva su $L^2$, $\hat{\psi} = 0$ implica $\psi = 0$ quasi ovunque in $\mathbb{R}^n$.
+		Dunque, $\ker(L^* - iI) = \{0\}$.
+		Il procedimento è identico per l'equazione $L\psi = -i\psi$ (il termine immaginario cambia segno ma rimane non nullo).
 		
 		\subsection*{Conclusione}
-		Avendo dimostrato che gli indici di difetto sono $(0,0)$, per il criterio di Von Neumann l'operatore $L$ definito su $C_0^\infty(\R^n)$ è essenzialmente autoaggiunto. La sua unica estensione autoaggiunta è la sua chiusura.
+		Abbiamo dimostrato che $\ker(L^* \pm iI) = \{0\}$. Poiché gli indici di difetto sono $(0,0)$, per il Criterio di autoaggiunzione essenziale (Criterio di Von Neumann), l'operatore $L$ definito su $C_0^\infty(\mathbb{R}^n)$ è essenzialmente autoaggiunto.
 		
 		\qed
 	\end{sol}
+	
 	
 	\section*{Traccia dell'Esercizio 4}
 	Sia dato il dominio $I = [0,1]$ e si consideri il problema di Dirichlet per $\psi: I \to \mathbb{R}$:
@@ -687,7 +692,9 @@
 		F(h) \doteq \int_I f(x) h(x) \, dx.
 		\]
 		Dobbiamo verificare che questo funzionale sia continuo (limitato) su $H^1_0(I)$.
-		Essendo $f \in C^\infty(I)$ su un dominio limitato, certamente $f \in L^2(I)$. Applicando la disuguaglianza di Cauchy-Schwarz in $L^2(I)$:
+		Poiché $f \in C^\infty(\bar{I})$, la funzione è limitata sul dominio compatto $\bar{I}$ (per il teorema di Weierstrass), dunque $f \in L^2(I)$ con norma finita.
+		
+		Applicando la disuguaglianza di Cauchy-Schwarz:
 		\[
 		|F(h)| = \left| \int_I f h \, dx \right| \le \norm{f}_{L^2} \norm{h}_{L^2}.
 		\]
@@ -695,11 +702,12 @@
 		\[
 		|F(h)| \le \norm{f}_{L^2} \norm{h}_{H^1}.
 		\]
-		Poiché $\norm{f}_{L^2}$ è una costante finita, il funzionale $F$ è limitato:
+		Essendo $\norm{f}_{L^2}$ una costante finita, esiste $C = \norm{f}_{L^2}$ tale che $|F(h)| \le C \norm{h}_{H^1}$.
+		Dunque il funzionale $F$ è limitato:
 		\[
-		\norm{F}_{(H^1_0)^*} \le \norm{f}_{L^2} < \infty.
+		\norm{F}_{(H^1_0)^*} \le \norm{f}_{L^2} < \infty,
 		\]
-		Dunque $F$ appartiene allo spazio duale topologico $(H^1_0(I))^*$.
+		e appartiene allo spazio duale topologico $(H^1_0(I))^*$.
 		
 		\subsection*{4. Applicazione del Teorema di Riesz-Fréchet}
 		Il problema debole può essere riscritto in forma astratta come segue:
@@ -951,30 +959,44 @@
 	Per il Teorema di Rappresentazione di Riesz, possiamo esplicitare la struttura di $R_C$: esiste un'unica $g \in L^2(I)$ tale che $C(f) = \langle g, f \rangle$, da cui $R_C(f) = R_g(f) = e^x\langle g, f \rangle$.
 	
 	\subsubsection*{3. Positività}
-	L'operatore $K_C$ non è, in generale, positivo. Consideriamo il caso $\psi(0)=0$ (che implica $C \equiv 0$). La forma quadratica associata è:
-	\begin{equation}
-		\langle K_0f, f \rangle = \int_0^1 \psi(x)(-\psi'(x)+\psi(x)) dx = \|\psi\|^2 - \frac{1}{2}\psi(1)^2.
-	\end{equation}
-	Scegliendo la funzione test $\psi(x) = x$ quindi $f(x)=x-1$, si ottiene:
+	L'operatore $K_C$ non è, in generale, positivo. Consideriamo il caso $\psi(0)=0$ (che implica $C \equiv 0$). Valutiamo la parte reale della forma quadratica associata nel campo complesso.
+	
+	Consideriamo il prodotto scalare standard in $L^2$:
 	\[
-	\langle K_0f, f \rangle = \int_0^1 x^2 dx - \frac{1}{2}(1)^2 = \frac{1}{3} - \frac{1}{2} = -\frac{1}{6} < 0.
+	\langle K_0f, f \rangle = \int_0^1 (-\psi'(x)+\psi(x)) \overline{\psi(x)} \, dx.
 	\]
-	Esistono quindi vettori $f$ (nello specifico $f(x)=x-1$) per cui $\langle K_0f, f \rangle < 0$, violando la condizione di positività.
-	\newline
-	Per mostrare invece un esempio di operatore $K_C$ positivo dobbiamo notare che
-	\begin{equation}
-		\langle K_Cf, f \rangle  = \langle \psi, -\psi' + \psi \rangle = \|\psi\|^2 + \frac{1}{2}\psi(0)^2 - \frac{1}{2}\psi(1)^2
-	\end{equation}
-	a questo punto basta imporre che $\psi(1) = 0$ per avere un operatore positivo. Restringiamoci quindi alla classe dei funzionali lineari che impongono $\psi(x_0) = 0$ ossia
+	Sfruttiamo l'identità per la derivata del modulo quadro: $\frac{d}{dx}|\psi|^2 = \psi' \bar{\psi} + \psi \bar{\psi}' = 2 \Re(\psi' \bar{\psi})$.
+	Quindi, integrando per parti o usando la suddetta identità:
 	\[
-		C(f) = \int_0^{x_0} e^{-y}f(y) dy
+	\Re \int_0^1 -\psi'(x)\overline{\psi(x)} \, dx = -\frac{1}{2} \int_0^1 \frac{d}{dx}|\psi(x)|^2 \, dx = -\frac{1}{2} \left( |\psi(1)|^2 - |\psi(0)|^2 \right).
 	\]
-	ottenendo quindi
+	Sostituendo nell'espressione della forma quadratica otteniamo:
+	\begin{equation}
+		\Re \langle K_0f, f \rangle = \|\psi\|_{L^2}^2 - \frac{1}{2}|\psi(1)|^2 + \frac{1}{2}|\psi(0)|^2.
+	\end{equation}
+	Essendo nel caso $\psi(0)=0$, l'espressione si riduce a:
 	\[
-		C(f) = \int_0^1 e^{-y}f(y) dy
+	\Re \langle K_0f, f \rangle = \|\psi\|_{L^2}^2 - \frac{1}{2}|\psi(1)|^2.
 	\]
 	
-	L'analisi dettagliata completa è estremamente complessa e non ci sono risultati evidenti tranne delle condizioni necessarie e suff. molto implicite provenienti diretttamente da imporre la forma quadratica positiva.
+	Per mostrare che l'operatore non è positivo, scegliamo la funzione test (reale, valida anche in ambito complesso) $\psi(x) = x$, che implica $f(x)=x-1$. Si ottiene:
+	\[
+	\Re \langle K_0f, f \rangle = \int_0^1 |x|^2 \, dx - \frac{1}{2}|1|^2 = \frac{1}{3} - \frac{1}{2} = -\frac{1}{6} < 0.
+	\]
+	Esistono quindi vettori per cui la forma quadratica assume valori negativi, violando la condizione di positività.
+	\newline
+	Per costruire un operatore $K_C$ positivo, osserviamo l'espressione generale ricavata sopra:
+	\begin{equation}
+		\Re \langle K_Cf, f \rangle = \|\psi\|_{L^2}^2 + \frac{1}{2}|\psi(0)|^2 - \frac{1}{2}|\psi(1)|^2.
+	\end{equation}
+	Per garantire la positività è sufficiente eliminare il termine negativo imponendo la condizione al bordo $\psi(1) = 0$.
+	Restringiamoci dunque alla classe dei funzionali lineari che impongono tale condizione, ad esempio:
+	\[
+	C(f) = \int_0^1 e^{-y}f(y) \, dy.
+	\]
+	In questo caso, la forma quadratica diventa $\Re \langle K_Cf, f \rangle = \|\psi\|^2 + \frac{1}{2}|\psi(0)|^2 \ge 0$ per ogni $f \neq 0$.
+	
+	L'analisi completa per condizioni necessarie e sufficienti più generali risulta complessa e non banale al di fuori di queste costruzioni dirette.
 	\qed
 	\end{sol}
 	
@@ -1060,7 +1082,11 @@
 		Ciò prova che $S^* = S$.
 		
 		\subsection*{Conclusione}
-		Poiché $T$ è unitariamente equivalente a un operatore essenzialmente autoaggiunto ($\tilde{T}$), anche $T$ è essenzialmente autoaggiunto sul dominio iniziale delle funzioni test.
+		Poiché $T$ è unitariamente equivalente a un operatore essenzialmente autoaggiunto ($\tilde{T}$), anche $T$ è essenzialmente autoaggiunto sul dominio iniziale delle funzioni test. Il motivo è l'esercitazione 2 della prof.Costeri nella quale dice che 
+		\[
+			\overline{T'} = U \overline{T} U^\star \quad \quad \text{e} \quad \quad T'^\star = U^\star T^\star U
+		\]
+		il motivo è perchè U è unitario quindi limitato.
 		\begin{itemize}
 			\item $T$ ammette un'unica estensione autoaggiunta (la sua chiusura $\bar{T}$).
 			\item Gli indici di difetto sono $n_+ = n_- = 0$.
@@ -1195,17 +1221,6 @@
 		\]
 		otteniamo la relazione $\frac{d}{dt} \langle A \rangle = \frac{i}{\hbar} \langle [H, A] \rangle^{weak}$.
 		
-		\subsubsection*{3. Controesempio per $\psi \in L^2$}
-		Mostriamo che $\psi \in L^2$ non basta. Consideriamo $A = X$ (operatore posizione) su $L^2(\mathbb{R})$.
-		La funzione Lorentziana:
-		\[
-		\psi(x) = \frac{C}{1+x^2}
-		\]
-		appartiene chiaramente a $L^2(\mathbb{R})$ (poiché integrabile al quadrato), ma non appartiene a $D(X)$ poiché:
-		\[
-		\| X\psi \|^2 = \int_{-\infty}^{+\infty} \left| \frac{x}{1+x^2} \right|^2 dx < \infty \quad \text{(converge)},
-		\]
-		Tuttavia, se prendiamo $\phi(x) = \frac{C}{1+|x|}$ in $L^2$, allora $\|X\phi\|^2$ diverge logaritmicamente. In tal caso $\langle X \rangle_\phi$ non è definito, e l'equazione di Ehrenfest perde significato. Ancora più drasticamente, se $\psi \notin D(H)$ (energia infinita), la derivata temporale non esiste proprio. L'unico modo per dargli senso sarebbe in senso distribuzionale.
 		
 		
 		\subsection*{Calcolo del Commutatore}
@@ -1354,7 +1369,7 @@
 		\qed
 	\end{sol}
 	
-		\section*{Traccia dell'Esercizio 9 Versione Soft}
+		\section*{Traccia dell'Esercizio 9 Versione Soft - Confermata}
 	Siano $T: \Dom(T) \to \HH$ e $V: \Dom(V) \to \HH$ due operatori su uno spazio di Hilbert $\HH$ tali che:
 	\begin{enumerate}
 		\item[(a)] $T$ è autoaggiunto ($T = T^*$);
@@ -1369,15 +1384,10 @@
 	\hrule
 	\vspace{0.5cm}
 	\begin{sol}
-		Si ottiene dalla disuguaglianza che
-		\[
-			\norm{V\psi} = \norm{T\psi}  \Rightarrow (1-a)\norm{T\psi} \le  b\norm{\psi}, \quad \forall \psi \in \Dom(T)
-		\]
-		quindi T è limitato, essendo autoaggiunto è ovunque definito. Essendo ovunque definito allora V è ovunque definito essendo $\Dom{(T)} \subseteq \Dom{(V)}$ per ipotesi. Ma ovunque definito e simmetrico implica limitato per Hellinger-Toepliz. Quindi V è limitato quindi T+V è limitato e simmetrico ossia autoaggiunto.
-		\qed
+		$S = T + V$ sul dominio di di T è $2T$ che è autoaggiunto.
 	\end{sol}
 	
-	\section*{Traccia dell'Esercizio 10 Metodo I}
+	\section*{Traccia dell'Esercizio 10 Metodo I (non corretto)}
 	Sia $\HH$ uno spazio di Hilbert con norma $\norm{\cdot}$. Sia $\norm{\cdot}'$ una seconda norma su $\HH$ tale che $\exists C > 0$:
 	\[ \norm{\psi} \le C\normprime{\psi}, \quad \forall \psi \in \HH. \]
 	Sia $T: D(T) \to \HH$ un operatore simmetrico tale che $\exists \kappa > 0$:
@@ -1441,15 +1451,16 @@
 		\qed
 	\end{sol}
 	
-	\section*{Traccia dell'Esercizio 10 Metodo II}
+	\section*{Traccia dell'Esercizio 10 Metodo II (confermato)}
 	Sia $\HH$ uno spazio di Hilbert con norma $\norm{\cdot}$. Sia $\norm{\cdot}'$ una seconda norma su $\HH$ tale che $\exists C > 0$:
 	\[ \norm{\psi} \le C\normprime{\psi}, \quad \forall \psi \in \HH. \]
 	Sia $T: D(T) \to \HH$ un operatore simmetrico tale che $\exists \kappa > 0$:
 	\[ \normprime{T\psi} \le \kappa\normprime{\psi}, \quad \forall \psi \in \HH'. \]
 	dove per $\HH'=(\HH, ||\cdot||')$ si intende lo spazio di Hilbert definito dagli elementi di $(\HH, ||\cdot||)$ che sono finiti rispetto alla norma $||\cdot||'$ decorato della stessa.
 	Mostrare che $T$ è limitato rispetto alla norma $\norm{\cdot}$ (ovvero $T \in \mathcal{B}(\HH)$ nel senso dell'estensione).
+	
 	\begin{quote}
-		\textit{[Hint: Un operatore lineare chiuso tra spazi di Banach e con dominio denso è limitato]}
+		\textit{[Hint: Un operatore lineare chiuso tra spazi di Banach e con dominio denso (inteso come tutto lo spazio) è limitato]}
 	\end{quote}
 	
 	\hrule
@@ -1458,48 +1469,48 @@
 	\begin{sol}
 		L'obiettivo è dimostrare che l'operatore $T$ è limitato rispetto alla norma naturale dello spazio di Hilbert $\norm{\cdot}$, ossia che esiste $M > 0$ tale che $\norm{T\psi} \le M\norm{\psi}$ per ogni $\psi \in D(T)$.
 		
-		Per fare ciò, sfrutteremo l'Hint interpretando lo spazio $(\HH, \norm{\cdot}')$ come uno spazio di Banach e utilizzando il \textbf{Teorema dell'Isomorfismo di Banach} (o dell'Applicazione Inversa, Teorema 25 nelle dispense) per stabilire l'equivalenza tra le due norme.
-		
 		\subsection*{1. Equivalenza delle Norme}
-		Consideriamo lo spazio vettoriale $\HH$ equipaggiato con le due norme.
-		\begin{itemize}
-			\item $(\HH, \norm{\cdot})$ è uno spazio di Banach (essendo di Hilbert).
-			\item Assumiamo, coerentemente con l'Hint, che anche $(\HH, \norm{\cdot}')$ sia uno spazio di Banach.
-		\end{itemize}
+		Consideriamo i due spazi di Banach (ridenominiamoli se no si incrociano gli occhi):
+		\[ X \doteq (\HH, \norm{\cdot}) \quad \text{e} \quad Y \doteq (\HH, \norm{\cdot}'). \]
+		Definiamo l'operatore \textbf{Identità} che mappa dallo spazio con norma standard allo spazio con norma "prima":
+		\[
+		J: X \to Y, \quad J\psi = \psi.
+		\]
+		Questo operatore è lineare ed è definito su tutto lo spazio $\HH$ (dominio denso e completo). Per poter applicare l'Hint e concludere che $J$ è limitato, dobbiamo verificare che $J$ sia un \textbf{operatore chiuso}.
 		
-		Consideriamo l'operatore identità $I: (\HH, \norm{\cdot}') \to (\HH, \norm{\cdot})$.
-		Per ipotesi, vale la disuguaglianza:
-		\[ \norm{I\psi} = \norm{\psi} \le C\normprime{\psi}. \]
-		Questo implica che l'operatore identità è continuo (limitato) da $(\HH, \norm{\cdot}')$ in $(\HH, \norm{\cdot})$.
+		\textbf{Verifica della chiusura di $J$:}
+		Consideriamo una successione $\{\psi_n\}_{n \in \mathbb{N}} \subset \HH$ tale che:
+		\begin{enumerate}
+			\item $\psi_n \to \psi$ nello spazio $X$ (convergenza rispetto a $\norm{\cdot}$);
+			\item $J\psi_n \to \phi$ nello spazio $Y$ (convergenza rispetto a $\norm{\cdot}'$).
+		\end{enumerate}
+		Dobbiamo mostrare che $J\psi = \phi$, ovvero che $\psi = \phi$.
 		
-		Poiché entrambi gli spazi sono di Banach e l'applicazione è biunivoca (è l'identità) e continua, per il \textbf{Teorema dell'Isomorfismo di Banach} (conseguenza del Teorema della Mappa Aperta), l'applicazione inversa $I^{-1}: (\HH, \norm{\cdot}) \to (\HH, \norm{\cdot}')$ è anch'essa continua.
+		Sfruttiamo l'ipotesi data dalla traccia: $\norm{u} \le C \normprime{u}$. Questa disuguaglianza implica che la convergenza nella norma $\norm{\cdot}'$ è più forte della convergenza nella norma $\norm{\cdot}$.
+		Poiché $\psi_n \to \phi$ nella norma $\norm{\cdot}'$ (punto 2), allora $\psi_n \to \phi$ anche nella norma $\norm{\cdot}$.
+		Tuttavia, per il punto 1, sappiamo che $\psi_n \to \psi$ nella norma $\norm{\cdot}$.
+		Per l'unicità del limite, deve essere:
+		\[ \psi = \phi. \]
+		Il grafico di $J$ è dunque chiuso.
 		
-		Esiste quindi una costante $c > 0$ tale che:
+		\textbf{Applicazione dell'Hint:}
+		L'operatore $J$ soddisfa tutte le condizioni dell'Hint: è lineare, chiuso, e definito su tutto lo spazio di Banach $X$. Pertanto, $J$ è \textbf{limitato}.
+		Esiste quindi una costante $K > 0$ tale che $\norm{J\psi}_Y \le K \norm{\psi}_X$, che si traduce in:
 		\begin{equation} \label{eq:equiv}
-			\normprime{\psi} \le c \norm{\psi}, \quad \forall \psi \in \HH.
+			\normprime{\psi} \le K \norm{\psi}, \quad \forall \psi \in \HH.
 		\end{equation}
-		Le due norme sono pertanto equivalenti: $\norm{\cdot} \sim \norm{\cdot}'$.
 		
 		\subsection*{2. Dimostrazione della Limitatezza di $T$}
-		Vogliamo stimare la norma $\norm{T\psi}$. Utilizziamo in sequenza: la dominazione della norma $\norm{\cdot}$ da parte di $\norm{\cdot}'$, l'ipotesi di limitatezza di $T$ nella norma $\norm{\cdot}'$, e infine l'equivalenza dimostrata in \eqref{eq:equiv}.
-		
 		Per ogni $\psi \in D(T)$:
 		\begin{align*}
-			\norm{T\psi} &\le C \normprime{T\psi} & \text{(Ipotesi 1: dominazione)} \\
-			&\le C \cdot \kappa \normprime{\psi} & \text{(Ipotesi 2: limitatezza in } \norm{\cdot}') \\
-			&\le C \cdot \kappa \cdot c \norm{\psi} & \text{(Eq. \ref{eq:equiv}: equivalenza inversa)}
+			\norm{T\psi} &\le C \normprime{T\psi} & \text{(Dominazione della norma)} \\
+			&\le C \cdot \kappa \normprime{\psi} & \text{(Limitatezza in } \HH') \\
+			&\le C \cdot \kappa \cdot c \norm{\psi} & \text{(Equivalenza inversa \ref{eq:equiv})}
 		\end{align*}
-		
-		Ponendo $M = C \kappa c$, otteniamo:
-		\[ \norm{T\psi} \le M \norm{\psi}, \quad \forall \psi \in D(T). \]
-		Abbiamo così dimostrato che $T$ è un operatore limitato rispetto alla norma dello spazio di Hilbert.
+		Posto $M = C \kappa c$, si ha $\norm{T\psi} \le M \norm{\psi}$.
 		
 		\subsection*{3. Estensione a tutto $\HH$}
-		Poiché $T$ è un operatore lineare limitato definito su un sottospazio denso $D(T) \subset \HH$, per il \textbf{Teorema di Estensione (BLT Theorem)}, $T$ ammette un'unica estensione continua $\overline{T}$ definita su tutto $\HH$:
-		\[ \overline{T}: \HH \to \HH, \quad \text{con } \norm{\overline{T}} = \norm{T}. \]
-		
-		Essendo $T$ simmetrico, la sua chiusura coincide con la sua estensione continua. Pertanto, possiamo concludere che l'operatore (inteso nella sua estensione) appartiene a $\mathcal{B}(\HH)$.
-		
+		Poiché $T$ è limitato su un dominio denso, ammette un'unica estensione continua (BLT Theorem) su tutto $\HH$, che coincide con la sua chiusura (essendo $T$ simmetrico). Dunque $T \in \mathcal{B}(\HH)$.
 	\end{sol}
 	
 \end{document}
