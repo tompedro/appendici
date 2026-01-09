@@ -96,9 +96,35 @@
 		\[
 		u_j \to 0 \quad \text{in } \Dist(\R).
 		\]
+		
+		\paragraph{Convergenza in $\Dist(\R)$ (Approccio per parti).}
+		Indaghiamo la convergenza nel senso delle distribuzioni, ovvero nella topologia debole-*. Dobbiamo verificare il comportamento del limite $\lim_{j \to \infty} \langle u_j, \phi \rangle$ per una generica funzione test $\phi \in C^\infty_c(\R)$.
+		Scriviamo l'azione della distribuzione:
+		\[
+		\langle u_j, \phi \rangle = \int_{-\infty}^{+\infty} e^{ijx} \phi(x) \, dx.
+		\]
+		Per $j \neq 0$, possiamo sfruttare l'identità differenziale $e^{ijx} = \frac{1}{ij} \frac{d}{dx}\left( e^{ijx} \right)$. Sostituendo nell'integrale ed integrando per parti, otteniamo:
+		\[
+		\int_{-\infty}^{+\infty} \frac{1}{ij} \left( \frac{d}{dx} e^{ijx} \right) \phi(x) \, dx = 
+		\underbrace{\left[ \frac{e^{ijx}}{ij} \phi(x) \right]_{-\infty}^{+\infty}}_{=0} - \frac{1}{ij} \int_{-\infty}^{+\infty} e^{ijx} \phi'(x) \, dx.
+		\]
+		Il termine di bordo si annulla identicamente poiché $\phi$ ha supporto compatto (si annulla fuori da un intervallo limitato).
+		Possiamo ora stimare il modulo dell'integrale residuo:
+		\[
+		|\langle u_j, \phi \rangle| = \left| -\frac{1}{j} \int_{-\infty}^{+\infty} e^{ijx} \phi'(x) \, dx \right| \le \frac{1}{j} \int_{-\infty}^{+\infty} \underbrace{|e^{ijx}|}_{=1} |\phi'(x)| \, dx = \frac{1}{j} \norm{\phi'}_{L^1}.
+		\]
+		Essendo $\phi \in C^\infty_c(\R)$, la sua derivata $\phi'$ è limitata e a supporto compatto, dunque $\norm{\phi'}_{L^1}$ è una costante finita $C < \infty$.
+		Passando al limite:
+		\[
+		\lim_{j \to \infty} |\langle u_j, \phi \rangle| \le \lim_{j \to \infty} \frac{C}{j} = 0.
+		\]
+		Ne concludiamo che $\lim_{j \to \infty} \langle u_j, \phi \rangle = 0 = \langle 0, \phi \rangle$ per ogni $\phi \in \D(\R)$.
+		Pertanto, la successione $u_j$ converge alla distribuzione nulla:
+		\[
+		u_j \xrightarrow{\D'(\R)} 0.
+		\]
+
 	\end{sol}
-	
-	\newpage
 	
 	\section*{Esercizio 2F}
 	Sia $u \in \Eprime(\Omega)$, con $\Omega \subseteq \R^n$. Si mostri che la restrizione di $u$ a $\D(\Omega)$ identifica un elemento di $\Dist(\Omega)$.
@@ -686,6 +712,31 @@ Si calcoli il seguente limite in $\Dist(\R)$:
 	dove $\chi_K$ è la funzione caratteristica del supporto di $\phi$.
 	Poiché la singolarità logaritmica è integrabile attorno allo zero ($\int_0^1 \ln^2 x \, dx < \infty$), si ha $G \in L^1(\R)$. Le ipotesi del Teorema della Convergenza Dominata sono soddisfatte.
 	
+	\paragraph{Giustificazione dello scambio limite-integrale (Versione Rapida).}
+	Sia $K$ il supporto compatto di $\phi'$ e sia $R>0$ tale che $K \subset [-R, R]$. Per ogni $\epsilon \in (0,1)$ e $x \in K$, valgono le disuguaglianze:
+	\[
+	|x| \le |x - i\epsilon| = \sqrt{x^2+\epsilon^2} \le \sqrt{R^2+1}.
+	\]
+	Dobbiamo maggiorare $|\ln(x - i\epsilon)| \le |\ln|x - i\epsilon|| + \pi$.
+	Analizziamo il termine $|\ln|x - i\epsilon||$ distinguendo rapidamente due comportamenti, ma unificandoli in una sola stima:
+	\begin{itemize}
+		\item Se $|x - i\epsilon| < 1$, allora per la monotonia del logaritmo vale $\ln|x| \le \ln|x - i\epsilon| < 0$. Passando ai moduli si inverte la disuguaglianza: $|\ln|x - i\epsilon|| \le |\ln|x||$.
+		\item Se $|x - i\epsilon| \ge 1$, allora $0 \le \ln|x - i\epsilon| \le \ln\sqrt{R^2+1}$.
+	\end{itemize}
+	In entrambi i casi, vale la maggiorazione uniforme su $K$:
+	\[
+	|\ln|x - i\epsilon|| \le |\ln|x|| + C, \quad \text{con } C = \ln\sqrt{R^2+1}.
+	\]
+	Sostituendo nella stima iniziale ed elevando al quadrato (usando $(a+b+c)^2 \le 3(a^2+b^2+c^2)$):
+	\[
+	|\ln^2(x - i\epsilon)| \le 3\ln^2|x| + 3C^2 + 3\pi^2.
+	\]
+	Definiamo quindi la funzione dominante $G \in L^1(\R)$ come:
+	\[
+	G(x) = M \cdot \left( 3\ln^2|x| + \text{cost.} \right) \cdot \chi_K(x),
+	\]
+	dove $M = \sup |\phi'|$. Essendo la singolarità logaritmica integrabile in 0 ($x \ln^2 x - 2x \ln x + 2x$), $G$ è sommabile e il Teorema della Convergenza Dominata è applicabile.
+	
 	\paragraph{Calcolo della distribuzione limite.}
 	Possiamo ora portare il limite sotto il segno di integrale:
 	\begin{align*}
@@ -751,7 +802,7 @@ Si discuta se la restrizione di $T$ a $C_{\alpha}^{\infty}(\mathbb{R}^{+}) \cap 
 	\[
 	C_{0}^{\infty}(\mathbb{R}^{+}) = \{ f \in C^{\infty}(\mathbb{R}^{+}) \mid f(0) = 0 \} = C_{D}^{\infty}(\mathbb{R}^{+}).
 	\]
-	L'operatore diventa l'identità $T(f) = f$. La restrizione è quindi banalmente invertibile e $T^{-1} = I$.
+	L'operatore diventa l'identità $T(f) = f$. La restrizione è quindi banalmente invertibile e $T^{-1} = I$ (a patto di restringere l'immagine per renderlo suriettivo).
 	
 	\paragraph{Caso $\alpha \neq 0$.}
 	Consideriamo l'equazione differenziale lineare del primo ordine:

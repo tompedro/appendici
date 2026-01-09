@@ -57,23 +57,29 @@
 	\begin{sol}
 		Ricordiamo preliminariarmente la definizione di operatore unitario. Un operatore $U: \HH \to \HH'$ si dice \textit{unitario} se è un isomorfismo isometrico suriettivo tra i due spazi di Hilbert. Ovvero, se conserva il prodotto scalare (e quindi è un'isometria) ed è suriettivo.
 		
-		\paragraph{Implicazione diretta ($\Rightarrow$):}
-		Sia $T$ unitario.
-		\begin{itemize}
-			\item \textbf{Limitatezza:} Poiché $T$ è unitario, preserva la norma: $\norm{T\psi}_{\HH'} = \norm{\psi}_{\HH}$ per ogni $\psi \in \HH$. Di conseguenza, la norma operatoriale è $\norm{T} = \sup_{\norm{\psi}=1} \norm{T\psi} = 1 < \infty$. Dunque $T$ è limitato.
-			\item \textbf{Relazioni con l'aggiunto:} Poiché $T$ conserva il prodotto scalare, per ogni $\phi, \psi \in \HH$ vale:
-			\[
-			\innerK{T\phi}{T\psi} = \innerH{\phi}{\psi}.
-			\]
-			Usando la definizione di operatore aggiunto $T^*$, il membro di sinistra diventa $\innerH{\phi}{T^*T\psi}$. Dunque:
-			\[
-			\innerH{\phi}{T^*T\psi} = \innerH{\phi}{\Id \psi} \quad \forall \phi, \psi \in \HH \implies T^*T = \Id.
-			\]
-			Essendo $T$ un'isometria suriettiva, esso è invertibile. Poiché $T^*T = \Id$, ne segue che $T^*$ è l'inverso sinistro di $T$. In uno spazio di Hilbert (e più in generale per operatori invertibili), l'inverso sinistro coincide con l'inverso destro e con l'inverso $T^{-1}$. Pertanto $T^* = T^{-1}$, da cui segue immediatamente che:
-			\[
-			TT^* = T T^{-1} = \Id'.
-			\]
-		\end{itemize}
+	\paragraph{Implicazione diretta ($\Rightarrow$):}
+	Sia $T$ unitario.
+	\begin{itemize}
+		\item \textbf{Limitatezza:} Poiché $T$ è unitario, preserva la norma, ossia $\norm{T\psi}_{\HH'} = \norm{\psi}_{\HH}$ per ogni $\psi \in \HH$. Di conseguenza, la norma operatoriale è $\norm{T} = \sup_{\norm{\psi}=1} \norm{T\psi} = 1$, il che implica che $T$ è limitato.
+		
+		\item \textbf{Relazioni con l'aggiunto:} Poiché $T$ conserva il prodotto scalare, per la definizione di aggiunto vale:
+		\[
+		\innerH{\phi}{T^*T\psi} = \innerK{T\phi}{T\psi} = \innerH{\phi}{\psi} \quad \forall \phi, \psi \in \HH.
+		\]
+		Dall'arbitrarietà dei vettori segue l'identità operatoriale:
+		\[
+		T^*T = \Id.
+		\]
+		Per mostrare che $TT^* = \Id'$, osserviamo che $T$, essendo unitario, è per definizione una biiezione suriettiva. Pertanto ammette un unico operatore inverso $T^{-1}$.
+		Dall'uguaglianza $T^*T = \Id$, componendo a destra con $T^{-1}$ otteniamo:
+		\[
+		T^* T T^{-1} = \Id T^{-1} \implies T^* = T^{-1}.
+		\]
+		Sostituendo $T^*$ a $T^{-1}$ nella relazione fondamentale dell'inverso ($TT^{-1} = \Id'$), concludiamo che:
+		\[
+		TT^* = \Id'.
+		\]
+	\end{itemize}
 		
 		\paragraph{Implicazione inversa ($\Leftarrow$):}
 		Sia $T \in \mathcal{L}(\HH; \HH')$ limitato tale che $T^*T = \Id$ e $TT^* = \Id'$.
@@ -354,22 +360,22 @@
 		Per concludere che $\Ran(S) = \HH$, è necessario e sufficiente dimostrare che $\Ran(S)$ è un insieme \textbf{chiuso}.
 		
 		\paragraph{Dimostrazione della chiusura di $\Ran(S)$ (Caso Generale).}
-		Sia $y_n \in \text{Ran}(T)$, $n \in \mathbb{N}$, e supponiamo che $y_n \to y$ per $n \to +\infty$. Dobbiamo dimostrare che $y \in \text{Ran}(T)$. Per ipotesi:
+		Sia $y_n \in \text{Ran}(S)$, $n \in \mathbb{N}$, e supponiamo che $y_n \to y$ per $n \to +\infty$. Dobbiamo dimostrare che $y \in \text{Ran}(S)$. Per ipotesi:
 		\begin{equation}
-			y_n = Tx_n = Ax_n - x_n \tag{*}
+			y_n = Sx_n = Tx_n - x_n \tag{*}
 		\end{equation}
-		per una certa successione $\{x_n\}_{n \in \mathbb{N}} \in \HH$. Senza perdita di generalità possiamo assumere $x_n \in \text{Ker}(T)^\perp$, eventualmente eliminando dalla successione la componente che si proietta su $\text{Ker}(T)$.
-		L'affermazione è dimostrata se riusciamo a mostrare che la successione $\{x_n\}$ è limitata: infatti, essendo $A$ compatto, esisterà una sottosuccessione $x_{n_k}$ tale che $Ax_{n_k} \to y' \in \HH$ per $k \to \infty$. Sostituendo in (*) concludiamo che $x_{n_k} \to x$ per un certo $x \in \HH$ per $k \to +\infty$. Per la continuità di $A$, $Tx = Ax - x = y$, dunque $y \in \text{Ran}(T)$.
+		per una certa successione $\{x_n\}_{n \in \mathbb{N}} \in \HH$. Senza perdita di generalità possiamo assumere $x_n \in \text{Ker}(S)^\perp$, eventualmente eliminando dalla successione la componente che si proietta su $\text{Ker}(S)$.
+		L'affermazione è dimostrata se riusciamo a mostrare che la successione $\{x_n\}$ è limitata: infatti, essendo $T$ compatto, esisterà una sottosuccessione $x_{n_k}$ tale che $Ax_{n_k} \to y' \in \HH$ per $k \to \infty$. Sostituendo in (*) concludiamo che $x_{n_k} \to x$ per un certo $x \in \HH$ per $k \to +\infty$. Per la continuità di $T$, $Sx = Tx - x = y$, dunque $y \in \text{Ran}(S)$.
 		
-		Procederemo per assurdo, assumendo che $\{x_n\}_{n \in \mathbb{N}} \subset \text{Ker}(T)^\perp$ sia illimitata. Se così non fosse, esisterebbe una sottosuccessione $x_{n_m}$ con $0 < \|x_{n_m}\| \to +\infty$ per $m \to +\infty$. Poiché i $y_n$ formano una successione convergente, e quindi limitata, dividendo per $\|x_{n_m}\|$ in (4.63) si ottiene:
+		Procederemo per assurdo, assumendo che $\{x_n\}_{n \in \mathbb{N}} \subset \text{Ker}(S)^\perp$ sia illimitata. Quindi esisterebbe una sottosuccessione $x_{n_m}$ con $0 < \|x_{n_m}\| \to +\infty$ per $m \to +\infty$. Poiché i $y_n$ formano una successione convergente, e quindi limitata, dividendo per $\|x_{n_m}\|$ in (*) si ottiene:
 		\begin{equation}
-			T \frac{x_{n_m}}{\|x_{n_m}\|} = A \frac{x_{n_m}}{\|x_{n_m}\|} - \frac{x_{n_m}}{\|x_{n_m}\|} = \frac{y_{n_m}}{\|x_{n_m}\|} \to \mathbf{0}. \tag{**}
+			S \frac{x_{n_m}}{\|x_{n_m}\|} = T \frac{x_{n_m}}{\|x_{n_m}\|} - \frac{x_{n_m}}{\|x_{n_m}\|} = \frac{y_{n_m}}{\|x_{n_m}\|} \to \mathbf{0}. \tag{**}
 		\end{equation}
-		Ma $A$ è compatto e i vettori $\frac{x_{n_m}}{\|x_{n_m}\|}$ sono limitati, quindi possiamo estrarre un'ulteriore sottosuccessione $x_{n_{m_k}}/\|x_{n_{m_k}}\|$ tale che:
+		Ma $T$ è compatto e i vettori $\frac{x_{n_m}}{\|x_{n_m}\|}$ sono limitati, quindi possiamo estrarre un'ulteriore sottosuccessione $x_{n_{m_k}}/\|x_{n_{m_k}}\|$ tale che:
 		$$
-		\frac{x_{n_{m_k}}}{\|x_{n_{m_k}}\|} \to x' \in \HH \quad \text{e} \quad T \frac{x_{n_{m_k}}}{\|x_{n_{m_k}}\|} \to Tx' \quad \text{per } k \to +\infty.
+		\frac{x_{n_{m_k}}}{\|x_{n_{m_k}}\|} \to x' \in \HH \quad \text{e} \quad S \frac{x_{n_{m_k}}}{\|x_{n_{m_k}}\|} \to Sx' \quad \text{per } k \to +\infty.
 		$$
-		Da (**) deduciamo che $x' \in \text{Ker}(T)$. Per ipotesi $\frac{x_{n_{m_k}}}{\|x_{n_{m_k}}\|} \in \text{Ker}(T)^\perp$, e poiché $\text{Ker}(T)^\perp$ è chiuso, allora $x' \in \text{Ker}(T)^\perp$. Di conseguenza $x' \in \text{Ker}(T) \cap \text{Ker}(T)^\perp = \{\mathbf{0}\}$, in contraddizione con
+		Da (**) deduciamo che $x' \in \text{Ker}(S)$. Per ipotesi $\frac{x_{n_{m_k}}}{\|x_{n_{m_k}}\|} \in \text{Ker}(S)^\perp$, e poiché $\text{Ker}(S)^\perp$ è chiuso, allora $x' \in \text{Ker}(S)^\perp$. Di conseguenza $x' \in \text{Ker}(S) \cap \text{Ker}(S)^\perp = \{\mathbf{0}\}$, in contraddizione con
 		$$
 		\|x'\| = \lim_{k \to +\infty} \frac{\|x_{n_{m_k}}\|}{\|x_{n_{m_k}}\|} = 1.
 		$$
@@ -729,7 +735,7 @@
 		\qed
 	\end{sol}
 	
-	\section*{Traccia dell'Esercizio 5 $\psi(0)=0$}
+	\section*{Traccia dell'Esercizio 5 $\psi(x_0)=0$}
 	Sia $I = [0,1]$. Si consideri l'equazione differenziale:
 	\[
 	-\frac{d\psi}{dx} + \psi = f, \quad \text{con } f \in L^2(I).
@@ -740,110 +746,129 @@
 	\vspace{0.5cm}
 	
 	\begin{sol}
-		Per definire univocamente la mappa lineare $K$, dobbiamo fissare una condizione al contorno o iniziale, poiché la soluzione generale dell'equazione differenziale dipende da una costante arbitraria. Affinché $K$ sia un operatore lineare ben definito, la scelta canonica è fissare la condizione iniziale omogenea $\psi(0)=0$ (che corrisponde a porre la costante della soluzione omogenea pari a zero).
+		\subsection*{1. Condizione per la Linearità}
+	Per stabilire quale condizione al contorno rende la mappa $K: f \mapsto \psi$ un operatore lineare, analizziamo la struttura della soluzione generale dell'equazione differenziale $-\psi' + \psi = f$.
+	La soluzione può essere scritta come somma di una soluzione particolare lineare rispetto a $f$ (diciamo $K_0 f$, ad esempio l'integrale con estremo fisso) e della soluzione generale dell'omogenea:
+	\[
+	\psi(x; f) = (K_0 f)(x) + C e^x.
+	\]
+	La costante $C$ è determinata dalla condizione al contorno. Affinché $K$ sia un operatore lineare, deve soddisfare la proprietà di omogeneità $K(\lambda f) = \lambda K(f)$ per ogni $\lambda \in \mathbb{C}$.
+	Sostituendo:
+	\begin{align*}
+		K(\lambda f) &= \lambda (K_0 f) + C e^x \\
+		\lambda K(f) &= \lambda \left( (K_0 f) + C e^x \right) = \lambda (K_0 f) + \lambda C e^x.
+	\end{align*}
+	Uguagliando le due espressioni, otteniamo la condizione necessaria:
+	\[
+	C e^x = \lambda C e^x \implies C(1 - \lambda) = 0 \quad \forall \lambda.
+	\]
+	Questo implica necessariamente $C=0$. Pertanto, la condizione al contorno fissata a priori deve essere tale da annullare identicamente la componente omogenea. Se fissiamo la condizione in un punto $x_0$, dobbiamo avere:
+	\[
+	\psi(x_0) = 0 \implies C e^{x_0} = 0 \implies C=0.
+	\]
+	Concludiamo che solo una condizione al contorno \textbf{omogenea} garantisce la linearità dell'operatore $K$.
 		
-		\subsection*{1. Costruzione Esplicita dell'Operatore Integrale}
-		L'equazione si riscrive come:
+		\subsection*{2. Costruzione dell'Operatore e Kernel}
+		Risolviamo l'equazione con il metodo della variazione delle costanti o fattore integrante, imponendo $\psi(x_0)=0$.
+		L'equazione $\psi' - \psi = -f$ moltiplicata per $e^{-x}$ diventa $\frac{d}{dx}(e^{-x}\psi) = -e^{-x}f$.
+		Integrando tra $x_0$ e $x$:
 		\[
-		\psi'(x) - \psi(x) = -f(x).
+		e^{-x}\psi(x) - e^{-x_0}\underbrace{\psi(x_0)}_{=0} = -\int_{x_0}^x e^{-y}f(y) \, dy.
 		\]
-		Utilizzando il metodo del fattore integrante $e^{-x}$, otteniamo:
+		Da cui otteniamo la forma esplicita dell'operatore:
 		\[
-		\frac{d}{dx} \left( e^{-x} \psi(x) \right) = -e^{-x} f(x).
+		(Kf)(x) = -\int_{x_0}^x e^{x-y}f(y) \, dy = \int_0^1 A(x,y) f(y) \, dy.
 		\]
-		Integrando tra $0$ e $x$ e imponendo $\psi(0)=0$:
+		Il kernel integrale $A(x,y)$ è definito come:
 		\[
-		e^{-x} \psi(x) = -\int_0^x e^{-y} f(y) \, dy \implies \psi(x) = -\int_0^x e^{x-y} f(y) \, dy.
-		\]
-		L'operatore $K$ è quindi un \textbf{operatore integrale di Volterra} della forma:
-		\[
-		(Kf)(x) = \int_0^1 A(x,y) f(y) \, dy,
-		\]
-		dove il nucleo integrale (kernel) è definito grazie alla funzione gradino di Heaviside $\theta(\cdot)$ come:
-		\[
-		A(x,y) = -e^{x-y} \theta(x-y) = \begin{cases} -e^{x-y} & \text{se } 0 \le y \le x \le 1 \\ 0 & \text{altrove}. \end{cases}
+		A(x,y) = \begin{cases} -e^{x-y} & \text{se } y \text{ è compreso tra } x_0 \text{ e } x \\ 0 & \text{altrove}. \end{cases}
 		\]
 		
-		\subsection*{2. Limitatezza e Compattezza (Classe di Hilbert-Schmidt)}
-		Nel caso di $L^2(I)$, mostriamo che la definizione di operatore di HS coincide con la norma $L^2$ del nucleo $A(x,y)$.
-		Sia $\{e_n(y)\}$ una base ortonormale completa di $L^2(I)$.
-		Calcoliamo $\norm{K e_n}^2$:
+		\subsection*{3. Limitatezza e Compattezza}
+		Un operatore integrale $K$ su $L^2(I)$ è \textbf{compatto} (e quindi limitato) se è di classe \textit{Hilbert-Schmidt}, condizione equivalente all'appartenenza del kernel a $L^2(I \times I)$.
+		Mostriamo che la definizione spettrale di operatore Hilbert-Schmidt coincide con la condizione $L^2$ sul nucleo integrale.
+		Sia $\{e_n\}_{n \in \mathbb{N}}$ una base ortonormale di $L^2(I)$. La definizione è:
 		\[
-		\norm{K e_n}^2 = \int_I dx \, |(K e_n)(x)|^2 = \int_I dx \left| \int_I A(x,y) e_n(y) \, dy \right|^2.
+		\norm{K}_{HS}^2 = \sum_{n=1}^\infty \norm{K e_n}^2.
 		\]
-		Fissiamo $x$. La quantità interna $\int_I A(x,y) e_n(y) \, dy$ può essere vista come il prodotto scalare (o coefficiente di Fourier, a meno di coniugazione) della funzione $y \mapsto \overline{A(x,y)}$ rispetto al vettore di base $e_n(y)$.
-		Per l'\textbf{Identità di Parseval}, la somma dei quadrati dei coefficienti di Fourier di una funzione restituisce la norma quadra della funzione stessa:
+		L'azione dell'operatore integrale su un elemento della base è data da:
 		\[
-		\sum_{n=1}^\infty \left| \int_I A(x,y) e_n(y) \, dy \right|^2 = \int_I |A(x,y)|^2 \, dy.
+		(K e_n)(x) = \int_I A(x,y) e_n(y) \, dy = \langle \overline{A(x,\cdot)}, e_n \rangle_{L^2_y},
 		\]
-		Inserendo questo risultato nella definizione di norma HS:
+		dove l'integrale è interpretato come il prodotto scalare rispetto alla variabile $y$ tra la funzione coniugata del kernel e il vettore di base.
+		Sostituendo nella definizione di norma e scambiando la serie con l'integrale in $dx$ (giustificato dalla non-negatività dei termini o dal teorema di Beppo Levi):
 		\[
-		\norm{K}_{HS}^2 = \sum_{n=1}^\infty \int_I dx \left| \inner{\overline{A(x,\cdot)}}{e_n}_{L^2_y} \right|^2 = \int_I dx \left( \sum_{n=1}^\infty \left| \inner{\overline{A(x,\cdot)}}{e_n} \right|^2 \right).
+		\norm{K}_{HS}^2 = \int_I dx \left( \sum_{n=1}^\infty \left| \langle \overline{A(x,\cdot)}, e_n \rangle \right|^2 \right).
 		\]
+		Riconosciamo nella parentesi l'\textbf{Identità di Parseval}, la quale afferma che la somma dei moduli quadri dei coefficienti di Fourier eguaglia la norma quadra della funzione:
 		\[
-		\norm{K}_{HS}^2 = \int_I dx \left( \int_I |A(x,y)|^2 \, dy \right) = \int_{I \times I} |A(x,y)|^2 \, dx \, dy.
+		\sum_{n=1}^\infty \left| \langle \overline{A(x,\cdot)}, e_n \rangle \right|^2 = \norm{\overline{A(x,\cdot)}}_{L^2_y}^2 = \int_I |A(x,y)|^2 \, dy.
 		\]
-		Abbiamo così dimostrato rigorosamente che verificare che $A \in L^2(I \times I)$ equivale a verificare che l'operatore ha "traccia finita" nel senso HS.
-		\paragraph{Giustificazione rigorosa dello scambio somma-integrale.}
-		Partiamo dall'espressione della norma Hilbert-Schmidt:
+		Sostituendo questo risultato nell'integrale esterno, otteniamo l'equivalenza cercata:
 		\[
-		\sum_{n=1}^\infty \norm{K e_n}^2 = \sum_{n=1}^\infty \int_I \left| \inner{\overline{A(x,\cdot)}}{e_n}_{L^2_y} \right|^2 \, dx.
+		\norm{K}_{HS}^2 = \int_I dx \int_I dy \, |A(x,y)|^2 = \norm{A}_{L^2(I \times I)}^2.
 		\]
-		Definiamo la successione delle somme parziali $S_N: I \to [0, +\infty]$ come:
+		Dobbiamo verificare che:
 		\[
-		S_N(x) \doteq \sum_{n=1}^N \left| \inner{\overline{A(x,\cdot)}}{e_n}_{L^2_y} \right|^2.
+		\norm{K}_{HS}^2 = \int_0^1 \int_0^1 |A(x,y)|^2 \, dy \, dx < \infty.
 		\]
-		Osserviamo due proprietà fondamentali:
-		\begin{enumerate}
-			\item I termini della serie sono funzioni misurabili non negative: $x \mapsto \left| \inner{\dots}{\dots} \right|^2 \ge 0$.
-			\item Di conseguenza, la successione $\{S_N(x)\}_{N \in \mathbb{N}}$ è monotona crescente: $S_{N+1}(x) \ge S_N(x)$ per ogni $x \in I$.
-		\end{enumerate}
-		Sotto queste ipotesi, il \textbf{Teorema della Convergenza Monotona (Beppo Levi)} garantisce che l'integrale del limite coincida con il limite dell'integrale (che equivale allo scambio serie-integrale):
+		Sostituendo l'espressione del kernel:
 		\[
-		\sum_{n=1}^\infty \int_I (\dots) \, dx = \lim_{N \to \infty} \int_I S_N(x) \, dx = \int_I \lim_{N \to \infty} S_N(x) \, dx = \int_I \sum_{n=1}^\infty \left| \inner{\overline{A(x,\cdot)}}{e_n} \right|^2 \, dx.
+		\norm{K}_{HS}^2 = \int_0^1 dx \left| \int_{x_0}^x e^{2(x-y)} \, dy \right|.
 		\]
-		\newline
-		Un operatore integrale $K$ agente su $L^2(I)$ è sicuramente limitato e compatto se è di classe \textbf{Hilbert-Schmidt}. Condizione necessaria e sufficiente affinché $K$ sia Hilbert-Schmidt è che il suo nucleo $A(x,y)$ appartenga a $L^2(I \times I)$, ovvero che:
+		Calcoliamo l'integrale interno:
 		\[
-		\norm{K}_{HS}^2 \doteq \int_0^1 dx \int_0^1 dy \, |A(x,y)|^2 < \infty.
+		\int_{x_0}^x e^{2x}e^{-2y} \, dy = e^{2x} \left[ -\frac{e^{-2y}}{2} \right]_{x_0}^x = \frac{e^{2x}}{2} (e^{-2x_0} - e^{-2x}) = \frac{1}{2} (e^{2(x-x_0)} - 1).
 		\]
-		Calcoliamo tale norma:
+		Poiché stiamo valutando il modulo (o considerando l'orientamento degli estremi di integrazione), la funzione integranda in $x$ è limitata e continua sull'intervallo compatto $[0,1]$.
+		Non è necessario calcolare il valore numerico esatto: essendo l'integrale di una funzione continua su un dominio limitato, il risultato è certamente finito.
 		\[
-		\int_0^1 dx \int_0^1 dy \, |-e^{x-y}\theta(x-y)|^2 = \int_0^1 dx \int_0^x dy \, e^{2(x-y)}.
+		\norm{K}_{HS}^2 < \infty \implies K \text{ è compatto (e limitato)}.
 		\]
-		Calcoliamo l'integrale interno rispetto a $y$:
-		\[
-		\int_0^x e^{2x} e^{-2y} \, dy = e^{2x} \left[ -\frac{1}{2} e^{-2y} \right]_0^x = e^{2x} \left( -\frac{1}{2} e^{-2x} + \frac{1}{2} \right) = \frac{1}{2}e^{2x} - \frac{1}{2}.
-		\]
-		Ora integriamo rispetto a $x$:
-		\[
-		\int_0^1 \left( \frac{1}{2}e^{2x} - \frac{1}{2} \right) dx = \left[ \frac{1}{4}e^{2x} - \frac{1}{2}x \right]_0^1 = \left( \frac{e^2}{4} - \frac{1}{2} \right) - \left( \frac{1}{4} - 0 \right) = \frac{e^2 - 3}{4}.
-		\]
-		Poiché $e \approx 2.718$, il valore è finito.
-		Essendo $\norm{K}_{HS} < \infty$, concludiamo rigorosamente che:
-		\begin{enumerate}
-			\item $K$ è un operatore \textbf{limitato}.
-			\item $K$ è un operatore \textbf{compatto} (poiché ogni operatore Hilbert-Schmidt è compatto).
-		\end{enumerate}
 		
-		\subsection*{3. Positività}
-		Un operatore $K$ si dice positivo se $\inner{f}{Kf} \ge 0$ per ogni $f \in L^2(I)$.
-		Verifichiamo questa proprietà utilizzando una funzione test semplice (controesempio).
-		Sia $f(x) = 1$ (funzione costante unitaria).
-		Calcoliamo $Kf$:
+		\subsection*{4. Positività}
+		Verifichiamo se $K$ è un operatore positivo, ovvero se $\inner{f}{Kf} \ge 0$ per ogni $f$.
+		Scegliamo la funzione test $f(x) = 1$ e consideriamo il caso standard $x_0 = 0$ (o un $x_0$ sufficientemente piccolo).
+		La soluzione è:
 		\[
-		(Kf)(x) = -\int_0^x e^{x-y} \cdot 1 \, dy = -e^x \left[ -e^{-y} \right]_0^x = -e^x ( -e^{-x} + 1 ) = 1 - e^x.
+		(Kf)(x) = -\int_{0}^x e^{x-y} \, dy = 1 - e^x.
 		\]
-		Calcoliamo ora il prodotto scalare:
+		Il prodotto scalare risulta:
 		\[
-		\inner{f}{Kf} = \int_0^1 1 \cdot (1 - e^x) \, dx = \left[ x - e^x \right]_0^1 = (1 - e) - (0 - 1) = 2 - e.
+		\inner{1}{K1} = \int_0^1 (1 - e^x) \, dx = \left[ x - e^x \right]_0^1 = (1-e) - (-1) = 2 - e.
 		\]
-		Sapendo che $e > 2$, otteniamo:
-		\[
-		\inner{f}{Kf} = 2 - e < 0.
-		\]
-		Esiste almeno una funzione $f$ per cui la forma quadratica è negativa.
-		Pertanto, $K$ \textbf{non è un operatore positivo}.
+		Poiché $e > 2$, si ha $\inner{1}{K1} < 0$.
+		L'operatore \textbf{non è positivo}.
+		
+	\subsection*{5. Esempio di Positività}
+	L'operatore $K$ può risultare positivo modificando la condizione al contorno. Consideriamo il problema con condizione al bordo destro:
+	\[
+	\begin{cases}
+		-\psi' + \psi = f \\
+		\psi(1) = 0
+	\end{cases}
+	\]
+	Valutiamo la forma quadratica $\langle f, Kf \rangle$. Poiché $Kf = \psi$ e $f = -\psi' + \psi$, abbiamo:
+	\[
+	\langle f, Kf \rangle = \langle -\psi' + \psi, \psi \rangle = \int_0^1 (-\psi'(x) + \psi(x)) \overline{\psi(x)} \, dx.
+	\]
+	Assumendo funzioni reali per semplicità (il risultato si estende al caso complesso):
+	\[
+	\int_0^1 (-\psi'\psi + \psi^2) \, dx = -\int_0^1 \psi \psi' \, dx + \norm{\psi}^2.
+	\]
+	Integriamo per parti il primo termine:
+	\[
+	-\int_0^1 \psi \psi' \, dx = -\frac{1}{2} \int_0^1 \frac{d}{dx}(\psi^2) \, dx = -\frac{1}{2} \left[ \psi(x)^2 \right]_0^1 = -\frac{1}{2} (\psi(1)^2 - \psi(0)^2).
+	\]
+	Imponendo la condizione al contorno scelta $\psi(1)=0$, otteniamo:
+	\[
+	-\frac{1}{2} (0 - \psi(0)^2) = \frac{1}{2} \psi(0)^2 \ge 0.
+	\]
+	Ricostruendo l'espressione completa:
+	\[
+	\langle f, Kf \rangle = \frac{1}{2} \psi(0)^2 + \norm{\psi}_{L^2}^2.
+	\]
+	Essendo somma di termini non negativi, risulta $\langle f, Kf \rangle \ge 0$ per ogni $f$. In questo caso specifico, $K$ è un \textbf{operatore positivo}.
 		
 		\qed
 	\end{sol}
