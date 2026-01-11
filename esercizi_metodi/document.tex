@@ -25,6 +25,7 @@
 \DeclareMathOperator{\Ker}{Ker}
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\einx}{e^{inx}}
 \newcommand{\Hone}{H^1(I)}
@@ -648,92 +649,91 @@
 		\qed
 	\end{sol}
 	
+\section*{Traccia dell'Esercizio 4}
+Sia dato il dominio $I = [0, 1]$ e si consideri il problema di Dirichlet per $\psi : I \to \mathbb{R}$
+\[
+\begin{cases}
+	-\frac{d^2\psi}{dx^2} + \psi = f \\
+	\psi|_{\partial I} = 0
+\end{cases},
+\]
+dove $f \in C^\infty(I)$. Sia $H^1(I) \doteq \{ \psi \in L^2(I) \mid \frac{d\psi}{dx} \in L^2(I) \}$ e sia $H^1_0(I) \subset H^1(I)$ il sottospazio di Hilbert delle funzioni $\psi \in L^2(I)$ tali che $\psi|_{\partial I} = 0$.
+Si mostri che esiste ed è unica una soluzione \textit{debole} $\psi_0$ del problema di Dirichlet ossia $\psi_0 \in H^1_0(I)$ e
+\[
+\int_I dx \, \psi_0 h + \int_I dx \, \frac{d\psi_0}{dx} \frac{dh}{dx} = \int_I dx \, f h, \quad \forall h \in H^1_0(I).
+\]
+[Hint: Si ricorda che $\|\psi\|_{H^1(I)}^2 = \|\psi\|_{L^2(I)}^2 + \|\frac{d\psi}{dx}\|_{L^2(I)}^2$.]
+\hrule
+\vspace{0.5cm}
+
+\begin{sol}
+	La dimostrazione dell'esistenza e unicità della soluzione debole si basa sull'applicazione del Teorema di Rappresentazione di Riesz nello spazio di Hilbert appropriato. Procediamo identificando la struttura geometrica indotta dall'equazione differenziale.
 	
-	\section*{Traccia dell'Esercizio 4}
-	Sia dato il dominio $I = [0,1]$ e si consideri il problema di Dirichlet per $\psi: I \to \mathbb{R}$:
+	\subsection*{1. Struttura dello Spazio di Hilbert}
+	Dal testo, consideriamo lo spazio $H^1_0(I)$, definito come il sottospazio delle funzioni in $H^1(I)$ che si annullano al bordo $\partial I$.
+	L'Hint ci fornisce la norma su $H^1(I)$:
 	\[
-	\begin{cases}
-		-\frac{d^2\psi}{dx^2} + \psi = f \\
-		\psi|_{\partial I} = 0
-	\end{cases}
+	\norm{\psi}_{H^1}^2 = \norm{\psi}_{L^2}^2 + \norm{\frac{d\psi}{dx}}_{L^2}^2 = \int_I |\psi|^2 \, dx + \int_I \left|\frac{d\psi}{dx}\right|^2 \, dx.
 	\]
-	dove $f \in C^\infty(I)$. Si mostri che esiste ed è unica una soluzione \textit{debole} $\psi_0 \in H^1_0(I)$ tale che:
+	Questa norma è indotta dal seguente \textbf{prodotto scalare}:
 	\[
-	\int_I \psi_0 h \, dx + \int_I \frac{d\psi_0}{dx} \frac{dh}{dx} \, dx = \int_I f h \, dx, \quad \forall h \in H^1_0(I).
+	\inner{u}{v}_{H^1} \doteq \int_I u(x)v(x) \, dx + \int_I \frac{du}{dx}(x)\frac{dv}{dx}(x) \, dx.
+	\]
+	Poiché $H^1(I)$ è uno spazio di Hilbert e $H^1_0(I)$ è un suo sottospazio chiuso (definito da condizioni puntuali al bordo, che sono preservate dal limite in norma $H^1$ per i teoremi di traccia o per definizione di chiusura), concludiamo che $(H^1_0(I), \inner{\cdot}{\cdot}_{H^1})$ è esso stesso uno spazio di Hilbert.
+	
+	\subsection*{2. Derivazione della Formulazione Debole}
+	Data l'equazione differenziale classica:
+	\[
+	-\frac{d^2\psi}{dx^2} + \psi = f,
+	\]
+	moltiplichiamo ambo i membri per una generica funzione test $h \in H^1_0(I)$ e integriamo sul dominio $I$:
+	\[
+	\int_I \left( -\frac{d^2\psi}{dx^2} + \psi \right) h \, dx = \int_I f h \, dx.
+	\]
+	Sfruttando la linearità dell'integrale e applicando l'integrazione per parti al termine con la derivata seconda:
+	\[
+	\int_I -\frac{d^2\psi}{dx^2} h \, dx = \underbrace{\left[ -\frac{d\psi}{dx} h \right]_{\partial I}}_{=0} + \int_I \frac{d\psi}{dx} \frac{dh}{dx} \, dx.
+	\]
+	Il termine di bordo si annulla rigorosamente perché $h \in H^1_0(I)$, e dunque per definizione $h|_{\partial I} = 0$.
+	L'equazione integrale risultante è esattamente quella richiesta dalla traccia:
+	\[
+	\int_I \psi h \, dx + \int_I \frac{d\psi}{dx} \frac{dh}{dx} \, dx = \int_I f h \, dx.
 	\]
 	
-	\hrule
-	\vspace{0.5cm}
+	\subsection*{3. Applicazione del Teorema di Riesz}
+	Rileggiamo l'equazione debole alla luce della definizione di prodotto scalare data al punto 1.
+	L'equazione si può riscrivere come:
+	\[
+	\inner{\psi}{h}_{H^1} = \int_I f h \, dx, \quad \forall h \in H^1_0(I).
+	\]
+	Definiamo il funzionale lineare $F: H^1_0(I) \to \mathbb{R}$ come $F(h) = \int_I f h \, dx$.
 	
-	\begin{sol}
-		Per dimostrare l'esistenza e l'unicità della soluzione debole, riformuliamo il problema nel linguaggio dell'analisi funzionale sugli spazi di Hilbert, identificando la struttura variazionale dell'equazione.
-		
-		\subsection*{1. Lo Spazio di Hilbert e il Prodotto Scalare}
-		Consideriamo lo spazio di Sobolev $H^1(I)$, definito come:
-		\[
-		H^1(I) = \left\{ v \in L^2(I) \mid \frac{dv}{dx} \in L^2(I) \right\}.
-		\]
-		Questo spazio è dotato del prodotto scalare naturale:
-		\[
-		\inner{u}{v}_{H^1} \doteq \int_I u(x)v(x)\, dx + \int_I \frac{du}{dx}(x)\frac{dv}{dx}(x)\, dx,
-		\]
-		che induce la norma $\norm{u}_{H^1}^2 = \norm{u}_{L^2}^2 + \norm{u'}_{L^2}^2$.
-		
-		Lo spazio funzionale di riferimento per il problema di Dirichlet omogeneo è il sottospazio $H^1_0(I)$, che è la chiusura in norma $H^1$ delle funzioni $C^\infty_0(I)$ a supporto compatto. Essendo un sottospazio chiuso di uno spazio di Hilbert, $H^1_0(I)$ è esso stesso uno spazio di Hilbert rispetto al prodotto scalare $\inner{\cdot}{\cdot}_{H^1}$ ereditato da $H^1(I)$.
-		
-		\subsection*{2. Analisi del Membro di Sinistra (Forma Bilineare)}
-		Osserviamo il membro sinistro dell'equazione integrale data:
-		\[
-		A(\psi_0, h) \doteq \int_I \psi_0 h \, dx + \int_I \frac{d\psi_0}{dx} \frac{dh}{dx} \, dx.
-		\]
-		Confrontando questa espressione con la definizione del prodotto scalare, notiamo immediatamente che:
-		\[
-		A(\psi_0, h) = \inner{\psi_0}{h}_{H^1}.
-		\]
-		Pertanto, il problema variazionale richiede di trovare $\psi_0 \in H^1_0(I)$ tale che il suo prodotto scalare con una generica funzione test $h$ sia uguale a un certo valore determinato da $f$.
-		
-		\subsection*{3. Analisi del Membro di Destra (Funzionale Lineare)}
-		Definiamo il funzionale lineare $F: H^1_0(I) \to \R$ associato al termine noto:
-		\[
-		F(h) \doteq \int_I f(x) h(x) \, dx.
-		\]
-		Dobbiamo verificare che questo funzionale sia continuo (limitato) su $H^1_0(I)$.
-		Poiché $f \in C^\infty(\bar{I})$, la funzione è limitata sul dominio compatto $\bar{I}$ (per il teorema di Weierstrass), dunque $f \in L^2(I)$ con norma finita.
-		
-		Applicando la disuguaglianza di Cauchy-Schwarz:
+	Per applicare il Teorema di Riesz, dobbiamo dimostrare che $F$ è un funzionale \textbf{continuo} (limitato) rispetto alla norma $H^1$.
+	\begin{enumerate}
+		\item Poiché $f \in C^\infty(I)$ e il dominio $I$ è compatto, $f \in L^2(I)$, quindi $\norm{f}_{L^2} < \infty$.
+		\item Applichiamo la disuguaglianza di Cauchy-Schwarz in $L^2$:
 		\[
 		|F(h)| = \left| \int_I f h \, dx \right| \le \norm{f}_{L^2} \norm{h}_{L^2}.
 		\]
-		Dalla definizione della norma in $H^1$, è evidente che $\norm{h}_{L^2} \le \norm{h}_{H^1}$ (poiché si aggiunge il termine positivo della derivata). Quindi:
+		\item Osserviamo, dalla definizione della norma data nell'Hint, che:
+		\[
+		\norm{h}_{H^1}^2 = \norm{h}_{L^2}^2 + \norm{h'}_{L^2}^2 \implies \norm{h}_{L^2}^2 \le \norm{h}_{H^1}^2 \implies \norm{h}_{L^2} \le \norm{h}_{H^1}.
+		\]
+		\item Combinando le disuguaglianze:
 		\[
 		|F(h)| \le \norm{f}_{L^2} \norm{h}_{H^1}.
 		\]
-		Essendo $\norm{f}_{L^2}$ una costante finita, esiste $C = \norm{f}_{L^2}$ tale che $|F(h)| \le C \norm{h}_{H^1}$.
-		Dunque il funzionale $F$ è limitato:
-		\[
-		\norm{F}_{(H^1_0)^*} \le \norm{f}_{L^2} < \infty,
-		\]
-		e appartiene allo spazio duale topologico $(H^1_0(I))^*$.
-		
-		\subsection*{4. Applicazione del Teorema di Riesz-Fréchet}
-		Il problema debole può essere riscritto in forma astratta come segue:
-		Cercare $\psi_0 \in H^1_0(I)$ tale che:
-		\[
-		\inner{\psi_0}{h}_{H^1} = F(h), \quad \forall h \in H^1_0(I).
-		\]
-		Siamo nelle ipotesi del \textbf{Teorema di Rappresentazione di Riesz-Fréchet}:
-		\begin{quote}
-			Per ogni funzionale lineare continuo $F$ su uno spazio di Hilbert $H$, esiste ed è unico un elemento $u \in H$ tale che $F(v) = \inner{u}{v}_H$ per ogni $v \in H$. Inoltre $\norm{u}_H = \norm{F}_{H^*}$.
-		\end{quote}
-		Applicando il teorema con $H = H^1_0(I)$, garantiamo che:
-		\begin{enumerate}
-			\item \textbf{Esistenza:} Esiste un vettore $\psi_0 \in H^1_0(I)$ che rappresenta il funzionale $F$.
-			\item \textbf{Unicità:} Tale vettore è unico.
-		\end{enumerate}
-		Tale $\psi_0$ è, per definizione, l'unica soluzione debole del problema di Dirichlet assegnato.
-		
-		\qed
-	\end{sol}
+	\end{enumerate}
+	Essendo $\norm{f}_{L^2}$ una costante, $F$ è limitato.
+	Per il \textbf{Teorema di Rappresentazione di Riesz}, in uno spazio di Hilbert ogni funzionale lineare continuo può essere rappresentato univocamente da un elemento dello spazio tramite il prodotto scalare.
+	Esiste quindi un unico $\psi_0 \in H^1_0(I)$ tale che:
+	\[
+	\inner{\psi_0}{h}_{H^1} = F(h) \quad \forall h \in H^1_0(I).
+	\]
+	Questa uguaglianza coincide esattamente con la tesi da dimostrare.
+	
+	\qed
+\end{sol}
 	
 	\section*{Traccia dell'Esercizio 5 $\psi(x_0)=0$}
 	Sia $I = [0,1]$. Si consideri l'equazione differenziale:
@@ -902,11 +902,11 @@
 	dove nell'ultimo passaggio abbiamo usato che $\psi \in S_C$. Perfetto, ora possiamo procdere.
 	L'operatore descritto è somma di due componenti 
 	\[
-		K_C(f) = e^x C(f) + \int_0^x f(y) e^{x-y} dy = e^x C(f) + \int_0^1 f(y) \Theta(x-y) e^{x-y} dy = e^x C(f) + f \star (\Theta(x)e^x)
+		K_C(f) = e^x C(f) - \int_0^x f(y) e^{x-y} dy = e^x C(f) - \int_0^1 f(y) \Theta(x-y) e^{x-y} dy = e^x C(f) - f \star (\Theta(x)e^x)
 	\]
 	possiamo chiamare
 	\[
-		K_C(f)  = R_C(f) + T(f)
+		K_C(f)  = R_C(f) - T(f)
 	\]
 	\subsection*{Analisi della convoluzione in $L^2([0,1])$ come in 2}
 	
@@ -1191,6 +1191,74 @@
 		\]
 		Essendo $\alpha$ un parametro continuo in $\C$, la famiglia $\{\psi_\alpha\}$ contiene infiniti elementi distinti.
 		Pertanto, se l'equazione è risolubile, essa ammette infinite soluzioni.
+		
+		\qed
+	\end{sol}
+	
+	\section*{Traccia dell'Esercizio 7 (Metodo Spettrale)}
+	Sia $\HH$ uno spazio di Hilbert separabile e si consideri l'equazione:
+	\[
+	T\psi = \lambda \psi + f,
+	\]
+	con $T = T^* \in \BB_\infty(\HH)$, $\lambda \in \C \setminus \{0\}$ e $f \in \HH$.
+	Si provi che, se $\lambda$ è autovalore di $T$, allora l'equazione ha infinite soluzioni (assumendo la compatibilità del termine noto).
+	
+	\hrule
+	\vspace{0.5cm}
+	
+	\begin{sol}
+		Utilizziamo il \textbf{Teorema Spettrale di Hilbert-Schmidt}.
+		Poiché $T$ è un operatore compatto e autoaggiunto su uno spazio di Hilbert separabile, esiste una base ortonormale completa $\{e_n\}_{n=1}^\infty$ costituita da autovettori di $T$, con autovalori reali $\{\mu_n\}_{n=1}^\infty$ tali che $\mu_n \to 0$ per $n \to \infty$.
+		
+		\subsection*{1. Diagonalizzazione del Problema}
+		Scomponiamo l'incognita $\psi$ e il termine noto $f$ lungo la base spettrale $\{e_n\}$:
+		\[
+		\psi = \sum_{n=1}^\infty c_n e_n, \quad f = \sum_{n=1}^\infty f_n e_n,
+		\]
+		dove $c_n = \inner{e_n}{\psi}$ sono le incognite e $f_n = \inner{e_n}{f}$ sono dati.
+		
+		L'equazione $T\psi - \lambda \psi = f$ diventa:
+		\[
+		T\left( \sum_{n=1}^\infty c_n e_n \right) - \lambda \sum_{n=1}^\infty c_n e_n = \sum_{n=1}^\infty f_n e_n.
+		\]
+		Sfruttando la linearità e la proprietà degli autovettori ($T e_n = \mu_n e_n$):
+		\[
+		\sum_{n=1}^\infty (\mu_n - \lambda) c_n e_n = \sum_{n=1}^\infty f_n e_n.
+		\]
+		Per l'unicità dello sviluppo in serie di Fourier, uguagliamo i coefficienti componente per componente:
+		\[
+		(\mu_n - \lambda) c_n = f_n, \quad \forall n \in \N.
+		\]
+		
+		\subsection*{2. Analisi delle Soluzioni}
+		Dobbiamo risolvere per i coefficienti $c_n$. Distinguiamo gli indici in base al valore dell'autovalore $\mu_n$:
+		
+		\paragraph{Caso A: Indici $n$ tali che $\mu_n \neq \lambda$.}
+		In questo caso il fattore $(\mu_n - \lambda)$ è non nullo e possiamo dividere:
+		\[
+		c_n = \frac{f_n}{\mu_n - \lambda}.
+		\]
+		Questi coefficienti sono determinati univocamente dal termine noto $f$.
+		
+		\paragraph{Caso B: Indici $n$ tali che $\mu_n = \lambda$.}
+		Poiché $\lambda$ è un autovalore per ipotesi, l'insieme di indici $J_\lambda = \{ n \in \N \mid \mu_n = \lambda \}$ non è vuoto. Per tali indici l'equazione algebrica diventa:
+		\[
+		(\lambda - \lambda) c_n = f_n \implies 0 \cdot c_n = f_n.
+		\]
+		Da qui deduciamo due conseguenze fondamentali:
+		\begin{enumerate}
+			\item \textbf{Condizione di esistenza:} Affinché l'uguaglianza sia possibile, deve essere necessariamente $f_n = 0$ per ogni $n \in J_\lambda$. Geometricamente, questo significa che $f$ deve essere ortogonale all'autospazio relativo a $\lambda$ (ossia $f \in \Ker(T-\lambda I)^\perp$).
+			
+			\item \textbf{Molteplicità delle soluzioni:} Se la condizione di esistenza è soddisfatta ($f_n=0$), l'equazione $0 \cdot c_n = 0$ è verificata per \textbf{qualsiasi valore complesso} di $c_n$.
+		\end{enumerate}
+		
+		\subsection*{Conclusione}
+		Essendo $\lambda$ un autovalore, esiste almeno un indice $k \in J_\lambda$. Il coefficiente $c_k$ associato è totalmente arbitrario.
+		La soluzione generale si scrive come:
+		\[
+		\psi = \underbrace{\sum_{n \notin J_\lambda} \frac{f_n}{\mu_n - \lambda} e_n}_{\psi_{\text{particolare}}} + \underbrace{\sum_{n \in J_\lambda} \alpha_n e_n}_{\psi_{\text{omogenea}}}, \quad \text{con } \alpha_n \in \C \text{ arbitrari}.
+		\]
+		La presenza di almeno un parametro libero $\alpha_k$ implica che, se il problema ammette soluzione, allora ne ammette infinite.
 		
 		\qed
 	\end{sol}
