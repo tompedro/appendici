@@ -620,6 +620,64 @@ Si dimostri che se $\phi \in L^1(\R^n)$, allora
 		LK =  \delta(t) \sum_{n=0}^{+\infty} \psi_n(x)\psi_n(y) = \delta(t) \delta(x-y).
 		\]
 		Il nucleo è quindi soluzione fondamentale.
+		
+		\section*{Dimostrazione della Convergenza in $\mathcal{S}'(\mathbb{R}^2)$}
+		
+		Vogliamo dimostrare che la serie spettrale che definisce il nucleo $K(x,y,t)$ converge nel senso delle distribuzioni temperate.
+		Consideriamo la successione delle somme parziali:
+		\[
+		S_N(x,y,t) = \sum_{n=0}^N e^{i E_n t} \psi_n(x) \psi_n(y),
+		\]
+		dove $\psi_n$ sono le funzioni di Hermite (autofunzioni dell'oscillatore armonico) e $E_n = 2n+1$.
+		
+		\subsection*{Criterio di Convergenza Debole}
+		Affinché $S_N$ converga a una distribuzione $K \in \mathcal{S}'(\mathbb{R}^2)$, è sufficiente mostrare che per ogni funzione test $g \in \mathcal{S}(\mathbb{R}^2)$ (lo spazio di Schwartz), la successione numerica $\langle S_N, g \rangle$ ammette limite finito per $N \to \infty$.
+		Scriviamo l'azione della distribuzione sulla funzione test:
+		\[
+		\langle S_N, g \rangle = \sum_{n=0}^N e^{i E_n t} \iint_{\mathbb{R}^2} \psi_n(x) \psi_n(y) g(x,y) \, dx \, dy.
+		\]
+		Definiamo il coefficiente spettrale di $g$ rispetto alla base prodotto:
+		\[
+		c_n(g) \doteq \iint_{\mathbb{R}^2} \psi_n(x) \psi_n(y) g(x,y) \, dx \, dy.
+		\]
+		Poiché $|e^{i E_n t}| = 1$, la serie converge assolutamente se dimostriamo che i coefficienti $|c_n(g)|$ decadono sufficientemente in fretta rispetto a $n$.
+		
+		\subsection*{Decadimento dei Coefficienti (Metodo dell'Operatore Differenziale)}
+		Sfruttiamo l'equazione agli autovalori soddisfatta dalle funzioni di Hermite:
+		\[
+		H_x \psi_n(x) = E_n \psi_n(x), \quad \text{con } H_x = -\partial_x^2 + x^2.
+		\]
+		Possiamo inserire una potenza $k$-esima dell'autovalore nell'espressione del coefficiente e usare l'autoaggiunzione dell'operatore differenziale.
+		Per ogni intero $k \ge 1$:
+		\[
+		E_n^k c_n(g) = \iint_{\mathbb{R}^2} \underbrace{(E_n^k \psi_n(x))}_{=H_x^k \psi_n(x)} \psi_n(y) g(x,y) \, dx \, dy.
+		\]
+		Utilizzando l'\textbf{integrazione per parti}, scarichiamo l'operatore differenziale $H_x^k$ dalla $\psi_n$ alla funzione test $g$. Poiché $g \in \mathcal{S}(\mathbb{R}^2)$, i termini di bordo all'infinito si annullano identicamente.
+		Essendo $H_x$ un operatore simmetrico reale:
+		\[
+		E_n^k c_n(g) = \iint_{\mathbb{R}^2} \psi_n(x) \psi_n(y) \left( H_x^k g(x,y) \right) \, dx \, dy.
+		\]
+		Definiamo la funzione trasformata $G_k(x,y) \doteq H_x^k g(x,y) = (-\partial_x^2 + x^2)^k g(x,y)$.
+		
+		\paragraph{Stabilità dello Spazio di Schwartz.}
+		Lo spazio $\mathcal{S}$ è chiuso rispetto alla moltiplicazione per polinomi e alla derivazione. Pertanto, se $g \in \mathcal{S}(\mathbb{R}^2)$, allora anche $G_k \in \mathcal{S}(\mathbb{R}^2)$.
+		Di conseguenza, $G_k \in L^2(\mathbb{R}^2)$ e i suoi coefficienti di Fourier-Hermite sono limitati (per la disuguaglianza di Bessel, la loro somma quadratica è finita, quindi il termine $n$-esimo tende a zero). Esiste quindi una costante $M_k < \infty$ tale che:
+		\[
+		\left| \iint \psi_n(x) \psi_n(y) G_k(x,y) \, dx \, dy \right| \le M_k.
+		\]
+		\paragraph{Stima finale.}
+		Sostituendo nella relazione precedente, otteniamo la stima:
+		\[
+		|c_n(g)| \le \frac{M_k}{E_n^k} = \frac{M_k}{(2n+1)^k}.
+		\]
+		Scegliendo ad esempio $k=2$, abbiamo che $|c_n(g)| \sim \frac{1}{n^2}$.
+		La serie totale è maggiorata da:
+		\[
+		\sum_{n=0}^\infty |e^{i E_n t}| |c_n(g)| \le \sum_{n=0}^\infty \frac{M_2}{(2n+1)^2} < \infty.
+		\]
+		La convergenza assoluta della serie numerica per ogni $g \in \mathcal{S}$ implica la convergenza della successione di distribuzioni $S_N$ a una distribuzione temperata $K \in \mathcal{S}'$.
+		
+		\qed
 	\end{sol}
 	
 \section*{Esercizio 3}
@@ -908,6 +966,10 @@ Si discuta se la restrizione di $T$ a $C_{\alpha}^{\infty}(\mathbb{R}^{+}) \cap 
  	\int_{\R} \abs{-i \operatorname{sgn}(\xi) \widehat{f}(\xi)}^2 d\xi = \int_{\R} \abs{\widehat{f}(\xi)}^2 d\xi = \norm{\widehat{f}}_{L^2}^2 = \norm{f}_{L^2}^2.
  	\]
  	Dunque $\norm{H_f}_{L^2} = \norm{f}_{L^2}$. L'operatore conserva la norma (è un'isometria su $L^2$) ed è quindi limitato con norma operatoriale pari a 1.
+ 	
+ 	\paragraph{Densità di $C_0^\infty$ in $L^2$.}
+ 	Sia $f \in L^2(\mathbb{R}^n)$. Si approssimi dapprima $f$ con funzioni a supporto compatto $g_k = f \cdot \chi_{B_k} \to f$ in norma $L^2$.
+ 	Successivamente, si regolarizzi tramite convoluzione con una successione di mollificatori $\rho_\epsilon$: le funzioni $h_{k,\epsilon} = g_k * \rho_\epsilon$ appartengono a $C_0^\infty(\mathbb{R}^n)$ e convergono a $g_k$ (e dunque a $f$) in $L^2$ per $\epsilon \to 0$.
  \end{sol}
  
  \section*{Esercizio 6}

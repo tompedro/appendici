@@ -71,14 +71,9 @@
 		\[
 		T^*T = \Id.
 		\]
-		Per mostrare che $TT^* = \Id'$, osserviamo che $T$, essendo unitario, è per definizione una biiezione suriettiva. Pertanto ammette un unico operatore inverso $T^{-1}$.
-		Dall'uguaglianza $T^*T = \Id$, componendo a destra con $T^{-1}$ otteniamo:
+		Dato T suriettiva $\forall x \in \HH'$ trovo $y$ tale che $Ty = x$ quindi
 		\[
-		T^* T T^{-1} = \Id T^{-1} \implies T^* = T^{-1}.
-		\]
-		Sostituendo $T^*$ a $T^{-1}$ nella relazione fondamentale dell'inverso ($TT^{-1} = \Id'$), concludiamo che:
-		\[
-		TT^* = \Id'.
+			TT^*x = TT^*Ty = Ty = x \quad \implies \quad TT^* = \Id'
 		\]
 	\end{itemize}
 		
@@ -1094,17 +1089,24 @@ Si mostri che esiste ed è unica una soluzione \textit{debole} $\psi_0$ del prob
 		Gli indici di difetto di un operatore essenzialmente autoaggiunto sono $(0, 0)$.
 		
 		\paragraph{Nota: Autoaggiunzione di $S = T - I$.}
-		Verifichiamo esplicitamente che $S = T - I$ è autoaggiunto usando la definizione.
-		Per ogni $\phi, \psi \in \HH$:
-		\[
-		\inner{\phi}{S\psi} = \inner{\phi}{(T-I)\psi} = \inner{\phi}{T\psi} - \inner{\phi}{\psi}.
-		\]
-		Poiché $T=T^*$ per ipotesi, $\inner{\phi}{T\psi} = \inner{T\phi}{\psi}$. Inoltre, banalmente $\inner{\phi}{\psi} = \inner{I\phi}{\psi}$.
-		Quindi:
-		\[
-		\inner{\phi}{S\psi} = \inner{T\phi}{\psi} - \inner{I\phi}{\psi} = \inner{(T-I)\phi}{\psi} = \inner{S\phi}{\psi}.
-		\]
-		Ciò prova che $S^* = S$.
+		Ricordiamo che un operatore $T$ è essenzialmente autoaggiunto se e solo se la sua chiusura $\overline{T}$ è autoaggiunta, ovvero $\overline{T} = T^*$.
+		
+		Consideriamo l'operatore $S = T - I$. Poiché l'operatore identità $I$ è limitato e autoaggiunto, valgono le seguenti proprietà:
+		\begin{enumerate}
+			\item L'aggiunto di $S$ è dato da:
+			\begin{equation*}
+				S^* = (T - I)^* = T^* - I^* = T^* - I
+			\end{equation*}
+			\item La chiusura di $S$ è data da:
+			\begin{equation*}
+				\overline{S} = \overline{T - I} = \overline{T} - I
+			\end{equation*}
+		\end{enumerate}
+		Dall'ipotesi che $T$ è essenzialmente autoaggiunto, abbiamo $\overline{T} = T^*$. Sostituendo questa uguaglianza nelle espressioni precedenti otteniamo:
+		\begin{equation*}
+			\overline{S} = \overline{T} - I = T^* - I = S^*
+		\end{equation*}
+		Poiché $\overline{S} = S^*$, l'operatore $\overline{S}$ è autoaggiunto, il che implica per definizione che $S$ è essenzialmente autoaggiunto. \hfill $\square$
 		
 		\subsection*{Conclusione}
 		Poiché $T$ è unitariamente equivalente a un operatore essenzialmente autoaggiunto ($\tilde{T}$), anche $T$ è essenzialmente autoaggiunto sul dominio iniziale delle funzioni test. Il motivo è l'esercitazione 2 della prof.Costeri nella quale dice che 
@@ -1207,58 +1209,73 @@ Si mostri che esiste ed è unica una soluzione \textit{debole} $\psi_0$ del prob
 	\vspace{0.5cm}
 	
 	\begin{sol}
-		Utilizziamo il \textbf{Teorema Spettrale di Hilbert-Schmidt}.
-		Poiché $T$ è un operatore compatto e autoaggiunto su uno spazio di Hilbert separabile, esiste una base ortonormale completa $\{e_n\}_{n=1}^\infty$ costituita da autovettori di $T$, con autovalori reali $\{\mu_n\}_{n=1}^\infty$ tali che $\mu_n \to 0$ per $n \to \infty$.
+		Utilizziamo la decomposizione spettrale fornita dal \textbf{Teorema di Hilbert} per operatori compatti autoaggiunti.
 		
-		\subsection*{1. Diagonalizzazione del Problema}
-		Scomponiamo l'incognita $\psi$ e il termine noto $f$ lungo la base spettrale $\{e_n\}$:
+		\subsection*{1. Decomposizione Spettrale di $T$}
+		Poiché $T$ è compatto e autoaggiunto, in virtù del Teorema 62, possiamo scrivere $T$ come somma (nel senso della convergenza uniforme) dei suoi proiettori spettrali:
 		\[
-		\psi = \sum_{n=1}^\infty c_n e_n, \quad f = \sum_{n=1}^\infty f_n e_n,
+		T = \sum_{n} \mu_n P_n,
 		\]
-		dove $c_n = \inner{e_n}{\psi}$ sono le incognite e $f_n = \inner{e_n}{f}$ sono dati.
+		dove:
+		\begin{itemize}
+			\item $\{\mu_n\}$ sono gli autovalori non nulli di $T$ (reali, poiché $T$ è autoaggiunto ).
+			\item $P_n$ è il proiettore ortogonale sull'autospazio $E_n = \Ker(T - \mu_n I)$.
+			\item I proiettori sono mutuamente ortogonali: $P_n P_m = \delta_{nm} P_n$.
+		\end{itemize}
+		Inoltre, lo spazio di Hilbert si decompone nella somma diretta ortogonale degli autospazi e del nucleo di $T$:
+		\[
+		\HH = \Ker(T) \oplus \bigoplus_{n} E_n.
+		\]
+		Di conseguenza, ogni vettore $\psi \in \HH$ può essere scomposto univocamente come $\psi = \psi_0 + \sum_n P_n \psi$, dove $\psi_0 \in \Ker(T)$.
 		
-		L'equazione $T\psi - \lambda \psi = f$ diventa:
+		\subsection*{2. Proiezione dell'Equazione}
+		L'equazione da risolvere è $(T - \lambda I)\psi = f$.
+		Proiettiamo questa equazione sui vari autospazi applicando l'operatore $P_k$ ad ambo i membri.
+		Ricordando che $P_k T = T P_k = \mu_k P_k$, otteniamo:
 		\[
-		T\left( \sum_{n=1}^\infty c_n e_n \right) - \lambda \sum_{n=1}^\infty c_n e_n = \sum_{n=1}^\infty f_n e_n.
+		P_k (T - \lambda I) \psi = P_k f \implies (\mu_k - \lambda) P_k \psi = P_k f.
 		\]
-		Sfruttando la linearità e la proprietà degli autovettori ($T e_n = \mu_n e_n$):
+		Analizziamo anche la proiezione sul nucleo di $T$ (se esiste). Sia $P_{\Ker}$ il proiettore su $\Ker(T)$. Poiché $T P_{\Ker} = 0$:
 		\[
-		\sum_{n=1}^\infty (\mu_n - \lambda) c_n e_n = \sum_{n=1}^\infty f_n e_n.
+		P_{\Ker} (T - \lambda I) \psi = -\lambda P_{\Ker} \psi = P_{\Ker} f \implies P_{\Ker} \psi = -\frac{1}{\lambda} P_{\Ker} f.
 		\]
-		Per l'unicità dello sviluppo in serie di Fourier, uguagliamo i coefficienti componente per componente:
-		\[
-		(\mu_n - \lambda) c_n = f_n, \quad \forall n \in \N.
-		\]
+		Questa componente è sempre univocamente determinata poiché $\lambda \neq 0$.
 		
-		\subsection*{2. Analisi delle Soluzioni}
-		Dobbiamo risolvere per i coefficienti $c_n$. Distinguiamo gli indici in base al valore dell'autovalore $\mu_n$:
+		\subsection*{3. Analisi delle componenti sugli autospazi}
+		Dobbiamo risolvere $(\mu_k - \lambda) P_k \psi = P_k f$ per ogni $k$. Distinguiamo due casi:
 		
-		\paragraph{Caso A: Indici $n$ tali che $\mu_n \neq \lambda$.}
-		In questo caso il fattore $(\mu_n - \lambda)$ è non nullo e possiamo dividere:
+		\paragraph{Caso A: $\mu_k \neq \lambda$}
+		In questo caso il coefficiente $(\mu_k - \lambda)$ è non nullo. Possiamo invertire scalarmente l'equazione:
 		\[
-		c_n = \frac{f_n}{\mu_n - \lambda}.
+		P_k \psi = \frac{1}{\mu_k - \lambda} P_k f.
 		\]
-		Questi coefficienti sono determinati univocamente dal termine noto $f$.
+		La componente della soluzione lungo l'autospazio $E_k$ è fissata univocamente dal termine noto $f$.
 		
-		\paragraph{Caso B: Indici $n$ tali che $\mu_n = \lambda$.}
-		Poiché $\lambda$ è un autovalore per ipotesi, l'insieme di indici $J_\lambda = \{ n \in \N \mid \mu_n = \lambda \}$ non è vuoto. Per tali indici l'equazione algebrica diventa:
+		\paragraph{Caso B: $\mu_k = \lambda$}
+		Poiché per ipotesi $\lambda$ è un autovalore di $T$, esiste un indice (diciamo $j$) tale che $\mu_j = \lambda$. L'equazione proiettata su $E_j$ diventa:
 		\[
-		(\lambda - \lambda) c_n = f_n \implies 0 \cdot c_n = f_n.
+		(\lambda - \lambda) P_j \psi = P_j f \implies 0 \cdot P_j \psi = P_j f.
 		\]
-		Da qui deduciamo due conseguenze fondamentali:
+		Da qui deduciamo:
 		\begin{enumerate}
-			\item \textbf{Condizione di esistenza:} Affinché l'uguaglianza sia possibile, deve essere necessariamente $f_n = 0$ per ogni $n \in J_\lambda$. Geometricamente, questo significa che $f$ deve essere ortogonale all'autospazio relativo a $\lambda$ (ossia $f \in \Ker(T-\lambda I)^\perp$).
-			
-			\item \textbf{Molteplicità delle soluzioni:} Se la condizione di esistenza è soddisfatta ($f_n=0$), l'equazione $0 \cdot c_n = 0$ è verificata per \textbf{qualsiasi valore complesso} di $c_n$.
+			\item \textbf{Compatibilità:} Affinché l'equazione abbia soluzione, deve essere $P_j f = 0$, ovvero $f$ deve essere ortogonale all'autospazio $E_\lambda$ relativo all'autovalore $\lambda$.
+			\item \textbf{Indeterminatezza:} Se la condizione $P_j f = 0$ è soddisfatta, l'equazione $0 \cdot P_j \psi = 0$ è verificata per \textbf{qualsiasi} vettore $v \in E_j = \Ran(P_j)$.
 		\end{enumerate}
 		
-		\subsection*{Conclusione}
-		Essendo $\lambda$ un autovalore, esiste almeno un indice $k \in J_\lambda$. Il coefficiente $c_k$ associato è totalmente arbitrario.
-		La soluzione generale si scrive come:
+		\subsection*{4. Costruzione della Soluzione Generale}
+		Ricostruiamo la soluzione $\psi$ sommando tutte le componenti trovate:
 		\[
-		\psi = \underbrace{\sum_{n \notin J_\lambda} \frac{f_n}{\mu_n - \lambda} e_n}_{\psi_{\text{particolare}}} + \underbrace{\sum_{n \in J_\lambda} \alpha_n e_n}_{\psi_{\text{omogenea}}}, \quad \text{con } \alpha_n \in \C \text{ arbitrari}.
+		\psi = P_{\Ker}\psi + \sum_{\mu_n \neq \lambda} P_n \psi + P_\lambda \psi.
 		\]
-		La presenza di almeno un parametro libero $\alpha_k$ implica che, se il problema ammette soluzione, allora ne ammette infinite.
+		Sostituendo le espressioni ricavate:
+		\[
+		\psi = \underbrace{-\frac{1}{\lambda} P_{\Ker} f + \sum_{\mu_n \neq \lambda} \frac{1}{\mu_n - \lambda} P_n f}_{\psi_{\text{fissata}}} + \underbrace{v}_{\psi_{\text{arbitraria}}},
+		\]
+		dove $v$ è un qualsiasi vettore appartenente all'autospazio $E_\lambda$ (cioè $P_\lambda v = v$).
+		
+		Poiché $\lambda$ è un autovalore, la dimensione di $E_\lambda$ è almeno 1 (in realtà è finita ma non nulla, per il Teorema 61).
+		Possiamo quindi scegliere $v = \alpha u$, dove $u \in E_\lambda$ è un autovettore normalizzato e $\alpha \in \C$ è un parametro arbitrario.
+		Poiché $\alpha$ può assumere infiniti valori, l'equazione ammette \textbf{infinite soluzioni}.
 		
 		\qed
 	\end{sol}
